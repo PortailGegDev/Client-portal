@@ -25,7 +25,9 @@ export class AppComponent {
   title = 'client-portal';
   baseURL = '/sap/opu/odata/SAP/Z001_SRV/FlightSet?$top=2&$format=json'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.logTokenDetails();
+   }
 
   callServer() {
     this.http.get<Flight>(this.baseURL).subscribe(data => {
