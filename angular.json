@@ -26,10 +26,13 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
+
+              { 
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               },
+
               {
                 "input": "src/cf",
                 "output": "/",
@@ -55,6 +58,11 @@
           "configurations": {
             "production": {
               "assets": [
+                { 
+                "glob": "**/*",
+                "input": "public",
+                "output": "/"
+              },
                 {
                   "input": "src/cf",
                   "output": "/",
@@ -119,7 +127,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
