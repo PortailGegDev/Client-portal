@@ -1,0 +1,211 @@
+:host {
+    display: block;
+    background-color: #f0f0f0;
+    padding: 20px; /* Ajoute un peu de marge intérieure */
+    // height: 100vh;
+  }
+.contracts-container {
+    display: flex;
+max-width: 1121px;
+padding: 16px 16px 16px 24px;
+align-items: flex-start;
+gap: 32px;
+height: 60px;
+border-radius: 4px;
+background: var(--White, #FFF);
+/* Shadow-menu */
+box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+  }
+  .arrow-box {
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px;
+    background: #D4E22C;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  /* Espace entre le label et la liste déroulante */
+  .label-wrapper {
+    margin-right: 20px; /* Espace entre le label et la liste déroulante */
+  }
+  
+  /* Wrapper pour la liste déroulante et la flèche */
+  .dropdown-wrapper {
+    position: relative; /* Position relative pour positionner la flèche */
+    flex: 1; /* Prend toute la largeur disponible */
+    display: flex; /* Utilise flexbox pour aligner les éléments sur la même ligne */
+    align-items: center; /* Aligne verticalement les éléments */
+  }
+  
+  .badge {
+    width: 16px;
+    height: 16px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background: #586022;
+    border-radius: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+  }
+  .badge-text {
+    color: white;
+    font-size: 12px;
+    font-family: Figtree, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+  .modern-dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 4px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+    padding: 10px;
+    font-size: 16px;
+    top:-4px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+  }
+
+  .headerr{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  }
+  .dropdown-wrapper {
+    position: relative;
+  }
+  
+  .modern-dropdown::-ms-expand {
+    display: none;
+  }
+  .dropdown-arrow {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Pour que l'utilisateur puisse cliquer sur le select sans problème */
+  }
+  
+  .dropdown-arrow svg {
+    border-radius: 100px;
+    background: var(--Primary-500, #D4E22C);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  }
+  .box-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 24px;
+    width: 100%;
+  }
+  
+  .box {
+    height: 201px;
+    padding: 16px;
+    background-size: cover;
+    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    overflow: hidden;
+  }
+  
+  .box-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background-color: white;
+    width: 85px;
+  }
+  
+  .box-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .box-status {
+    color: #3A3A3A;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.44px;
+  }
+  
+  .box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 92.5px;
+  }
+  
+  .box-price {
+    color: #E2F133;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .box-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 35px;
+  }
+  
+  .box-service, .box-title {
+    color: white;
+    font-weight: 600;
+  }
+  
+  .box-title {
+    font-size: 18px;
+  }
+  
+  .box-service {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.44px;
+  }
+  
+ 
+.box-badge {
+    border-radius: 4px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: -90px;
+  }
+  
+  .box-badge-icon {
+    width: 24px;
+    height: 24px;
+    background: #D4E22C;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  
+  /* Ensure that the 2nd row only has 3 boxes */
+  .box:nth-child(5),
+  .box:nth-child(6),
+  .box:nth-child(7) {
+    grid-column: span 1;
+  }
+  

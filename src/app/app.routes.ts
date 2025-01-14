@@ -4,6 +4,8 @@ import { AppConsumptionComponent } from './features/consumption/pages/consumptio
 import { AppInvoicesComponent } from './features/invoices/pages/invoices/invoices.component';
 import { AppDocumentsComponent } from './features/documents/pages/documents/documents.component';
 import { AppServicesComponent } from './features/services/pages/services/services.component';
+import { AppServicesGreenOptionComponent } from './features/services/pages/green-option/green-option.component';
+import { SerenityElectricityComponent } from './features/services/pages/serenity-electricity/serenity-electricity.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -11,5 +13,7 @@ export const routes: Routes = [
     { path: 'invoices', component: AppInvoicesComponent },
     { path: 'documents', component: AppDocumentsComponent },
     { path: 'services', component: AppServicesComponent },
-    { path: '', redirectTo: '/home', pathMatch: 'full' },  
+    { path: 'services/serenity-electricity', component: SerenityElectricityComponent },
+    { path: 'services/green-option', component: AppServicesGreenOptionComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
