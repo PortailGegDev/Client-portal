@@ -6,12 +6,14 @@ import { AppDocumentsComponent } from './features/documents/pages/documents/docu
 import { AppServicesComponent } from './features/services/pages/services/services.component';
 import { AppServicesGreenOptionComponent } from './features/services/pages/green-option/green-option.component';
 import { SerenityElectricityComponent } from './features/services/pages/serenity-electricity/serenity-electricity.component';
+import { AppDocumentContractDetailsComponent } from './features/documents/pages/contract-details/contract-details.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
     { path: 'consumption', component: AppConsumptionComponent },
     { path: 'invoices', component: AppInvoicesComponent },
     { path: 'documents', component: AppDocumentsComponent },
+    { path: 'documents/contract-details', component: AppDocumentContractDetailsComponent },
     { path: 'services', component: AppServicesComponent },
     { path: 'services/serenity-electricity', component: SerenityElectricityComponent },
     { path: 'services/green-option', component: AppServicesGreenOptionComponent },

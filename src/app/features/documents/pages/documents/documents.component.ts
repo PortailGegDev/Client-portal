@@ -72,7 +72,7 @@ export class AppDocumentsComponent {
   constructor(private router: Router) {}
 
   viewDetails(item: any) {
-    this.router.navigate(['/pages/details-contrat']);
+    this.router.navigate(['/documents/contract-details']);
   }
 
   backToList() {}
