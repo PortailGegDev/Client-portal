@@ -1,0 +1,27 @@
+{
+    "welcomeFile": "index.html",
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/sap/opu/(.*)$",
+            "destination": "sap_onpremise",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/user-api/currentUser$",
+            "target": "/currentUser",
+            "service": "sap-approuter-userapi"
+        },
+        {
+            "source": "^/(.*)$",
+            "target": "/$1",
+            "localDir": "./",
+            "authenticationType": "xsuaa"
+        }
+    ],
+    "logout": {
+        "logoutEndpoint": "/logout",
+        "logoutPage": "logout.html"
+    }
+}

@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/client-portal",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -29,6 +29,21 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "input": "src/cf",
+                "output": "/",
+                "glob": "*.yml"
+              },
+              {
+                "input": "src/cf",
+                "output": "/",
+                "glob": "*.json"
+              },
+              {
+                "input": "src",
+                "output": "/",
+                "glob": "*.json"
               }
             ],
             "styles": [
@@ -38,6 +53,23 @@
           },
           "configurations": {
             "production": {
+              "assets": [
+                {
+                  "input": "src/cf",
+                  "output": "/",
+                  "glob": "*.yml"
+                },
+                {
+                  "input": "src/cf",
+                  "output": "/",
+                  "glob": "*.json"
+                },
+                {
+                  "input": "src",
+                  "output": "/",
+                  "glob": "*.json"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",

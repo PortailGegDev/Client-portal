@@ -1,0 +1,18 @@
+---
+applications:
+  - name: client-portal
+    memory: 512M
+    path: ./dist/client-portal
+    disk_quota: 1024M
+    stack: cflinuxfs4
+    buildpacks:
+      - nodejs_buildpack
+    instances: 1
+    routes:
+      - route: client-portal-001.cfapps.eu10-004.hana.ondemand.com
+    env:
+      SESSION_TIMEOUT: 960
+    services:
+      - portail_client-connectivity
+      - portail_client-destination
+      - portail_client-xsuaa2
