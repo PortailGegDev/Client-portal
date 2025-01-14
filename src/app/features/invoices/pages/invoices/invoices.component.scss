@@ -1,0 +1,1215 @@
+.factures-container {
+    padding: 20px;
+  }
+  /* Espace entre le label et la liste déroulante */
+  .label-wrapper {
+    margin-right: 20px; /* Espace entre le label et la liste déroulante */
+  }
+  
+  /* Style de la liste déroulante */
+  .modern-dropdown {
+    width: 400%; /* Largeur augmentée de la liste déroulante */
+    padding: 15px 40px 15px 15px; /* Ajoute de la marge intérieure */
+    border: 1px solid #ccc; /* Bordure grise claire */
+    border-radius: 4px; /* Coins légèrement arrondis */
+    appearance: none; /* Supprime le style par défaut du navigateur */
+    background-color: #f9f9f9; /* Fond léger pour la liste déroulante */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre interne pour un effet d'enfoncement */
+  }
+  /* 2ème bloc : Calendrier, zone de recherche et table */
+  .facture-container {
+    text-align: left;
+    background-color: white;
+    padding: 20px; /* Ajoute de la marge intérieure */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour l'effet de profondeur */
+    width: 100%; /* Prend toute la largeur disponible */
+    margin-top: 20px; /* Espace en haut du bloc */
+    margin-left: 0px; /* Décalage pour aligner le bloc à gauche */
+    overflow: auto; /* Ajoute une barre de défilement si nécessaire */
+  }
+
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .calendar-field {
+    flex: 1; /* Pour que les deux calendriers prennent autant de place */
+    max-width: 200px; /* Vous pouvez ajuster cette valeur selon vos besoins */
+    height: 60px;
+  }
+  .pagination {
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.page-button {
+    width: 32px;
+    height: 32px;
+    padding: 4px 10px;
+    background: #FEFDE9;
+    border-radius: 6px;
+    border: 1px #AAB614 solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.page-number {
+    width: 32px; /* Adjust width based on content */
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-number.active {
+    background: #D4E22C;
+    color: #1E1E1E;
+}
+
+.page-number.inactive {
+    color: #373C17;
+}
+
+p{color: var(--Brand-Primary-1000, #373C17);
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+align-items: center;
+}
+
+.total-pages {
+    width: 37px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #373C17;
+    font-size: 14px;
+    font-family: Figtree;
+    font-weight: 500;
+}
+
+  
+  button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #bbb;
+  }
+
+  /* Définir une classe générique pour les rectangles */
+.statut-rectangle {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  // width: 80px;
+  text-align: center;
+}
+  
+  .statut-a-venir {
+color: #333;
+margin-right: 10px;
+background: var(--Semantic-Primary, #64DAE4);
+}
+
+.statut-a-regler {
+color: white;
+  background: var(--Semantic-Danger, #FF6C00);
+  margin-right: 10px;
+}
+
+.statut-reglee {
+  margin-right: 10px;
+  color: #333;
+  background: var(--Fundamental-Grey-10, rgba(84, 78, 78, 0.10));
+}
+
+.centered-cell {
+  text-align: center;
+}
+
+.details-button {
+  padding: 10px var(--Dimensions-Padding-12, 12px);
+  border-radius: var(--Borders-radius-Radius-CTA, 4px);
+  background: var(--Brand-Primary-500, #D4E22C);
+}
+  
+img {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5%2010.0002H15M15%2010.0002L10.8333%205.8335M15%2010.0002L10.8333%2014.1668" stroke="%231E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.action-column {
+  text-align: right;
+}
+
+.contracts-container {
+  display: flex;
+max-width: 1121px;
+padding: 16px 16px 16px 24px;
+align-items: flex-start;
+gap: 32px;
+height: 60px;
+border-radius: 4px;
+background: var(--White, #FFF);
+/* Shadow-menu */
+box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+}
+.arrow-box {
+  width: 100%;
+  height: 100%;
+  padding: 10px 12px;
+  background: #D4E22C;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+/* Espace entre le label et la liste déroulante */
+.label-wrapper {
+  margin-right: 20px; /* Espace entre le label et la liste déroulante */
+}
+
+/* Wrapper pour la liste déroulante et la flèche */
+.dropdown-wrapper {
+  position: relative; /* Position relative pour positionner la flèche */
+  flex: 1; /* Prend toute la largeur disponible */
+  display: flex;
+align-items: center;
+border: 1px solid #ccc;
+padding: 8px;
+border-radius: 5px;
+margin-top: -7px;
+}
+
+.badge {
+  width: 16px;
+  height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: #586022;
+  border-radius: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+.badge-text {
+  color: white;
+  font-size: 12px;
+  font-family: Figtree, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+.headerr{
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 3px;
+}
+.modern-dropdown::-ms-expand {
+  display: none;
+}
+.dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Pour que l'utilisateur puisse cliquer sur le select sans problème */
+}
+
+.dropdown-arrow svg {
+  border-radius: 100px;
+  background: var(--Primary-500, #D4E22C);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.dropdown-container {
+  position: relative;
+  width: 100%; /* Assurez-vous que le conteneur utilise toute la largeur */
+}
+
+.selected-item {
+  display: flex;
+  align-items: center; /* Aligne verticalement les éléments */
+  cursor: pointer; /* Change le curseur lorsque survolez l'élément */
+}
+
+.options-list {
+  position: absolute;
+  width: 885px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  left: -30px;
+  margin: 5px;
+  z-index: 1000;
+}
+
+.option-item {
+  display: flex; /* Utilise Flexbox pour les options */
+  align-items: center; /* Aligne verticalement les éléments */
+  padding: 8px; /* Ajoutez un peu de rembourrage pour le style */
+  cursor: pointer; /* Change le curseur lorsque survolez l'option */
+}
+
+.option-item:hover {
+  background-color: #f0f0f0; /* Change de couleur au survol */
+}
+
+.custom-icon {
+  position: relative;
+  display: flex;
+  width: var(--Dimensions-Padding-24, 24px);
+  height: var(--Dimensions-Padding-24, 24px);
+  padding: 3px 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--Dimensions-Padding-24, 24px);
+  background: var(--Brand-Energy-type-Electricity-background, #FF6C00);
+}
+
+.selected-item span {
+  margin-right: 8px; /* Ajoutez un peu d'espace à droite de chaque élément */
+  margin-left: 10px;
+}
+
+.option-item span {
+  margin-right: 8px; 
+  margin-left: 10px;
+}
+.dropdown-icon {
+  display: flex;
+  align-items: center;
+}
+.dropdown-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.date-range input {
+  padding: 5px;
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.arrow-left, .arrow-right {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive behavior */
+@media screen and (max-width: 768px) {
+  .calendar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date-range input {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .calendar-container {
+    gap: 5px;
+  }
+
+  .date-range input {
+    padding: 4px;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+}
+
+.formatted-date {
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.arrow-left, .arrow-right {
+  cursor: pointer;
+}
+.calendar-container {
+  display: flex;
+  align-items: start;
+  margin: 20px;
+  justify-content: flex-start;
+}
+
+.formatted-date {
+  margin: 0 10px;
+  font-size: 18px; /* Ajustez la taille de police selon vos besoins */
+  font-weight: bold;
+  color: #333; /* Couleur du texte */
+}
+
+.arrow-left, .arrow-right {
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s; /* Animation pour les flèches */
+}
+
+.arrow-left:hover, .arrow-right:hover {
+  transform: scale(1.1); /* Effet de survol */
+}
+.containner {
+  display: flex;
+  padding: 0px var(--Dimensions-Padding-12, 12px);
+  align-items: center;
+  gap: var(--Dimensions-Padding-8, 8px);
+  border-radius: 4px;
+  border: 1px solid var(--Fundamental-Grey-20, rgba(84, 78, 78, 0.20));
+  background: var(--White, #FFF);
+  /* Light */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.date-info {
+  width: 193px;
+  align-self: stretch;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+.text {
+  color: #3A3A3A;
+  font-size: 16px;
+  font-family: Arial; /* Added fallback font */
+  font-weight: 500;
+  line-height: 19px;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+
+.container {
+  padding-top: 50px;
+  padding-bottom: 10px;
+  color: #405065;
+}
+
+.search-input {
+  font-family: Arial, sans-serif;
+}
+
+.search-input::placeholder {
+  font-family: Arial, sans-serif;
+}
+
+/* Pour afficher correctement l'icône de recherche (FontAwesome) */
+.search-input::placeholder {
+  font-family: Arial, sans-serif, "FontAwesome"; /* Ajoute FontAwesome pour l'icône */
+}
+.search-input::placeholder::after {
+  content: "\f002"; /* Code pour l'icône de recherche en FontAwesome */
+  font-family: FontAwesome;
+}
+
+.table td, 
+.table th {
+  border-left: none; /* Supprime la bordure à gauche de l'en-tête */
+  border-right: none; /* Supprime la bordure à droite de l'en-tête */
+  border-top: none; /* Supprime la bordure supérieure de l'en-tête */
+  border: none; /* Supprime les bordures autour de chaque cellule */
+  padding: 8px; /* Espacement interne */
+  background-color: white; /* Fond blanc pour chaque cellule */
+  padding: 10px;
+  vertical-align:middle;
+
+}
+.table tbody tr {
+  border-top: none; /* Supprime la bordure supérieure de chaque ligne du corps */
+}
+.table tr {
+  border: 1px solid #dee2e6; /* Bordure autour de chaque ligne */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1; /* Couleur de fond lors du survol */
+}
+.table tbody th {
+  color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.44px;
+  text-transform: uppercase;
+}
+.date-cell,
+.facture-cell,
+.montant-cell,
+.status-cell {
+  gap: 8px; /* Espace entre les éléments */
+}
+
+/* Styles spécifiques */
+.date-cell {
+  color: var(--Black, #3A3A3A);
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.facture-cell {
+  color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px; 
+}
+
+.status-cell {
+  padding: 0; /* Padding may vary depending on layout */
+}
+::ng-deep .prelevement-a-venir {
+  color: var(--Fundamental-Grey-50, rgba(84, 78, 78, 0.50));
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 19.5px */
+}
+::ng-deep .montant {
+  color: var(--Semantic-Danger, #FF6C00);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-right: 8px;
+}
+
+::ng-deep .date {
+  color: var(--Brand-Primary-1000, #373C17);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.44px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 300px) {
+  body {
+      padding: 5px; /* Réduire le remplissage pour les petits écrans */
+      font-size: 14px; /* Réduire la taille de la police */
+  }
+
+  .container {
+      width: 100%; /* Utiliser toute la largeur de l'écran */
+      max-width: none; /* Désactiver la largeur maximale */
+      padding: 5px; /* Réduire le remplissage */
+      box-shadow: none; /* Enlever l'ombre si nécessaire */
+  }
+
+  .dropdown-container {
+      width: 100%; /* Utiliser toute la largeur de l'écran */
+      margin: 0; /* Enlever les marges */
+  }
+
+  .options-list {
+      width: 100%; /* Assurer que la liste déroulante utilise toute la largeur */
+      left: 0; /* Ajuster la position */
+  }
+
+  .option-item {
+      padding: 8px; /* Réduire le remplissage des éléments de la liste */
+      font-size: 12px; /* Réduire la taille de la police des options */
+  }
+}
+
+
+.containevr {
+  width: 100%;
+  height: 100%;
+  padding: 8px 16px;
+  background: #FEFDE9;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.text {
+  font-family: Figtree;
+  word-wrap: break-word;
+}
+
+.left .text {
+  color: #544E4E;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.6px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel .text {
+  color: #8E9D25;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Conteneur de l'icône */
+.icon-container {
+  display: flex;
+  gap: 12px;
+  width: auto; /* Ajuste automatiquement la largeur au contenu */
+  height: auto; 
+  padding: 8px 12px;
+  background: #FEFDE9;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.download {
+  background: #D4E22C;
+  padding: 10px 12px;
+  gap: 8px;
+}
+
+.download .text {
+  color: #1E1E1E;
+  font-size: 16px;
+  font-weight: 600;
+}
+.icon-container1 {
+  display: flex;
+  gap: 12px;
+  display: flex;
+  align-items: center;
+  background: #FEFDE9;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+/* Cercle extérieur */
+.outer-circle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+/* Cercle vert (indépendant du SVG) */
+.inner-circle {
+  width: 15px;
+  height: 15px;
+  background: #e2f133;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0; /* Place en bas */
+  right: 0;  /* Place à droite */
+}
+
+/* SVG (icone) */
+.icon-svg {
+  // width: 24px;
+  height: 24px;
+  position: relative;
+  z-index: 1; /* Place le SVG au-dessus du cercle vert */
+}
+
+/* Conteneur du texte */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Style du texte */
+.text {
+  color: #3a3a3a;
+  font-size: 16px;
+  font-family: Figtree, sans-serif;
+  font-weight: 500;
+  line-height: 19px;
+  word-wrap: break-word;
+}
+.text-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.text1 {
+  color: #3A3A3A;
+  font-size: 16px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  line-height: 19px;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+/* Styles pour l'overlay */
+.overlay {
+  position: fixed; /* Permet à l'overlay de couvrir toute la page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Assure que l'overlay est au-dessus de tout le reste */
+}
+
+/* Styles pour le contenu du tableau */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 60%; /* Largeur max du tableau */
+  max-height: 80%; /* Hauteur max du tableau */
+  overflow-y: auto; /* Pour scroller si le tableau est trop grand */
+  align-items: center;
+  gap: 8px;
+}
+.title {
+  color: #3A3A3A;
+  font-size: 32px;
+  font-family: Figtree;
+  font-weight: 600;
+  margin-bottom: auto;
+  word-wrap: break-word
+}
+.title h1 {
+  color: #3A3A3A;
+  font-size: 32px;
+  font-family: Figtree;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  margin-top: 5px;
+}
+
+.table-container {
+  width: 80%; /* Ajustez cette valeur selon vos besoins */
+  max-width: 1200px; /* Limite la largeur maximale */
+  margin: 0 auto; /* Centre le conteneur horizontalement */
+  padding: 24px;
+  background: white;
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.table {
+  width: 100%;
+  background: #FAFAD1;
+  border-bottom: 1px rgba(84, 78, 78, 0.50);
+}
+.table-header, .table-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px rgba(84, 78, 78, 0.20);
+}
+.table-header div, .table-row div {
+  display: flex;
+  align-items: center;
+}
+.table-header div {
+  font-size: 11px;
+  font-family: Figtree;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.44px;
+  color: rgba(84, 78, 78, 0.70);
+}
+.table-row {
+  background: #FEFDE9;
+}
+.date, .amount {
+  font-size: 18px;
+  font-family: Figtree;
+  font-weight: 600;
+  color: #3A3A3A;
+}
+.date img {
+  width: 13.33px;
+  height: 13.33px;
+}
+.close-icon {
+  width: 24px;
+  height: 24px;
+  background: #D4E22C;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.close-icon::before {
+  content: '';
+  width: 12px;
+  height: 1.5px;
+  background: #1E1E1E;
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+.close-icon::after {
+  content: '';
+  width: 12px;
+  height: 1.5px;
+  background: #1E1E1E;
+  position: absolute;
+  transform: rotate(-45deg);
+}
+
+.button-content {
+  padding: 0 4px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  display: flex;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 16px 24px;
+  background: #FAFAD1;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  margin-top: 50px;
+  align-items: flex-start;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+.label {
+  opacity: 0.6;
+  color: #3A3A3A;
+  font-size: 11px;
+  font-family: Figtree, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.44px;
+}
+
+.small-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+.paiements-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.titre p {
+  color: #3A3A3A;
+  font-size: 18px;
+  font-family: Figtree;
+  font-weight: 500;
+  line-height: 21.6px;
+}
+
+.paiement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.paiement-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid rgba(84, 78, 78, 0.2);
+}
+
+.paiement-date,
+.paiement-numero,
+.paiement-montant,
+.paiement-status {
+  display: flex;
+  align-items: center;
+}
+
+.paiement-date span {
+  color: #3A3A3A;
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 600;
+}
+
+.paiement-numero-detail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+.numero-text span {
+  color: rgba(84, 78, 78, 0.7);
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 500;
+}
+
+.paiement-montant span {
+  color: #3A3A3A;
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 600;
+}
+
+.paiement-status .status-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: #AAB614;
+  margin-left: auto;
+}
+/* Styles généraux pour la page facture */
+.facture-container {
+  padding: 30px;
+}
+
+
+.yeli .badge {
+  background: var(--Brand-Primary-800, #00819A);
+}
+
+.dropdown-container {
+  position: relative;
+  width: 100%; /* Assurez-vous que le conteneur utilise toute la largeur */
+}
+.selected-item {
+  display: flex;
+  align-items: center; /* Aligne verticalement les éléments */
+  cursor: pointer; /* Change le curseur lorsque survolez l'élément */
+}
+
+.options-list {
+  position: absolute;
+  width: 885px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  left: -30px;
+  margin: 5px;
+  z-index: 1000;
+}
+
+.option-item {
+  display: flex; /* Utilise Flexbox pour les options */
+  align-items: center; /* Aligne verticalement les éléments */
+  padding: 8px; /* Ajoutez un peu de rembourrage pour le style */
+  cursor: pointer; /* Change le curseur lorsque survolez l'option */
+}
+
+.option-item:hover {
+  background-color: #f0f0f0; /* Change de couleur au survol */
+}
+
+.custom-icon {
+  position: relative;
+  display: flex;
+  width: var(--Dimensions-Padding-24, 24px);
+  height: var(--Dimensions-Padding-24, 24px);
+  padding: 3px 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--Dimensions-Padding-24, 24px);
+  background: var(--Brand-Energy-type-Electricity-background, #FF6C00);
+}
+.custom-icon1 {
+  position: relative;
+  display: flex;
+  width: var(--Dimensions-Padding-24, 24px);
+  height: var(--Dimensions-Padding-24, 24px);
+  padding: 3px 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--Dimensions-Padding-24, 24px);
+  background: var(--Semantic-Info, #00B0F0);
+}
+.yeli .custom-icon{
+background: var(--Brand-Energy-type-Electricity-background, #00819A);
+}
+.selected-item span {
+  margin-right: 8px; /* Ajoutez un peu d'espace à droite de chaque élément */
+  margin-left: 10px;
+}
+
+.option-item span {
+  margin-right: 8px; 
+  margin-left: 10px;
+}
+
+.yeli .badge {
+  background: var(--Brand-Primary-800, #00819A);
+}
+.icon-demenage .circle {
+  fill: #E2F133; /* Couleur de remplissage du cercle */
+}
+
+.yeli .icon-demenage .circle{
+  fill: #84D8E9;
+}
+.yeli .payment-icon1 {
+  top: 135px;
+}
+.yeli .payment-icon2 {
+  top: 135px;
+}
+.yeli .slide img {
+  width: 100%;
+  height: 182px;
+  background: #A0DBE7;
+}
+.yeli .button-container{
+  display: flex;
+  padding: 10px 12px;
+justify-content: center;
+align-items: center;
+gap: 4px;
+border-radius: var(--Borders-radius-Radius-CTA, 40px);
+background: var(--White, #FFF);
+/* Shadow lg */
+box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.05), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+}
+.yeli .text-content{
+  background: var(--Brand-Secondary-100, #FFD000);
+}
+.yeli .details-button {
+  padding: 10px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--Brand-Primary-CTA-text, #FFF);
+/* Button txt/M */
+font-family: Figtree;
+font-size: 14px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+text-transform: uppercase;
+  border-radius: var(--Borders-radius-Radius-CTA, 40px);
+  background: var(--Brand-Primary-500, #00AFCB);
+  /* Shadow sm */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+.yeli .icon-demenage .circle{
+  fill: #84D8E9;
+}
+
+
+.selected-item .addres {
+margin: 0;            /* Annule toute marge qui pourrait être appliquée par défaut */
+}
+
+.option-item .addres {
+margin: 0;            /* Annule toute marge qui pourrait être appliquée par défaut */
+}
+.wrapper {
+  width: 100%;
+  height: 50%; /* Equal height for the image slider */
+  display: flex;
+  animation: slide 9s infinite;
+}
+.box-container {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 100px;
+  background: #FAFAD1;
+  border-radius: 8px;
+}
+
+.box-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.box {
+  width: 64px;
+  height: 80px;
+  background: white;
+  border-radius: 4px;
+  border: 1px #8E9D25 solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+}
+
+.box input {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+
+.box-label {
+  color: #4A511F;
+  font-size: 18px;
+  font-family: Figtree;
+  font-weight: 500;
+  line-height: 21.60px;
+  word-wrap: break-word;
+}
+
+.action-box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.action {
+  background: #D4E22C;
+  border-radius: 4px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-text {
+  color: #1E1E1E;
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+/* Style pour la section contenant le montant estimé */
+.estimated-amount {
+  width: 70%;
+  height: 100%;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: #F5F7A9;
+  border-radius: 4px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Style pour le texte "Montant estimé" */
+.estimated-amount .amount-label {
+  align-self: stretch;
+  text-align: center;
+  color: #544E4E;
+  font-size: 16px;
+  font-family: Figtree, sans-serif;
+  font-weight: 500;
+  line-height: 19px;
+  word-wrap: break-word;
+}
+
+/* Style pour le montant estimé (ex. 100,45€) */
+.estimated-amount .amount-value {
+  color: #4A511F;
+  font-size: 32px;
+  font-family: Figtree, sans-serif;
+  font-weight: 600;
+  word-wrap: break-word;
+}
