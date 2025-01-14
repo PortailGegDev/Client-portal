@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+.p-menubar-item-link-active-active {
+    border-bottom: 3px solid #AAB614; /* Ligne en bas pour l'élément actif */
+    font-weight: bold; /* Met en gras l'élément actif */  
+  }

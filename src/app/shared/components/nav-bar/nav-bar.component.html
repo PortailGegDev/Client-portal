@@ -1,1 +1,11 @@
-<p>nav-bar works!</p>
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <div class="logo-container" >
+            <a class="logo" href="#" (click)="navigateHome()">
+              <img src="/images/geg-logo.png" alt="Logo GEG" class="logo-img">
+            </a>
+          </div>    </ng-template>
+    <ng-template pTemplate="end">
+      <button pButton type="button" icon="pi pi-user" label="Connexion"></button>
+    </ng-template>
+  </p-menubar>
