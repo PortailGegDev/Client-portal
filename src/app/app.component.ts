@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { ButtonModule } from 'primeng/button';
 
 export interface Flight {
   Carrid: string;
@@ -15,7 +16,7 @@ export interface Flight {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
