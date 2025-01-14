@@ -12,6 +12,6 @@ export class SerenityElectricityComponent {
   constructor(private router: Router) { }
 
   RetourEnBack() {
-    this.router.navigate(['/pages/service']);
+    this.router.navigate(['services']);
   }
 }
