@@ -1,5 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-.p-menubar-item-link-active-active {
-    border-bottom: 3px solid #AAB614; /* Ligne en bas pour l'élément actif */
-    font-weight: bold; /* Met en gras l'élément actif */  
-  }
+
+
+
+// Menu
+.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover {
+    background-color: transparent !important;
+}
+
+.p-menubar-item-link-active {
+  background-color: transparent !important;
+  color: black;
+  font-weight: 600;
+  font-size: 17px;
+  border-bottom: 3px solid var(--Primary-600, #AAB614);
+}
+
+.profile {
+  display: inline-flex;
+  align-self: stretch;
+  height: 48px;
+  padding: 0 8px;
+  background: #FAFAD1;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+}
+//background: #E9EE7B;

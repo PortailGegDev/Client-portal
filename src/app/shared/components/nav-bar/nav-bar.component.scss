@@ -3,8 +3,25 @@
     height: 50px;
 }
 
-
 .logo-container {
     display: flex;
     align-items: center;
+}
+
+.disable-main-button .p-splitbutton-defaultbutton {
+    pointer-events: none;
+    /* Empêche les clics sur le bouton principal */
+    opacity: 0.6;
+    /* Change l'apparence pour refléter un état désactivé */
+    cursor: not-allowed;
+    /* Modifie le curseur pour refléter l'état désactivé */
+}
+
+.text-font {
+    color: rgba(84, 78, 78, 0.70);
+    font-size: 16px;
+    font-family: Figtree;
+    font-weight: 500;
+    line-height: 19px;
+    word-wrap: break-word;
 }

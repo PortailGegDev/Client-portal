@@ -7,6 +7,9 @@ import { AppServicesComponent } from './features/services/pages/services/service
 import { AppServicesGreenOptionComponent } from './features/services/pages/green-option/green-option.component';
 import { SerenityElectricityComponent } from './features/services/pages/serenity-electricity/serenity-electricity.component';
 import { AppDocumentContractDetailsComponent } from './features/documents/pages/contract-details/contract-details.component';
+import { AppRequestsComponent } from './features/requests/pages/requests/requests.component';
+import { AppRequestsNewRequestComponent } from './features/requests/pages/new-request/new-request.component';
+import { AppRequestsFaqComponent } from './features/requests/pages/faq/faq.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -17,5 +20,8 @@ export const routes: Routes = [
     { path: 'services', component: AppServicesComponent },
     { path: 'services/serenity-electricity', component: SerenityElectricityComponent },
     { path: 'services/green-option', component: AppServicesGreenOptionComponent },
+    { path: 'requests', component: AppRequestsComponent },
+    { path: 'requests/new', component: AppRequestsNewRequestComponent },
+    { path: 'requests/frequently-asked-questions', component: AppRequestsFaqComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
