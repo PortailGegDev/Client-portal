@@ -1,1 +1,77 @@
-<p>new-request works!</p>
+
+<h1>Créer une demande</h1>
+<div class="main-container">
+    <div class="left-container">
+        <div class="title">Votre demande concerne</div>
+        <div class="items">
+            <div class="item" (click)="viewDetail()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="44" cy="44" r="15" fill="#E2F133"/> <path d="M32 11H22.4C20.1598 11 19.0397 11 18.184 11.436C17.4314 11.8195 16.8195 12.4314 16.436 13.184C16 14.0397 16 15.1598 16 17.4V40.6C16 42.8402 16 43.9603 16.436 44.816C16.8195 45.5686 17.4314 46.1805 18.184 46.564C19.0397 47 20.1598 47 22.4 47H37.6C39.8402 47 40.9603 47 41.816 46.564C42.5686 46.1805 43.1805 45.5686 43.564 44.816C44 43.9603 44 42.8402 44 40.6V23M32 11L44 23M32 11V19.8C32 20.9201 32 21.4802 32.218 21.908C32.4097 22.2843 32.7157 22.5903 33.092 22.782C33.5198 23 34.0799 23 35.2 23H44M22 17H26M22 23H26M38 39H34L32 36L30 39L26 33L25 39H22" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>  <line x1="7.9629" y1="12.8499" x2="50.9629" y2="48.8499" stroke="#3A3A3A" stroke-width="3"/></svg>
+                <div class="item-text">Résiliation du <br>contrat</div>
+            </div>
+            <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">  <circle cx="44" cy="44" r="15" fill="#E2F133"/>    <path d="M19.4 46C17.1598 46 16.0397 46 15.184 45.564C14.4314 45.1805 13.8195 44.5686 13.436 43.816C13 42.9603 13 41.8402 13 39.6V16.4C13 14.1598 13 13.0397 13.436 12.184C13.8195 11.4314 14.4314 10.8195 15.184 10.436C16.0397 10 17.1598 10 19.4 10H38.6C40.8402 10 41.9603 10 42.816 10.436C43.5686 10.8195 44.1805 11.4314 44.564 12.184C45 13.0397 45 14.1598 45 16.4V18M21 18H33M21 34H23M21 26H29M27.3909 45.789L30.0204 45.2694C31.4394 44.9889 32.1488 44.8487 32.8104 44.5905C33.3976 44.3612 33.9557 44.0634 34.473 43.7031C35.0558 43.2973 35.5671 42.7859 36.5898 41.7632L46.8867 31.4663C48.2612 30.0918 48.2612 27.8633 46.8867 26.4888C45.5122 25.1143 43.2837 25.1143 41.9092 26.4888L31.4363 36.9616C30.478 37.92 29.9988 38.3991 29.6118 38.9423C29.2683 39.4245 28.9793 39.9434 28.7502 40.4893C28.4922 41.1043 28.3371 41.764 28.027 43.0833L27.3909 45.789Z" stroke="#3A3A3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>  </svg>
+                <div class="item-text">Réclamation</div>
+            </div>
+            <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="44" cy="44" r="15" fill="#E2F133"/>   <path d="M13.8125 19.6406L30.0008 29.0089L46.0791 19.6956" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>  <path d="M30 45.6196V28.9912" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>  <path d="M26.2061 10.547L16.4161 15.9921C14.1978 17.2204 12.3828 20.3003 12.3828 22.8303V33.1887C12.3828 35.7187 14.1978 38.7987 16.4161 40.027L26.2061 45.4721C28.2961 46.6271 31.7244 46.6271 33.8144 45.4721L43.6045 40.027C45.8228 38.7987 47.6378 35.7187 47.6378 33.1887V22.8303C47.6378 20.3003 45.8228 17.2204 43.6045 15.9921L33.8144 10.547C31.7061 9.37366 28.2961 9.37366 26.2061 10.547Z" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>    <path d="M39.1678 30.2733V23.5633L21.7695 13.5166" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/> </svg>
+                <div class="item-text">Déménagement</div>
+            </div>
+            <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="44" cy="44" r="15" fill="#E2F133"/>   <path d="M34.0833 19.9167L28.25 28.25H38.25L32.4167 36.5833M48.25 28.25C48.25 36.5343 41.5343 43.25 33.25 43.25C24.9657 43.25 18.25 36.5343 18.25 28.25C18.25 19.9657 24.9657 13.25 33.25 13.25C41.5343 13.25 48.25 19.9657 48.25 28.25Z" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>  </svg>
+                <div class="item-text">Modification de<br> puissance</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section à droite -->
+    <div class="right-container">
+        <div class="content-box">
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (11).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Vous déménagez ?</div>
+                        <div class="subtitle">Nous vous simplifions les démarches de déménagement</div>
+                        <div class="button-section">
+                            <div class="button-text">En savoir plus</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (2).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Des questions ?</div>
+                        <div class="subtitle">Consultez la FAQ</div>
+                        <div class="button-section">
+                            <div class="button-text">Voir</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none"><path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (3).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Service client</div>
+                        <div class="subtitle">Contactez-nous au 04 76 84 38 83 <br> ou</div>
+                        <div class="button-section">
+                            <div class="button-text">Contactez via formulaire</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

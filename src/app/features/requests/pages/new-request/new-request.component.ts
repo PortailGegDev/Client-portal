@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requests-new-request',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './new-request.component.scss'
 })
 export class AppRequestsNewRequestComponent {
+  
+  constructor(private router: Router){}
 
+  viewDetail() {
+    this.router.navigate(['/pages/demande-de-resiliation']);
+  }
 }

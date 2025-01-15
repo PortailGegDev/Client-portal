@@ -1,0 +1,41 @@
+{
+    "faq": [
+        {
+          "question": "Je ne comprends pas le montant de ma facture, que faire ?",
+          "answer": "Si vous avez des interrogations sur le montant de votre facture, appelez nous au 04 76 84 20 00.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Si vous avez besoin de précision sur la composition de votre facture, consultez notre<br> page dédiée <a href='https://particuliers.geg.fr/82-comprendre-ma-facture.htm' class='yellow' target='_blank' (click)='$event.stopPropagation()'>Comprendre sa facture</a>",   
+          "isOpen": false
+        },
+          
+      {
+        "question": "J'ai des difficultés de paiement, comment faire ?",
+        "answer": "Si vous avez des difficultés de paiement, nous sommes là pour en discuter avec vous.<br>Vous pouvez prendre rendez-vous avec notre service recouvrement, situé au 8 Place<br> Robert Schuman à Grenoble.<br><br>L'agence est ouverte du lundi au vendredi de 8h15 à 12h15.<br>Nous sommes aussi joignables au 04 76 84 38 83 du lundi au vendredi de 8h15 à 17h00.",
+        "isOpen": false
+      },
+      {
+        "question": "Je souhaite ajouter un cotitulaire",
+"answer": "Pour ajouter un co-titulaire sur votre contrat, rien de plus simple !<br>Appelez-nous au 04 76 84 20 00, choix 2.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Pour toute demande, veillez à avoir rassemblé les éléments suivants au préalable :<br><br><ul><li class='custom-li'>Une photocopie de votre pièce d'identité.Une photocopie de la pièce d'identité du co-titulaire.</li><li class='custom-li'>une photocopie de votre pièce d'identité</li><li class='custom-li'>une photocopie de la pièce d'identité du co-titulaire</li></ul>",
+        "isOpen": false
+      },
+      {
+        "question": "Je souhaite modifier le titulaire d'un contrat",
+        "answer": "Pour modifier les informations relatives au titulaire de votre contrat, nous vous invitions<br> à nous appeler au 04 76 84 20 00, choix 2.<br><br>Nous sommes joignables du lundi au vendredi de 8h à 20h.",
+        "isOpen": false
+      },
+      {
+        "question": "Je souhaite changer ma puissance",
+        "answer": "GEG vous accompagne et réévalue avec vous la puissance qui convient à votre besoin.<br><br>Appelez nous au 04 76 84 20 00, choix 2.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.",
+        "isOpen": false
+      },
+      {
+        "question": "Je veux modifier mon option tarifaire (Simple Tarif ou HP/HC)",
+        "answer": "Pour toute demande de changement d'option tarifaire, appelez nous au 04 76 84 20 00, choix 2.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Pour tout comprendre de l'option tarifaire, en rendez vous sur notre page dédiée : <br> Heures pleines, Heures creuses",
+        "isOpen": false
+      },
+      {
+        "question": "Je souhaite des conseils en maitrise de l'énergie",
+        "answer": "GEG vous accompagne dans la réduction de vos consommations d'énergies.<br><br>Retrouvez tous nos conseils, vidéos, articles, guide sur notre page dédiée <a href='https://particuliers.geg.fr/501-sobriete-energetique.htm' target='_blank' (click)='$event.stopPropagation()' class='yellow'>Sobriété énergétique</a>",
+        "isOpen": false
+      }
+    ]
+  }
+  
