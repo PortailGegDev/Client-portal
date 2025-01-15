@@ -41,22 +41,22 @@ export class NavBarComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {
     this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-      console.log('User info updated:', user);
+      
+      this.profilItems = [
+        {
+          label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
+          icon: 'fa-regular fa-user', 
+          styleClass: 'profile'
+        },
+        { label: 'Mon profil' },
+        { separator: true },
+        { label: 'Me déconnecté' }
+      ];
     });
   }
 
   ngOnInit() {
     console.log(this.authService.getCurrentUser());
-    this.profilItems = [
-      {
-        label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
-        icon: 'fa-regular fa-user', 
-        styleClass: 'profile'
-      },
-      { label: 'Mon profil' },
-      { separator: true },
-      { label: 'Me déconnecté' }
-    ];
   }
 
   navigateHome() {
