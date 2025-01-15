@@ -60,7 +60,7 @@
                 </div>
                 <div class="text">{{ item.electricityType }}</div>
                 <div class="text date">{{ item.startDate }}</div>
-                <button class="text1" (click)="viewDetails(item)" pButton>Voir les détails →</button>
+                <a class="text1" (click)="viewDetails(item)">Voir les détails →</a>
             </div>
         </div>
         <div *ngIf="showDetails" class="contract-details">

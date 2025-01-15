@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })
