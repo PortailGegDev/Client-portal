@@ -12,6 +12,6 @@ export class AppRequestsNewRequestComponent {
   constructor(private router: Router){}
 
   viewDetail() {
-    this.router.navigate(['/pages/demande-de-resiliation']);
+    this.router.navigate(['/requests/rescission']);
   }
 }

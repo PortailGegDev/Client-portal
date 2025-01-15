@@ -12,6 +12,7 @@ import { AppRequestsNewRequestComponent } from './features/requests/pages/new-re
 import { AppRequestsFaqComponent } from './features/requests/pages/faq/faq.component';
 import { AppProfileComponent } from './features/profile/pages/profile/profile.component';
 import { AppProfileLodgementDetailsComponent } from './features/profile/pages/lodgement-details/lodgement-details.component';
+import { AppRequestsRescissionComponent } from './features/requests/pages/rescission/rescission.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: 'requests', component: AppRequestsComponent },
     { path: 'requests/new', component: AppRequestsNewRequestComponent },
     { path: 'requests/frequently-asked-questions', component: AppRequestsFaqComponent },
+    { path: 'requests/rescission', component: AppRequestsRescissionComponent },
     { path: 'profile', component: AppProfileComponent },
     { path: 'profile/lodgement-details', component: AppProfileLodgementDetailsComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },

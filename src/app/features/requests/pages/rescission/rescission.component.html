@@ -1,0 +1,144 @@
+
+<div class="custom-container">
+    <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
+  </div>
+  <h1 *ngIf="!isSubmitted">Demande de résiliation</h1>
+  <div class="main-container">
+    <div class="left-container">
+  <div class="container" *ngIf="!isSubmitted">
+    <div class="section">
+        <div class="title1">Vos coordonnées</div>
+        <div class="form-row">
+            <div class="form-group">
+                <div class="label">Prénom</div>
+                <div class="input-box">Eugénie</div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">Nom</div>
+                <div class="input-box">Verret</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <div class="label">Adresse e-mail</div>
+            <div class="input-box">eugenie.verretgmail.com</div>
+        </div>
+        <div class="form-group">
+            <div class="label">N de téléphone</div>
+            <div class="input-box">+33 6 65 43 22 11</div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <div class="label">Référence client</div>
+            <div class="input-box1">123456789</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="title2">Résiliation</div>
+        <div class="form-group">
+            <div class="label">Date de résiliation souhaitée</div>
+            <!-- <div class="input-box1">
+                <span class="date" *ngIf="!isDateSelected">Précisez</span>
+                <span class="date" *ngIf="isDateSelected">{{ selectedDate | date: 'dd/MM/yyyy' }}</span>
+                <input 
+                    [value]="isDateSelected ? (selectedDate | date: 'dd/MM/yyyy') : ''" 
+                    matInput 
+                    [matDatepicker]="picker" 
+                    (dateChange)="onDateChange($event)" 
+                    class="calendar-input" 
+                />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div> -->
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <div class="label">Adresse du logement à résilier</div>
+                <div class="select-wrapper">
+                <select class="box">
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option *ngFor="let address of addresses" [value]="address">{{ address }}</option>
+                </select>
+                </div></div>
+        <div class="form-group">
+            <div class="label">Sélection du contrat</div>
+            <div class="select-wrapper">
+                <select class="box">
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option *ngFor="let option of electricityOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="submit-btn" (click)="onSubmit()">Envoyer la demande</div>
+</div>
+<div *ngIf="isSubmitted" class="confirmation-message">
+    <div class="thank-you">Merci, votre demande a été envoyée !</div>
+    <div class="processing-message">Nous la traitons dans les plus brefs délais</div>
+    <div class="btn" (click)="viewDetail()">Suivre ma demande</div>
+</div>
+</div>
+
+
+
+    <!-- Section à droite -->
+    <div class="right-container">
+        <div class="content-box">
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (11).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Vous déménagez ?</div>
+                        <div class="subtitle">Nous vous simplifions les démarches de déménagement</div>
+                        <div class="button-section">
+                            <div class="button-text">En savoir plus</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (2).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Des questions ?</div>
+                        <div class="subtitle">Consultez la FAQ</div>
+                        <div class="button-section">
+                            <div class="button-text">Voir</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none"><path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="itemm">
+                <div class="inner-box">
+                    <img src="/images/Rectangle 1477 (3).png" alt="Image">
+                    <div class="text">
+                        <div class="title">Service client</div>
+                        <div class="subtitle">Contactez-nous au 04 76 84 38 83 <br> ou</div>
+                        <div class="button-section">
+                            <div class="button-text">Contactez via formulaire</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525" stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div></div>
+    </div>
+
+
+
