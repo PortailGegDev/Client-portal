@@ -10,6 +10,8 @@ import { AppDocumentContractDetailsComponent } from './features/documents/pages/
 import { AppRequestsComponent } from './features/requests/pages/requests/requests.component';
 import { AppRequestsNewRequestComponent } from './features/requests/pages/new-request/new-request.component';
 import { AppRequestsFaqComponent } from './features/requests/pages/faq/faq.component';
+import { AppProfileComponent } from './features/profile/pages/profile/profile.component';
+import { AppProfileLodgementDetailsComponent } from './features/profile/pages/lodgement-details/lodgement-details.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -23,5 +25,7 @@ export const routes: Routes = [
     { path: 'requests', component: AppRequestsComponent },
     { path: 'requests/new', component: AppRequestsNewRequestComponent },
     { path: 'requests/frequently-asked-questions', component: AppRequestsFaqComponent },
+    { path: 'profile', component: AppProfileComponent },
+    { path: 'profile/lodgement-details', component: AppProfileLodgementDetailsComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
