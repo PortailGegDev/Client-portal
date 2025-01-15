@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   currentUser?: User;
 
   constructor(private http: HttpClient) { }
@@ -25,6 +27,8 @@ export class AuthService {
             data.scopes,
             data.displayName
           );
+
+          this.currentUserSubject.next(this.currentUser);
 
           // Check if the token exists in the response
           const token = data.token || data.accessToken; // Adjust key if different
@@ -48,11 +52,11 @@ export class AuthService {
     });
   }
 
-  getCurrentUser(): User | undefined {
-    return this.currentUser;
+  getCurrentUser(): Observable<User | null> {
+    return this.currentUserSubject.asObservable();
   }
 
   logout() {
-    this.currentUser = undefined; // Réinitialiser l'utilisateur lors de la déconnexion
+    this.currentUserSubject.next(null);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -7,6 +7,8 @@ import { HelpContactIconComponent } from '../help-contact-icon/help-contact-icon
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/http-services/auth.service';
+import { Subscription } from 'rxjs';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +16,10 @@ import { AuthService } from '../../../core/http-services/auth.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
+  userSubscription: Subscription | null = null;
+  currentUser: User | null = null;
+
   items: MenuItem[] = [
     { label: 'Accueil', routerLink: ['/home'] },
     { label: 'Consommation', routerLink: ['/consumption'] },
@@ -34,13 +39,17 @@ export class NavBarComponent implements OnInit {
   profilItems: MenuItem[] = []
 
   constructor(private authService: AuthService) {
-
+    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+      console.log('User info updated:', user);
+    });
   }
 
   ngOnInit() {
+    console.log(this.authService.getCurrentUser());
     this.profilItems = [
       {
-        label: `${this.authService.getCurrentUser()?.firstname} ${this.authService.getCurrentUser()?.lastname}`,
+        label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
         icon: 'fa-regular fa-user', 
         styleClass: 'profile'
       },
@@ -56,5 +65,12 @@ export class NavBarComponent implements OnInit {
 
   logout() {
 
+  }
+
+  ngOnDestroy() {
+    // Se désabonner lorsque le composant est détruit
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 }
