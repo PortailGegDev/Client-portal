@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -6,6 +6,7 @@ import { DeminingIconComponent } from '../demining/demining-icon.component';
 import { HelpContactIconComponent } from '../help-contact-icon/help-contact-icon.component';
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../../core/http-services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,7 +14,7 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
   items: MenuItem[] = [
     { label: 'Accueil', routerLink: ['/home'] },
     { label: 'Consommation', routerLink: ['/consumption'] },
@@ -30,12 +31,24 @@ export class NavBarComponent {
     { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['requests/frequently-asked-questions'] },
   ];
 
-  profilItems: MenuItem[] = [
-    { label: 'test', icon: 'fa-regular fa-user', styleClass: 'profile' },
-    { label: 'Mon profil' },
-    { separator: true },
-    { label: 'Me déconnecté' }
-  ];
+  profilItems: MenuItem[] = []
+
+  constructor(private authService: AuthService) {
+
+  }
+
+  ngOnInit() {
+    this.profilItems = [
+      {
+        label: `${this.authService.currentUser?.firstname} ${this.authService.currentUser?.lastname}`,
+        icon: 'fa-regular fa-user', 
+        styleClass: 'profile'
+      },
+      { label: 'Mon profil' },
+      { separator: true },
+      { label: 'Me déconnecté' }
+    ];
+  }
 
   navigateHome() {
 
