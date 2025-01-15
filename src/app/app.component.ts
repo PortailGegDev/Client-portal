@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { ButtonModule } from 'primeng/button';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 export interface Flight {
   Carrid: string;
@@ -17,7 +18,7 @@ export interface Flight {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, NavBarComponent],
+  imports: [RouterOutlet, ButtonModule, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

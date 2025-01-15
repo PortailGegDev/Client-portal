@@ -18,7 +18,7 @@ export class BrandService {
   getLogo(): string {
     const theme = this.getBrand();
     return theme === 'geg'
-      ? 'assets/images/geg-logo.png'
-      : 'assets/images/yeli-logo.png';
+      ? '/images/geg-logo.png'
+      : '/images/yeli-logo.png';
   }
 }
