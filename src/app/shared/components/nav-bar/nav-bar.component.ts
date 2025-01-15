@@ -40,7 +40,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.profilItems = [
       {
-        label: `${this.authService.currentUser?.firstname} ${this.authService.currentUser?.lastname}`,
+        label: `${this.authService.getCurrentUser()?.firstname} ${this.authService.getCurrentUser()?.lastname}`,
         icon: 'fa-regular fa-user', 
         styleClass: 'profile'
       },
