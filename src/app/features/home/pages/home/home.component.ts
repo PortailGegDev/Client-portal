@@ -7,6 +7,8 @@ import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { CommonModule } from '@angular/common';
 import { BrandService } from '../../../../core/service/brand.service';
+import { AuthService } from '../../../../core/http-services/auth.service';
+import { User } from '../../../../core/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +21,15 @@ export class AppHomeComponent {
   consumptionData: number[] = [30, 50, 25, 40];
   facture: { statut: string; date: string };
   theme: string = "";
+  currentUser?: User;
 
   constructor(
     private router: Router,
     private contractService: ContractService,
     private factureService: FactureService,
     private brandService: BrandService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {
     // Chart.register(...registerables);
     this.facture = {
@@ -39,6 +43,7 @@ export class AppHomeComponent {
     this.fetchContracts();
     this.theme = this.brandService.getBrand();
     this.loadLastFacture();
+    this.currentUser = this.authService.getUserData();
   }
 
   lastFacture: { statut: string; date: string | null } | null = null;
