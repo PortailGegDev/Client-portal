@@ -20,7 +20,7 @@ export class AppRequestsFaqComponent {
     this.loadFAQs();
   }
   loadFAQs() {
-    this.http.get<{ faq: FAQ[] }>('/assets/faq-data.json').subscribe({
+    this.http.get<{ faq: FAQ[] }>('/faq-data.json').subscribe({
       next: (data) => {
         this.faqs = data.faq; // Assigner directement les FAQs depuis le fichier JSON
       },
