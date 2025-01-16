@@ -15,21 +15,24 @@ interface FAQ {
 })
 export class AppRequestsFaqComponent {
   faqs: FAQ[] = [];  // Typé correctement avec l'interface FAQ
-
   constructor(private http: HttpClient) { } // Injecter HttpClient
-
   ngOnInit() {
     this.loadFAQs();
   }
-
   loadFAQs() {
-    // TODO : A voir avec Manar
-    this.http.get<{ faq: FAQ[] }>('assets/faq-data.json').subscribe(data => {
-      this.faqs = data.faq; // Assigner directement les FAQs depuis le fichier JSON
-    }, error => {
-      console.error('Error loading FAQ data:', error);
+    this.http.get<{ faq: FAQ[] }>('/assets/faq-data.json').subscribe({
+      next: (data) => {
+        this.faqs = data.faq; // Assigner directement les FAQs depuis le fichier JSON
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des données FAQ :', error);
+      },
+      complete: () => {
+        console.log('Chargement des FAQs terminé');
+      }
     });
   }
+  
   
   toggleDropdown(faq: FAQ, event: MouseEvent) {
     const target = event.target as HTMLElement;
