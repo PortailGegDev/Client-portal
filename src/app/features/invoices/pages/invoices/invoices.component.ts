@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractService } from '../../../../core/http-services/contrat.service';
 import { FactureService } from '../../../../core/http-services/facture.service';
-import { BrandService } from '../../../../core/service/brand.service';
+import { BrandService } from '../../../../core/services/brand.service';
 import * as moment from 'moment';
 import jsPDF from 'jspdf';
 import { CommonModule } from '@angular/common';

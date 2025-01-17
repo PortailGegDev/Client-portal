@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BrandService } from '../../../core/service/brand.service';
+import { BrandService } from '../../../core/services/brand.service';
 
 @Component({
   selector: 'app-footer',

@@ -6,13 +6,18 @@ import { FactureService } from '../../../../core/http-services/facture.service';
 import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { CommonModule } from '@angular/common';
-import { BrandService } from '../../../../core/service/brand.service';
+import { BrandService } from '../../../../core/services/brand.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../core/models/user.model';
+import { PanelModule } from 'primeng/panel';
+import { ChartModule } from 'primeng/chart';
+import { ConsumptionService } from '../../../../core/services/consumption.service';
+import { ChartConsumption } from '../../../../core/models/chart-consumption.model';
+import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, PanelModule, ChartModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -22,11 +27,16 @@ export class AppHomeComponent {
   facture: { statut: string; date: string };
   theme: string = "";
   currentUser?: User;
+  basicData: any;
+
+  basicOptions: any;
+  consumptions: ChartConsumption[] = [];
 
   constructor(
     private router: Router,
     private contractService: ContractService,
     private factureService: FactureService,
+    private consumptionService: ConsumptionService,
     private brandService: BrandService,
     private http: HttpClient,
     private authService: AuthService
@@ -44,6 +54,8 @@ export class AppHomeComponent {
     this.theme = this.brandService.getBrand();
     this.loadLastFacture();
     this.currentUser = this.authService.getUserData();
+    this.loadConsumption();
+
   }
 
   lastFacture: { statut: string; date: string | null } | null = null;
@@ -90,6 +102,91 @@ export class AppHomeComponent {
         console.error("Erreur lors du chargement des factures:", error);
       },
     });
+  }
+
+  loadConsumption() {
+    this.consumptionService.getChartConsumptionData().subscribe({
+      next: (consumptions) => {
+        this.consumptions = consumptions
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Tri descendant
+          .slice(0, 4);
+        this.getChartDataAndOptions(this.consumptions);
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des données de consommation:", error);
+      },
+    });
+  }
+
+  private getChartDataAndOptions(consumptions: ChartConsumption[]) {
+    this.basicData = {
+      labels: [
+        `${getMonthNameByMonthNumber(consumptions[0].monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[1].monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[2].monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[3].monthNumber)} (kWh)`
+      ],
+      datasets: [
+        {
+          label: 'Consommation',
+          data: [consumptions[0].value, consumptions[1].value, consumptions[2].value, consumptions[3].value],
+          backgroundColor: [
+            'rgba(255, 108, 0, 0.10)',
+            'rgba(255, 108, 0, 0.10',
+            'rgba(255, 108, 0, 0.20)',
+            'rgba(255, 108, 0, 0.30)'],
+          borderWidth: 0,
+        },
+      ],
+    };
+
+    this.basicOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false, // Masquer la légende
+        },
+        tooltip: {
+          enabled: true, // Activer l'affichage des tooltips
+        },
+        datalabels: {
+          color: "black",
+          display: true,
+          align: "center",
+          anchor: "center",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+          formatter: (value: any, context: any) => {
+            const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
+            return `${value} kWh\n${month}`;
+          },
+        },
+      },
+      scales: {
+        x: {
+          display: false, // Masquer l'axe X si nécessaire
+          grid: {
+            display: false, // Enlever le quadrillage de l'axe Y
+          },
+        },
+        y: {
+          display: false, // Masquer l'axe Y si nécessaire
+          grid: {
+            display: false, // Enlever le quadrillage de l'axe Y
+          },
+        },
+      },
+      layout: {
+        padding: {
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+        },
+      },
+    };
   }
 
   convertSAPDate(sapDate: string): string | null {

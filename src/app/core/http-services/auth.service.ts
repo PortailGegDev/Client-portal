@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LocalStorageService } from '../service/local-storage.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +22,14 @@ export class AuthService {
       next: (data) => {
         if (data) {
 
-          this.currentUser = new User(
-            data.firstname,
-            data.lastname,
-            data.email,
-            data.name,
-            data.scopes,
-            data.displayName
-          );
+          this.currentUser = {
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            name: data.name,
+            scopes: data.scopes,
+            displayName: data.displayName
+          };
 
           this.localStorageService.setItem('user', this.currentUser);
           this.currentUserSubject.next(this.currentUser);
@@ -48,30 +48,6 @@ export class AuthService {
           }
         } else {
           console.error('Empty response from /user-api/currentUser');
-        }
-      },
-      error: (err) => {
-        console.error('Failed to fetch token:', err);
-      }
-    });
-
-    this.http.get<any>('/user-api/userinfo ').subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data) {
-
-        }
-      },
-      error: (err) => {
-        console.error('Failed to fetch token:', err);
-      }
-    });
-
-    this.http.get<any>('/user-api/session ').subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data) {
-
         }
       },
       error: (err) => {
