@@ -67,7 +67,7 @@ export class AppHomeComponent {
 
   }
 
-  lastFacture: { statut: string; montant: string; date: string | null } | null = null;
+  lastFacture: { statut: string; totalUnpaidHT: string; date: string | null } | null = null;
 
   payFacture(facture: { statut: string; date: string }): void {
     if (facture.statut === "A payer") {
@@ -103,7 +103,7 @@ export class AppHomeComponent {
                   ? "payer"
                   : "Autre statut",
             date: this.convertSAPDate(lastFacture.PostingDate),
-            montant: lastFacture.TotalUnpaidHT
+            totalUnpaidHT: lastFacture.TotalUnpaidHT
           };
           console.log("Dernière facture:", this.lastFacture); // Vérification dans la console
         }
