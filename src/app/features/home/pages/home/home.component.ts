@@ -53,6 +53,8 @@ export class AppHomeComponent {
     this.contractServicee.contract$.subscribe((data) => {
       this.selectContract = data;
       this.loadConsumption(data.ContractISU);
+      this.loadLastFacture(data.ContractISU);
+
     });
   }
 
@@ -60,12 +62,12 @@ export class AppHomeComponent {
     this.selectedContract = this.contractts[0];
     this.fetchContracts();
     this.theme = this.brandService.getBrand();
-    this.loadLastFacture();
+    // this.loadLastFacture();
     this.currentUser = this.authService.getUserData();
 
   }
 
-  lastFacture: { statut: string; date: string | null } | null = null;
+  lastFacture: { statut: string; montant: string; date: string | null } | null = null;
 
   payFacture(facture: { statut: string; date: string }): void {
     if (facture.statut === "A payer") {
@@ -77,8 +79,8 @@ export class AppHomeComponent {
       console.log("Téléchargement du PDF de la facture...");
     }
   }
-  loadLastFacture(): void {
-    this.factureService.fetchFactures().subscribe({
+  loadLastFacture(contractId: string): void {
+    this.factureService.fetchFactures(contractId).subscribe({
       next: (response) => {
         const factures = response.d.results;
 
@@ -101,6 +103,7 @@ export class AppHomeComponent {
                   ? "payer"
                   : "Autre statut",
             date: this.convertSAPDate(lastFacture.PostingDate),
+            montant: lastFacture.TotalUnpaidHT
           };
           console.log("Dernière facture:", this.lastFacture); // Vérification dans la console
         }
@@ -256,7 +259,7 @@ export class AppHomeComponent {
           maintainAspectRatio: false, // Permet de maintenir le ratio d'aspect
           plugins: {
             legend: {
-              display: true,
+              display: false,
             },
             datalabels: {
               color: "black",

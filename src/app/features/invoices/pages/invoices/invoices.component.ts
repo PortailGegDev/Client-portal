@@ -227,7 +227,7 @@ export class AppInvoicesComponent {
   }
 
   fetchFactures(): void {
-    this.factureService.fetchFactures().subscribe(
+    this.factureService.fetchFactures(null).subscribe(
       (data) => {
         console.log('Données reçues:', data);
         if (data?.d?.results) {

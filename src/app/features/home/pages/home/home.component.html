@@ -222,8 +222,8 @@
                 <div class="payment">
                     <div class="payment-box">
                         <div class="payment-icon"></div>
-                        <p>127,25 €</p>
-                        <h2>Prochain prélèvement 9 Oct. 2023</h2>
+                        <p>{{lastFacture?.totalUnpaidHT}} €</p>
+                        <h2>Prochain prélèvement {{lastFacture?.date}}</h2>
                     </div>
                 </div>
             </div>
