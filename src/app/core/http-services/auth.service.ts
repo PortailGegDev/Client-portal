@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, Observable, throwError } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
@@ -11,6 +11,8 @@ import { LocalStorageService } from '../services/local-storage.service';
 export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
+
   currentUser?: User;
 
   constructor(private http: HttpClient,
@@ -19,7 +21,7 @@ export class AuthService {
 
   logTokenDetails() {
     this.http.get<any>('/user-api/currentUser').subscribe({
-      next: (data) => {
+      next: async (data) => {
         if (data) {
 
           this.currentUser = {
@@ -30,6 +32,11 @@ export class AuthService {
             scopes: data.scopes,
             displayName: data.displayName
           };
+
+          debugger
+          let test = await firstValueFrom(this.getUserBp(this.currentUser.email));
+          console.log('test ', test);
+          debugger
 
           this.localStorageService.setItem('user', this.currentUser);
           this.currentUserSubject.next(this.currentUser);
@@ -54,6 +61,20 @@ export class AuthService {
         console.error('Failed to fetch token:', err);
       }
     });
+  }
+
+
+
+  getUserBp(email: string): Observable<any> {
+    let url = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/IdDS_SCIM/Users?filter=emails.value eq "${email}"`;
+    
+    return this.http.get<any>(url)
+      .pipe(
+        catchError(error => {
+          console.error('Erreur lors de la requête:', error);
+          return throwError(error);
+        })
+      );
   }
 
   getCurrentUser(): Observable<User | null> {
