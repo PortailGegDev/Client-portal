@@ -21,7 +21,7 @@ export class AuthService {
 
   logTokenDetails() {
     this.http.get<any>('/user-api/currentUser').subscribe({
-      next: async (data) => {
+      next: (data) => {
         if (data) {
 
           this.currentUser = {
@@ -33,12 +33,17 @@ export class AuthService {
             displayName: data.displayName
           };
 
-          let jsonUserDataResponse = await firstValueFrom(this.getUserBp(this.currentUser.email));
-          this.currentUser.bp =jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
-          this.currentUser.organization =jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
+          this.getUserBp(this.currentUser.email).subscribe({
+            next: (jsonUserDataResponse: any) => {
+              this.currentUser!.bp = jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
+              this.currentUser!.organization = jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
-          this.localStorageService.setItem('user', this.currentUser);
-          this.currentUserSubject.next(this.currentUser);
+              this.localStorageService.setItem('user', this.currentUser);
+            }
+            , error: (error) => {
+              console.error('Failed to fetch token:', error);
+            }
+          });
 
           // Check if the token exists in the response
           const token = data.token || data.accessToken; // Adjust key if different
