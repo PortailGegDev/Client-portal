@@ -115,6 +115,7 @@ export class AppHomeComponent {
   }
 
   loadConsumption(contractNumber: string) {
+    contractNumber='0350103717';
     this.consumptionService.getChartConsumptionData(contractNumber).subscribe({
       next: (consumptions) => {
         this.consumptions = consumptions
