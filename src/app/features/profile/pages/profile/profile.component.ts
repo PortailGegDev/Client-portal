@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { ContractService } from '../../../../core/http-services/contrat.service';
+import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +35,7 @@ export class AppProfileComponent {
     private router: Router, 
     private renderer: Renderer2, 
     private elRef: ElementRef, 
-    private service: ContractService
+    private service: ContractHttpService
   ) { }
 
   ngOnInit() {

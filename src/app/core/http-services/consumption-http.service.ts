@@ -16,10 +16,11 @@ export class ConsumptionHttpService {
 
   constructor(private http: HttpClient) { }
 
-  Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com:443/CataloguePortail_QF1/ZA_MeterReadingDocument?sap-client={{mandant}}&$format=json&$filter=ContractISU eq '0350000912'";
-  fetchConsumptionData(): Observable<ApiResponseConsumption> {
+  Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com:443/CataloguePortail_QF1/ZA_MeterReadingDocument?sap-client={{mandant}}&$format=json&$filter=ContractISU";
+  fetchConsumptionData(contractNumber: string): Observable<ApiResponseConsumption> {
+    let url = `${this.Url} eq '${contractNumber}'`;
 
-    return this.http.get<ApiResponseConsumption>(this.Url)
+    return this.http.get<ApiResponseConsumption>(url)
       .pipe(
         catchError(error => {
           console.error('Erreur lors de la requête:', error);

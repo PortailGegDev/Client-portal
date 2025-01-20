@@ -12,8 +12,8 @@ export class ConsumptionService {
 
   constructor(private consumptionHttpService: ConsumptionHttpService) { }
 
-  getChartConsumptionData(): Observable<ChartConsumption[]> {
-    return this.consumptionHttpService.fetchConsumptionData()
+  getChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
+    return this.consumptionHttpService.fetchConsumptionData(contractNumber)
       .pipe(
         map((response: ApiResponseConsumption) => {
           let chartConsumptions: ChartConsumption[] = [];

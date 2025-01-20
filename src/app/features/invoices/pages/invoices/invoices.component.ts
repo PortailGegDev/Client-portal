@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../../../../core/http-services/contrat.service';
+import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { FactureService } from '../../../../core/http-services/facture.service';
 import { BrandService } from '../../../../core/services/brand.service';
 import * as moment from 'moment';
@@ -25,7 +25,7 @@ interface Facture {
 export class AppInvoicesComponent {
   constructor(
     private router: Router,
-    private contractService: ContractService,
+    private contractService: ContractHttpService,
     private factureService: FactureService,
     private brandService: BrandService
   ) {}

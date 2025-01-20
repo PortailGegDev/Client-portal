@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../../../../core/http-services/contrat.service';
 import { HttpClient } from '@angular/common/http';
+import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 
 @Component({
   selector: 'app-services',
@@ -13,7 +13,7 @@ export class AppServicesComponent {
   selectedContract: any = null;
   countt: number | null = null;
   contracts: any[] = [];
-  constructor(private service: ContractService,
+  constructor(private service: ContractHttpService,
     private router: Router,
     private httpClient: HttpClient) { }
   // contracts = [

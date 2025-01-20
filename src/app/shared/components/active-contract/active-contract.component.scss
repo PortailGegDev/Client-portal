@@ -1,0 +1,25 @@
+.custom-icon {
+    position: relative;
+    display: flex;
+    width: var(--Dimensions-Padding-24, 24px);
+    height: var(--Dimensions-Padding-24, 24px);
+    padding: 3px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: var(--Dimensions-Padding-24, 24px);
+    background: var(--Brand-Energy-type-Electricity-background, #FF6C00);
+  }
+  
+  .custom-icon1 {
+    position: relative;
+    display: flex;
+    width: var(--Dimensions-Padding-24, 24px);
+    height: var(--Dimensions-Padding-24, 24px);
+    padding: 3px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: var(--Dimensions-Padding-24, 24px);
+    background: var(--Semantic-Info, #00B0F0);
+  }

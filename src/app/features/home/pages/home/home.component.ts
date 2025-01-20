@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../../../../core/http-services/contrat.service';
+import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { FactureService } from '../../../../core/http-services/facture.service';
 import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -14,10 +14,12 @@ import { ChartModule } from 'primeng/chart';
 import { ConsumptionService } from '../../../../core/services/consumption.service';
 import { ChartConsumption } from '../../../../core/models/chart-consumption.model';
 import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';
+import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
+import { ContractService } from '../../../../core/services/contract.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, PanelModule, ChartModule],
+  imports: [CommonModule, PanelModule, ChartModule, ActiveContractComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -34,7 +36,8 @@ export class AppHomeComponent {
 
   constructor(
     private router: Router,
-    private contractService: ContractService,
+    private contractService: ContractHttpService,
+    private contractServicee: ContractService,
     private factureService: FactureService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
@@ -46,6 +49,15 @@ export class AppHomeComponent {
       statut: "payer", // ou 'A payer'
       date: "5 Mai 2023",
     };
+
+    this.contractServicee.contract$.subscribe((data) => {
+      this.selectContract = data;
+
+      data.ContractISU = '0350000912';
+      this.loadConsumption(data.ContractISU);
+
+      debugger
+    });
   }
 
   ngOnInit() {
@@ -54,7 +66,6 @@ export class AppHomeComponent {
     this.theme = this.brandService.getBrand();
     this.loadLastFacture();
     this.currentUser = this.authService.getUserData();
-    this.loadConsumption();
 
   }
 
@@ -104,8 +115,8 @@ export class AppHomeComponent {
     });
   }
 
-  loadConsumption() {
-    this.consumptionService.getChartConsumptionData().subscribe({
+  loadConsumption(contractNumber: string) {
+    this.consumptionService.getChartConsumptionData(contractNumber).subscribe({
       next: (consumptions) => {
         this.consumptions = consumptions
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Tri descendant
@@ -121,15 +132,15 @@ export class AppHomeComponent {
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
     this.basicData = {
       labels: [
-        `${getMonthNameByMonthNumber(consumptions[0].monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[1].monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[3].monthNumber)} (kWh)`,
         `${getMonthNameByMonthNumber(consumptions[2].monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[3].monthNumber)} (kWh)`
+        `${getMonthNameByMonthNumber(consumptions[1].monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[0].monthNumber)} (kWh)`
       ],
       datasets: [
         {
           label: 'Consommation',
-          data: [consumptions[0].value, consumptions[1].value, consumptions[2].value, consumptions[3].value],
+          data: [consumptions[3].value, consumptions[2].value, consumptions[1].value, consumptions[0].value],
           backgroundColor: [
             'rgba(255, 108, 0, 0.10)',
             'rgba(255, 108, 0, 0.10',
@@ -166,7 +177,7 @@ export class AppHomeComponent {
       },
       scales: {
         x: {
-          display: false, // Masquer l'axe X si nécessaire
+          display: true, // Masquer l'axe X si nécessaire
           grid: {
             display: false, // Enlever le quadrillage de l'axe Y
           },

@@ -6,10 +6,27 @@
 @import "bootstrap/scss/grid";
 
 
+// Text
+
+
+
+
+.consumption-info .info-icon {
+  background-color: white; /* Fond blanc */
+  border: 1px solid #0a0a0a; /* Bordure 1px solide avec couleur pistache */
+  border-radius: 5px; /* Coins arrondis */
+  width: 15px; /* Taille de l'icône */
+  height: 15px; /* Taille de l'icône */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px; /* Espace à droite de l'icône */
+  font-size: 12px;
+}
 
 // Menu
-.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover {
-    background-color: transparent !important;
+.p-menubar-item:not(.p-disabled)>.p-menubar-item-content:hover {
+  background-color: transparent !important;
 }
 
 .p-menubar-item-link-active {
@@ -33,4 +50,12 @@
   gap: 8px;
 
 }
+
+// select tag
+.dropdown-arrow {
+  border-radius: 100px;
+  background: var(--Primary-500, #D4E22C);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
 //background: #E9EE7B;

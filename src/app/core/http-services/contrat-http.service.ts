@@ -36,7 +36,7 @@ const headers = new HttpHeaders({
 @Injectable({
   providedIn: 'root'
 })
-export class ContractService {
+export class ContractHttpService {
   /* private apiUrl = 'https://service.sap.com/sap/opu/odata/sap/ERP_ISU_UMC/ContractAccounts'; */
   private apiUrl = 'https://vhgrgQF1ci.sap.geg.fr:44300/sap/opu/odata/sap/ERP_ISU_UMC/Channels';
 

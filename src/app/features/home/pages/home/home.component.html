@@ -2,8 +2,15 @@
     <h3>Bonjour {{ currentUser?.firstname }},</h3>
     <p>Bienvenue dans votre espace client</p>
 
-    <div class="row" [ngClass]="theme">
-        <div class="col-md-6">
+
+    <div class="row">
+        <div class="col-8 mb-3">
+            <app-active-contract />
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-7 mb-3">
             <p-panel>
                 <ng-template #header>
                     <div class="flex items-center gap-2">
@@ -13,37 +20,36 @@
 
                 <p>SUR LES 4 DERNIERS MOIS</p>
 
-                <div class="chart-info-container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-                        </div>
+                <div class="row consumption-info">
+                    <div class="col-md-7">
+                        <p-chart type="bar" [data]="basicData" [options]="basicOptions"
+                            style="margin-top: 20px; max-width: 50%; height: 100px;" />
 
-                        <div class="col-md-4">
-                            <div class="payment">
-                                <div class="payment-box">
-                                    <div class="payment-icon"></div>
-                                    <p>127,25 €</p>
-                                    <h2>Prochain prélèvement 9 Oct. 2023</h2>
-                                </div>
+                        <p>
+                            <span class="info-icon">i</span>
+                            Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
+                            estimées.
+                        </p>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="payment">
+                            <div class="payment-box">
+                                <div class="payment-icon"></div>
+                                <p>127,25 €</p>
+                                <h2>Prochain prélèvement 9 Oct. 2023</h2>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="consumption-info">
-                    <p>
-                        <span class="info-icon">i</span>
-                        Consommation en kWh à partir des données disponibles, réelles, <br> recalculées, estimées.
-                    </p>
-                    <p>
-                        <i class="fa-regular fa-calendar"></i>
-                        Paiement par prélèvement mensuel.
-                    </p>
+                        <p>
+                            <i class="fa-regular fa-calendar"></i>
+                            Paiement par prélèvement mensuel.
+                        </p>
+                    </div>
                 </div>
             </p-panel>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 mb-3">
             <p-panel>
                 <ng-template #header>
                     <div class="flex items-center gap-2">
@@ -53,7 +59,6 @@
 
                 <p>contrats, justificatifs, certificats...</p>
 
-                <!-- Cette partie est ajoutée pour afficher la phrase si la facture n'est pas payée -->
                 <div *ngIf="lastFacture?.statut === 'A payer'" class="facture-alert">
                     <div class="invoice-status">
                         <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
@@ -61,7 +66,6 @@
                     </div>
                 </div>
 
-                <!-- Styled box avec le ngSwitch pour les actions de la facture -->
                 <div class="styled-box">
                     <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
                         viewBox="0 0 24 25" fill="none">
@@ -72,7 +76,6 @@
                     </svg>
                     <p>Dernière facture<br>{{ lastFacture?.date }}</p>
 
-                    <!-- Ajoutez le ngSwitch ici pour gérer les actions -->
                     <div *ngIf="lastFacture">
                         <ng-container [ngSwitch]="lastFacture.statut">
                             <button class="bb" *ngSwitchCase="'A payer'" (click)="payFacture(facture)">
@@ -118,7 +121,7 @@
 
             </p-panel>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2 mb-3">
             <p-panel>
 
 
@@ -127,93 +130,86 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-4 mb-3">
+            <p-panel>
+                <ng-template #header>
+                    <div class="flex items-center gap-2">
+                        <h5>A la une</h5>
+                    </div>
+                </ng-template>
 
-    <div class="contracts-container" [ngClass]="theme">
-        <div class="headerr">
-            <label for="active-contracts"><b>Mes contrats actifs</b></label>
-            <div class="badge">
-                <div class="badge-text">{{ contractCount }}</div>
-            </div>
-        </div>
-        <div class="dropdown-wrapper">
-            <div class="dropdown-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                        d="M7.99967 14C10.333 11.6 12.6663 9.45097 12.6663 6.8C12.6663 4.14903 10.577 2 7.99967 2C5.42235 2 3.33301 4.14903 3.33301 6.8C3.33301 9.45097 5.66634 11.6 7.99967 14Z"
-                        stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path
-                        d="M7.99967 8C8.73605 8 9.33301 7.40305 9.33301 6.66667C9.33301 5.93029 8.73605 5.33333 7.99967 5.33333C7.26329 5.33333 6.66634 5.93029 6.66634 6.66667C6.66634 7.40305 7.26329 8 7.99967 8Z"
-                        stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </div>
-            <div class="dropdown-container">
-                <div class="selected-item" (click)="toggleDropdown()">
-                    <span class="address">{{ selectedContract?.AddressCompteur }}</span>
-
-                    <svg class="custom-icon" *ngIf="selectedContract?.BusinessSectorText === 'Electricité'"
-                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M8.86784 1.54223C9.07332 1.63247 9.1935 1.84857 9.16176 2.07074L8.57662 6.1667L12.2278 6.1667C12.3904 6.16668 12.5448 6.16666 12.6691 6.17793C12.7886 6.18876 12.9847 6.21595 13.1521 6.35046C13.3509 6.51024 13.4656 6.75228 13.4633 7.00734C13.4615 7.22206 13.3583 7.39103 13.2911 7.49037C13.2211 7.59369 13.1233 7.7132 13.0203 7.83901L7.72043 14.3166C7.57832 14.4903 7.33788 14.5481 7.1324 14.4578C6.92692 14.3676 6.80674 14.1515 6.83848 13.9293L7.42361 9.83336L3.7724 9.83336C3.60983 9.83338 3.4554 9.8334 3.33112 9.82213C3.21163 9.8113 3.01555 9.78411 2.84818 9.6496C2.64936 9.48982 2.53466 9.24778 2.5369 8.99272C2.53878 8.778 2.6419 8.60903 2.70918 8.50969C2.77916 8.40637 2.87696 8.28686 2.97992 8.16105L8.27981 1.68341C8.42192 1.50972 8.66235 1.45199 8.86784 1.54223ZM7.9182 3.70455L3.76645 8.77892C3.75075 8.7981 3.73595 8.81621 3.72199 8.83332C3.74408 8.83335 3.76746 8.83336 3.79225 8.83336H8.00012C8.14506 8.83336 8.28288 8.89626 8.37784 9.00576C8.47281 9.11526 8.51559 9.26059 8.49509 9.40407L8.08203 12.2955L12.2338 7.22114C12.2495 7.20196 12.2643 7.18385 12.2782 7.16673C12.2562 7.1667 12.2328 7.1667 12.208 7.1667H8.00012C7.85517 7.1667 7.71736 7.1038 7.62239 6.9943C7.52742 6.8848 7.48464 6.73948 7.50514 6.59599L7.9182 3.70455Z"
-                            fill="white" />
-                    </svg>
-                    <svg class="custom-icon1" *ngIf="selectedContract?.BusinessSectorText === 'Gaz'"
-                        xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 10 17" fill="none">
-                        <path
-                            d="M7.0404 5.13914C6.07438 3.41048 5.09734 2.12417 5.08632 2.11253L5 2L4.91368 2.11253C4.9045 2.12611 3.92562 3.41048 2.9596 5.13914C1.65932 7.4673 1 9.45011 1 11.0294C1 14.3276 2.34619 16 5 16C7.65381 16 9 14.3276 9 11.0294C9 9.45011 8.34068 7.4673 7.0404 5.13914ZM3.2259 13.5011C3.2259 11.9781 4.63636 9.94485 5 9.44429C5.36547 9.94485 6.7741 11.9762 6.7741 13.5011C6.7741 15.0261 6.19376 15.7148 5 15.7148C3.80624 15.7148 3.2259 14.9911 3.2259 13.5011ZM6.16804 15.6314C6.71717 15.255 6.99633 14.5449 6.99633 13.5011C6.99633 11.6774 5.16345 9.28326 5.08632 9.18237L5.00184 9.07178L4.91735 9.18237C4.84022 9.28326 3.00735 11.6774 3.00735 13.5011C3.00735 14.543 3.2865 15.255 3.83563 15.6314C2.08356 15.1968 1.22406 13.6815 1.22406 11.0294C1.22406 7.66519 4.43251 3.14856 5.00367 2.37445C5.573 3.1505 8.78329 7.66713 8.78329 11.0294C8.78329 13.6815 7.92378 15.1968 6.17172 15.6314H6.16804Z"
-                            stroke="white" stroke-width="1.5" />
-                    </svg>
-
-                    <span class="details">{{ selectedContract?.BusinessSectorText }},</span>
-                    <span class="addres">n° {{ selectedContract?.ContractISU}}</span>
-                </div>
-
-                <div *ngIf="isOpen" class="options-list">
-                    <div *ngFor="let contract of contractts" class="option-item" (click)="selectContract(contract)">
-                        <div class="dropdown-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <path
-                                    d="M7.99967 14C10.333 11.6 12.6663 9.45097 12.6663 6.8C12.6663 4.14903 10.577 2 7.99967 2C5.42235 2 3.33301 4.14903 3.33301 6.8C3.33301 9.45097 5.66634 11.6 7.99967 14Z"
-                                    stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M7.99967 8C8.73605 8 9.33301 7.40305 9.33301 6.66667C9.33301 5.93029 8.73605 5.33333 7.99967 5.33333C7.26329 5.33333 6.66634 5.93029 6.66634 6.66667C6.66634 7.40305 7.26329 8 7.99967 8Z"
-                                    stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                        <span class="address">{{ contract.AddressCompteur }}</span>
-
-                        <svg class="custom-icon" *ngIf="contract?.BusinessSectorText === 'Electricité'"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M8.86784 1.54223C9.07332 1.63247 9.1935 1.84857 9.16176 2.07074L8.57662 6.1667L12.2278 6.1667C12.3904 6.16668 12.5448 6.16666 12.6691 6.17793C12.7886 6.18876 12.9847 6.21595 13.1521 6.35046C13.3509 6.51024 13.4656 6.75228 13.4633 7.00734C13.4615 7.22206 13.3583 7.39103 13.2911 7.49037C13.2211 7.59369 13.1233 7.7132 13.0203 7.83901L7.72043 14.3166C7.57832 14.4903 7.33788 14.5481 7.1324 14.4578C6.92692 14.3676 6.80674 14.1515 6.83848 13.9293L7.42361 9.83336L3.7724 9.83336C3.60983 9.83338 3.4554 9.8334 3.33112 9.82213C3.21163 9.8113 3.01555 9.78411 2.84818 9.6496C2.64936 9.48982 2.53466 9.24778 2.5369 8.99272C2.53878 8.778 2.6419 8.60903 2.70918 8.50969C2.77916 8.40637 2.87696 8.28686 2.97992 8.16105L8.27981 1.68341C8.42192 1.50972 8.66235 1.45199 8.86784 1.54223ZM7.9182 3.70455L3.76645 8.77892C3.75075 8.7981 3.73595 8.81621 3.72199 8.83332C3.74408 8.83335 3.76746 8.83336 3.79225 8.83336H8.00012C8.14506 8.83336 8.28288 8.89626 8.37784 9.00576C8.47281 9.11526 8.51559 9.26059 8.49509 9.40407L8.08203 12.2955L12.2338 7.22114C12.2495 7.20196 12.2643 7.18385 12.2782 7.16673C12.2562 7.1667 12.2328 7.1667 12.208 7.1667H8.00012C7.85517 7.1667 7.71736 7.1038 7.62239 6.9943C7.52742 6.8848 7.48464 6.73948 7.50514 6.59599L7.9182 3.70455Z"
-                                fill="white" />
+                <img src="/images/photo a la une.jpg">
+                <div class="icon-service">
+                    <div class="icon-frame">Service</div>
+                    <div class="text-frame">Esprit tranquille avec le contrat<br> Assistance Dépannage</div>
+                    <div class="iconn" (click)="navigateToService()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-
-
-                        <svg class="custom-icon1" *ngIf="contract?.BusinessSectorText === 'Gaz'"
-                            xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 10 17" fill="none">
-                            <path
-                                d="M7.0404 5.13914C6.07438 3.41048 5.09734 2.12417 5.08632 2.11253L5 2L4.91368 2.11253C4.9045 2.12611 3.92562 3.41048 2.9596 5.13914C1.65932 7.4673 1 9.45011 1 11.0294C1 14.3276 2.34619 16 5 16C7.65381 16 9 14.3276 9 11.0294C9 9.45011 8.34068 7.4673 7.0404 5.13914ZM3.2259 13.5011C3.2259 11.9781 4.63636 9.94485 5 9.44429C5.36547 9.94485 6.7741 11.9762 6.7741 13.5011C6.7741 15.0261 6.19376 15.7148 5 15.7148C3.80624 15.7148 3.2259 14.9911 3.2259 13.5011ZM6.16804 15.6314C6.71717 15.255 6.99633 14.5449 6.99633 13.5011C6.99633 11.6774 5.16345 9.28326 5.08632 9.18237L5.00184 9.07178L4.91735 9.18237C4.84022 9.28326 3.00735 11.6774 3.00735 13.5011C3.00735 14.543 3.2865 15.255 3.83563 15.6314C2.08356 15.1968 1.22406 13.6815 1.22406 11.0294C1.22406 7.66519 4.43251 3.14856 5.00367 2.37445C5.573 3.1505 8.78329 7.66713 8.78329 11.0294C8.78329 13.6815 7.92378 15.1968 6.17172 15.6314H6.16804Z"
-                                stroke="white" stroke-width="1.5" />
-                        </svg>
-
-                        <span class="details">{{ contract.BusinessSectorText }},</span>
-                        <span class="addres">n° {{ contract.ContractISU}}</span>
                     </div>
                 </div>
-                <div class="dropdown-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </div>
-            </div>
+            </p-panel>
         </div>
-    </div>
+
+        <div class="col-8  mb-3">
+            <p-panel>
+                <ng-template #header>
+                    <div class="flex items-center gap-2">
+                        <h5>Notre sélection d’articles</h5>
+
+                        <div class="button-containerr">
+                            <p>Voir tous les articles → </p>
+                        </div>
+                    </div>
+                </ng-template>
+
+
+                <div class="header">
+                    <div class="cardd">
+                        <div class="card-image">
+                            <img class="image" src="/images/Rectangle 1477 (8).png">
+                        </div>
+                        <div class="card-text">
+                            <div class="card-title">Production d’électricité</div>
+                            <br>
+                            <div class="card-description">Comment GEG produit son électricité</div>
+                            <div class="button-containerr">
+                                <p>Voir l'article → </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cardd">
+                        <div class="card-image">
+                            <img class="image" src="/images/Rectangle 1477 (9).png">
+                        </div>
+                        <div class="card-text">
+                            <div class="card-title">Consommation cachée, même éteints, ils consomment</div>
+                            <div class="card-description">Découvrez les bons gestes à adopter </div>
+                            <div class="button-containerr">
+                                <p>Voir l'article → </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cardd">
+                        <div class="card-image">
+                            <img class="image" src="/images/Rectangle 1477 (10).png">
+                        </div>
+                        <div class="card-text">
+                            <div class="card-title">Voiture électrique</div>
+                            <div class="card-description">Tout comprendre sur les atouts et points faibles</div>
+                            <div class="button-containerr">
+                                <p>Voir l'article → </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div> -->
+
 
     <div class="consumption-wrapper" [ngClass]="theme">
         <div class="consumption-container">
@@ -521,3 +517,8 @@
                             <p>Voir l'article → </p>
                         </div><br><br><br><br>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
