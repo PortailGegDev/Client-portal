@@ -16,7 +16,7 @@ export class ConsumptionHttpService {
 
   constructor(private http: HttpClient) { }
 
-  Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com:443/CataloguePortail_QF1/ZA_MeterReadingDocument?sap-client={{mandant}}&$format=json&$filter=ContractISU";
+  Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_MeterReadingDocument?sap-client={{mandant}}&$format=json&$filter=ContractISU";
   fetchConsumptionData(contractNumber: string): Observable<ApiResponseConsumption> {
     let url = `${this.Url} eq '${contractNumber}'`;
 
