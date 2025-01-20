@@ -35,6 +35,10 @@ export class AuthService {
 
           this.getUserBp(this.currentUser.email).subscribe({
             next: (jsonUserDataResponse: any) => {
+              console.log('json', jsonUserDataResponse);
+              console.log('bp', jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid);
+              console.log('organization', jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization);
+
               this.currentUser!.bp = jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
               this.currentUser!.organization = jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
