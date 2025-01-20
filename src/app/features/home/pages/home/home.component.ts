@@ -198,6 +198,8 @@ export class AppHomeComponent {
         },
       },
     };
+
+    this.loadConsumptionChart(consumptions);
   }
 
   convertSAPDate(sapDate: string): string | null {
@@ -223,10 +225,10 @@ export class AppHomeComponent {
   }
 
   ngAfterViewInit() {
-    this.loadConsumptionChart();
+    // this.loadConsumptionChart();
   }
 
-  loadConsumptionChart() {
+  loadConsumptionChart(consumptions: any[]) {
     const ctx = document.getElementById(
       "consumptionChart"
     ) as HTMLCanvasElement;
@@ -235,10 +237,15 @@ export class AppHomeComponent {
         type: "bar",
         plugins: [ChartDataLabels],
         data: {
-          labels: ["Mai", "Juin", "Juillet", "Août"],
+          labels: [
+            `${getMonthNameByMonthNumber(consumptions[3].monthNumber)} (kWh)`,
+            `${getMonthNameByMonthNumber(consumptions[2].monthNumber)} (kWh)`,
+            `${getMonthNameByMonthNumber(consumptions[1].monthNumber)} (kWh)`,
+            `${getMonthNameByMonthNumber(consumptions[0].monthNumber)} (kWh)`
+          ],
           datasets: [
             {
-              data: this.consumptionData,
+              data: [consumptions[3].value, consumptions[2].value, consumptions[1].value, consumptions[0].value],
               backgroundColor: ["#ffb74d", "#ffb74d", "#ffb74d", "#ffb74d"],
               categoryPercentage: 0.97, // l'espace entre les barres
             },

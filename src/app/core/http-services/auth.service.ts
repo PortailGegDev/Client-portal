@@ -42,6 +42,7 @@ export class AuthService {
               this.currentUser!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
               this.localStorageService.setItem('user', this.currentUser);
+              this.currentUserSubject.next(this.currentUser!);
             }
             , error: (error) => {
               console.error('Failed to fetch token:', error);
