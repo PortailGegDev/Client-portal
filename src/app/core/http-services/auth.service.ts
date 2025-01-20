@@ -80,7 +80,7 @@ export class AuthService {
       .pipe(
         catchError(error => {
           console.error('Erreur lors de la requête:', error);
-          return throwError(error);
+          return throwError(() => new Error('Erreur lors de la requête:', error));
         })
       );
   }

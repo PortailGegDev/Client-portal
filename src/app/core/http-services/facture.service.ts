@@ -30,7 +30,7 @@ export class FactureService {
       contractId = '0350103717'
     }
 
-    let url = `${this.Url}?$format=json&amp;$filter=ISUContract eq ${contractId}"`;
+    let url = `${this.Url}?$format=json&amp;$filter=ISUContract eq '${contractId}'`;
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,

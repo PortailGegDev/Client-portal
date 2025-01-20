@@ -21,7 +21,7 @@ export class ContractService {
 
           if (response?.d?.results) {
             this.contracts = response.d.results; // Récupère le tableau de résultats
-  
+
             if (this.contracts.length > 0) {
               this.selectedContract = this.contracts[0]; // Le premier contrat sera sélectionné par défaut
               this.contractSubject.next(this.selectedContract);
@@ -33,6 +33,11 @@ export class ContractService {
           return this.contracts;
         })
       );
+  }
+
+  changeContract(contract: any) {
+    this.selectedContract = contract;
+    this.contractSubject.next(this.selectedContract);
   }
 
 }

@@ -108,12 +108,15 @@ export class ContractHttpService {
   }
 
 
-  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
+  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
+  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
+
   
   fetchContractISU(bp: string | null): Observable<any> {
 
     if (!bp) {
-      bp = '1510060116';
+      //bp = '1510060116'; // bp consommation pour QF1
+      bp='1510023652'; // bp liste de contrats pour DF1
     }
 
     const url = `${this.Url3}?$format=json&$filter=BusinessPartnerId eq '${bp}'`;

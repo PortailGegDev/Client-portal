@@ -28,14 +28,15 @@ export class ActiveContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const bp = this.authService.getUserData().bp;
+    const bp = this.authService.getUserData()?.bp;
 
-    if(!bp){
-      console.error('Pas de bp lié à cet utilisateur');
-      return;
+    // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
+    if (!bp) {
+      // console.error('Pas de bp lié à cet utilisateur');
+      // return;
     }
 
-    this.contractService.getContracts(bp).subscribe({
+    this.contractService.getContracts(bp!).subscribe({
       next: (contracts) => {
         this.contracts = contracts;
 
@@ -44,5 +45,10 @@ export class ActiveContractComponent implements OnInit {
         }
       }
     });
+  }
+
+  onChangeContract(event: any) {
+    this.selectedContract = event.value
+    this.contractService.changeContract(this.selectedContract);
   }
 }

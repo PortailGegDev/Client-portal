@@ -3,7 +3,7 @@
     &nbsp;
     <p-badge [value]="contractCount" [style]="{'background': '#586022' }" />
     &nbsp;&nbsp;
-    <p-select [options]="contracts" [(ngModel)]="selectedContract" class="w-full md:w-56" [style]="{'width': '80%'}">
+    <p-select [options]="contracts" [(ngModel)]="selectedContract" (onChange)="onChangeContract($event)" class="w-full md:w-56" [style]="{'width': '80%'}">
         <ng-template #selectedItem let-selectedOption>
             <div class="flex gap-2" style="display: flex;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
