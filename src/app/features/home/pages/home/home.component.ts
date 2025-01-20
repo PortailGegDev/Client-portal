@@ -52,11 +52,7 @@ export class AppHomeComponent {
 
     this.contractServicee.contract$.subscribe((data) => {
       this.selectContract = data;
-
-      data.ContractISU = '0350000912';
       this.loadConsumption(data.ContractISU);
-
-      debugger
     });
   }
 

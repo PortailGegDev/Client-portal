@@ -41,8 +41,6 @@ export class ActiveContractComponent implements OnInit {
 
         if (contracts.length > 0) {
           this.selectedContract = contracts[0]
-
-
         }
       }
     });
