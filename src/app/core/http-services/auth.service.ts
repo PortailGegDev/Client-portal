@@ -33,13 +33,10 @@ export class AuthService {
             displayName: data.displayName
           };
 
+          // récupération de pb
           this.getUserBp(this.currentUser.email).subscribe({
             next: (jsonUserDataResponse: any) => {
-              const resource = jsonUserDataResponse.Resources[0]; // Premier objet dans Resources
-
-              console.log('json', resource);
-              console.log('bp', resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid);
-              console.log('organization', resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization);
+              const resource = jsonUserDataResponse.Resources[0];
 
               this.currentUser!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
               this.currentUser!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;

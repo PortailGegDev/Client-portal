@@ -5,6 +5,7 @@ import { PanelModule } from 'primeng/panel';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ContractService } from '../../../core/services/contract.service';
+import { AuthService } from '../../../core/http-services/auth.service';
 
 @Component({
   selector: 'app-active-contract',
@@ -22,16 +23,25 @@ export class ActiveContractComponent implements OnInit {
     return this.contractService.contracts.length;
   }
 
-  constructor(private contractService: ContractService) { }
+  constructor(private contractService: ContractService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    this.contractService.getContracts().subscribe({
+    const bp = this.authService.getUserData().bp;
+
+    if(!bp){
+      console.error('Pas de bp lié à cet utilisateur');
+      return;
+    }
+
+    this.contractService.getContracts(bp).subscribe({
       next: (contracts) => {
         this.contracts = contracts;
 
-        if (contracts.length > 0) { 
-          this.selectedContract = contracts[0] 
-          
+        if (contracts.length > 0) {
+          this.selectedContract = contracts[0]
+
 
         }
       }

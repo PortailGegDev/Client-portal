@@ -506,7 +506,7 @@ export class AppInvoicesComponent {
 
   contractts: any[] = [];
   fetchContracts(): void {
-    this.contractService.fetchContractISU().subscribe(
+    this.contractService.fetchContractISU(null).subscribe(
       (data) => {
         console.log('Données reçues:', data); // Affiche les données reçues dans la console
         if (data?.d?.results) {

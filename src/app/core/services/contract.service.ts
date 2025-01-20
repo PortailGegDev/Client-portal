@@ -14,8 +14,8 @@ export class ContractService {
 
   constructor(private contractHttpService: ContractHttpService) { }
 
-  getContracts(): Observable<any> {
-    return this.contractHttpService.fetchContractISU()
+  getContracts(bp: string): Observable<any> {
+    return this.contractHttpService.fetchContractISU(bp)
       .pipe(
         map((response: any) => {
 
