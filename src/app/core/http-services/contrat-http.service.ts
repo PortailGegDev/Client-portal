@@ -113,7 +113,7 @@ export class ContractHttpService {
   fetchContractISU(bp: string | null): Observable<any> {
 
     if (!bp) {
-      bp = '1510000926';
+      bp = '1510060116';
     }
 
     const url = `${this.Url3}?$format=json&$filter=BusinessPartnerId eq '${bp}'`;
