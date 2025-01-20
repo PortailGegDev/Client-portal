@@ -70,7 +70,7 @@
 
                 <p>CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
 
-                <div class="row">
+                <div class="row" style="margin-top: 50px;">
                     <div *ngIf="lastFacture?.statut === 'A payer'" class="col-md-12 mb-3">
                         <div class="invoice-status">
                             <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-2">
                         <div class="styled-box">
                             <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
                                 viewBox="0 0 24 25" fill="none">
@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-4">
                         <div class="styled-box" style="margin-top: 10px;">
                             <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
                                 viewBox="0 0 24 25" fill="none">
@@ -132,7 +132,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12" style="margin-bottom: 50px;">
                         <button class="details-button" (click)="navigateToDocument()">
                             <b> Voir tous les documents → </b>
                         </button>
@@ -141,10 +141,8 @@
             </p-panel>
         </div>
 
-        <div class="col-md-3 mb-3">
-            <p-panel>
-
-
+        <div class="col-md-2 mb3">
+            <div class="row">
                 <div class="container">
                     <div class="wrapper" *ngIf="theme === 'geg'">
                         <div class="slide">
@@ -193,7 +191,8 @@
                             <!-- <div class="payment-iconn payment-icon3"></div> -->
                             <div class="text-content">
                                 <div class="text-title">Un projet d'économies d'énergie ?</div>
-                                <div class="text-subtitle1">GEG vous aide à financer vos travaux avec la prime CEE</div>
+                                <div class="text-subtitle1">GEG vous aide à financer vos travaux avec la prime CEE
+                                </div>
                                 <div class="button-container1">
                                     <div class="button-content">
                                         <div class="button-text">Demander</div>
@@ -282,7 +281,7 @@
 
                     </div>
                 </div>
-            </p-panel>
+            </div>
         </div>
     </div>
 

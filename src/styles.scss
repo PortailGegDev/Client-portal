@@ -153,6 +153,17 @@
   margin-left: 75px;
   background: var(--Semantic-Danger, #FF6C00);
 }
+
+.container {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  transform: translate(-48%, 1%);
+  top: 50%;
+  left: 50%;
+  height: 354px;
+  overflow: hidden;
+}
 // Menu
 .p-menubar-item:not(.p-disabled)>.p-menubar-item-content:hover {
   background-color: transparent !important;
