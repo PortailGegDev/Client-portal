@@ -242,7 +242,11 @@ export class AppHomeComponent {
           datasets: [
             {
               data: [consumptions[3].value, consumptions[2].value, consumptions[1].value, consumptions[0].value],
-              backgroundColor: ["#ffb74d", "#ffb74d", "#ffb74d", "#ffb74d"],
+              backgroundColor: [
+                'rgba(255, 108, 0, 0.10)',
+                'rgba(255, 108, 0, 0.10',
+                'rgba(255, 108, 0, 0.20)',
+                'rgba(255, 108, 0, 0.30)'],
               categoryPercentage: 0.97, // l'espace entre les barres
             },
           ],
@@ -252,7 +256,7 @@ export class AppHomeComponent {
           maintainAspectRatio: false, // Permet de maintenir le ratio d'aspect
           plugins: {
             legend: {
-              display: false,
+              display: true,
             },
             datalabels: {
               color: "black",
@@ -264,14 +268,14 @@ export class AppHomeComponent {
                 weight: "bold",
               },
               formatter: (value, context) => {
-                const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
-                return `${value} kWh\n${month}`;
+                // const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
+                // return `${value} kWh\n${month}`;
               },
             },
           },
           scales: {
             x: {
-              display: false,
+              display: true,
             },
             y: {
               display: false,
