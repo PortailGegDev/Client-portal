@@ -33,10 +33,9 @@ export class AuthService {
             displayName: data.displayName
           };
 
-          debugger
-          let test = await firstValueFrom(this.getUserBp(this.currentUser.email));
-          console.log('test ', test);
-          debugger
+          let jsonUserDataResponse = await firstValueFrom(this.getUserBp(this.currentUser.email));
+          this.currentUser.bp =jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
+          this.currentUser.organization =jsonUserDataResponse["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
           this.localStorageService.setItem('user', this.currentUser);
           this.currentUserSubject.next(this.currentUser);
@@ -67,7 +66,7 @@ export class AuthService {
 
   getUserBp(email: string): Observable<any> {
     let url = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/IdDS_SCIM/Users?filter=emails.value eq "${email}"`;
-    
+
     return this.http.get<any>(url)
       .pipe(
         catchError(error => {
