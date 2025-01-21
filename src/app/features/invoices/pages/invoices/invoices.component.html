@@ -4,7 +4,13 @@
 <link rel="stylesheet" href="./invoices.component.scss">
 <div class="factures-container" [ngClass]="theme">
   <h1>Factures</h1>
-  <div class="contracts-container">
+
+  <div class="row">
+    <div class="col-12 mb-3">
+        <app-active-contract />
+    </div>
+</div>
+  <!-- <div class="contracts-container">
     <div class="headerr">
       <label for="active-contracts"><b>Tous mes contrats</b></label>
       <div class="badge">
@@ -86,7 +92,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="facture-container">
     <div class="filters">

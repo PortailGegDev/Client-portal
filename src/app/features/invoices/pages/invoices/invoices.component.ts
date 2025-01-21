@@ -7,6 +7,10 @@ import * as moment from 'moment';
 import jsPDF from 'jspdf';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
+import { ContractService } from '../../../../core/services/contract.service';
+
+
 
 interface Facture {
   selected?: boolean;
@@ -18,7 +22,7 @@ interface Facture {
 
 @Component({
   selector: 'app-invoices',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,ActiveContractComponent],
   templateUrl: './invoices.component.html',
   styleUrl: './invoices.component.scss',
 })
@@ -26,10 +30,21 @@ export class AppInvoicesComponent {
   constructor(
     private router: Router,
     private contractService: ContractHttpService,
+    private contractServicee: ContractService,
     private factureService: FactureService,
-    private brandService: BrandService
-  ) {}
-
+    private brandService: BrandService,
+  ) {
+    this.contractServicee.contract$.subscribe((data) => {
+      this.selectContract = data;
+      // if (!data || !data.ISUContract )
+      // {
+      //   data.ISUContract='0350112218'
+      // }
+      this.loadFacture(data.ISUContract);
+    });
+    
+  }
+  
   @ViewChild('startPickerInput') startPickerInput: ElementRef | undefined;
   @ViewChild('endPickerInput') endPickerInput: ElementRef | undefined;
 
@@ -220,10 +235,10 @@ export class AppInvoicesComponent {
   selectedFacture: any | null = null; // Facture sélectionnée
   theme: string = '';
   ngOnInit(): void {
-    this.fetchFactures(); // Récupère les factures au démarrage
+    // this.fetchFactures(); // Récupère les factures au démarrage
     this.theme = this.brandService.getBrand();
     this.selectedContract = this.contractts[0];
-    this.fetchContracts();
+    // this.fetchContracts();
   }
 
   fetchFactures(): void {
@@ -504,28 +519,20 @@ export class AppInvoicesComponent {
     this.selectedContract = contract;
   }
 
-  contractts: any[] = [];
-  fetchContracts(): void {
-    this.contractService.fetchContractISU(null).subscribe(
-      (data) => {
-        console.log('Données reçues:', data); // Affiche les données reçues dans la console
-        if (data?.d?.results) {
-          this.contractts = data.d.results; // Récupère le tableau de résultats
-          console.log(this.businessSectorText);
-          if (this.contractts.length > 0) {
-            this.selectedContract = this.contractts[0]; // Le premier contrat sera sélectionné par défaut
-          }
-        } else {
-          console.error('Aucune donnée trouvée.');
-          this.contractts = []; // Assure que contractts est un tableau vide si aucune donnée n'est trouvée
-        }
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
-        this.contractts = []; // Assure que contractts reste vide en cas d'erreur
-      }
-    );
-  }
+  // contractts: any[] = [];
+  // fetchContracts(contractId: string): void {
+  //   this.factureService.fetchFactures(contractId).subscribe({
+  //     next: (response) => {
+  //       const factures = response.d.results;
+  //       // Handle the factures data as needed
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
+  //       this.contractts = []; // Assure que contractts reste vide en cas d'erreur
+  //     }
+  //   });
+  // }
+  
 
   hpItems: number[] = [0, 0, 0, 0, 0]; // Maintenant 5 éléments pour HP
   hcItems: number[] = [0, 0, 0, 0, 0]; // Maintenant 5 éléments pour HC
@@ -549,4 +556,19 @@ export class AppInvoicesComponent {
     this.estimatedAmount = (totalHp + totalHc) * 0.85; // Exemple de logique de calcul
     this.isCalculated = true; // Marque que le calcul est terminé
   }
-}
+
+
+  contractts: any[] = [];
+  loadFacture(contractId: string): void{
+
+    this.factureService.fetchFactures(contractId).subscribe({
+      next: (response) => {
+        const factures = response.d.results;
+        this.heroes=factures;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
+        this.contractts = []; // Assure que contractts reste vide en cas d'erreur
+      }
+    });
+}}

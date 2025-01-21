@@ -29,6 +29,7 @@ export class ActiveContractComponent implements OnInit {
 
   ngOnInit() {
     const bp = this.authService.getUserData()?.bp;
+    console.log('bp',bp)
 
     // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
     if (!bp) {
@@ -37,8 +38,11 @@ export class ActiveContractComponent implements OnInit {
     }
 
     this.contractService.getContracts(bp!).subscribe({
+    
       next: (contracts) => {
         this.contracts = contracts;
+        console.log(contracts);
+
 
         if (contracts.length > 0) {
           this.selectedContract = contracts[0]
