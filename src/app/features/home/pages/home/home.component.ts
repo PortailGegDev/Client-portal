@@ -11,15 +11,23 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../core/models/user.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
+import { CarouselModule } from 'primeng/carousel';
 import { ConsumptionService } from '../../../../core/services/consumption.service';
 import { ChartConsumption } from '../../../../core/models/chart-consumption.model';
 import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
 import { ContractService } from '../../../../core/services/contract.service';
+import { ButtonModule } from 'primeng/button';
+
+interface Carousel {
+  title: string;
+  subtitle: string;
+  img: boolean;
+}
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, PanelModule, ChartModule, ActiveContractComponent],
+  imports: [CommonModule, PanelModule, ChartModule, CarouselModule, ButtonModule, ActiveContractComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -30,6 +38,8 @@ export class AppHomeComponent {
   theme: string = "";
   currentUser?: User;
   basicData: any;
+  responsiveOptions: any[] | undefined;
+  carouselData: any[] = [];
 
   basicOptions: any;
   consumptions: ChartConsumption[] = [];
@@ -56,6 +66,19 @@ export class AppHomeComponent {
       this.loadLastFacture(data.ContractISU);
 
     });
+
+    this.http.get<{ carouselData: Carousel[] }>('/carousel.json').subscribe({
+      next: (data: any) => {
+        this.carouselData = data.carousel;
+        debugger
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des données de carousel :', error);
+      },
+      complete: () => {
+        console.log('Chargement des données de carousel terminé');
+      }
+    });
   }
 
   ngOnInit() {
@@ -65,6 +88,28 @@ export class AppHomeComponent {
     // this.loadLastFacture();
     this.currentUser = this.authService.getUserData();
 
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '575px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ]
   }
 
   lastFacture: { statut: string; TotalAmountHT: string; date: string | null } | null = null;
@@ -115,7 +160,7 @@ export class AppHomeComponent {
   }
 
   loadConsumption(contractNumber: string) {
-    contractNumber='0350103717';
+    contractNumber = '0350103717';
     this.consumptionService.getChartConsumptionData(contractNumber).subscribe({
       next: (consumptions) => {
         this.consumptions = consumptions

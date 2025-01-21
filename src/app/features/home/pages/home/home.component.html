@@ -4,13 +4,13 @@
 
 
     <div class="row">
-        <div class="col-12 mb-3">
+        <div class="col-8 mb-3">
             <app-active-contract />
         </div>
     </div>
 
-    <div class="row" style="align-items: stretch;">
-        <div class="col-md-6 mb-3">
+    <!-- <div class="row">
+        <div class="col-md-7 mb-3">
             <p-panel>
                 <ng-template #header>
                     <div class="flex items-center gap-2">
@@ -61,7 +61,7 @@
             </p-panel>
         </div>
         <div class="col-md-3 mb-3">
-            <p-panel>
+            <p-panel [style]="{'width': '100%', 'height': '100%'}">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
                         <h5>Mes documents</h5>
@@ -142,146 +142,26 @@
         </div>
 
         <div class="col-md-2 mb3">
-            <div class="row">
-                <div class="container">
-                    <div class="wrapper" *ngIf="theme === 'geg'">
-                        <div class="slide">
-                            <img src="/images/img.png" alt="Image 1">
-                            <div class="payment-iconn payment-icon1"></div>
-                            <div class="text-content">
-                                <div class="text-title">Relevez vos index</div>
-                                <div class="text-subtitle">Il est temps de faire votre auto-relève</div>
-                                <div class="button-container">
-                                    <div class="button-content">
-                                        <div class="button-text">Relever</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path d="M5 10.0002H15M15 10.0002L10.8333 5.8335M15 10.0002L10.8333 14.1668"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
+            <p-carousel [value]="carouselData" [numVisible]="1" [numScroll]="1" [circular]="true"
+                [showNavigators]="false" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+                <ng-template let-carousel #item>
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="{{ carousel.img }}" [alt]="carousel.title" class="w-full rounded-border" />
                             </div>
                         </div>
-
-
-
-                        <div class="slide">
-                            <img src="/images/img (1).png" alt="Image 1">
-                            <div class="payment-iconn payment-icon2"></div>
-                            <div class="text-content">
-                                <div class="text-title1">Chèque énergie</div>
-                                <div class="text-subtitle">Ce mois-ci saisissez votre chèque énergie</div>
-                                <div class="button-container">
-                                    <div class="button-content">
-                                        <div class="button-text">Saisir</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path d="M5 10.0002H15M15 10.0002L10.8333 5.8335M15 10.0002L10.8333 14.1668"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="/images/img (2).png" alt="Image 1">
-                            <!-- <div class="payment-iconn payment-icon3"></div> -->
-                            <div class="text-content">
-                                <div class="text-title">Un projet d'économies d'énergie ?</div>
-                                <div class="text-subtitle1">GEG vous aide à financer vos travaux avec la prime CEE
-                                </div>
-                                <div class="button-container1">
-                                    <div class="button-content">
-                                        <div class="button-text">Demander</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path
-                                            d="M5.83301 14.1668L14.1663 5.8335M14.1663 5.8335H6.66634M14.1663 5.8335V13.3335"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </div>
+                        <div class="mb-4 font-medium">{{ carousel.title }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ carousel.subtitle }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
                         </div>
                     </div>
-                    <div class="wrapper" *ngIf="theme === 'yeli'">
-                        <div class="slide">
-                            <img src="/images/yeli1.gif" alt="Image 1">
-                            <div class="payment-iconn payment-icon1"></div>
-                            <div class="text-content">
-                                <div class="text-title">Renouvelez votre contrat</div>
-                                <div class="text-subtitle">Votre contrat arrive à échéance</div>
-                                <div class="button-container">
-                                    <div class="button-content">
-                                        <div class="button-text">Demander</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path d="M5 10.0002H15M15 10.0002L10.8333 5.8335M15 10.0002L10.8333 14.1668"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="slide">
-                            <img src="/images/img (4).png" alt="Image 1">
-                            <svg class="paymen-iconn " xmlns="http://www.w3.org/2000/svg" width="92" height="100"
-                                viewBox="0 0 92 100" fill="none">
-                                <g filter="url(#filter0_ddd_4148_5516)">
-                                    <rect x="12" y="16" width="60" height="60" rx="30" fill="white" />
-                                    <circle cx="50" cy="54" r="10" fill="#84D8E9" style="mix-blend-mode:multiply" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M26 37H58V54H26V37ZM24 37C24 35.8954 24.8954 35 26 35H58C59.1046 35 60 35.8954 60 37V54C60 55.1046 59.1046 56 58 56H26C24.8954 56 24 55.1046 24 54V37ZM30.6152 41.7727H40.4614L40.4614 44.4545L30.6152 44.4545L30.6152 41.7727ZM28.6152 41.7727C28.6152 40.6682 29.5107 39.7727 30.6152 39.7727H40.4614C41.566 39.7727 42.4614 40.6682 42.4614 41.7727V44.4545C42.4614 45.5591 41.566 46.4545 40.4614 46.4545H30.6152C29.5107 46.4545 28.6152 45.5591 28.6152 44.4545V41.7727ZM45.1538 40.7273C45.1538 40.175 45.6015 39.7273 46.1538 39.7273H54.4615C55.0138 39.7273 55.4615 40.175 55.4615 40.7273C55.4615 41.2796 55.0138 41.7273 54.4615 41.7273H46.1538C45.6015 41.7273 45.1538 41.2796 45.1538 40.7273ZM46.1538 45.3635C45.6015 45.3635 45.1538 45.8112 45.1538 46.3635C45.1538 46.9158 45.6015 47.3635 46.1538 47.3635H54.4615C55.0138 47.3635 55.4615 46.9158 55.4615 46.3635C55.4615 45.8112 55.0138 45.3635 54.4615 45.3635H46.1538Z"
-                                        fill="#1E1E1E" />
-                                </g>
-                            </svg>
-                            <div class="text-content">
-                                <div class="text-title">Chèque énergie</div>
-                                <div class="text-subtitl">Ce mois-ci saisissez votre chèque énergie</div>
-                                <div class="button-container">
-                                    <div class="button-content">
-                                        <div class="button-text">Saisir</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path d="M5 10.0002H15M15 10.0002L10.8333 5.8335M15 10.0002L10.8333 14.1668"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="slide">
-                            <img src="/images/img (2).png" alt="Image 1">
-                            <!-- <div class="payment-iconn payment-icon3"></div> -->
-                            <div class="text-content">
-                                <div class="text-title">Un projet d'économies d'énergie ?</div>
-                                <div class="text-sub">GEG vous aide à financer vos travaux avec la prime CEE</div>
-                                <div class="button-container1">
-                                    <div class="button-content">
-                                        <div class="button-text">Demander</div>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path
-                                            d="M5.83301 14.1668L14.1663 5.8335M14.1663 5.8335H6.66634M14.1663 5.8335V13.3335"
-                                            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                </ng-template>
+            </p-carousel>
         </div>
     </div>
 
@@ -363,7 +243,7 @@
                 </div>
             </p-panel>
         </div>
-    </div>
+    </div> -->
 
 
     <div class="consumption-wrapper" [ngClass]="theme">
