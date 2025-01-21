@@ -560,7 +560,7 @@ export class AppInvoicesComponent {
 
   contractts: any[] = [];
   loadFacture(contractId: string): void{
-
+    this.heroes=[];
     this.factureService.fetchFactures(contractId).subscribe({
       next: (response) => {
         const factures = response.d.results;
