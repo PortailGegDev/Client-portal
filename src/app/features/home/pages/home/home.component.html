@@ -2,250 +2,37 @@
     <h3>Bonjour {{ currentUser?.firstname }},</h3>
     <p>Bienvenue dans votre espace client</p>
 
-
     <div class="row">
-        <div class="col-8 mb-3">
+        <div class="col-12 mb-3">
             <app-active-contract />
         </div>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-7 mb-3">
-            <p-panel>
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <h5>Ma consommation</h5>
-                    </div>
-                </ng-template>
-
-                <div class="row">
-                    <div class="col">
-                        <p>SUR LES 4 DERNIERS MOIS</p>
-
-                        <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
-
-                        <p class="col-md-12 consumption-info">
-                            <span class="info-icon">i</span>
-                            Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
-                            estimées.
-                        </p>
-                    </div>
-
-                    <div class="col">
-                        <p>CE QUE JE DOIS</p>
-                        <br>
-                        <div class="col-md-12 payment">
-                            <div class="payment-box">
-                                <div class="payment-icon"></div>
-                                <p>{{ lastFacture?.TotalAmountHT }} €</p>
-                                <h2>Prochain prélèvement {{ lastFacture?.date }}</h2>
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <p class="col-md-12 consumption-info">
-                            <i class="fa-regular fa-calendar"></i>
-                            &nbsp;
-                            Paiement par prélèvement mensuel.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <button class="details-button" (click)="navigateToConsumption()"><b> Voir en détails →
-                            </b>
-                        </button>
-                    </div>
-                </div>
-            </p-panel>
+            <app-home-consumption [consumptions]="consumptions" [lastInvoice]="lastInvoice" />
         </div>
+
         <div class="col-md-3 mb-3">
-            <p-panel [style]="{'width': '100%', 'height': '100%'}">
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <h5>Mes documents</h5>
-                    </div>
-                </ng-template>
-
-                <p>CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
-
-                <div class="row" style="margin-top: 50px;">
-                    <div *ngIf="lastFacture?.statut === 'A payer'" class="col-md-12 mb-3">
-                        <div class="invoice-status">
-                            <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
-                            <h6>Une facture non-payée en attente.</h6>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-2">
-                        <div class="styled-box">
-                            <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                viewBox="0 0 24 25" fill="none">
-                                <circle class="circle" cx="15.5" cy="16.5" r="7.5" />
-                                <path
-                                    d="M13.4444 11.3284H17V16.7071C17 17.6973 16.2041 18.5 15.2222 18.5M13.4444 11.3284V16.7071C13.4444 17.6973 14.2404 18.5 15.2222 18.5M13.4444 11.3284V4.83554C13.4444 4.02391 13.4444 3.61809 13.2754 3.38275C13.1279 3.17746 12.9011 3.04475 12.6512 3.01746C12.3647 2.98618 12.0154 3.18753 11.3166 3.59021L11.039 3.75022C10.7818 3.89843 10.6532 3.97254 10.5166 4.00156C10.3957 4.02724 10.2709 4.02724 10.1501 4.00156C10.0135 3.97254 9.8849 3.89843 9.62771 3.75022L7.92784 2.7706C7.67065 2.62239 7.54205 2.54828 7.40548 2.51926C7.28464 2.49358 7.15981 2.49358 7.03896 2.51926C6.90239 2.54828 6.77379 2.62239 6.5166 2.7706L4.81673 3.75022C4.55954 3.89843 4.43094 3.97254 4.29437 4.00156C4.17353 4.02724 4.0487 4.02724 3.92785 4.00156C3.79128 3.97254 3.66268 3.89843 3.40549 3.75022L3.12784 3.59021C2.42909 3.18753 2.07971 2.98618 1.79322 3.01746C1.54331 3.04475 1.31654 3.17746 1.16907 3.38275C1 3.61809 1 4.02391 1 4.83554V14.1971C1 15.7032 1 16.4563 1.29065 17.0316C1.54631 17.5376 1.95426 17.949 2.45603 18.2069C3.02646 18.5 3.77319 18.5 5.26667 18.5H15.2222M4.55556 13.79H8.11111M4.55556 8.97341H7.22222H8.65812"
-                                    stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            <p>Dernière facture<br>{{ lastFacture?.date }}</p>
-
-                            <div *ngIf="lastFacture">
-                                <ng-container [ngSwitch]="lastFacture.statut">
-                                    <button class="bb" *ngSwitchCase="'A payer'" (click)="payFacture(facture)">
-                                        <b>à payer </b>
-                                    </button>
-                                    <img class="invoice-icon" *ngSwitchCase="'payer'" src="/images/Icons (1).svg"
-                                        alt="Télécharger" (click)="downloadPDF(facture)">
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-4">
-                        <div class="styled-box" style="margin-top: 10px;">
-                            <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                viewBox="0 0 24 25" fill="none">
-                                <g clip-path="url(#clip0_2920_28613)">
-                                    <circle class="circle" cx="16.5" cy="14.5" r="7.5" />
-                                    <path
-                                        d="M3.82696 7.24844V13.1153C3.82696 14.6501 3.82696 15.4175 4.12565 16.0037C4.38838 16.5193 4.80762 16.9386 5.32326 17.2013C5.90947 17.5 6.67687 17.5 8.21166 17.5H12.231C13.7657 17.5 14.5331 17.5 15.1194 17.2013C15.635 16.9386 16.0542 16.5193 16.317 16.0037C16.6157 15.4175 16.6157 14.6501 16.6157 13.1153V2.88434M18.4426 9.27869L13.4795 3.76491C12.3507 2.51092 11.7863 1.88392 11.1217 1.65245C10.5379 1.44914 9.90249 1.44919 9.31873 1.65258C8.6541 1.88415 8.08981 2.51123 6.96123 3.76539L2 9.27869M12.0483 17.5V12.0191H8.39435V17.5"
-                                        stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2920_28613">
-                                        <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <p>Justificatif de domicile<br>5 Mai 2023</p>
-                            <svg class="invoice-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                viewBox="0 0 24 25" fill="none">
-                                <path
-                                    d="M11.5131 15.6787L8.43362 12.6075C8.30304 12.4774 8.22964 12.3006 8.22964 12.1162C8.22964 11.9319 8.30304 11.7551 8.43362 11.625C8.70825 11.3619 9.14146 11.3619 9.41609 11.625L11.3067 13.5239V5.19351C11.3067 4.8105 11.6172 4.5 12.0002 4.5C12.3833 4.5 12.6938 4.8105 12.6938 5.19351V13.5239L14.5844 11.625C14.859 11.3619 15.2923 11.3619 15.5669 11.625C15.6975 11.7551 15.7709 11.9319 15.7709 12.1162C15.7709 12.3006 15.6975 12.4774 15.5669 12.6075L12.4874 15.6787C12.3603 15.8116 12.1841 15.8862 12.0002 15.8851C11.816 15.8882 11.6391 15.8133 11.5131 15.6787Z"
-                                    fill="#3A3A3A" />
-                                <path
-                                    d="M16.3099 8.9748H17.3089C19.3864 9.01994 21.0363 10.7363 20.9994 12.8139V15.9595C21.0363 18.037 19.3864 19.7534 17.3089 19.7985L6.69159 19.7325C4.61416 19.6873 2.96425 17.971 3.00112 15.8934V12.7478C2.97675 11.7457 3.3522 10.775 4.04458 10.0501C4.73697 9.3252 5.68937 8.90562 6.69159 8.88398H7.69058C8.07359 8.88398 8.38409 9.19448 8.38409 9.5775C8.38409 9.96051 8.07359 10.271 7.69058 10.271H6.69159C6.05641 10.2903 5.45538 10.563 5.02262 11.0284C4.58986 11.4937 4.36137 12.1129 4.38814 12.7478V15.8686C4.36137 16.5035 4.58986 17.1228 5.02262 17.5881C5.45538 18.0534 6.05641 18.3262 6.69159 18.3455L17.3089 18.4611C17.9441 18.4418 18.5451 18.169 18.9779 17.7037C19.4107 17.2383 19.6391 16.6191 19.6124 15.9842V12.8387C19.6391 12.2037 19.4107 11.5845 18.9779 11.1192C18.5451 10.6539 17.9441 10.3811 17.3089 10.3618H16.3099C15.9269 10.3618 15.6164 10.0513 15.6164 9.66831C15.6164 9.2853 15.9269 8.9748 16.3099 8.9748Z"
-                                    fill="#3A3A3A" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12" style="margin-bottom: 10px;">
-                        <button class="details-button" (click)="navigateToDocument()">
-                            <b> Voir tous les documents → </b>
-                        </button>
-                    </div>
-                </div>
-            </p-panel>
+            <app-home-documents [lastInvoice]="lastInvoice" />
         </div>
 
         <div class="col-md-2 mb3">
-            <p-carousel [value]="carouselData" [numVisible]="1" [numScroll]="1" [circular]="true"
-                [showNavigators]="false" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
-                <ng-template let-carousel #item>
-                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-                        <div class="mb-4">
-                            <div class="relative mx-auto">
-                                <img src="{{ carousel.img }}" [alt]="carousel.title" class="w-full rounded-border" />
-                            </div>
-                        </div>
-                        <div class="mb-4 font-medium">{{ carousel.title }}</div>
-                        <div class="flex justify-between items-center">
-                            <div class="mt-0 font-semibold text-xl">{{ carousel.subtitle }}</div>
-                            <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                            </span>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-carousel>
+            <app-home-carousel [carouselData]="carouselData" />
         </div>
     </div>
 
     <div class="row">
-        <div class="col-4 mb-3">
-            <p-panel>
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <h5>A la une</h5>
-                    </div>
-                </ng-template>
-
-                <img src="/images/photo a la une.jpg">
-                <div class="icon-service">
-                    <div class="icon-frame">Service</div>
-                    <div class="text-frame">Esprit tranquille avec le contrat<br> Assistance Dépannage</div>
-                    <div class="iconn" (click)="navigateToService()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-            </p-panel>
+        <div class="col-md-4">
+            <app-headline />
         </div>
 
-        <div class="col-8  mb-3">
-            <p-panel>
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <h5>Notre sélection d’articles</h5>
-
-                        <div class="button-containerr">
-                            <p>Voir tous les articles → </p>
-                        </div>
-                    </div>
-                </ng-template>
-
-
-                <div class="header">
-                    <div class="cardd">
-                        <div class="card-image">
-                            <img class="image" src="/images/Rectangle 1477 (8).png">
-                        </div>
-                        <div class="card-text">
-                            <div class="card-title">Production d’électricité</div>
-                            <br>
-                            <div class="card-description">Comment GEG produit son électricité</div>
-                            <div class="button-containerr">
-                                <p>Voir l'article → </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cardd">
-                        <div class="card-image">
-                            <img class="image" src="/images/Rectangle 1477 (9).png">
-                        </div>
-                        <div class="card-text">
-                            <div class="card-title">Consommation cachée, même éteints, ils consomment</div>
-                            <div class="card-description">Découvrez les bons gestes à adopter </div>
-                            <div class="button-containerr">
-                                <p>Voir l'article → </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cardd">
-                        <div class="card-image">
-                            <img class="image" src="/images/Rectangle 1477 (10).png">
-                        </div>
-                        <div class="card-text">
-                            <div class="card-title">Voiture électrique</div>
-                            <div class="card-description">Tout comprendre sur les atouts et points faibles</div>
-                            <div class="button-containerr">
-                                <p>Voir l'article → </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </p-panel>
+        <div class="col-md-8">
+            <app-articles />
         </div>
-    </div> -->
+    </div>
 
-
+    <!-- 
     <div class="consumption-wrapper" [ngClass]="theme">
         <div class="consumption-container">
 
@@ -286,7 +73,6 @@
             <h5>Mes documents</h5>
             <p>contrats, justificatifs, certificats...</p>
 
-            <!-- Cette partie est ajoutée pour afficher la phrase si la facture n'est pas payée -->
             <div *ngIf="lastFacture?.statut === 'A payer'" class="facture-alert">
                 <div class="invoice-status">
                     <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
@@ -294,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Styled box avec le ngSwitch pour les actions de la facture -->
             <div class="styled-box">
                 <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
                     fill="none">
@@ -305,7 +90,6 @@
                 </svg>
                 <p>Dernière facture<br>{{ lastFacture?.date }}</p>
 
-                <!-- Ajoutez le ngSwitch ici pour gérer les actions -->
                 <div *ngIf="lastFacture">
                     <ng-container [ngSwitch]="lastFacture.statut">
                         <button class="bb" *ngSwitchCase="'A payer'" (click)="payFacture(facture)">
@@ -355,9 +139,9 @@
                     <div class="slide">
                         <img src="/images/img.png" alt="Image 1">
                         <div class="payment-iconn payment-icon1"></div>
-                        <div class="text-content">
-                            <div class="text-title">Relevez vos index</div>
-                            <div class="text-subtitle">Il est temps de faire votre auto-relève</div>
+                        <div class="carousel-text-content">
+                            <div class="carousel-text-title">Relevez vos index</div>
+                            <div class="carousel-text-subtitle">Il est temps de faire votre auto-relève</div>
                             <div class="button-container">
                                 <div class="button-content">
                                     <div class="button-text">Relever</div>
@@ -395,7 +179,6 @@
                     </div>
                     <div class="slide">
                         <img src="/images/img (2).png" alt="Image 1">
-                        <!-- <div class="payment-iconn payment-icon3"></div> -->
                         <div class="text-content">
                             <div class="text-title">Un projet d'économies d'énergie ?</div>
                             <div class="text-subtitle1">GEG vous aide à financer vos travaux avec la prime CEE</div>
@@ -466,7 +249,6 @@
 
                     <div class="slide">
                         <img src="/images/img (2).png" alt="Image 1">
-                        <!-- <div class="payment-iconn payment-icon3"></div> -->
                         <div class="text-content">
                             <div class="text-title">Un projet d'économies d'énergie ?</div>
                             <div class="text-sub">GEG vous aide à financer vos travaux avec la prime CEE</div>
@@ -488,9 +270,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="consumption-wrapper" [ngClass]="theme">
+    <!-- <div class="consumption-wrapper" [ngClass]="theme">
         <div class="consumption-container2">
             <h5>A la une</h5>
             <img src="/images/photo a la une.jpg">
@@ -555,5 +337,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

@@ -1,0 +1,22 @@
+<div class="mb3" style="margin-top: 3px;">
+    <p-carousel [value]="carouselData" [numVisible]="1" [numScroll]="1" [circular]="true"
+        [showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions"
+        
+        autoplayInterval="3000">
+        <ng-template let-carousel #item>
+            <img src="{{ carousel.img }}" [alt]="carousel.title" class="w-full rounded-border"
+                style="width: 100%;" />
+                <div class="payment-iconn payment-icon1"></div>
+
+            <div class="carousel-text-content" style="width: 100%; height: 100%;">
+                <div class="carousel-text-title mb-2 font-medium">{{ carousel.title }}</div>
+                <div class="carousel-text-subtitle flex justify-between mb-4">
+                    <div class="mt-0 font-semibold text-xl">{{ carousel.subtitle }}</div>
+                </div>
+
+                <p-button label="{{ carousel.action }}" severity="secondary" icon="fa fa-solid fa-arrow-right"
+                    iconPos="right"/>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
