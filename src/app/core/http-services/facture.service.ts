@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Facture } from '../models/facture-model';
+import { Facture } from '../../shared/models/facture-model';
 
 interface ApiResponse {
   d: {

@@ -1,0 +1,19 @@
+{
+    "articles": [
+        {
+            "title": "Production d’électricité",
+            "description": "Comment GEG produit son électricité",
+            "img": "/images/Rectangle 1477 (8).png"
+        },
+        {
+            "title": "Consommation cachée, même éteints, ils consomment",
+            "description": "Découvrez les bons gestes à adopter",
+            "img": "/images/Rectangle 1477 (9).png"
+        },
+        {
+            "title": "Voiture électrique",
+            "description": "Tout comprendre sur les atouts et points faibles",
+            "img": "/images/Rectangle 1477 (10).png"
+        }
+    ]
+}

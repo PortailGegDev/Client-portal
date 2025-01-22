@@ -3,7 +3,7 @@ import { Chart } from 'chart.js/auto';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
-import { BrandService } from '../../../../core/services/brand.service';
+import { BrandService } from '../../../../shared/services/brand.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

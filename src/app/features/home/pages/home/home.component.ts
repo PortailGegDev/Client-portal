@@ -6,29 +6,23 @@ import { FactureService } from '../../../../core/http-services/facture.service';
 import { Chart, registerables } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { CommonModule } from '@angular/common';
-import { BrandService } from '../../../../core/services/brand.service';
+import { BrandService } from '../../../../shared/services/brand.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
-import { User } from '../../../../core/models/user.model';
+import { User } from '../../../../shared/models/user.model';
 import { ChartModule } from 'primeng/chart';
-import { ConsumptionService } from '../../../../core/services/consumption.service';
-import { ChartConsumption } from '../../../../core/models/chart-consumption.model';
+import { ConsumptionService } from '../../../consumption/services/consumption.service';
+import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
-import { ContractService } from '../../../../core/services/contract.service';
+import { ContractService } from '../../../../shared/services/contract.service';
 import { ButtonModule } from 'primeng/button';
 import { AppHomeCarouselComponent } from '../../components/carousel/carousel.component';
-import { Facture } from '../../../../core/models/facture-model';
+import { Facture } from '../../../../shared/models/facture-model';
 import { AppHomeDocumentsComponent } from '../../components/documents/documents.component';
 import { AppHomeConsumptionComponent } from '../../components/consumption/consumption.component';
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
-
-interface Carousel {
-  title: string;
-  subtitle: string;
-  img: string;
-  action: string;
-}
+import { Carousel } from '../../../../shared/models/carousel.model';
 
 @Component({
   selector: 'app-home',
@@ -61,18 +55,6 @@ export class AppHomeComponent {
       this.selectContract = data;
       this.loadConsumption(data.ContractISU);
       this.loadLastInvoice(data.ContractISU);
-    });
-
-    this.http.get<{ carouselData: Carousel[] }>('/carousel.json').subscribe({
-      next: (data: any) => {
-        this.carouselData = data.carousel;
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des données de carousel :', error);
-      },
-      complete: () => {
-        console.log('Chargement des données de carousel terminé');
-      }
     });
   }
 

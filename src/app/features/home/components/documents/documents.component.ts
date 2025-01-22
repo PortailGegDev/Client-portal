@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Facture } from '../../../../core/models/facture-model';
+import { Facture } from '../../../../shared/models/facture-model';
 import { convertSAPDate } from '../../../../shared/utils/date-utilities';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';

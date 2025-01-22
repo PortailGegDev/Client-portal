@@ -4,7 +4,7 @@ import { BadgeModule } from 'primeng/badge';
 import { PanelModule } from 'primeng/panel';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { ContractService } from '../../../core/services/contract.service';
+import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
 
 @Component({

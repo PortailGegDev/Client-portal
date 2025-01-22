@@ -7,7 +7,7 @@
 
     <p>CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
 
-    <div class="row" style="margin-top: 50px;">
+    <div class="row">
         @if(lastInvoiceData?.statut === 'A payer'){
         <div class="col-md-12 mb-3">
             <div class="invoice-status">
@@ -26,16 +26,22 @@
                         d="M13.4444 11.3284H17V16.7071C17 17.6973 16.2041 18.5 15.2222 18.5M13.4444 11.3284V16.7071C13.4444 17.6973 14.2404 18.5 15.2222 18.5M13.4444 11.3284V4.83554C13.4444 4.02391 13.4444 3.61809 13.2754 3.38275C13.1279 3.17746 12.9011 3.04475 12.6512 3.01746C12.3647 2.98618 12.0154 3.18753 11.3166 3.59021L11.039 3.75022C10.7818 3.89843 10.6532 3.97254 10.5166 4.00156C10.3957 4.02724 10.2709 4.02724 10.1501 4.00156C10.0135 3.97254 9.8849 3.89843 9.62771 3.75022L7.92784 2.7706C7.67065 2.62239 7.54205 2.54828 7.40548 2.51926C7.28464 2.49358 7.15981 2.49358 7.03896 2.51926C6.90239 2.54828 6.77379 2.62239 6.5166 2.7706L4.81673 3.75022C4.55954 3.89843 4.43094 3.97254 4.29437 4.00156C4.17353 4.02724 4.0487 4.02724 3.92785 4.00156C3.79128 3.97254 3.66268 3.89843 3.40549 3.75022L3.12784 3.59021C2.42909 3.18753 2.07971 2.98618 1.79322 3.01746C1.54331 3.04475 1.31654 3.17746 1.16907 3.38275C1 3.61809 1 4.02391 1 4.83554V14.1971C1 15.7032 1 16.4563 1.29065 17.0316C1.54631 17.5376 1.95426 17.949 2.45603 18.2069C3.02646 18.5 3.77319 18.5 5.26667 18.5H15.2222M4.55556 13.79H8.11111M4.55556 8.97341H7.22222H8.65812"
                         stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
+                &nbsp; &nbsp;
                 <p>Dernière facture<br>{{ lastInvoiceData?.date }}</p>
 
                 @if(lastInvoiceData){
                 <div>
-                    <ng-container [ngSwitch]="lastInvoiceData.statut">
-                        <button class="bb" *ngSwitchCase="'A payer'" (click)="payFacture(lastInvoiceData)">
+                    <ng-container>
+                        @switch (lastInvoiceData.statut) {
+                        @case ('A payer') {
+                        <button class="bb" (click)="payFacture(lastInvoiceData)">
                             <b>à payer </b>
-                        </button>
-                        <img class="invoice-icon" *ngSwitchCase="'payer'" src="/images/Icons (1).svg" alt="Télécharger"
+                        </button> }
+                        @case ('payer') {
+                        <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger"
                             (click)="downloadPDF(lastInvoiceData)">
+                        }
+                        }
                     </ng-container>
                 </div>
                 }
@@ -58,6 +64,7 @@
                         </clipPath>
                     </defs>
                 </svg>
+                &nbsp; &nbsp;
                 <p>Justificatif de domicile<br>5 Mai 2023</p>
                 <svg class="invoice-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
                     fill="none">

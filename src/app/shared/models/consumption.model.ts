@@ -1,6 +1,3 @@
-import moment from "moment";
-import { convertSAPDate } from "../../shared/utils/date-utilities";
-
 // TODO : Vérfier les valeurs nullable et modifier le model
 export class Consumption {
     meterReadingDocument!: string;

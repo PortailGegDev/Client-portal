@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Facture } from '../../../../core/models/facture-model';
-import { ChartConsumption } from '../../../../core/models/chart-consumption.model';
+import { Facture } from '../../../../shared/models/facture-model';
+import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
 import { convertSAPDate, getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { VariousService } from '../../../../shared/services/various.service';
+import { Carousel } from '../../../../shared/models/carousel.model';
 
 @Component({
   selector: 'app-home-carousel',
@@ -9,11 +11,15 @@ import { CarouselModule } from 'primeng/carousel';
   styleUrl: './carousel.component.scss'
 })
 export class AppHomeCarouselComponent implements OnInit {
-  @Input() carouselData: any[] = [];
+  carouselData: Carousel[] = [];
 
   responsiveOptions: any[] | undefined;
 
+  constructor(private variousService: VariousService) { }
+
   ngOnInit() {
+    this.initCarouselData();
+
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -36,5 +42,16 @@ export class AppHomeCarouselComponent implements OnInit {
         numScroll: 1
       }
     ];
+  }
+
+  initCarouselData() {
+    this.variousService.getCarouselData().subscribe({
+      next: (data: Carousel[]) => {
+        this.carouselData = data;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des données de carousel :', error);
+      },
+    });
   }
 }

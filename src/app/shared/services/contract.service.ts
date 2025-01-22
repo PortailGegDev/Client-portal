@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import { ContractHttpService } from '../http-services/contrat-http.service';
+import { ContractHttpService } from '../../core/http-services/contrat-http.service';
 
 @Injectable({
   providedIn: 'root'
