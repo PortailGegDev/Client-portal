@@ -1,0 +1,140 @@
+<div class="containevr" *ngIf="selectedInvoiceCount() > 0">
+    <!-- Affiche seulement si au moins une facture est sélectionnée -->
+    <div class="section left">
+      <div class="text">{{ selectedCount }} factures sélectionnées</div>
+      <div class="button cancel" (click)="annuler()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+          <path d="M6.46424 14.0355L13.5353 6.96447M6.46424 6.96447L13.5353 14.0355" stroke="#8E9D25"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="text">Annuler</div>
+      </div>
+    </div>
+    <div class="section right">
+      <div class="button download">
+        <div class="text" (click)="downloadSelectedPDFs()">Télécharger les factures</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+          <path
+            d="M9.59428 13.1491L7.02801 10.5897C6.9192 10.4813 6.85803 10.334 6.85803 10.1804C6.85803 10.0267 6.9192 9.87944 7.02801 9.771C7.25687 9.55171 7.61789 9.55171 7.84674 9.771L9.42228 11.3534V4.41142C9.42228 4.09224 9.68103 3.8335 10.0002 3.8335C10.3194 3.8335 10.5781 4.09224 10.5781 4.41142V11.3534L12.1537 9.771C12.3825 9.55171 12.7435 9.55171 12.9724 9.771C13.0812 9.87944 13.1424 10.0267 13.1424 10.1804C13.1424 10.334 13.0812 10.4813 12.9724 10.5897L10.4061 13.1491C10.3002 13.2598 10.1534 13.322 10.0002 13.3211C9.84668 13.3237 9.69922 13.2612 9.59428 13.1491Z"
+            fill="#1E1E1E" />
+          <path
+            d="M13.5916 7.5625H14.4241C16.1553 7.60012 17.5302 9.0304 17.4995 10.7617V13.383C17.5302 15.1144 16.1553 16.5447 14.4241 16.5823L5.57632 16.5272C3.84513 16.4896 2.47021 15.0593 2.50093 13.328V10.7067C2.48063 9.87157 2.7935 9.06269 3.37049 8.4586C3.94748 7.8545 4.74115 7.50485 5.57632 7.48682H6.40881C6.72799 7.48682 6.98674 7.74556 6.98674 8.06474C6.98674 8.38392 6.72799 8.64267 6.40881 8.64267H5.57632C5.04701 8.65875 4.54615 8.88604 4.18552 9.27382C3.82488 9.6616 3.63447 10.1776 3.65678 10.7067V13.3074C3.63447 13.8365 3.82488 14.3525 4.18552 14.7402C4.54615 15.128 5.04701 15.3553 5.57632 15.3714L14.4241 15.4677C14.9534 15.4516 15.4543 15.2243 15.8149 14.8366C16.1755 14.4488 16.366 13.9328 16.3436 13.4037V10.7824C16.366 10.2533 16.1755 9.73728 15.8149 9.3495C15.4543 8.96172 14.9534 8.73443 14.4241 8.71835H13.5916C13.2724 8.71835 13.0137 8.4596 13.0137 8.14042C13.0137 7.82124 13.2724 7.5625 13.5916 7.5625Z"
+            fill="#1E1E1E" />
+          <path
+            d="M9.59428 13.1491L7.02801 10.5897C6.9192 10.4813 6.85803 10.334 6.85803 10.1804C6.85803 10.0267 6.9192 9.87944 7.02801 9.771C7.25687 9.55171 7.61789 9.55171 7.84674 9.771L9.42228 11.3534V4.41142C9.42228 4.09224 9.68103 3.8335 10.0002 3.8335C10.3194 3.8335 10.5781 4.09224 10.5781 4.41142V11.3534L12.1537 9.771C12.3825 9.55171 12.7435 9.55171 12.9724 9.771C13.0812 9.87944 13.1424 10.0267 13.1424 10.1804C13.1424 10.334 13.0812 10.4813 12.9724 10.5897L10.4061 13.1491C10.3002 13.2598 10.1534 13.322 10.0002 13.3211C9.84668 13.3237 9.69922 13.2612 9.59428 13.1491Z"
+            stroke="#1E1E1E" />
+          <path
+            d="M13.5916 7.5625H14.4241C16.1553 7.60012 17.5302 9.0304 17.4995 10.7617V13.383C17.5302 15.1144 16.1553 16.5447 14.4241 16.5823L5.57632 16.5272C3.84513 16.4896 2.47021 15.0593 2.50093 13.328V10.7067C2.48063 9.87157 2.7935 9.06269 3.37049 8.4586C3.94748 7.8545 4.74115 7.50485 5.57632 7.48682H6.40881C6.72799 7.48682 6.98674 7.74556 6.98674 8.06474C6.98674 8.38392 6.72799 8.64267 6.40881 8.64267H5.57632C5.04701 8.65875 4.54615 8.88604 4.18552 9.27382C3.82488 9.6616 3.63447 10.1776 3.65678 10.7067V13.3074C3.63447 13.8365 3.82488 14.3525 4.18552 14.7402C4.54615 15.128 5.04701 15.3553 5.57632 15.3714L14.4241 15.4677C14.9534 15.4516 15.4543 15.2243 15.8149 14.8366C16.1755 14.4488 16.366 13.9328 16.3436 13.4037V10.7824C16.366 10.2533 16.1755 9.73728 15.8149 9.3495C15.4543 8.96172 14.9534 8.73443 14.4241 8.71835H13.5916C13.2724 8.71835 13.0137 8.4596 13.0137 8.14042C13.0137 7.82124 13.2724 7.5625 13.5916 7.5625Z"
+            stroke="#1E1E1E" />
+        </svg>
+      </div>
+    </div>
+  </div>
+<table class="table">
+    <tbody>
+      <tr>
+        <th><input type="checkbox" [checked]="iconeSelectionnee" (change)="toggleAllSelection($event)"></th>
+        <th (click)="sortByDate()">
+          DATE D'ÉMISSION
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M9 10.4995L11.5 12.9995L13.9999 10.4999" stroke="#3A3A3A" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11.5 6.99951V12.9995" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 7.99951H7.49994" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 3.99951H11.4999" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 11.9995H6.5" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </th>
+        <th (click)="sortByFacture()">FACTURE N
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M9 10.4995L11.5 12.9995L13.9999 10.4999" stroke="#3A3A3A" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11.5 6.99951V12.9995" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 7.99951H7.49994" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 3.99951H11.4999" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 11.9995H6.5" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </th>
+        <th (click)="sortByMontant()">MONTANT
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M9 10.4995L11.5 12.9995L13.9999 10.4999" stroke="#3A3A3A" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11.5 6.99951V12.9995" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 7.99951H7.49994" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 3.99951H11.4999" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 11.9995H6.5" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </th>
+        <th colspan="3" (click)="sortByStatut()">STATUT
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M9 10.4995L11.5 12.9995L13.9999 10.4999" stroke="#3A3A3A" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11.5 6.99951V12.9995" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 7.99951H7.49994" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 3.99951H11.4999" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 11.9995H6.5" stroke="#3A3A3A" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </th>
+      </tr>
+    <tbody>
+      <!-- <tr *ngFor="let hero of filteredHeroes"> -->
+      <tr *ngFor="let hero of paginatedHeroes">
+        <td><input type="checkbox" [checked]="hero.selected" (change)="toggleCheckbox(hero)"></td>
+        <td class="date-cell">{{ convertSAPDate(hero.PostingDate) }}</td>
+        <td class="facture-cell">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+            <path
+              d="M11.3333 9.0655H14V13.0655C14 13.8019 13.403 14.3988 12.6667 14.3988M11.3333 9.0655V13.0655C11.3333 13.8019 11.9303 14.3988 12.6667 14.3988M11.3333 9.0655V4.23689C11.3333 3.6333 11.3333 3.3315 11.2065 3.15648C11.0959 3.00381 10.9258 2.90512 10.7384 2.88482C10.5236 2.86156 10.2615 3.0113 9.73745 3.31077L9.52922 3.42976C9.33632 3.53998 9.23987 3.5951 9.13745 3.61668C9.04681 3.63577 8.95319 3.63577 8.86255 3.61668C8.76013 3.5951 8.66367 3.53998 8.47079 3.42976L7.19588 2.70124C7.00299 2.59102 6.90654 2.5359 6.80411 2.51432C6.71348 2.49523 6.61986 2.49523 6.52922 2.51432C6.42679 2.5359 6.33035 2.59102 6.13745 2.70124L4.86255 3.42976C4.66965 3.53998 4.57321 3.5951 4.47078 3.61668C4.38014 3.63577 4.28652 3.63577 4.19589 3.61668C4.09346 3.5951 3.99701 3.53998 3.80412 3.42976L3.59588 3.31076C3.07181 3.0113 2.80978 2.86156 2.59491 2.88482C2.40748 2.90512 2.23741 3.00381 2.1268 3.15648C2 3.3315 2 3.6333 2 4.23689V11.1988C2 12.3189 2 12.879 2.21799 13.3068C2.40973 13.6831 2.71569 13.9891 3.09202 14.1808C3.51984 14.3988 4.0799 14.3988 5.2 14.3988H12.6667M4.66667 9.0655H7.33333M4.66667 6.39883H6.66667H8.66667"
+              stroke="#544E4E" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {{ hero.UtilitiesInvoicingDocument }}
+        </td>
+        <td class="date-cell">{{ hero.TotalAmount }} € </td>
+        <td class="status-cell">
+          <span [ngClass]="getStatusClass(hero.StatusInvoicingDocument)">
+            {{ hero.StatusInvoicingDocument || 'N/A' }}
+          </span>
+          <span [innerHTML]="getStatutDetails(hero)"></span>
+        </td>
+        <td class="action-column">
+          <ng-container [ngSwitch]="hero.StatusInvoicingDocument">
+            <button class="details-button" *ngSwitchCase="'Non Soldée'" (click)="payFacture(hero)">
+              <b>Régler la facture</b>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M5 10.0002H15M15 10.0002L10.8333 5.8335M15 10.0002L10.8333 14.1668" stroke="#1E1E1E"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <img *ngSwitchCase="'Totalement Soldée'" src="/images/download.png" style="background-color:transparent;" alt="Télécharger"
+              (click)="downloadPDF(hero)">
+            <!-- <img *ngSwitchCase="'A venir'" src="assets/images/download.png" alt="Télécharger"
+              (click)="downloadPDF(hero)"> -->
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Contrôles de pagination -->
+  <div class="pagination">
+    <button class="page-button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M10.8536 3.64645C11.0488 3.84171 11.0488 4.15829 10.8536 4.35355L7.20711 8L10.8536 11.6464C11.0488 11.8417 11.0488 12.1583 10.8536 12.3536C10.6583 12.5488 10.3417 12.5488 10.1464 12.3536L6.14645 8.35355C5.95118 8.15829 5.95118 7.84171 6.14645 7.64645L10.1464 3.64645C10.3417 3.45118 10.6583 3.45118 10.8536 3.64645Z"
+          fill="#373C17" />
+      </svg>
+    </button>
+    <ng-container *ngFor="let page of getPagesArray(); let i = index">
+      <div *ngIf="i > 0 && getPagesArray()[i - 1] !== page - 1" class="ellipsis">...</div>
+      <div class="page-number" [ngClass]="{'active': currentPage === page, 'inactive': currentPage !== page}"
+        (click)="changePage(page)">{{ page }}
+      </div>
+    </ng-container>
+    <button class="page-button" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M6.14645 3.64645C5.95118 3.84171 5.95118 4.15829 6.14645 4.35355L9.79289 8L6.14645 11.6464C5.95118 11.8417 5.95118 12.1583 6.14645 12.3536C6.34171 12.5488 6.65829 12.5488 6.85355 12.3536L10.8536 8.35355C11.0488 8.15829 11.0488 7.84171 10.8536 7.64645L6.85355 3.64645C6.65829 3.45118 6.34171 3.45118 6.14645 3.64645Z"
+          fill="#373C17" />
+      </svg>
+    </button>
+  </div>
