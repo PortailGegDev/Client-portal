@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { User } from '../models/user.model';
+import { User } from '../../shared/models/user.model';
 import { BehaviorSubject, catchError, firstValueFrom, Observable, throwError } from 'rxjs';
-import { LocalStorageService } from '../services/local-storage.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'

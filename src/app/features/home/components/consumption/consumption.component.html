@@ -1,0 +1,48 @@
+<p-panel>
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <h5>Ma consommation</h5>
+        </div>
+    </ng-template>
+
+    <div class="row">
+        <div class="col">
+            <p>SUR LES 4 DERNIERS MOIS</p>
+
+            <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
+
+            <p class="col-md-12 consumption-info">
+                <span class="info-icon">i</span>
+                Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
+                estimées.
+            </p>
+        </div>
+
+        <div class="col">
+            <p>CE QUE JE DOIS</p>
+            <br>
+            <div class="col-md-12 payment">
+                <div class="payment-box">
+                    <div class="payment-icon"></div>
+                    <p>{{ lastInvoiceData?.TotalAmountHT }} €</p>
+                    <h2>Prochain prélèvement {{ lastInvoiceData?.date }}</h2>
+                </div>
+            </div>
+            <br>
+            <br>
+            <p class="col-md-12 consumption-info">
+                <i class="fa-regular fa-calendar"></i>
+                &nbsp;
+                Paiement par prélèvement mensuel.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <button class="details-button" (click)="navigateToConsumption()"><b> Voir en détails →
+                </b>
+            </button>
+        </div>
+    </div>
+</p-panel>

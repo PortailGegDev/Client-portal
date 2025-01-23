@@ -2,13 +2,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { FactureService } from '../../../../core/http-services/facture.service';
-import { BrandService } from '../../../../core/services/brand.service';
+import { BrandService } from '../../../../shared/services/brand.service';
 import * as moment from 'moment';
 import jsPDF from 'jspdf';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
-import { ContractService } from '../../../../core/services/contract.service';
+import { ContractService } from '../../../../shared/services/contract.service';
+
 import { AppInvoicesFilterComponent } from '../../componants/filter/filter.component';
 import { AppInvoicesTableComponent } from '../../componants/table/table.component';
 

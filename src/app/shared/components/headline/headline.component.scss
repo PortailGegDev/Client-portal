@@ -1,0 +1,58 @@
+.icon-service {
+    position: relative;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    padding-bottom: 4px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icon-frame {
+    position: absolute;
+    left: 20px;
+    top: -125px;
+    width: auto;
+    height: auto;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background: #FF6C00;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: white;
+    font-size: 11px;
+    font-family: Figtree, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.44px;
+}
+
+.text-frame {
+    color: white;
+    font-size: 15px;
+    font-family: Figtree;
+    font-weight: 600;
+    line-height: 21.60px;
+    word-wrap: break-word;
+    margin-top: -90px;
+    margin-left: 20px;
+}
+
+.iconn {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 4px;
+    padding: 6px;
+    margin-top: -2px;
+    margin-left: 20px;
+    position: relatie;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

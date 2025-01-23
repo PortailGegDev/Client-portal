@@ -2,13 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-export interface Facture {
-  PostingDate: string;
-  UtilitiesInvoicingDocument: string;
-  TotalAmount: string;
-  StatusInvoicingDocument: string;
-  TotalUnpaidHT: string;
-}
+import { Facture } from '../../shared/models/facture-model';
+
 interface ApiResponse {
   d: {
     results: Facture[];

@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Faq } from '../../../../shared/models/faq.model';
+import { VariousService } from '../../../../shared/services/various.service';
 
-interface FAQ {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-}
+
 @Component({
   selector: 'app-requests-faq',
   imports: [CommonModule],
@@ -14,29 +12,29 @@ interface FAQ {
   styleUrl: './faq.component.scss'
 })
 export class AppRequestsFaqComponent {
-  faqs: FAQ[] = [];  // Typé correctement avec l'interface FAQ
-  constructor(private http: HttpClient) { } // Injecter HttpClient
+  faqs: Faq[] = [];
+
+  constructor(private variousService: VariousService) { }
+
   ngOnInit() {
     this.loadFAQs();
   }
+
   loadFAQs() {
-    this.http.get<{ faq: FAQ[] }>('/faq-data.json').subscribe({
-      next: (data) => {
-        this.faqs = data.faq; // Assigner directement les FAQs depuis le fichier JSON
+    this.variousService.getFaqData().subscribe({
+      next: (data: Faq[]) => {
+        this.faqs = data;
       },
-      error: (error) => {
-        console.error('Erreur lors du chargement des données FAQ :', error);
+      error(error) {
+        console.error('Erreur lors du chargement des données de FAQ :', error);
       },
-      complete: () => {
-        console.log('Chargement des FAQs terminé');
-      }
     });
   }
-  
-  
-  toggleDropdown(faq: FAQ, event: MouseEvent) {
+
+
+  toggleDropdown(faq: Faq, event: MouseEvent) {
     const target = event.target as HTMLElement;
-    
+
     // Si le clic provient d'un lien, empêche la propagation pour ne pas fermer la réponse
     if (target.tagName.toLowerCase() === 'a') {
       event.stopPropagation();

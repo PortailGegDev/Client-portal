@@ -1,0 +1,70 @@
+<p-panel [style]="{'width': '100%', 'height': '100%'}">
+    <ng-template #header>
+        <div class="flex items-center gap-2 header">
+            <h5>Notre sélection d’articles</h5>
+
+            <div class="button-containerr">
+                <p>Voir tous les articles → </p>
+            </div>
+        </div>
+    </ng-template>
+
+    <p-carousel [value]="articles" [numVisible]="3" [showNavigators]="false" [showIndicators]="false"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-article #item>
+            <div class="card-text" style="margin: 20px;">
+                <img src="{{ article.img }}" [alt]="article.title" class="w-full rounded-border" style="width: 100%;" />
+                <div class="card-title mb-4">{{ article.title }}</div>
+                <div class="flex justify-between items-center">
+                    <div class="card-description mt-0 font-semibold text-xl">{{ article.description }}</div>
+                    <div class="button-containerr">
+                        <p>Voir l'article → </p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+
+
+<!-- 
+    <div class="header">
+        <div class="cardd">
+            <div class="card-image">
+                <img class="image" src="/images/Rectangle 1477 (8).png">
+            </div>
+            <div class="card-text">
+                <div class="card-title">Production d’électricité</div>
+                <br>
+                <div class="card-description">Comment GEG produit son électricité</div>
+                <div class="button-containerr">
+                    <p>Voir l'article → </p>
+                </div>
+            </div>
+        </div>
+        <div class="cardd">
+            <div class="card-image">
+                <img class="image" src="/images/Rectangle 1477 (9).png">
+            </div>
+            <div class="card-text">
+                <div class="card-title">Consommation cachée, même éteints, ils consomment</div>
+                <div class="card-description">Découvrez les bons gestes à adopter </div>
+                <div class="button-containerr">
+                    <p>Voir l'article → </p>
+                </div>
+            </div>
+        </div>
+        <div class="cardd">
+            <div class="card-image">
+                <img class="image" src="/images/Rectangle 1477 (10).png">
+            </div>
+            <div class="card-text">
+                <div class="card-title">Voiture électrique</div>
+                <div class="card-description">Tout comprendre sur les atouts et points faibles</div>
+                <div class="button-containerr">
+                    <p>Voir l'article → </p>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+</p-panel>

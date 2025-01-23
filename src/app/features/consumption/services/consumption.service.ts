@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApiResponseConsumption, ConsumptionHttpService } from '../http-services/consumption-http.service';
-import { ChartConsumption } from '../models/chart-consumption.model';
-import { convertSAPDateToTsDate, getMonthFromDate } from '../../shared/utils/date-utilities';
+import { ApiResponseConsumption, ConsumptionHttpService } from '../../../core/http-services/consumption-http.service';
+import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
+import { convertSAPDateToTsDate, getMonthFromDate } from '../../../shared/utils/date-utilities';
 import { map, Observable } from 'rxjs';
 import moment, { months } from 'moment';
 

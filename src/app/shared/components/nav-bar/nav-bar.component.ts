@@ -8,7 +8,7 @@ import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { Subscription } from 'rxjs';
-import { User } from '../../../core/models/user.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
