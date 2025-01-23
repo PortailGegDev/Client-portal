@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: client-portal
+  - name: client-portal-V1
     memory: 512M
     path: ./dist/client-portal
     disk_quota: 1024M

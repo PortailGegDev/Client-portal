@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FactureService } from '../../../../core/http-services/facture.service';
 import { CommonModule } from '@angular/common';
 import { BrandService } from '../../../../shared/services/brand.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
@@ -14,6 +13,7 @@ import { AppHomeDocumentsComponent } from '../../components/documents/documents.
 import { AppHomeConsumptionComponent } from '../../components/consumption/consumption.component';
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
+import { InvoicesService } from '../../../../shared/services/invoices.service';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +31,7 @@ export class AppHomeComponent {
 
   constructor(
     private contractService: ContractService,
-    private factureService: FactureService,
+    private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
     private authService: AuthService
@@ -49,15 +49,14 @@ export class AppHomeComponent {
   }
 
   loadLastInvoice(contractId: string): void {
-    this.factureService.fetchFactures(contractId).subscribe({
-      next: (response) => {
-        const invoices = response.d.results;
-
+    this.invoicesService.getInvoices(contractId).subscribe({
+      next: (invoices: Facture[]) => {
+      
         // Trier par date décroissante pour trouver la dernière facture
         const sortedInvoices = invoices.sort(
           (a, b) =>
-            new Date(b.PostingDate).getTime() -
-            new Date(a.PostingDate).getTime()
+            new Date(b.postingDate).getTime() -
+            new Date(a.postingDate).getTime()
         );
 
         // Prendre la première facture après tri

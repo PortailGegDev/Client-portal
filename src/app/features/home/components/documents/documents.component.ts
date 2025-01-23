@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './documents.component.scss'
 })
 export class AppHomeDocumentsComponent implements OnChanges {
-  @Input() lastInvoice: Facture | null = null;
+  @Input() lastInvoice: Facture | null = null; //decorator
   lastInvoiceData: { statut: string; TotalAmountHT: string; date: string | null } | null = null;
 
   constructor(private router: Router) { }
@@ -21,13 +21,13 @@ export class AppHomeDocumentsComponent implements OnChanges {
     if (this.lastInvoice) {
       this.lastInvoiceData = {
         statut:
-          this.lastInvoice!.StatusInvoicingDocument === "Non Soldée"
+          this.lastInvoice!.statusInvoicingDocument === "Non Soldée"
             ? "A payer"
-            : this.lastInvoice!.StatusInvoicingDocument === "Totalement Soldée"
+            : this.lastInvoice!.statusInvoicingDocument === "Totalement Soldée"
               ? "payer"
               : "Autre statut",
-        date: convertSAPDate(this.lastInvoice!.PostingDate),
-        TotalAmountHT: this.lastInvoice!.TotalAmount
+        date: convertSAPDate(this.lastInvoice!.postingDate),
+        TotalAmountHT: this.lastInvoice!.totalAmount
       };
       console.log("Dernière facture:", this.lastInvoice); // Vérification dans la console
 

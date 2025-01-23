@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Facture } from '../../../../shared/models/facture-model';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
-export class AppHomeConsumptionComponent {
+export class AppHomeConsumptionComponent implements OnChanges {
   @Input() lastInvoice: Facture | null = null;
   @Input() consumptions: ChartConsumption[] = [];
 
@@ -30,13 +30,13 @@ export class AppHomeConsumptionComponent {
     if (this.lastInvoice) {
       this.lastInvoiceData = {
         statut:
-          this.lastInvoice!.StatusInvoicingDocument === "Non Soldée"
+          this.lastInvoice!.statusInvoicingDocument === "Non Soldée"
             ? "A payer"
-            : this.lastInvoice!.StatusInvoicingDocument === "Totalement Soldée"
+            : this.lastInvoice!.statusInvoicingDocument === "Totalement Soldée"
               ? "payer"
               : "Autre statut",
-        date: convertSAPDate(this.lastInvoice!.PostingDate),
-        TotalAmountHT: this.lastInvoice!.TotalAmount
+        date: convertSAPDate(this.lastInvoice!.postingDate),
+        TotalAmountHT: this.lastInvoice!.totalAmount
       };
       console.log("Dernière facture:", this.lastInvoice); // Vérification dans la console
 

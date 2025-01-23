@@ -1,5 +1,4 @@
-<div class="containevr" *ngIf="selectedInvoiceCount() > 0">
-    <!-- Affiche seulement si au moins une facture est sélectionnée -->
+<!-- <div class="containevr" *ngIf="selectedInvoiceCount() > 0">
     <div class="section left">
       <div class="text">{{ selectedCount }} factures sélectionnées</div>
       <div class="button cancel" (click)="annuler()">
@@ -77,7 +76,7 @@
         </th>
       </tr>
     <tbody>
-      <!-- <tr *ngFor="let hero of filteredHeroes"> -->
+
       <tr *ngFor="let hero of paginatedHeroes">
         <td><input type="checkbox" [checked]="hero.selected" (change)="toggleCheckbox(hero)"></td>
         <td class="date-cell">{{ convertSAPDate(hero.PostingDate) }}</td>
@@ -107,15 +106,12 @@
             </button>
             <img *ngSwitchCase="'Totalement Soldée'" src="/images/download.png" style="background-color:transparent;" alt="Télécharger"
               (click)="downloadPDF(hero)">
-            <!-- <img *ngSwitchCase="'A venir'" src="assets/images/download.png" alt="Télécharger"
-              (click)="downloadPDF(hero)"> -->
           </ng-container>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Contrôles de pagination -->
   <div class="pagination">
     <button class="page-button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
@@ -137,4 +133,92 @@
           fill="#373C17" />
       </svg>
     </button>
-  </div>
+  </div> -->
+
+
+
+
+  <div class="card"></div>
+    <p-table
+        #dt
+        [value]="invoices"
+        [rows]="5"
+        [paginator]="true"
+        [globalFilterFields]="['PostingDate', 'UtilitiesInvoicingDocument', 'TotalAmountHT', 'StatusInvoicingDocument']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectedInvoices"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <h5 class="m-0">Manage Products</h5>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="filterGlobal($event, dt)" placeholder="Search..." />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox />
+                </th>
+                <th pSortableColumn="PostingDate" style="min-width:16rem">
+                  DATE D'ÉMISSION
+                    <p-sortIcon field="PostingDate" />
+                </th>
+                <th pSortableColumn="UtilitiesInvoicingDocument">FACTURE N
+                  <p-sortIcon field="UtilitiesInvoicingDocument" />
+                </th>
+                <th pSortableColumn="TotalAmountHT" style="min-width: 8rem">
+                  MONTANT
+                    <p-sortIcon field="TotalAmountHT" />
+                </th>
+                <th pSortableColumn="StatusInvoicingDocument" style="min-width:10rem">
+                  STATUT 
+                    <p-sortIcon field="StatusInvoicingDocument" />
+                </th>
+                <th style="min-width: 12rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-invoice> <!-- objet--> 
+            <tr>
+                <td style="width: 3rem">
+                    <p-tableCheckbox [value]="invoice" />
+                </td>
+                <td style="min-width: 12rem">{{ invoice.PostingDate | timeSpanToDate:'short'}}</td>
+                
+                <td style="min-width: 16rem" class="facture-cell">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                    <path d="M11.3333 9.0655H14V13.0655C14 13.8019 13.403 14.3988 12.6667 14.3988M11.3333 9.0655V13.0655C11.3333 13.8019 11.9303 14.3988 12.6667 14.3988M11.3333 9.0655V4.23689C11.3333 3.6333 11.3333 3.3315 11.2065 3.15648C11.0959 3.00381 10.9258 2.90512 10.7384 2.88482C10.5236 2.86156 10.2615 3.0113 9.73745 3.31077L9.52922 3.42976C9.33632 3.53998 9.23987 3.5951 9.13745 3.61668C9.04681 3.63577 8.95319 3.63577 8.86255 3.61668C8.76013 3.5951 8.66367 3.53998 8.47079 3.42976L7.19588 2.70124C7.00299 2.59102 6.90654 2.5359 6.80411 2.51432C6.71348 2.49523 6.61986 2.49523 6.52922 2.51432C6.42679 2.5359 6.33035 2.59102 6.13745 2.70124L4.86255 3.42976C4.66965 3.53998 4.57321 3.5951 4.47078 3.61668C4.38014 3.63577 4.28652 3.63577 4.19589 3.61668C4.09346 3.5951 3.99701 3.53998 3.80412 3.42976L3.59588 3.31076C3.07181 3.0113 2.80978 2.86156 2.59491 2.88482C2.40748 2.90512 2.23741 3.00381 2.1268 3.15648C2 3.3315 2 3.6333 2 4.23689V11.1988C2 12.3189 2 12.879 2.21799 13.3068C2.40973 13.6831 2.71569 13.9891 3.09202 14.1808C3.51984 14.3988 4.0799 14.3988 5.2 14.3988H12.6667M4.66667 9.0655H7.33333M4.66667 6.39883H6.66667H8.66667" stroke="#544E4E" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                  {{ invoice.UtilitiesInvoicingDocument }}</td>
+                <td >{{ invoice.TotalAmountHT | currency: 'EUR' }}</td>
+
+                <td> 
+                  @if(invoice.StatusInvoicingDocument==='Partiellement soldée'){
+                    <p-tag severity="info" [value]="invoice.StatusInvoicingDocument"/>
+                  Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+                  }
+                  @else if(invoice.StatusInvoicingDocument ==='Non Soldée'){
+                    <p-tag severity="warn" [value]="invoice.StatusInvoicingDocument"/>
+                  {{ invoice.TotalUnpaidHT | currency:'EUR' }} Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
+                  }
+                  @else {
+                    <p-tag severity="secondary" [value]="invoice.StatusInvoicingDocument"  />
+                  Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+                  }
+                </td>
+                <td>
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true"  />
+                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #summary>
+            <div class="flex items-center justify-between">In total there are {{ invoices ? invoices.length : 0 }} invoices.</div>
+        </ng-template>
+    </p-table>
+

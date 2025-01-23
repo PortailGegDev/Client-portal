@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Facture } from '../../../../shared/models/facture-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoices-filter',
@@ -8,7 +10,16 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
-export class AppInvoicesFilterComponent {
+export class AppInvoicesFilterComponent implements OnChanges {
+  @Input() invoices: Facture[] = [];
+  invoicesData:  { statut: string; dateprelevemnt:string; DateDemission:string; TotalAmountHT: string; date: string | null } | null = null;
+
+  constructor(private router: Router) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
   searchText: string = '';
   heroes: any[] = []; 
   isDateSelected: boolean = false; // Nouvelle variable d'état
