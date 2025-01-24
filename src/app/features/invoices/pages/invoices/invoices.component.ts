@@ -13,10 +13,11 @@ import { AppInvoicesFilterComponent } from '../../componants/filter/filter.compo
 import { AppInvoicesTableComponent } from '../../componants/table/table.component';
 import { Facture } from '../../../../shared/models/facture-model';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-invoices',
-  imports: [CommonModule, FormsModule,ActiveContractComponent,AppInvoicesFilterComponent,AppInvoicesTableComponent],
+  imports: [CommonModule, FormsModule,PanelModule,ActiveContractComponent,AppInvoicesFilterComponent,AppInvoicesTableComponent],
   templateUrl: './invoices.component.html',
   styleUrl: './invoices.component.scss',
 })

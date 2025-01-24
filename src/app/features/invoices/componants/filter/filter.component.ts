@@ -3,16 +3,18 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Facture } from '../../../../shared/models/facture-model';
 import { Router } from '@angular/router';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,DatePickerModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
 export class AppInvoicesFilterComponent implements OnChanges {
   @Input() invoices: Facture[] = [];
   invoicesData:  { statut: string; dateprelevemnt:string; DateDemission:string; TotalAmountHT: string; date: string | null } | null = null;
+  rangeDates: Date[] | undefined;
 
   constructor(private router: Router) {}
 
