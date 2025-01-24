@@ -6,3 +6,20 @@
     font-weight: 500;
     line-height: 19px; 
   }
+
+
+  .p-tag-warn {
+    color: #fff;
+    background: var(--Semantic-Danger, #FF6C00);
+  }
+  
+  .p-tag-info {
+    color: #333;
+    background: var(--Semantic-Primary, #64DAE4);
+  }
+  
+  .p-tag-secondary {
+    color: #333;
+    background: var(--Fundamental-Grey-10, rgba(84, 78, 78, .1));
+  }
+  
