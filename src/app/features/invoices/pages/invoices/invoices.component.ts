@@ -36,6 +36,7 @@ export class AppInvoicesComponent {
   }
 
 invoices: Facture[] = [];
+globalFiltervalue: string='';
   theme: string = '';
   ngOnInit(): void {
     this.theme = this.brandService.getBrand();
@@ -54,4 +55,8 @@ invoices: Facture[] = [];
         this.contractts = []; // Assure que contractts reste vide en cas d'erreur
       }
     });
-}}
+}
+globalFilter(value:string){
+this.globalFiltervalue=value;
+}
+}

@@ -12,15 +12,6 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [showCurrentPageReport]="true"
     >
-        <ng-template #caption>
-            <div class="flex items-center justify-between">
-                <h5 class="m-0">Manage Products</h5>
-                <p-iconfield>
-                    <p-inputicon styleClass="pi pi-search" />
-                    <input pInputText type="text" (input)="filterGlobal($event, dt)" placeholder="Search..." />
-                </p-iconfield>
-            </div>
-        </ng-template>
         <ng-template #header>
             <tr style="  border-bottom:1px Black !important;
 ">
@@ -83,9 +74,6 @@
                 </div>
                 </td>
             </tr>
-        </ng-template>
-        <ng-template #summary>
-            <div class="flex items-center justify-between">In total there are {{ invoices ? invoices.length : 0 }} invoices.</div>
         </ng-template>
     </p-table>
 

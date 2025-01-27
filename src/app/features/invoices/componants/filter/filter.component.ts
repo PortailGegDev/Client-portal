@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Facture } from '../../../../shared/models/facture-model';
 import { Router } from '@angular/router';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
 export class AppInvoicesFilterComponent implements OnChanges {
   @Input() invoices: Facture[] = [];
+  @Output() onGlobalFilter: EventEmitter<string>= new EventEmitter<string>();
   invoicesData:  { statut: string; dateprelevemnt:string; DateDemission:string; TotalAmountHT: string; date: string | null } | null = null;
   rangeDates: Date[] | undefined;
 
@@ -203,5 +207,13 @@ export class AppInvoicesFilterComponent implements OnChanges {
       return `<span class="prelevement-a-venir">Prélèvement le ${this.convertSAPDate(hero.NetDueDate)}</span>`;
     }
     return '';
+  }
+
+
+    
+  filterGlobal(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.onGlobalFilter.emit(inputValue);
+    
   }
 }

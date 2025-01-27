@@ -1,0 +1,22 @@
+p-iconfield {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc; /* Pour simuler un cadre */
+    padding: 5px 10px;
+    border-radius: 4px; /* Coins arrondis */
+    background-color: #fff; /* Couleur de fond */
+    gap: 8px; /* Espacement entre l'input et l'icône */
+  }
+  
+  p-iconfield input {
+    border: none;
+    outline: none;
+    flex: 1; /* Pour occuper l'espace disponible */
+  }
+  
+  p-iconfield .pi-search {
+    color: #888;
+    font-size: 1.2rem; /* Taille de l'icône */
+    cursor: pointer; /* Curseur interactif si nécessaire */
+  }
+  

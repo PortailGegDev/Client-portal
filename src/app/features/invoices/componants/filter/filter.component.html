@@ -205,6 +205,17 @@
     
     <p-datepicker  [(ngModel)]="rangeDates" placeholder="01/01/2024-12/09/2025" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" selectionMode="range" [readonlyInput]="true" />
   </div>
-  <div class="col"></div>
-  <div class="col"></div>
+  <div class="col">
+    <p-iconfield>
+      <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Rechercher" />
+      <i class="pi pi-search"></i>
+    </p-iconfield>
+    
+
+  </div>
+  
+  <div class="col">
+
+
+  </div>
 </div>

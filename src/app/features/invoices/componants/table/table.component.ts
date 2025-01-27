@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Facture } from '../../../../shared/models/facture-model';
 import { ButtonModule } from 'primeng/button';
@@ -11,6 +11,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 
+
 @Component({
   selector: 'app-invoices-table',
   imports: [CommonModule,TimeSpanToDatePipe,FormsModule,ButtonModule,TableModule,TagModule,ConfirmDialogModule,InputIconModule,IconFieldModule],
@@ -19,12 +20,19 @@ import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pi
 })
 export class AppInvoicesTableComponent implements OnChanges {
 @Input() invoices:Facture[]=[];
+@Input() inputvalue: string=''; 
+@ViewChild('dt') dt: Table | undefined;
 ngOnChanges(changes: SimpleChanges): void {
   if (this.invoices.length >0)
   {
     console.log(this.invoices);
   }
+
+  if (this.inputvalue){
+    this.filterGlobal(this.inputvalue)
+  }
 }
+
 selectedInvoices:Facture[]=[];
   getSeverity(status: string) {
     switch (status) {
@@ -38,9 +46,8 @@ selectedInvoices:Facture[]=[];
     return undefined;
   }
   
-  filterGlobal(event: Event, dt: Table) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    dt.filterGlobal(inputValue, 'contains');
+  filterGlobal(inputValue:string) {
+    this.dt?.filterGlobal(inputValue, 'contains');
   }
   payFacture(facture: Facture) {
   }
