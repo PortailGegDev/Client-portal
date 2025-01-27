@@ -9,8 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
 import { ContractService } from '../../../../shared/services/contract.service';
 
-import { AppInvoicesFilterComponent } from '../../componants/filter/filter.component';
-import { AppInvoicesTableComponent } from '../../componants/table/table.component';
+import { AppInvoicesFilterComponent } from '../../components/filter/filter.component';
+import { AppInvoicesTableComponent } from '../../components/table/table.component';
 import { Facture } from '../../../../shared/models/facture-model';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
 import { PanelModule } from 'primeng/panel';

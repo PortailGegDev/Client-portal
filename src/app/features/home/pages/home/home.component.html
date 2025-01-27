@@ -1,5 +1,5 @@
 <div>
-    <h3>Bonjour {{ currentUser?.firstname }},</h3>
+    <h3>Bonjour {{ currentUser()?.firstname }},</h3>
     <p>Bienvenue dans votre espace client</p>
 
     <div class="row">
@@ -8,19 +8,21 @@
         </div>
     </div>
 
+    @defer (when consumptions()?.length && lastInvoice();){
     <div class="row">
         <div class="col-md-7 mb-3">
-            <app-home-consumption [consumptions]="consumptions" [lastInvoice]="lastInvoice" />
+            <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
         </div>
 
         <div class="col-md-3 mb-3">
-            <app-home-documents [lastInvoice]="lastInvoice" />
+            <app-home-documents [lastInvoice]="lastInvoice()" />
         </div>
 
         <div class="col-md-2 mb3">
             <app-home-carousel />
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-md-4 mb3">
@@ -31,4 +33,9 @@
             <app-articles />
         </div>
     </div>
+    }
+
+    @placeholder {
+    <app-loading-spinner [showSpinner]=true/>
+    }
 </div>

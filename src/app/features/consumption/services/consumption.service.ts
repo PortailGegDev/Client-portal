@@ -45,4 +45,30 @@ export class ConsumptionService {
         })
       );
   }
+
+  getLastfourChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
+    return this.consumptionHttpService.fetchConsumptionData(contractNumber).pipe(
+      map((response: ApiResponseConsumption) => {
+        return response.d.results
+          .map(consumption => {
+            const dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
+  
+            // Filtrer les consommations invalides directement
+            if (!dateConsumption) {
+              return null;
+            }
+  
+            return {
+              date: dateConsumption,
+              monthNumber: getMonthFromDate(dateConsumption),
+              value: consumption.Consumption || 0,
+            } as ChartConsumption;
+          })
+          .filter((consumption): consumption is ChartConsumption => !!consumption) // Retirer les valeurs null
+          .sort((a, b) => b.date.getTime() - a.date.getTime()) // Trier les consommations
+          .slice(0, 4); // Garder uniquement les 4 premières données
+      })
+    );
+  }
+  
 }
