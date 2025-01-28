@@ -1,9 +1,9 @@
 export class Facture {
-    postingDate!: string;
-    utilitiesInvoicingDocument!: string;
-    totalAmount!: string;
-    statusInvoicingDocument!: string;
-    totalUnpaidHT!: string;
+    PostingDate!: string;
+    UtilitiesInvoicingDocument!: string;
+    TotalAmount!: string;
+    StatusInvoicingDocument!: string;
+    TotalUnpaidHT!: string;
 
     public constructor(init?: Partial<Facture>) {
         Object.assign(this, init);

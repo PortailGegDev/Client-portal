@@ -1,177 +1,68 @@
-<h1>Consommation</h1>
-<div class="contracts-container">
-  <div class="headerr">
-  <label for="active-contracts" ><b>Mes contrats actifs</b></label>
-  <div class="badge">
-    <div class="badge-text">{{ contractCount }}</div>
-</div>
-</div>
-<div class="dropdown-wrapper">
-  <div class="dropdown-icon">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.99967 14C10.333 11.6 12.6663 9.45097 12.6663 6.8C12.6663 4.14903 10.577 2 7.99967 2C5.42235 2 3.33301 4.14903 3.33301 6.8C3.33301 9.45097 5.66634 11.6 7.99967 14Z" stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M7.99967 8C8.73605 8 9.33301 7.40305 9.33301 6.66667C9.33301 5.93029 8.73605 5.33333 7.99967 5.33333C7.26329 5.33333 6.66634 5.93029 6.66634 6.66667C6.66634 7.40305 7.26329 8 7.99967 8Z" stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
+<div>
+  <h3>Consommation</h3>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <app-active-contract />
+    </div>
   </div>
-  <div class="dropdown-container">
-    <div class="selected-item" (click)="toggleDropdownc()">
-      <span class="address">{{ selectedContract?.AddressCompteur }}</span>
-   
-        <svg class="custom-icon" *ngIf="selectedContract?.BusinessSectorText === 'Electricité'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.86784 1.54223C9.07332 1.63247 9.1935 1.84857 9.16176 2.07074L8.57662 6.1667L12.2278 6.1667C12.3904 6.16668 12.5448 6.16666 12.6691 6.17793C12.7886 6.18876 12.9847 6.21595 13.1521 6.35046C13.3509 6.51024 13.4656 6.75228 13.4633 7.00734C13.4615 7.22206 13.3583 7.39103 13.2911 7.49037C13.2211 7.59369 13.1233 7.7132 13.0203 7.83901L7.72043 14.3166C7.57832 14.4903 7.33788 14.5481 7.1324 14.4578C6.92692 14.3676 6.80674 14.1515 6.83848 13.9293L7.42361 9.83336L3.7724 9.83336C3.60983 9.83338 3.4554 9.8334 3.33112 9.82213C3.21163 9.8113 3.01555 9.78411 2.84818 9.6496C2.64936 9.48982 2.53466 9.24778 2.5369 8.99272C2.53878 8.778 2.6419 8.60903 2.70918 8.50969C2.77916 8.40637 2.87696 8.28686 2.97992 8.16105L8.27981 1.68341C8.42192 1.50972 8.66235 1.45199 8.86784 1.54223ZM7.9182 3.70455L3.76645 8.77892C3.75075 8.7981 3.73595 8.81621 3.72199 8.83332C3.74408 8.83335 3.76746 8.83336 3.79225 8.83336H8.00012C8.14506 8.83336 8.28288 8.89626 8.37784 9.00576C8.47281 9.11526 8.51559 9.26059 8.49509 9.40407L8.08203 12.2955L12.2338 7.22114C12.2495 7.20196 12.2643 7.18385 12.2782 7.16673C12.2562 7.1667 12.2328 7.1667 12.208 7.1667H8.00012C7.85517 7.1667 7.71736 7.1038 7.62239 6.9943C7.52742 6.8848 7.48464 6.73948 7.50514 6.59599L7.9182 3.70455Z" fill="white"/></svg>
-        <svg class="custom-icon1" *ngIf="selectedContract?.BusinessSectorText === 'Gaz'"  xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 10 17" fill="none">
-          <path d="M7.0404 5.13914C6.07438 3.41048 5.09734 2.12417 5.08632 2.11253L5 2L4.91368 2.11253C4.9045 2.12611 3.92562 3.41048 2.9596 5.13914C1.65932 7.4673 1 9.45011 1 11.0294C1 14.3276 2.34619 16 5 16C7.65381 16 9 14.3276 9 11.0294C9 9.45011 8.34068 7.4673 7.0404 5.13914ZM3.2259 13.5011C3.2259 11.9781 4.63636 9.94485 5 9.44429C5.36547 9.94485 6.7741 11.9762 6.7741 13.5011C6.7741 15.0261 6.19376 15.7148 5 15.7148C3.80624 15.7148 3.2259 14.9911 3.2259 13.5011ZM6.16804 15.6314C6.71717 15.255 6.99633 14.5449 6.99633 13.5011C6.99633 11.6774 5.16345 9.28326 5.08632 9.18237L5.00184 9.07178L4.91735 9.18237C4.84022 9.28326 3.00735 11.6774 3.00735 13.5011C3.00735 14.543 3.2865 15.255 3.83563 15.6314C2.08356 15.1968 1.22406 13.6815 1.22406 11.0294C1.22406 7.66519 4.43251 3.14856 5.00367 2.37445C5.573 3.1505 8.78329 7.66713 8.78329 11.0294C8.78329 13.6815 7.92378 15.1968 6.17172 15.6314H6.16804Z" stroke="white" stroke-width="1.5"/>
-        </svg>
 
-      <span class="details">{{ selectedContract?.BusinessSectorText }},</span>
-      <span class="addres">n° {{ selectedContract?.ContractISU}}</span>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <app-consumption-chart [consumptions]="consumptions()" />
     </div>
-  
-    <div *ngIf="isOpen" class="options-list">
-      <div *ngFor="let contract of contractts" class="option-item" (click)="selectContract(contract)">
-        <div class="dropdown-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.99967 14C10.333 11.6 12.6663 9.45097 12.6663 6.8C12.6663 4.14903 10.577 2 7.99967 2C5.42235 2 3.33301 4.14903 3.33301 6.8C3.33301 9.45097 5.66634 11.6 7.99967 14Z" stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="M7.99967 8C8.73605 8 9.33301 7.40305 9.33301 6.66667C9.33301 5.93029 8.73605 5.33333 7.99967 5.33333C7.26329 5.33333 6.66634 5.93029 6.66634 6.66667C6.66634 7.40305 7.26329 8 7.99967 8Z" stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-          </div>
-        <span class="address">{{ contract.AddressCompteur }}</span>
-      
-          <svg  class="custom-icon" *ngIf="contract?.BusinessSectorText === 'Electricité'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.86784 1.54223C9.07332 1.63247 9.1935 1.84857 9.16176 2.07074L8.57662 6.1667L12.2278 6.1667C12.3904 6.16668 12.5448 6.16666 12.6691 6.17793C12.7886 6.18876 12.9847 6.21595 13.1521 6.35046C13.3509 6.51024 13.4656 6.75228 13.4633 7.00734C13.4615 7.22206 13.3583 7.39103 13.2911 7.49037C13.2211 7.59369 13.1233 7.7132 13.0203 7.83901L7.72043 14.3166C7.57832 14.4903 7.33788 14.5481 7.1324 14.4578C6.92692 14.3676 6.80674 14.1515 6.83848 13.9293L7.42361 9.83336L3.7724 9.83336C3.60983 9.83338 3.4554 9.8334 3.33112 9.82213C3.21163 9.8113 3.01555 9.78411 2.84818 9.6496C2.64936 9.48982 2.53466 9.24778 2.5369 8.99272C2.53878 8.778 2.6419 8.60903 2.70918 8.50969C2.77916 8.40637 2.87696 8.28686 2.97992 8.16105L8.27981 1.68341C8.42192 1.50972 8.66235 1.45199 8.86784 1.54223ZM7.9182 3.70455L3.76645 8.77892C3.75075 8.7981 3.73595 8.81621 3.72199 8.83332C3.74408 8.83335 3.76746 8.83336 3.79225 8.83336H8.00012C8.14506 8.83336 8.28288 8.89626 8.37784 9.00576C8.47281 9.11526 8.51559 9.26059 8.49509 9.40407L8.08203 12.2955L12.2338 7.22114C12.2495 7.20196 12.2643 7.18385 12.2782 7.16673C12.2562 7.1667 12.2328 7.1667 12.208 7.1667H8.00012C7.85517 7.1667 7.71736 7.1038 7.62239 6.9943C7.52742 6.8848 7.48464 6.73948 7.50514 6.59599L7.9182 3.70455Z" fill="white"/></svg>
-       
 
-        <svg  class="custom-icon1" *ngIf="contract?.BusinessSectorText === 'Gaz'"  xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 10 17" fill="none">
-          <path d="M7.0404 5.13914C6.07438 3.41048 5.09734 2.12417 5.08632 2.11253L5 2L4.91368 2.11253C4.9045 2.12611 3.92562 3.41048 2.9596 5.13914C1.65932 7.4673 1 9.45011 1 11.0294C1 14.3276 2.34619 16 5 16C7.65381 16 9 14.3276 9 11.0294C9 9.45011 8.34068 7.4673 7.0404 5.13914ZM3.2259 13.5011C3.2259 11.9781 4.63636 9.94485 5 9.44429C5.36547 9.94485 6.7741 11.9762 6.7741 13.5011C6.7741 15.0261 6.19376 15.7148 5 15.7148C3.80624 15.7148 3.2259 14.9911 3.2259 13.5011ZM6.16804 15.6314C6.71717 15.255 6.99633 14.5449 6.99633 13.5011C6.99633 11.6774 5.16345 9.28326 5.08632 9.18237L5.00184 9.07178L4.91735 9.18237C4.84022 9.28326 3.00735 11.6774 3.00735 13.5011C3.00735 14.543 3.2865 15.255 3.83563 15.6314C2.08356 15.1968 1.22406 13.6815 1.22406 11.0294C1.22406 7.66519 4.43251 3.14856 5.00367 2.37445C5.573 3.1505 8.78329 7.66713 8.78329 11.0294C8.78329 13.6815 7.92378 15.1968 6.17172 15.6314H6.16804Z" stroke="white" stroke-width="1.5"/>
-        </svg>
-     
-        <span class="details">{{ contract.BusinessSectorText }},</span>
-        <span class="addres">n° {{ contract.ContractISU}}</span>
+    <!-- <div class="col-12 mb-3">
+      <div class="consumption-container">
+        <div class="chart-controls">
+          <button (click)="setTimeScale('hour')" [ngClass]="{'active-icon': currentTimeScale === 'hour'}">Heure</button>
+          <button (click)="setTimeScale('day')" [ngClass]="{'active-icon': currentTimeScale === 'day'}">Jour</button>
+          <button (click)="setTimeScale('month')"
+            [ngClass]="{'active-icon': currentTimeScale === 'month'}">Mois</button>
+          <button (click)="setTimeScale('year')" [ngClass]="{'active-icon': currentTimeScale === 'year'}">Année</button>
+          <div class="spacer"></div>
+          <p>Affichage</p>
+          <button (click)="setUnit('kWh')" [ngClass]="{'active-icon': currentUnit === 'kWh'}">kWh</button>
+          <button (click)="setUnit('euro')" [ngClass]="{'active-icon': currentUnit === 'euro'}">€</button>
+          <div class="dropdown">
+            <div class="dropdown-toggle" (click)="toggleDropdown($event)">
+              <div class="meteo-info">
+                <img src="/images/Icon-left.png" alt="Icon Left">
+                <div class="meteo-text">Données météo</div>
+                <img src="/images/Icon-Dropdown.png" alt="Icon Dropdown">
+              </div>
+            </div>
+            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
+              <div class="dropdown-item">Données météo</div>
+              <div class="dropdown-item">Période précédente</div>
+              <div class="dropdown-item">Evénements</div>
+            </div>
+          </div>
+        </div>
+        <h1>Historique de ma consommation</h1>
+        <canvas id="radarChart"></canvas>
+        <p class="legend-text" *ngIf="currentUnit === 'kWh'">
+          Les données disponibles dans le graphique peuvent être estimées, réelles ou recalculées. Estimations en euros
+          TTC
+          sans la<br> part abonnement. Elles sont fondées sur une consommation estimée. Cette indication n’est pas
+          contractuelle.
+        </p>
+        <p class="legend-text"
+          *ngIf="currentUnit === 'euro' && (currentTimeScale === 'month' || currentTimeScale === 'year')">
+          Estimations en euros TTC sans la part abonnement. Elles sont fondées sur une consommation estimée. Cette
+          indication n’est pas contractuelle.
+        </p>
       </div>
-    </div>
-<div class="dropdown-arrow">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-</div>
-</div></div>
-
-</div>
-<br>
-
-
-<div class="consumption-container">
-  <div class="chart-controls">
-    <button 
-      (click)="setTimeScale('hour')" 
-      [ngClass]="{'active-icon': currentTimeScale === 'hour'}">Heure</button>
-    <button 
-      (click)="setTimeScale('day')" 
-      [ngClass]="{'active-icon': currentTimeScale === 'day'}">Jour</button>
-    <button 
-      (click)="setTimeScale('month')" 
-      [ngClass]="{'active-icon': currentTimeScale === 'month'}">Mois</button>
-    <button 
-      (click)="setTimeScale('year')" 
-      [ngClass]="{'active-icon': currentTimeScale === 'year'}">Année</button>
-      <div class="spacer"></div>
-      <p>Affichage</p>
-      <button (click)="setUnit('kWh')" [ngClass]="{'active-icon': currentUnit === 'kWh'}">kWh</button>
-      <button (click)="setUnit('euro')" [ngClass]="{'active-icon': currentUnit === 'euro'}">€</button>
-      <div class="dropdown">
-        <div class="dropdown-toggle" (click)="toggleDropdown($event)">
-          <div class="meteo-info">
-            <img src="/images/Icon-left.png" alt="Icon Left">
-            <div class="meteo-text">Données météo</div>
-            <img src="/images/Icon-Dropdown.png" alt="Icon Dropdown">
-          </div>
-        </div>
-        <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
-          <div class="dropdown-item">Données météo</div>
-          <div class="dropdown-item">Période précédente</div>
-          <div class="dropdown-item">Evénements</div>
-        </div>
-      </div>    
+    </div> -->
   </div>
-  <h1>Historique de ma consommation</h1>
-<canvas id="radarChart"></canvas>
-<p class="legend-text" *ngIf="currentUnit === 'kWh'">
-  Les données disponibles dans le graphique peuvent être estimées, réelles ou recalculées. Estimations en euros TTC sans la<br> part abonnement. Elles sont fondées sur une consommation estimée. Cette indication n’est pas contractuelle.
-</p>
-<p class="legend-text" *ngIf="currentUnit === 'euro' && (currentTimeScale === 'month' || currentTimeScale === 'year')">
-  Estimations en euros TTC sans la part abonnement. Elles sont fondées sur une consommation estimée. Cette indication n’est pas contractuelle.
-</p>
-</div>
 
-<div class="containerr">
-  <div class="a-la-une">
-    <h5> A la une</h5>
-    <img style="width: 100%;height: 100%;margin-top: 10px;" src="/images/eco-geste copy.jpg" >
-    <div class="icon-service">
-      <div class="icon-frame">Eco-geste</div>
-      <div class="text-frame">Guide de maîtrise d’énergie ! <br>Chaque geste compte !</div>
-      <div class="iconn" >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
+  <div class="row">
+    <div class="col-md-3 mb3">
+      <app-headline [comsuptionHeadline]="true" />
     </div>
-  </div></div>
 
-
-  <div class="article-selection">
-    <div class="header">
-      <div class="title">Notre sélection d’articles</div>
-      <div class="view-all">
-        <div class="view-all-text">Voir tous les articles</div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">   <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-      </div>
-    </div>
-    <div class="article-list">
-      <div class="article-box">
-        <div class="image" style="background: url('/images/Rectangle\ 1477\ \(4\).png'); background-size: cover"></div>
-        <div class="article-content">
-          <div class="article-title">Sobriété énergétique et sobriété numérique</div>
-          <div class="article-description">
-            Attention à vos appareils électriques ! Découvrez les bons gestes à adopter...
-          </div>        <br>
-          <div class="read-more">
-            <div class="read-more-text">Voir l’article</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">   <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-          </div>
-        </div>
-      </div>
-      
-      <div class="article-box">
-        <div class="image" style="background: url('/images/Rectangle\ 1477\ \(5\).png'); background-size: cover"></div>
-        <div class="article-content">
-          <div class="article-title">Sobriété énergétique et salle de bains</div>
-          <div class="article-description">
-            Découvrez les bons gestes à adopter...
-          </div>        <br><br>
-          <div class="read-more">
-            <div class="read-more-text">Voir l’article</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">   <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="article-box">
-        <div class="image" style="background: url('/images/Rectangle\ 1477\ \(6\).png'); background-size: cover"></div>
-        <div class="article-content">
-          <div class="article-title">Consommation cachée de vos appareils</div>
-          <div class="article-description">
-            Machine à laver, ballon d’eau chaude, chauffage...
-          </div>        <br>
-          <div class="read-more">
-            <div class="read-more-text">Voir l’article</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">   <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="article-box">
-        <div class="image" style="background: url('/images/Rectangle\ 1477\ \(7\).png'); background-size: cover"></div>
-        <div class="article-content">
-          <div class="article-title">Consommation d’énergie : les écogestes du printemps !</div>
-          <div class="article-description">
-            Les gestes les plus efficaces pour réduire votre consommation d’énergie au printemps ?
-          </div>
-          <div class="read-more">
-            <div class="read-more-text">Voir l’article</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">   <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>
-          </div>
-        </div>
-      </div>
-
-      
+    <div class="col-md-9 mb3">
+      <app-articles [consumption]="true" [numVisibleArticles]="4" />
     </div>
   </div>
 </div>

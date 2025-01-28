@@ -1,23 +1,23 @@
 // TODO : Vérfier les valeurs nullable et modifier le model
 export class Consumption {
-    meterReadingDocument!: string;
-    pODExt!: string;
-    pDS_SF_ID!: string;
-    contractISU!: string;
-    energy!: string;
-    utilitiesRegister!: string;
+    MeterReadingDocument!: string;
+    PODExt!: string;
+    PDS_SF_ID!: string;
+    ContractISU!: string;
+    Energy!: string;
+    UtilitiesRegister!: string;
     Consumption!: number;
-    meterReadingMeasurementUnit!: string;
+    MeterReadingMeasurementUnit!: string;
     MeterReadingDate!: string;
-    meterReadingStatus!: string;
-    meterReadingType!: string;
-    meterReadingCategory!: string;
-    startIndexDate!: string;
-    endIndex!: string;
-    endIndexDate!: string;
-    transitionToZero!: string;
-    idCalSupplier!: string;
-    idSeasonal!: string;
+    MeterReadingStatus!: string;
+    MeterReadingType!: string;
+    MeterReadingCategory!: string;
+    StartIndexDate!: string;
+    SndIndex!: string;
+    EndIndexDate!: string;
+    TransitionToZero!: string;
+    IdCalSupplier!: string;
+    IdSeasonal!: string;
 
     public constructor(init?: Partial<Consumption>) {
         Object.assign(this, init);

@@ -1,14 +1,21 @@
 //Button
-.p-button{
-    background:#D4E22C !important;
-    color: black !important;
-    border: none !important;
-  }
-  .p-button-icon-only {
-    background: none !important;
-    color:#D4E22C !important;
-  }
-  .p-button-secondary{
+.p-button {
+  background: #D4E22C !important;
+  color: black !important;
+  border: none !important;
+}
+
+.p-button-icon-only {
+  background: none !important;
+  color: #D4E22C !important;
+}
+
+.p-button-secondary {
   background: transparent !important;
   color: rgba(84, 78, 78, 0.70) !important;
-  }
+}
+
+.p-button-info {
+  background: #e5e7eb !important;;
+  border: 1px solid #e5e7eb !important;;
+}

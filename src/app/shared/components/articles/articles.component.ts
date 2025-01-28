@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 import { VariousService } from '../../services/various.service';
 import { Article } from '../../models/article.model';
@@ -12,6 +12,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './articles.component.scss'
 })
 export class ArticlesComponent implements OnInit {
+  @Input() consumption: boolean = false;
+  @Input() numVisibleArticles: number = 3;
+  
   articles: Article[] = [];
   responsiveOptions: any[] | undefined;
 
@@ -22,32 +25,32 @@ export class ArticlesComponent implements OnInit {
 
     this.responsiveOptions = [
       {
-          breakpoint: '1400px',
-          numVisible: 2,
-          numScroll: 1,
+        breakpoint: '1400px',
+        numVisible: 2,
+        numScroll: 1,
       },
       {
-          breakpoint: '1199px',
-          numVisible: 3,
-          numScroll: 1,
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1,
       },
       {
-          breakpoint: '767px',
-          numVisible: 2,
-          numScroll: 1,
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 1,
       },
       {
-          breakpoint: '575px',
-          numVisible: 1,
-          numScroll: 1,
+        breakpoint: '575px',
+        numVisible: 1,
+        numScroll: 1,
       },
-  ];
+    ];
   }
 
   initArticles() {
     this.variousService.getArticlesData().subscribe({
       next: (data: Article[]) => {
-        this.articles = data;
+        this.articles = data.filter(item => item.consumption === this.consumption);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'articles :', error);

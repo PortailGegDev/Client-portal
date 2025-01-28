@@ -1,14 +1,22 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, effect, HostListener, signal } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { BrandService } from '../../../../shared/services/brand.service';
 import { CommonModule } from '@angular/common';
+import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
+import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
+import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
+import { ContractService } from '../../../../shared/services/contract.service';
+import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
+import { ConsumptionService } from '../../services/consumption.service';
+import { AppConsumptionChartComponent } from '../../components/chart/chart.component';
+import { Consumption } from '../../../../shared/models/consumption.model';
 
 @Component({
   selector: 'app-consumption',
-  imports: [CommonModule],
+  imports: [CommonModule, HeadlineComponent, ArticlesComponent, ActiveContractComponent, AppConsumptionChartComponent],
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
@@ -17,21 +25,41 @@ export class AppConsumptionComponent {
   currentUnit: string = 'kWh';  // Par défaut en kWh
   currentTimeScale: string = 'month';
 
+  selectedContract: any = null;
+  consumptions = signal<ChartConsumption[] | null>(null);
+
+
+  constructor(private consumptionService: ConsumptionService,
+    private contractService: ContractService) {
+    // Effet : Charger les données lorsque le contrat change
+    effect(() => {
+      this.contractService.contract$.subscribe(contract => {
+        if (contract) {
+          this.selectedContract = contract;
+          this.loadConsumption(contract.ContractISU);
+        }
+      });
+    });
+  }
 
   ngOnInit(): void {
-    this.selectedContract = this.contractts[0];
-    this.fetchContracts();
     this.createChart();
     setTimeout(() => this.createChart(), 0);
 
   }
 
-  constructor(
-    private router: Router,
-    private contractService: ContractHttpService,
-    private brandService: BrandService,
-    private http: HttpClient
-  ) { }
+  loadConsumption(contractNumber: string) {
+    contractNumber = '0350103717';
+    this.consumptionService.getChartConsumptionData(contractNumber).subscribe({
+      next: (consumptions) => {
+        this.consumptions.set(consumptions);
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des données de consommation:", error);
+      },
+    });
+  }
+
 
   isDropdownOpen = false;
 
@@ -216,7 +244,6 @@ export class AppConsumptionComponent {
   get contractCount(): number {
     return this.contractts.length;
   }
-  selectedContract: any = null;
   addressCompteur: string = '';
   businessSectorText: string = '';
   isOpen: boolean = false;
@@ -233,26 +260,4 @@ export class AppConsumptionComponent {
   }
 
   contractts: any[] = [];
-  fetchContracts(): void {
-    this.contractService.fetchContractISU(null).subscribe(
-      data => {
-        console.log('Données reçues:', data);  // Affiche les données reçues dans la console
-        if (data?.d?.results) {
-          this.contractts = data.d.results; // Récupère le tableau de résultats
-          console.log(this.businessSectorText);
-          if (this.contractts.length > 0) {
-            this.selectedContract = this.contractts[0];  // Le premier contrat sera sélectionné par défaut
-
-          }
-        } else {
-          console.error('Aucune donnée trouvée.');
-          this.contractts = []; // Assure que contractts est un tableau vide si aucune donnée n'est trouvée
-        }
-      },
-      error => {
-        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
-        this.contractts = []; // Assure que contractts reste vide en cas d'erreur
-      }
-    );
-  }
 }

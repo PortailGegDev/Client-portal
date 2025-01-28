@@ -1,15 +1,18 @@
 <p-panel [style]="{'width': '100%', 'height': '100%'}">
     <ng-template #header>
-        <div class="flex items-center gap-2 header">
-            <h5>Notre sélection d’articles</h5>
+        <div class="col-12 flex items-center gap-2 header">
+            <div class="col-6">
+                <h5>Notre sélection d’articles</h5>
+            </div>
 
-            <div class="button-containerr">
+            <div class="col-6 button-containerr" style="text-align: right;">
                 <p>Voir tous les articles → </p>
             </div>
+
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="3" [showNavigators]="false" [showIndicators]="false"
+    <p-carousel [value]="articles" [numVisible]="numVisibleArticles" [showNavigators]="false" [showIndicators]="false"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>
             <div class="card-text" style="margin: 20px;">
@@ -26,7 +29,7 @@
     </p-carousel>
 
 
-<!-- 
+    <!-- 
     <div class="header">
         <div class="cardd">
             <div class="card-image">

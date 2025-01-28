@@ -1,47 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Facture } from '../../../../shared/models/facture-model';
-import { convertSAPDate } from '../../../../shared/utils/date-utilities';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
+import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home-documents',
-  imports: [CommonModule, PanelModule],
+  imports: [CommonModule, PanelModule, TimeSpanToDatePipe, ButtonModule],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss'
 })
-export class AppHomeDocumentsComponent implements OnChanges {
+export class AppHomeDocumentsComponent {
   @Input() lastInvoice: Facture | null = null; //decorator
-  lastInvoiceData: { statut: string; TotalAmountHT: string; date: string | null } | null = null;
 
   constructor(private router: Router) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.lastInvoice) {
-      this.lastInvoiceData = {
-        statut:
-          this.lastInvoice!.statusInvoicingDocument === "Non Soldée"
-            ? "A payer"
-            : this.lastInvoice!.statusInvoicingDocument === "Totalement Soldée"
-              ? "payer"
-              : "Autre statut",
-        date: convertSAPDate(this.lastInvoice!.postingDate),
-        TotalAmountHT: this.lastInvoice!.totalAmount
-      };
-      console.log("Dernière facture:", this.lastInvoice); // Vérification dans la console
-
-    }
-  }
-
-  payFacture(facture: { statut: string; TotalAmountHT: string; date: string | null }): void {
-    if (facture.statut === "A payer") {
+  payFacture(facture: Facture): void {
+    if (facture.StatusInvoicingDocument === "Non Soldée") {
       console.log("Paiement de la facture en cours...");
     }
   }
 
-  downloadPDF(facture: { statut: string; TotalAmountHT: string; date: string | null }): void {
-    if (facture.statut === "payer") {
+  downloadPDF(facture: Facture): void {
+    if (facture.StatusInvoicingDocument === "Totalement Soldée") {
       console.log("Téléchargement du PDF de la facture...");
     }
   }
