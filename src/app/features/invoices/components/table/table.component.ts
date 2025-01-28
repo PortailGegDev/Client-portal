@@ -9,11 +9,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { Message } from 'primeng/message';
 
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
+  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message,ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -48,5 +49,9 @@ export class AppInvoicesTableComponent implements OnChanges {
     this.dt?.filterGlobal(inputValue, 'contains');
   }
   payFacture(facture: Facture) {
+  }
+
+  deselectAllInvoices(){
+    this.selectedInvoices=[];
   }
 }
