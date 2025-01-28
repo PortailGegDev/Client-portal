@@ -52,6 +52,8 @@ export function getMonthFromDate(date: Date): number {
 
 export const frenchMonth: string[] = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
+export const shortFrenchMonth: string[] = ["Janv.", "Févr.", "Mars", "Avr.", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."];
+
 // Fonction pour obtenir le mois en français à partir d'un numéro
 export function getMonthNameByMonthNumber(monthNumber: number): string {
   if (monthNumber < 1 || monthNumber > 12) {
