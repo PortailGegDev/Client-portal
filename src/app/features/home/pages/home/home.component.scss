@@ -778,19 +778,3 @@ h6 {
   margin: 0;
   /* Annule toute marge qui pourrait être appliquée par défaut */
 }
-
-
-
-
-.custom-spinner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); // Fond semi-transparent
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; // Par-dessus tous les autres éléments
-}

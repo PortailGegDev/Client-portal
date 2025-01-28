@@ -6,10 +6,11 @@ import { ChartModule } from 'primeng/chart';
 import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utilities';
 import { Router } from '@angular/router';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home-consumption',
-  imports: [PanelModule, ChartModule, TimeSpanToDatePipe],
+  imports: [PanelModule, ChartModule, TimeSpanToDatePipe, ButtonModule],
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })

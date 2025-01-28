@@ -14,13 +14,11 @@ import { AppHomeConsumptionComponent } from '../../components/consumption/consum
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
-import { LoadingService } from '../../../../shared/services/loading.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-home',
-  imports: [AppHomeCarouselComponent, ProgressSpinnerModule, AppHomeDocumentsComponent, AppHomeConsumptionComponent, ActiveContractComponent, ArticlesComponent, HeadlineComponent, CommonModule, LoadingSpinnerComponent, LoadingSpinnerComponent],
+  imports: [AppHomeCarouselComponent, AppHomeDocumentsComponent, AppHomeConsumptionComponent, ActiveContractComponent, ArticlesComponent, HeadlineComponent, CommonModule, LoadingSpinnerComponent, LoadingSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -37,8 +35,7 @@ export class AppHomeComponent {
     private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
-    private authService: AuthService,
-    private loadingService: LoadingService
+    private authService: AuthService
   ) {
 
     // Effet : Charger les données lorsque le contrat change
@@ -74,7 +71,6 @@ export class AppHomeComponent {
       },
       error: (error) => {
         console.error("Erreur lors du chargement des factures:", error);
-        this.loadingService.hide();
       },
     });
   }
@@ -84,7 +80,6 @@ export class AppHomeComponent {
     this.consumptionService.getLastfourChartConsumptionData(contractNumber).subscribe({
       next: (consumptions) => {
         this.consumptions.set(consumptions);
-        this.loadingService.hide();
       },
       error: (error) => {
         console.error("Erreur lors du chargement des données de consommation:", error);

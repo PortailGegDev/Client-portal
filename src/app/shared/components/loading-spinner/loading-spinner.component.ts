@@ -11,8 +11,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 })
 export class LoadingSpinnerComponent implements OnChanges {
   @Input() showSpinner: boolean = false;
-
-  constructor(public loadingService: LoadingService) {}
+  
+  constructor(public loadingService: LoadingService) { }
 
   ngOnChanges() {
     if (this.showSpinner) {

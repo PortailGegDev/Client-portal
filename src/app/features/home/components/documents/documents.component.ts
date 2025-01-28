@@ -4,10 +4,11 @@ import { Facture } from '../../../../shared/models/facture-model';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home-documents',
-  imports: [CommonModule, PanelModule, TimeSpanToDatePipe],
+  imports: [CommonModule, PanelModule, TimeSpanToDatePipe, ButtonModule],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss'
 })
