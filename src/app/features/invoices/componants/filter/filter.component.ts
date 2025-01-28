@@ -7,10 +7,10 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { Message } from 'primeng/message';
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule,Message],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
@@ -108,7 +108,6 @@ export class AppInvoicesFilterComponent implements OnChanges {
   }
   
   goToPrevDate(): void {
-    // Décrémenter d'un mois
     this.startDate.setMonth(this.startDate.getMonth() - 1);
     this.endDate.setMonth(this.endDate.getMonth() - 1);
     this.checkDateSelection();
@@ -129,12 +128,10 @@ export class AppInvoicesFilterComponent implements OnChanges {
     }
   }
   decrementStartMonth() {
-    // Décrémente le mois de la date de début
     this.startDate.setMonth(this.startDate.getMonth() + 1);
   }
-  currentDate: Date = new Date(); // Initialise la date actuelle
+  currentDate: Date = new Date();
   incrementEndMonth() {
-    // Incrémente le mois de la date de fin
     this.endDate.setMonth(this.endDate.getMonth() + 1);
   }
 
@@ -213,7 +210,6 @@ export class AppInvoicesFilterComponent implements OnChanges {
     
   filterGlobal(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
-    this.onGlobalFilter.emit(inputValue);
-    
+    this.onGlobalFilter.emit(inputValue); 
   }
 }

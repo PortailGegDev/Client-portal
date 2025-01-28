@@ -37,6 +37,8 @@ export class AppInvoicesComponent {
 
 invoices: Facture[] = [];
 globalFiltervalue: string='';
+
+
   theme: string = '';
   ngOnInit(): void {
     this.theme = this.brandService.getBrand();

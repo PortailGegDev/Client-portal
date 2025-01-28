@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Facture } from '../../../../shared/models/facture-model';
 import { ButtonModule } from 'primeng/button';
@@ -10,17 +10,19 @@ import { convertSAPDate } from '../../../../shared/utils/date-utilities';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
-
+import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule,TimeSpanToDatePipe,FormsModule,ButtonModule,TableModule,TagModule,ConfirmDialogModule,InputIconModule,IconFieldModule],
+  imports: [CommonModule,TimeSpanToDatePipe,FormsModule,Message,ButtonModule,TableModule,TagModule,ConfirmDialogModule,InputIconModule,IconFieldModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
 export class AppInvoicesTableComponent implements OnChanges {
 @Input() invoices:Facture[]=[];
 @Input() inputvalue: string=''; 
+@Output() onSelectInvoice: EventEmitter<void>= new EventEmitter<void>();
+
 @ViewChild('dt') dt: Table | undefined;
 ngOnChanges(changes: SimpleChanges): void {
   if (this.invoices.length >0)
@@ -48,6 +50,14 @@ selectedInvoices:Facture[]=[];
   
   filterGlobal(inputValue:string) {
     this.dt?.filterGlobal(inputValue, 'contains');
+  }
+
+  selectInvoice() {
+    this.onSelectInvoice.emit(); // Émission de l'événement sans valeur
+  }
+
+  deselectAllInvoices(): void {
+    this.selectedInvoices = []; // Réinitialise le tableau
   }
   payFacture(facture: Facture) {
   }
