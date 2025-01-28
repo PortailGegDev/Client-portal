@@ -50,7 +50,7 @@ export function getMonthFromDate(date: Date): number {
   return date.getMonth() + 1; // Ajouter 1 pour que janvier soit 1, février soit 2, etc.
 }
 
-const frenchMonth: string[] = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+export const frenchMonth: string[] = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
 // Fonction pour obtenir le mois en français à partir d'un numéro
 export function getMonthNameByMonthNumber(monthNumber: number): string {

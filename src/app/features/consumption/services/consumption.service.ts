@@ -21,18 +21,19 @@ export class ConsumptionService {
 
           consumptions.forEach(consumption => {
 
-            let dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
-
-            if (!dateConsumption) {
+            if (!consumption.EndIndexDate) {
               return;
             }
+
+            let dateConsumption = convertSAPDateToTsDate(consumption.EndIndexDate);
 
             let value = consumption.Consumption ? consumption.Consumption : 0;
 
             let chartConsumption: ChartConsumption = {
-              date: dateConsumption,
-              monthNumber: getMonthFromDate(dateConsumption),
-              value: value
+              date: dateConsumption!,
+              monthNumber: getMonthFromDate(dateConsumption!),
+              value: value,
+              idSeasonal:consumption.IdSeasonal
             };
 
             chartConsumptions.push(chartConsumption);
@@ -40,7 +41,7 @@ export class ConsumptionService {
 
           // Trier les données par date (du plus récent au plus ancien)
           chartConsumptions = chartConsumptions.sort((a, b) => b.date.getTime() - a.date.getTime());
-
+          
           return chartConsumptions;
         })
       );

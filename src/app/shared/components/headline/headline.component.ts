@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PanelModule } from 'primeng/panel';
 
@@ -10,7 +10,9 @@ import { PanelModule } from 'primeng/panel';
 })
 export class HeadlineComponent {
 
-  constructor(private router:Router){}
+  @Input() comsuptionHeadline: boolean = false
+  
+  constructor(private router: Router) { }
 
   navigateToService() {
     this.router.navigate(["/services"]);

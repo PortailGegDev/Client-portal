@@ -1,0 +1,11 @@
+<p-panel>
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <h5>Historique de ma consommation</h5>
+        </div>
+    </ng-template>
+
+    <div class="row">
+        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+    </div>
+</p-panel>
