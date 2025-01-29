@@ -1,9 +1,5 @@
 import { Component, effect, HostListener, signal } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
-import { BrandService } from '../../../../shared/services/brand.service';
 import { CommonModule } from '@angular/common';
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
@@ -12,7 +8,6 @@ import { ContractService } from '../../../../shared/services/contract.service';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { ConsumptionService } from '../../services/consumption.service';
 import { AppConsumptionChartComponent } from '../../components/chart/chart.component';
-import { Consumption } from '../../../../shared/models/consumption.model';
 
 @Component({
   selector: 'app-consumption',

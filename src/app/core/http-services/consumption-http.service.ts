@@ -31,7 +31,7 @@ export class ConsumptionHttpService {
       .pipe(
         catchError(error => {
           console.error('Erreur lors de la requête:', error);
-          return throwError(error);
+          return throwError(() => error);
         })
       );
   }
