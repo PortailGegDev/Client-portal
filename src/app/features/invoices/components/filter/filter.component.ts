@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Facture } from '../../../../shared/models/facture-model';
 import { Router } from '@angular/router';
@@ -10,29 +10,42 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { Table, TableModule } from 'primeng/table';
+import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule,Message,Dialog,ButtonModule],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,TimeSpanToDatePipe,InputIcon,InputTextModule,Message,Dialog,ButtonModule,TableModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
 export class AppInvoicesFilterComponent implements OnChanges {
   @Input() invoices: Facture[] = [];
   @Output() onGlobalFilter: EventEmitter<string>= new EventEmitter<string>();
+  @ViewChild('dt') dt: Table | undefined;
   invoicesData:  { statut: string; dateprelevemnt:string; DateDemission:string; TotalAmountHT: string; date: string | null } | null = null;
   rangeDates: Date[] | undefined;
 
   constructor(private router: Router) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
 
-  }
 
   visible: boolean = false;
-
+  visible1: boolean = false;
   showDialog() {
       this.visible = true;
   }
+  
+  showDialog1() {
+    this.visible1 = true;
+}
+
+ngOnChanges(changes: SimpleChanges): void {
+  if (this.invoices.length > 0) {
+    console.log(this.invoices);
+  }
+}
+
+
   searchText: string = '';
   heroes: any[] = []; 
   isDateSelected: boolean = false; // Nouvelle variable d'état

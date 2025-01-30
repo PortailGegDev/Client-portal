@@ -367,7 +367,17 @@ font-weight: 600 !important;
 .p-dialog-header-actions {
   justify-content: flex-end !important;
 }
+.p-dialog-content{
+  text-align: center !important;
+}
 
 .p-dialog-header{
   flex-direction: column-reverse !important;
 }
+
+// .p-iconwrapper {
+//   background: var(--Brand-Primary-500, #D4E22C);
+//   padding: 2px;
+//   gap: 4px;}
+
+
