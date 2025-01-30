@@ -1,0 +1,14 @@
+{
+    "headlines": [
+        {
+            "icon": "Relevez vos index",
+            "text": "Il est temps de faire votre auto-relève",
+            "img": "/images/photo a la une.jpg"
+        },
+        {
+            "icon": "Chèque énergie",
+            "text": "Ce mois-ci saisissez votre chèque énergie",
+            "img": "/images/eco-geste copy.jpg"
+        }
+    ]
+}

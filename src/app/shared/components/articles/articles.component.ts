@@ -12,7 +12,6 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './articles.component.scss'
 })
 export class ArticlesComponent implements OnInit {
-  @Input() consumption: boolean = false;
   @Input() numVisibleArticles: number = 3;
   
   articles: Article[] = [];
@@ -50,7 +49,7 @@ export class ArticlesComponent implements OnInit {
   initArticles() {
     this.variousService.getArticlesData().subscribe({
       next: (data: Article[]) => {
-        this.articles = data.filter(item => item.consumption === this.consumption);
+        this.articles = data;
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'articles :', error);

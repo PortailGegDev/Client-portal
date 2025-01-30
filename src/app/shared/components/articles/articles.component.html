@@ -8,12 +8,11 @@
             <div class="col-6 button-containerr" style="text-align: right;">
                 <p>Voir tous les articles → </p>
             </div>
-
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="numVisibleArticles" [showNavigators]="false" [showIndicators]="false"
-        [responsiveOptions]="responsiveOptions">
+    <p-carousel [value]="articles" [numVisible]="numVisibleArticles" [showNavigators]="false" [circular]="true"
+        [numScroll]="3" [showIndicators]="false" autoplayInterval="3000" [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>
             <div class="card-text" style="margin: 20px;">
                 <img src="{{ article.img }}" [alt]="article.title" class="w-full rounded-border" style="width: 100%;" />
@@ -27,47 +26,4 @@
             </div>
         </ng-template>
     </p-carousel>
-
-
-    <!-- 
-    <div class="header">
-        <div class="cardd">
-            <div class="card-image">
-                <img class="image" src="/images/Rectangle 1477 (8).png">
-            </div>
-            <div class="card-text">
-                <div class="card-title">Production d’électricité</div>
-                <br>
-                <div class="card-description">Comment GEG produit son électricité</div>
-                <div class="button-containerr">
-                    <p>Voir l'article → </p>
-                </div>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="card-image">
-                <img class="image" src="/images/Rectangle 1477 (9).png">
-            </div>
-            <div class="card-text">
-                <div class="card-title">Consommation cachée, même éteints, ils consomment</div>
-                <div class="card-description">Découvrez les bons gestes à adopter </div>
-                <div class="button-containerr">
-                    <p>Voir l'article → </p>
-                </div>
-            </div>
-        </div>
-        <div class="cardd">
-            <div class="card-image">
-                <img class="image" src="/images/Rectangle 1477 (10).png">
-            </div>
-            <div class="card-text">
-                <div class="card-title">Voiture électrique</div>
-                <div class="card-description">Tout comprendre sur les atouts et points faibles</div>
-                <div class="button-containerr">
-                    <p>Voir l'article → </p>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
 </p-panel>

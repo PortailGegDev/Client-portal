@@ -1,5 +1,4 @@
-@if(!comsuptionHeadline) {
-<p-panel [style]="{'width': '100%', 'height': '100%'}">
+<!-- <p-panel [style]="{'width': '100%', 'height': '100%'}">
     <ng-template #header>
         <div class="flex items-center gap-2">
             <h5>A la une</h5>
@@ -7,6 +6,8 @@
     </ng-template>
 
     <div class="row">
+        @if(!comsuptionHeadline) {
+
         <img src="/images/photo a la une.jpg">
         <div class="icon-service">
             <div class="icon-frame">Service</div>
@@ -18,19 +19,9 @@
                 </svg>
             </div>
         </div>
-    </div>
-</p-panel>
-}
+        }
 
-@if(comsuptionHeadline) {
-<p-panel [style]="{'width': '100%', 'height': '100%'}">
-    <ng-template #header>
-        <div class="flex items-center gap-2">
-            <h5>A la une</h5>
-        </div>
-    </ng-template>
-
-    <div class="row">
+        @if(comsuptionHeadline) {
         <img style="width: 100%;height: 100%;margin-top: 10px;" src="/images/eco-geste copy.jpg">
         <div class="icon-service">
             <div class="icon-frame">Eco-geste</div>
@@ -42,6 +33,47 @@
                 </svg>
             </div>
         </div>
+        }
     </div>
+</p-panel> -->
+
+<p-panel [style]="{'width': '100%', 'height': '100%'}">
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <h5>A la une</h5>
+        </div>
+    </ng-template>
+
+    <p-carousel [value]="headlines" [numVisible]="1" [showNavigators]="false" [circular]="true" [numScroll]="1"
+        [showIndicators]="false" autoplayInterval="5000">
+        <ng-template let-headline #item>
+            <div class="card-text" style="margin: 20px;">
+                <img src="{{ headline.img }}" [alt]="headline.icon" class="w-full rounded-border"
+                    style="width: 100%;" />
+                <div class="icon-service">
+                    <div class="card-title icon-frame">{{ headline.icon }}</div>
+                    <div class="text-frame">{{ headline.text}}</div>
+                    <div class="iconn" (click)="navigateToService()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+        
+                </div>
+            </div>
+
+            <!-- <img src="{{ headline.img }}">
+        <div class="icon-service">
+            <div class="icon-frame">{{ headline.icon}}</div>
+            <div class="text-frame">{{ headline.text}}</div>
+            <div class="iconn" (click)="navigateToService()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div> -->
+        </ng-template>
+    </p-carousel>
 </p-panel>
-}
