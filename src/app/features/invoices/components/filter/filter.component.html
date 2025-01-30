@@ -1,218 +1,17 @@
-<!-- <div class="filters">
-    <div class="date-range" *ngIf="!isDateSelected">
-      <div class="arrow-left" (click)="goToPrevDate()">
-      </div>
-      <input type="date" class="start-date" id="start-date" [value]="startDate | date:'yyyy-MM-dd'"
-        (change)="onStartDateChange($event)">
-      <span> - </span>
-      <input type="date" class="end-date" id="end-date" [value]="endDate | date:'yyyy-MM-dd'"
-        (change)="onEndDateChange($event)">
-    </div>
-    <div *ngIf="isDateSelected" class="containner">
-      <svg (click)="decrementStartMonth()" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-        viewBox="0 0 20 20" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M12.9419 4.55806C13.186 4.80214 13.186 5.19786 12.9419 5.44194L8.38388 10L12.9419 14.5581C13.186 14.8021 13.186 15.1979 12.9419 15.4419C12.6979 15.686 12.3021 15.686 12.0581 15.4419L7.05806 10.4419C6.81398 10.1979 6.81398 9.80214 7.05806 9.55806L12.0581 4.55806C12.3021 4.31398 12.6979 4.31398 12.9419 4.55806Z"
-          fill="#8F8F8F" />
-      </svg>
-      <div class="text">{{ getFormattedDate() }}</div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path
-          d="M11.0002 5.43984H5.00016C4.72402 5.43984 4.50016 5.66369 4.50016 5.93984C4.50016 6.21598 4.72402 6.43984 5.00016 6.43984H11.0002C11.2763 6.43984 11.5002 6.21598 11.5002 5.93984C11.5002 5.66369 11.2763 5.43984 11.0002 5.43984Z"
-          fill="black" />
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M11.2602 2.37984H11.3335C13.1744 2.37984 14.6668 3.87222 14.6668 5.71317V11.7132C14.6668 13.5541 13.1744 15.0465 11.3335 15.0465H4.66683C3.78277 15.0465 2.93493 14.6953 2.30981 14.0702C1.68469 13.4451 1.3335 12.5972 1.3335 11.7132V5.71317C1.3335 3.87222 2.82588 2.37984 4.66683 2.37984H4.72683V1.1665C4.72683 0.890362 4.95069 0.666504 5.22683 0.666504C5.50297 0.666504 5.72683 0.890362 5.72683 1.1665V2.37984H10.2602V1.1665C10.2602 0.890362 10.484 0.666504 10.7602 0.666504C11.0363 0.666504 11.2602 0.890362 11.2602 1.1665V2.37984ZM11.3335 14.0465C12.6222 14.0465 13.6668 13.0018 13.6668 11.7132V5.71317C13.6668 4.42451 12.6222 3.37984 11.3335 3.37984H4.66683C3.37817 3.37984 2.3335 4.42451 2.3335 5.71317V11.7132C2.3335 13.0018 3.37817 14.0465 4.66683 14.0465H11.3335Z"
-          fill="black" />
-      </svg>
-      <svg (click)="incrementEndMonth()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-        fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M7.05806 4.55806C6.81398 4.80214 6.81398 5.19786 7.05806 5.44194L11.6161 10L7.05806 14.5581C6.81398 14.8021 6.81398 15.1979 7.05806 15.4419C7.30214 15.686 7.69786 15.686 7.94194 15.4419L12.9419 10.4419C13.186 10.1979 13.186 9.80214 12.9419 9.55806L7.94194 4.55806C7.69786 4.31398 7.30214 4.31398 7.05806 4.55806Z"
-          fill="#8F8F8F" />
-      </svg>
-    </div>
-    <div class="arrow-right" (click)="goToNextDate()" *ngIf="!isDateSelected">
-    </div>
-    <div class="search-hero">
-      <input class="form-control search-input" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-        placeholder="Rechercher&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#61442;">
-    </div>
-    <div class="icon-container">
-      <div class="outer-circle">
-        <div class="inner-circle"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          class="icon-svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M8 2H6C3.79086 2 2 3.79086 2 6V9C2 11.2091 3.79086 13 6 13H8C10.2091 13 12 11.2091 12 9V6C12 3.79086 10.2091 2 8 2ZM6 3.5H8C9.38071 3.5 10.5 4.61929 10.5 6V9C10.5 10.3807 9.38071 11.5 8 11.5H6C4.61929 11.5 3.5 10.3807 3.5 9V6C3.5 4.61929 4.61929 3.5 6 3.5Z"
-            fill="#363538" />
-          <path
-            d="M17.75 3C17.75 2.58579 17.4142 2.25 17 2.25C16.5858 2.25 16.25 2.58579 16.25 3V5.25H14C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75H16.25V9C16.25 9.41421 16.5858 9.75 17 9.75C17.4142 9.75 17.75 9.41421 17.75 9V6.75H20C20.4142 6.75 20.75 6.41421 20.75 6C20.75 5.58579 20.4142 5.25 20 5.25H17.75V3Z"
-            fill="#363538" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M16 11H18C20.2091 11 22 12.7909 22 15V18C22 20.2091 20.2091 22 18 22H16C13.7909 22 12 20.2091 12 18V15C12 12.7909 13.7909 11 16 11ZM16 12.5C14.6193 12.5 13.5 13.6193 13.5 15V18C13.5 19.3807 14.6193 20.5 16 20.5H18C19.3807 20.5 20.5 19.3807 20.5 18V15C20.5 13.6193 19.3807 12.5 18 12.5H16Z"
-            fill="#363538" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M7.85789 14.9779C7.30001 14.0171 5.87034 14.0066 5.2939 14.9517L2.45448 19.6071C1.82146 20.645 2.69505 21.75 3.7287 21.75H9.27135C10.2932 21.75 11.1634 20.6704 10.5611 19.6333L7.85789 14.9779ZM3.81938 20.25L6.5639 15.7501L6.56848 15.75L6.57179 15.7501L9.18469 20.25H3.81938Z"
-            fill="#363538" />
-        </svg>
-      </div>
-      <div class="text-container">
-        <div class="text" (click)="toggleEstimate()">Estimer prochaine facture</div>
-      </div>
-    </div>
-    <div class="icon-container1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M2 3.5H22C22.2761 3.5 22.5 3.72386 22.5 4V14C22.5 14.2761 22.2761 14.5 22 14.5H2C1.72386 14.5 1.5 14.2761 1.5 14V4C1.5 3.72386 1.72386 3.5 2 3.5ZM0 4C0 2.89543 0.895431 2 2 2H22C23.1046 2 24 2.89543 24 4V14C24 15.1046 23.1046 16 22 16H2C0.89543 16 0 15.1046 0 14V4ZM5.07698 6.68193H10.3077C10.5839 6.68193 10.8077 6.90579 10.8077 7.18193V7.63647C10.8077 7.91262 10.5839 8.13647 10.3077 8.13647H5.07698C4.80083 8.13647 4.57698 7.91262 4.57698 7.63647V7.18193C4.57698 6.90579 4.80083 6.68193 5.07698 6.68193ZM3.07698 7.18193C3.07698 6.07736 3.97241 5.18193 5.07698 5.18193H10.3077C11.4123 5.18193 12.3077 6.07736 12.3077 7.18193V7.63647C12.3077 8.74104 11.4123 9.63647 10.3077 9.63647H5.07698C3.97241 9.63647 3.07698 8.74104 3.07698 7.63647V7.18193ZM14.0192 5.81807C14.0192 5.40386 14.355 5.06807 14.7692 5.06807H20.3077C20.7219 5.06807 21.0577 5.40386 21.0577 5.81807C21.0577 6.23229 20.7219 6.56807 20.3077 6.56807H14.7692C14.355 6.56807 14.0192 6.23229 14.0192 5.81807ZM14.7692 8.82543C14.355 8.82543 14.0192 9.16121 14.0192 9.57543C14.0192 9.98964 14.355 10.3254 14.7692 10.3254H20.3077C20.7219 10.3254 21.0577 9.98964 21.0577 9.57543C21.0577 9.16121 20.7219 8.82543 20.3077 8.82543H14.7692Z"
-          fill="#1E1E1E" />
-      </svg>
-      <div class="text-section">
-        <div class="text1" (click)="toggleTable()">Voir le détail du chèque énergie</div>
-      </div>
-    </div>
-
-
-
-    <div *ngIf="isEstimateVisible" class="overlay">
-      <div class="modal-content">
-        <div class="close-icon" (click)="closeEstimate()">×</div>
-        <h1 class="title">Estimer prochaine facture</h1>
-        <div>
-          <p>Renseignez vos index actuels</p>
-        </div>
-        <div class="box-container">
-   
-          <div class="box-row">
-            <div class="box" *ngFor="let item of hpItems | keyvalue; let i = index">
-              <input type="number" [ngModel]="item.value" (ngModelChange)="updateValue('hp', item.key, $event)" />
-            </div>
-            <span class="box-label">HP</span>
-          </div>
-
-   
-          <div class="box-row">
-            <div class="box" *ngFor="let item of hcItems | keyvalue; let i = index">
-              <input type="number" [ngModel]="item.value" (ngModelChange)="updateValue('hc', item.key, $event)" />
-            </div>
-            <span class="box-label">HC</span>
-          </div>
-        </div>
-
-        <div *ngIf="!isCalculated" class="action-box">
-          <div class="action" (click)="calculateEstimate()">
-            <div class="action-text">Calculer</div>
-          </div>
-        </div>
-
-        <div *ngIf="isCalculated" class="estimated-amount">
-          <div class="amount-container">
-            <div class="amount-label">
-              Montant estimé
-            </div>
-            <div class="amount-value">
-              {{ estimatedAmount }}€
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="isTableVisible" class="overlay">
-      <div class="modal-content">
-        <div class="close-icon" (click)="closeTable()"></div>
-        <h1 class="title">Vous bénéficiez d’un chèque énérgie </h1>
-        <div>Ci-dessous les informations liées à votre chèque énergie</div>
-        <div class="container">
-          <div class="row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M2 3.5H22C22.2761 3.5 22.5 3.72386 22.5 4V14C22.5 14.2761 22.2761 14.5 22 14.5H2C1.72386 14.5 1.5 14.2761 1.5 14V4C1.5 3.72386 1.72386 3.5 2 3.5ZM0 4C0 2.89543 0.895431 2 2 2H22C23.1046 2 24 2.89543 24 4V14C24 15.1046 23.1046 16 22 16H2C0.89543 16 0 15.1046 0 14V4ZM5.07698 6.68193H10.3077C10.5839 6.68193 10.8077 6.90579 10.8077 7.18193V7.63647C10.8077 7.91262 10.5839 8.13647 10.3077 8.13647H5.07698C4.80083 8.13647 4.57698 7.91262 4.57698 7.63647V7.18193C4.57698 6.90579 4.80083 6.68193 5.07698 6.68193ZM3.07698 7.18193C3.07698 6.07736 3.97241 5.18193 5.07698 5.18193H10.3077C11.4123 5.18193 12.3077 6.07736 12.3077 7.18193V7.63647C12.3077 8.74104 11.4123 9.63647 10.3077 9.63647H5.07698C3.97241 9.63647 3.07698 8.74104 3.07698 7.63647V7.18193ZM14.0192 5.81807C14.0192 5.40386 14.355 5.06807 14.7692 5.06807H20.3077C20.7219 5.06807 21.0577 5.40386 21.0577 5.81807C21.0577 6.23229 20.7219 6.56807 20.3077 6.56807H14.7692C14.355 6.56807 14.0192 6.23229 14.0192 5.81807ZM14.7692 8.82543C14.355 8.82543 14.0192 9.16121 14.0192 9.57543C14.0192 9.98964 14.355 10.3254 14.7692 10.3254H20.3077C20.7219 10.3254 21.0577 9.98964 21.0577 9.57543C21.0577 9.16121 20.7219 8.82543 20.3077 8.82543H14.7692Z"
-                fill="#1E1E1E" />
-            </svg>
-            <div>
-              <div class="label">Cheque N°</div>
-              <div>
-                <div>1234567889</div>
-                <div class="small-text">Enrégistré le 30 Déc. 2023</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="label">Valable</div>
-            <div>jusqu’à 23 Mars 2024</div>
-          </div>
-          <div>
-            <div class="label">Montant initiale</div>
-            <div>535€</div>
-          </div>
-          <div>
-            <div class="label">Solde</div>
-            <div>135€</div>
-          </div>
-        </div>
-        <div class="paiements-container">
-          <div class="titre">
-            <p>6 paiements réglés avec votre chèque énergie</p>
-          </div>
-
-          <div class="paiement-list">
-            <div *ngFor="let paiement of paiements" class="paiement-item">
-              <div class="paiement-date">
-                <span>{{ paiement.date }}</span>
-              </div>
-
-              <div class="paiement-numero">
-                <div class="paiement-numero-detail">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-                    <path
-                      d="M11.3333 9.0655H14V13.0655C14 13.8019 13.403 14.3988 12.6667 14.3988M11.3333 9.0655V13.0655C11.3333 13.8019 11.9303 14.3988 12.6667 14.3988M11.3333 9.0655V4.23689C11.3333 3.6333 11.3333 3.3315 11.2065 3.15648C11.0959 3.00381 10.9258 2.90512 10.7384 2.88482C10.5236 2.86156 10.2615 3.0113 9.73745 3.31077L9.52922 3.42976C9.33632 3.53998 9.23987 3.5951 9.13745 3.61668C9.04681 3.63577 8.95319 3.63577 8.86255 3.61668C8.76013 3.5951 8.66367 3.53998 8.47079 3.42976L7.19588 2.70124C7.00299 2.59102 6.90654 2.5359 6.80411 2.51432C6.71348 2.49523 6.61986 2.49523 6.52922 2.51432C6.42679 2.5359 6.33035 2.59102 6.13745 2.70124L4.86255 3.42976C4.66965 3.53998 4.57321 3.5951 4.47078 3.61668C4.38014 3.63577 4.28652 3.63577 4.19589 3.61668C4.09346 3.5951 3.99701 3.53998 3.80412 3.42976L3.59588 3.31076C3.07181 3.0113 2.80978 2.86156 2.59491 2.88482C2.40748 2.90512 2.23741 3.00381 2.1268 3.15648C2 3.3315 2 3.6333 2 4.23689V11.1988C2 12.3189 2 12.879 2.21799 13.3068C2.40973 13.6831 2.71569 13.9891 3.09202 14.1808C3.51984 14.3988 4.0799 14.3988 5.2 14.3988H12.6667M4.66667 9.0655H7.33333M4.66667 6.39883H6.66667H8.66667"
-                      stroke="#544E4E" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <div class="numero-text">
-                    <span>{{ paiement.numero }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="paiement-montant">
-                <span>{{ paiement.montant }}€</span>
-              </div>
-
-              <div class="paiement-status">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                  <path
-                    d="M11.5131 15.6787L8.43362 12.6075C8.30304 12.4774 8.22964 12.3006 8.22964 12.1162C8.22964 11.9319 8.30304 11.7551 8.43362 11.625C8.70825 11.3619 9.14146 11.3619 9.41609 11.625L11.3067 13.5239V5.19351C11.3067 4.8105 11.6172 4.5 12.0002 4.5C12.3833 4.5 12.6938 4.8105 12.6938 5.19351V13.5239L14.5844 11.625C14.859 11.3619 15.2923 11.3619 15.5669 11.625C15.6975 11.7551 15.7709 11.9319 15.7709 12.1162C15.7709 12.3006 15.6975 12.4774 15.5669 12.6075L12.4874 15.6787C12.3603 15.8116 12.1841 15.8862 12.0002 15.8851C11.816 15.8882 11.6391 15.8133 11.5131 15.6787Z"
-                    fill="#AAB614" />
-                  <path
-                    d="M16.3099 8.9748H17.3089C19.3864 9.01994 21.0363 10.7363 20.9994 12.8139V15.9595C21.0363 18.037 19.3864 19.7534 17.3089 19.7985L6.69159 19.7325C4.61416 19.6873 2.96425 17.971 3.00112 15.8934V12.7478C2.97675 11.7457 3.3522 10.775 4.04458 10.0501C4.73697 9.3252 5.68937 8.90562 6.69159 8.88398H7.69058C8.07359 8.88398 8.38409 9.19448 8.38409 9.5775C8.38409 9.96051 8.07359 10.271 7.69058 10.271H6.69159C6.05641 10.2903 5.45538 10.563 5.02262 11.0284C4.58986 11.4937 4.36137 12.1129 4.38814 12.7478V15.8686C4.36137 16.5035 4.58986 17.1228 5.02262 17.5881C5.45538 18.0534 6.05641 18.3262 6.69159 18.3455L17.3089 18.4611C17.9441 18.4418 18.5451 18.169 18.9779 17.7037C19.4107 17.2383 19.6391 16.6191 19.6124 15.9842V12.8387C19.6391 12.2037 19.4107 11.5845 18.9779 11.1192C18.5451 10.6539 17.9441 10.3811 17.3089 10.3618H16.3099C15.9269 10.3618 15.6164 10.0513 15.6164 9.66831C15.6164 9.2853 15.9269 8.9748 16.3099 8.9748Z"
-                    fill="#AAB614" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div> -->
-
-
-
 <div class="row" style="margin-bottom: 20px;">
-  <div class="col-3">
+  <div class="col-md-3 mb-3">
     <p-datepicker [(ngModel)]="rangeDates" placeholder="01/01/2024-12/09/2025" [iconDisplay]="'input'" [showIcon]="true"
-      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" />
+      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" [style]="{width: '90%'}"/>
   </div>
-  <div class="col-3">
+
+  <div class="col-md-3 mb-3">
     <p-iconfield>
       <p-inputicon styleClass="pi pi-search" />
-      <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Rechercher" />
+      <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Rechercher" style="width: 90%;" />
     </p-iconfield>
   </div>
 
-  <div class="col-3">
+  <div class="col-md-3 mb-3">
     <p-message severity="info" styleClass="h-full">
       <div class="outer-circle">
         <div class="inner-circle"></div>
@@ -250,8 +49,7 @@
     </p-message>
   </div>
 
-
-  <div class="col-3">
+  <div class="col-md-3 mb-3">
     <p-message severity="info" styleClass="h-full">
       <div style="display: flex; align-items: center;">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
