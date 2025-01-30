@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <p-selectbutton [options]="chartOptions" [(ngModel)]="selectButtonValue" [multiple]="false"
+            <p-selectbutton [options]="chartOptions" [(ngModel)]="selectedChartOptionsValue" [multiple]="false"
                 optionLabel="name" optionValue="value" />
         </div>
 
@@ -17,10 +17,19 @@
             <p-selectbutton [options]="unityOptions" [(ngModel)]="selectUnityValue" [multiple]="false"
                 optionLabel="name" optionValue="value" />
             &nbsp; &nbsp;
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City"
-                class="w-full md:w-56" />
+            <p-select [options]="typeDataChart" [(ngModel)]="selectedTypeDataChart" optionLabel="name"
+                placeholder="Sélectionnez" class="w-full md:w-56" />
         </div>
 
+        @switch (selectedChartOptionsValue) {
+        @case (1) {
+        <app-consumption-activation/>
+
+        }
+        @case (2) {
+        <app-consumption-activation [byHours]="false" />
+        }
+        @default {
         <div class="col-12">
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
             <p class="col-md-12 consumption-info">
@@ -30,5 +39,8 @@
                 n'est pas constractuelle.
             </p>
         </div>
+        }
+        }
+
     </div>
 </p-panel>

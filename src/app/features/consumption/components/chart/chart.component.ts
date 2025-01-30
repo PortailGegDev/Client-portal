@@ -8,10 +8,13 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'primeng/button';
+import { Message } from 'primeng/message';
+import { AppConsumptionActivationComponent } from '../activation/activation.component';
 
 @Component({
   selector: 'app-consumption-chart',
-  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule],
+  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, Message, AppConsumptionActivationComponent],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
@@ -24,7 +27,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
   data: any;
   options: any;
 
-  selectButtonValue: number = 3;
+  selectedChartOptionsValue: number = 3;
   chartOptions: any[] = [
     { name: 'Heure', value: 1 },
     { name: 'Jour', value: 2 },
@@ -38,14 +41,12 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     { name: '€', value: 2 }
   ];
 
-  cities: any[] = [
+  selectedTypeDataChart = 'DM';
+  typeDataChart: any[] = [
     { name: 'Données météo', code: 'DM' },
     { name: 'Période précédente', code: 'PP' },
     { name: 'Evénements', code: 'EVENT' }
   ];
-
-  selectedCity = this.cities.find(item => item.code === 'DM');
-
 
   ngOnInit() {
     // Enregistrer le plugin avant d'initialiser le graphique

@@ -1,0 +1,26 @@
+<div class="col-12">
+    <div class="info-box-center">
+        <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">
+            <div class="info-consumption-icon">
+                <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"
+                    fill="none">
+                    <circle class="circle" cx="15.5" cy="16.5" r="7.5" />
+
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M1 0C1.55229 0 2 0.447715 2 1V18.6C2 19.7366 2.00078 20.5289 2.05118 21.1458C2.10062 21.7509 2.19279 22.0986 2.32698 22.362C2.6146 22.9265 3.07354 23.3854 3.63803 23.673C3.90138 23.8072 4.24907 23.8994 4.85424 23.9488C5.47108 23.9992 6.26339 24 7.4 24H25C25.5523 24 26 24.4477 26 25C26 25.5523 25.5523 26 25 26H7.35717C6.2734 26 5.39925 26 4.69138 25.9422C3.96253 25.8826 3.32234 25.7568 2.73005 25.455C1.78924 24.9757 1.02434 24.2108 0.544968 23.27C0.243181 22.6777 0.117368 22.0375 0.0578184 21.3086C-1.77398e-05 20.6007 -9.75112e-06 19.7266 2.62457e-07 18.6428L5.00876e-07 1C5.00876e-07 0.447715 0.447716 0 1 0ZM5.33333 6.33333C5.33333 5.78105 5.78105 5.33333 6.33333 5.33333H21C21.5523 5.33333 22 5.78105 22 6.33333C22 6.88562 21.5523 7.33333 21 7.33333H6.33333C5.78105 7.33333 5.33333 6.88562 5.33333 6.33333ZM5.33333 11.6667C5.33333 11.1144 5.78105 10.6667 6.33333 10.6667H17C17.5523 10.6667 18 11.1144 18 11.6667C18 12.219 17.5523 12.6667 17 12.6667H6.33333C5.78105 12.6667 5.33333 12.219 5.33333 11.6667ZM5.33333 17C5.33333 16.4477 5.78105 16 6.33333 16H22.3333C22.8856 16 23.3333 16.4477 23.3333 17C23.3333 17.5523 22.8856 18 22.3333 18H6.33333C5.78105 18 5.33333 17.5523 5.33333 17Z"
+                        fill="#1E1E1E" />
+                </svg>
+            </div>
+
+
+            <p>Suivez votre consommation en plus près</p>
+            <p style="font-size: 14px;">{{description}}</p>
+            <p-button label="{{buttonLabel}}" iconPos="right" (click)="showActivationDialog()" />
+        </div>
+    </div>
+</div>
+
+<p-dialog header="{{dialogTitle}}" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+    <app-consumption-activation-dialog />
+</p-dialog>
