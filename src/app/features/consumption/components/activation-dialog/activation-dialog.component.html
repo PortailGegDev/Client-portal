@@ -9,13 +9,21 @@
         rubrique "Mes préférences" de votre espace client.
     </div>
 
-    <div class="info-box mb-3" style="text-align: left;">
-        <p>Si vous activez cette option gratuite, vos données quotidiennes seront disponibles sur votre espace client dans quelques jours</p>
+    <div class="info-box mb-5" style="text-align: left;">
+        <p>Si vous activez cette option gratuite, vos données quotidiennes seront disponibles sur votre espace client
+            dans quelques jours</p>
+    </div>
+
+    <div class="col-12 mb-3" style="text-align: left; display: flex; gap: 10px;">
+        <p-checkbox [(ngModel)]="authorizationChecked" [binary]="true" />
+        <label class="ml-2">J'autorise le distributeur de ma zone à transmettre à GEG mes données de consommation pour
+            visualiser mes données à la maille quotidienne</label>
     </div>
 
     <div class="col-12 mb-3">
-        <p-button label="Annuler" severity="contrast" (click)="onCloseActivationDialog.emit()"/>
+        <p-button label="Annuler" severity="help" (click)="onCloseActivationDialog.emit()"/>
+
         &nbsp;
-        <p-button label="Activer" />
+        <p-button [disabled]="!authorizationChecked" label="Activer" (click)="activeConsumption()"/>
     </div>
 </div>

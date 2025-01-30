@@ -4,12 +4,13 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap/scss/grid";
-@import "primeicons/primeicons.css";
-@import "./assets/button.scss";
-@import "./assets/table.scss";
-@import "./assets/dialog.scss";
 
-@import "./assets/box.scss";
+@import "primeicons/primeicons.css";
+
+@import "./assets/styles/button.scss";
+@import "./assets/styles/table.scss";
+@import "./assets/styles/dialog.scss";
+@import "./assets/styles/box.scss";
 
 // Text
 
