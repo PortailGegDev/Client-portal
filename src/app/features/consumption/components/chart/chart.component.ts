@@ -5,10 +5,13 @@ import { ChartModule } from 'primeng/chart';
 import { shortFrenchMonth } from '../../../../shared/utils/date-utilities';
 import { Chart, Title } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-consumption-chart',
-  imports: [PanelModule, ChartModule],
+  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
@@ -20,6 +23,29 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
   data: any;
   options: any;
+
+  selectButtonValue: number = 3;
+  chartOptions: any[] = [
+    { name: 'Heure', value: 1 },
+    { name: 'Jour', value: 2 },
+    { name: 'Mois', value: 3 },
+    { name: 'Année', value: 4 }
+  ];
+
+  selectUnityValue: number = 1;
+  unityOptions: any[] = [
+    { name: 'kWh', value: 1 },
+    { name: '€', value: 2 }
+  ];
+
+  cities: any[] = [
+    { name: 'Données météo', code: 'DM' },
+    { name: 'Période précédente', code: 'PP' },
+    { name: 'Evénements', code: 'EVENT' }
+  ];
+
+  selectedCity = this.cities.find(item => item.code === 'DM');
+
 
   ngOnInit() {
     // Enregistrer le plugin avant d'initialiser le graphique

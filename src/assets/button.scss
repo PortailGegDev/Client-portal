@@ -18,6 +18,19 @@
 }
 
 .p-button-info {
-  background: #e5e7eb !important;;
-  border: 1px solid #e5e7eb !important;;
+  background: #e5e7eb !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.p-selectbutton p-togglebutton .p-togglebutton {
+  background-color: transparent !important;
+}
+
+.p-selectbutton p-togglebutton .p-togglebutton.p-togglebutton-checked {
+  background-color: #D4E22C !important;
+}
+
+.p-togglebutton.p-togglebutton-checked::before {
+  background-color: #D4E22C !important;
+  box-shadow: none !important;
 }

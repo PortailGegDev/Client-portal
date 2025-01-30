@@ -6,12 +6,29 @@
     </ng-template>
 
     <div class="row">
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-        <p class="col-md-12 consumption-info">
-            <span class="info-icon">i</span>
-            Les données disponibles dans le graphique pouvent être estimées, réelles ou recalculées. Estimations en
-            euros TTC sans la part abonnement. Elles sont fondées sur une consommation estimée. Cette indication n'est
-            pas constractuelle.
-        </p>
+        <div class="col-md-6 mb-3">
+            <p-selectbutton [options]="chartOptions" [(ngModel)]="selectButtonValue" [multiple]="false"
+                optionLabel="name" optionValue="value" />
+        </div>
+
+        <div class="col-md-6 mb-3 gap-2" style="text-align: right;">
+            <span>Affichage</span>
+            &nbsp; &nbsp;
+            <p-selectbutton [options]="unityOptions" [(ngModel)]="selectUnityValue" [multiple]="false"
+                optionLabel="name" optionValue="value" />
+            &nbsp; &nbsp;
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City"
+                class="w-full md:w-56" />
+        </div>
+
+        <div class="col-12">
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <p class="col-md-12 consumption-info">
+                <span class="info-icon">i</span>
+                Les données disponibles dans le graphique pouvent être estimées, réelles ou recalculées. Estimations en
+                euros TTC sans la part abonnement. Elles sont fondées sur une consommation estimée. Cette indication
+                n'est pas constractuelle.
+            </p>
+        </div>
     </div>
 </p-panel>
