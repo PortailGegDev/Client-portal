@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -8,5 +8,5 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './activation-dialog.component.scss'
 })
 export class AppConsumptionActivationDialogComponent {
-
+@Output() onCloseActivationDialog:EventEmitter<void> = new EventEmitter();
 }

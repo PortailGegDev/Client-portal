@@ -23,6 +23,7 @@
 @if(dialogVisible){
 <p-dialog header="{{dialogTitle}}" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '50rem' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-    <app-consumption-activation-dialog />
+    
+    <app-consumption-activation-dialog (onCloseActivationDialog)="closeActivationDialog()"/>
 </p-dialog>
 }

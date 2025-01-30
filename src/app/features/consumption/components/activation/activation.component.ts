@@ -27,4 +27,8 @@ export class AppConsumptionActivationComponent implements OnChanges {
   showActivationDialog() {
     this.dialogVisible = true;
   }
+
+  closeActivationDialog(){
+    this.dialogVisible = false;
+  }
 }

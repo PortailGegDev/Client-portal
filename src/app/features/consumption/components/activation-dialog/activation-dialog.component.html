@@ -14,8 +14,7 @@
     </div>
 
     <div class="col-12 mb-3">
-        <p-button label="Annuler" severity="contrast" />
-
+        <p-button label="Annuler" severity="contrast" (click)="onCloseActivationDialog.emit()"/>
         &nbsp;
         <p-button label="Activer" />
     </div>
