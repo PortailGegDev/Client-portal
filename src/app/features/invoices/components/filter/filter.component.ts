@@ -12,9 +12,11 @@ import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Table, TableModule } from 'primeng/table';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { AppInvoicesEstimateDialogComponent } from '../estimate-dialog/estimate-dialog.component';
+import { AppInvoicesEnergyCheckComponent } from '../energy-check/energy-check.component';
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule,IconField,TimeSpanToDatePipe,InputIcon,InputTextModule,Message,Dialog,ButtonModule,TableModule],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,TimeSpanToDatePipe,InputIcon,InputTextModule,Message,Dialog,ButtonModule,TableModule, AppInvoicesEstimateDialogComponent, AppInvoicesEnergyCheckComponent],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
@@ -160,14 +162,7 @@ ngOnChanges(changes: SimpleChanges): void {
   hcItems: number[] = [0, 0, 0, 0, 0]; // Maintenant 5 éléments pour HC
   estimatedAmount: number | null = null; // Montant estimé
   isCalculated: boolean = false; // Indicateur pour afficher ou non le montant estimé
-  // Méthode pour mettre à jour les valeurs HP et HC
-  updateValue(type: string, index: any, value: number): void {
-    if (type === 'hp') {
-      this.hpItems[index] = value;
-    } else if (type === 'hc') {
-      this.hcItems[index] = value;
-    }
-  }
+
 
   // Méthode pour calculer l'estimation
   calculateEstimate(): void {

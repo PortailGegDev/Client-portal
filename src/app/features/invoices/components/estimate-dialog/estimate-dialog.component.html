@@ -1,0 +1,14 @@
+<p> Renseignez vos index actuels </p>
+
+<div class="box-container">
+    <div class="box-row">
+        <span class="box-label">HP</span>
+        <p-inputotp [(ngModel)]="hpValue" [integerOnly]="true" [length]="5" />
+    </div>
+
+    <div class="box-row">
+        <span class="box-label">HC</span>
+        <p-inputotp [(ngModel)]="hcValue" [integerOnly]="true" [length]="5" />
+    </div>
+</div>
+<p-button label="Calculer"></p-button>
