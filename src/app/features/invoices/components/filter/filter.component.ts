@@ -8,9 +8,11 @@ import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule,Message],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule,Message,Dialog,ButtonModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
@@ -26,6 +28,11 @@ export class AppInvoicesFilterComponent implements OnChanges {
 
   }
 
+  visible: boolean = false;
+
+  showDialog() {
+      this.visible = true;
+  }
   searchText: string = '';
   heroes: any[] = []; 
   isDateSelected: boolean = false; // Nouvelle variable d'état
