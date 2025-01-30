@@ -7,6 +7,7 @@
 @import "primeicons/primeicons.css";
 @import "./assets/button.scss";
 @import "./assets/table.scss";
+@import "./assets/box.scss";
 
 // Text
 
@@ -375,6 +376,7 @@
 
 .p-dialog-header {
   flex-direction: column-reverse !important;
+  padding: 0% !important;
 }
 
 .info-box {
