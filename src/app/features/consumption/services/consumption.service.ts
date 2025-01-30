@@ -3,7 +3,7 @@ import { ApiResponseConsumption, ConsumptionHttpService } from '../../../core/ht
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { convertSAPDateToTsDate, getMonthFromDate } from '../../../shared/utils/date-utilities';
 import { map, Observable } from 'rxjs';
-import moment, { months } from 'moment';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Injectable({
   providedIn: 'root'
@@ -27,21 +27,77 @@ export class ConsumptionService {
 
             let dateConsumption = convertSAPDateToTsDate(consumption.EndIndexDate);
 
-            let value = consumption.Consumption ? consumption.Consumption : 0;
+            if (!dateConsumption) {
+              return;
+            }
+
+            let value = consumption.Consumption ? parseFloat(consumption.Consumption.toString()) || 0 : 0;
+
 
             let chartConsumption: ChartConsumption = {
               date: dateConsumption!,
               monthNumber: getMonthFromDate(dateConsumption!),
               value: value,
-              idSeasonal:consumption.IdSeasonal
+              idSeasonal: consumption.IdSeasonal
             };
 
             chartConsumptions.push(chartConsumption);
           });
 
+
+          // TODO: A Supprimer 
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 12,
+            value: 200,
+            idSeasonal: 'HP'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 12,
+            value: 134,
+            idSeasonal: 'HC'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 9,
+            value: 123,
+            idSeasonal: 'HP'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 9,
+            value: 130,
+            idSeasonal: 'HC'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 8,
+            value: 120,
+            idSeasonal: 'HP'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 8,
+            value: 90,
+            idSeasonal: 'HC'
+          });
+
+          chartConsumptions.push({
+            date: new Date("11/11/1011"),
+            monthNumber: 12,
+            value: 200,
+            idSeasonal: 'HP'
+          });
+
           // Trier les données par date (du plus récent au plus ancien)
           chartConsumptions = chartConsumptions.sort((a, b) => b.date.getTime() - a.date.getTime());
-          
+
           return chartConsumptions;
         })
       );
@@ -53,12 +109,12 @@ export class ConsumptionService {
         return response.d.results
           .map(consumption => {
             const dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
-  
+
             // Filtrer les consommations invalides directement
             if (!dateConsumption) {
               return null;
             }
-  
+
             return {
               date: dateConsumption,
               monthNumber: getMonthFromDate(dateConsumption),
@@ -71,5 +127,5 @@ export class ConsumptionService {
       })
     );
   }
-  
+
 }
