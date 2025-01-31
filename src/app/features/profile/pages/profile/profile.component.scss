@@ -123,7 +123,6 @@
     flex-direction: column;
     gap: 20px;
     background: white;
-    height: 100%;
   }
   .left-container {
     width: 65%;
@@ -214,9 +213,7 @@
     word-wrap: break-word;
   }
   
-  .identity-details,
-  .contact-details,
-  .additional-details {
+  .details {
     display: flex;
     flex-direction: column;
     gap: 24px;

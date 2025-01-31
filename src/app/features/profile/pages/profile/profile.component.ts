@@ -3,10 +3,13 @@ import { ContractHttpService } from '../../../../core/http-services/contrat-http
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TabsModule } from 'primeng/tabs';
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

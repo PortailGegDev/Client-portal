@@ -1,0 +1,22 @@
+// .p-tab {
+// color: rgba(84, 78, 78, 0.70) !important;
+// }
+
+.p-tablist-tab-list {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.p-tab-active {
+    color: #3A3A3A !important;
+    border-bottom: 3px solid #8E9D25 !important;
+    border-color: #8E9D25 !important;
+}
+
+.p-tablist-active-bar {
+    color: none !important;
+}
+
+.p-tablist-content {
+     flex-grow: 0 !important; 
+}

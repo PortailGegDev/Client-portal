@@ -1,0 +1,63 @@
+<!-- <div id="overlay" class="overlay" *ngIf="isOverlayVisible" (click)="hideOverlay()">
+    <div class="overlay-content" (click)="$event.stopPropagation()">
+        <div class="header">
+            <div class="close-icon" (click)="hideOverlay()"></div>
+        </div>
+        <div class="content">
+            <div class="title1">Créer l’accès pour un co-titulaire</div>
+            <div class="description">
+                <p>Ci-dessous la liste de vos contacts.<br>Si le contact ne figure pas dans la liste,
+                    veuillez contacter le service client.</p>
+            </div>
+        </div>
+
+        <div class="options">
+            <div [ngClass]="optionClass">
+                <div class="dropdown-header" (click)="toggleDropdown()">
+                    <span class="text">
+                        {{ selectedContract ? selectedContract.name : 'Choisir un contact' }}
+                    </span>
+                    <div class="arrow" [class.rotate]="isOpen"></div>
+                </div>
+                <div *ngIf="isOpen" class="dropdown-menu">
+                    <div *ngFor="let contract of contracts" class="dropdown-item" (click)="selectContract(contract)"
+                        [class.selected]="contract === selectedContract">
+                        {{ contract.name }}
+                    </div>
+                    <button class="validate-button" (click)="validateContract()" [disabled]="!selectedContract">
+                        Valider
+                    </button>
+                </div>
+            </div>
+
+            <div [ngClass]="accessOptionClass">
+                <div class="dropdown-header" (click)="toggleAccessDropdown()">
+                    <span class="text">
+                        {{ selectedAccess ? selectedAccess.address : 'Donnez les accès aux contrats' }}
+                    </span>
+                    <div class="arrow" [class.rotate]="isAccessOpen"></div>
+                </div>
+                <div *ngIf="isAccessOpen" class="dropdown-menu">
+                    <div *ngFor="let access of accessDetails" class="dropdown-item" (click)="selectAccess(access)"
+                        [class.selected]="access === selectedAccess">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="16.5" cy="14" r="7.5" fill="#E2F133" />
+                            <path
+                                d="M3.82696 6.74844V12.6153C3.82696 14.1501 3.82696 14.9175 4.12565 15.5037C4.38838 16.0193 4.80762 16.4386 5.32326 16.7013C5.90947 17 6.67687 17 8.21166 17H12.231C13.7657 17 14.5331 17 15.1194 16.7013C15.635 16.4386 16.0542 16.0193 16.317 15.5037C16.6157 14.9175 16.6157 14.1501 16.6157 12.6153V2.38434M18.4426 8.77869L13.4795 3.26491C12.3507 2.01092 11.7863 1.38392 11.1217 1.15245C10.5379 0.949139 9.90249 0.949186 9.31873 1.15258C8.6541 1.38415 8.08981 2.01123 6.96123 3.26539L2 8.77869M12.0483 17V11.5191H8.39435V17"
+                                stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        {{ access.address }} - {{ access.number }} <br>- {{ access.details }}
+                    </div>
+                    <button class="validate-button" (click)="validateAccess()" [disabled]="!selectedAccess">
+                        Valider
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer">
+            <span class="footer-text" (click)="onSendAccountCreation()">Envoyer la création du
+                compte</span>
+        </div>
+    </div>
+</div> -->
