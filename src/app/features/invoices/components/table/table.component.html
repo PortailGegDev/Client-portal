@@ -1,13 +1,18 @@
 @if(selectedInvoices.length>0){
-<div class="info-box">
-  <div style="align-items: center;gap: 16px;display: flex;">
-    <p-message variant="simple">{{selectedInvoices.length}} Factures sélectionnés</p-message>
+  <div class="row" style=" align-items: center; background-color: #FEFDE9;padding: 8px 16px;">
+    <div class="col-md-2 mb-2">
+    <p-message variant="simple">{{selectedInvoices.length}} Factures sélectionnés</p-message></div>
+    <div class="col-md-2 mb-2">
     <p-message icon="pi pi-times" severity="success" variant="simple"
       (click)="deselectAllInvoices()">Annuler</p-message>
-  </div>
+    </div>
+  <div class="col-md-6 mb-6" style="text-align: right;margin: auto;">
   <p-button label="Télécharger les factures" iconPos="right" icon="pi pi-download" />
 </div>
+</div>
 }
+
+
 
 <p-table #dt [value]="invoices" [rows]="5" [paginator]="true"
   [globalFilterFields]="['PostingDate', 'UtilitiesInvoicingDocument', 'TotalAmountHT', 'StatusInvoicingDocument']"

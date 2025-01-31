@@ -1,16 +1,20 @@
 <div class="row" style="text-align: center; margin: 10px;">
 <p> Renseignez vos index actuels </p>
-
-<div class="box-container">
+<div class="row" style="background-color: #FAFAD1;padding: 10px;">
+<div class="col-12 mb-3">
     <div class="box-row">
         <p-inputotp [(ngModel)]="hpValue" [integerOnly]="true" [length]="5" />
         <span class="box-label">HP</span>
     </div>
+</div>
+
+<div class="col-12 mb-3">
 
     <div class="box-row">
         <p-inputotp [(ngModel)]="hcValue" [integerOnly]="true" [length]="5" />
         <span class="box-label">HC</span>
     </div>
+</div>
 </div>
 <div class="col-12 mb-3">
 <p-button label="Calculer"></p-button>
