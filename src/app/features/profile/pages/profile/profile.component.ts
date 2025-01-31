@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { TabsModule } from 'primeng/tabs';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
+import { AppProfileDetailsComponent } from '../../components/profile-details/profile-details.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
