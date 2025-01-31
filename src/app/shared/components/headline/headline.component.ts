@@ -5,10 +5,11 @@ import { Headline } from '../../models/headline.model';
 import { VariousService } from '../../services/various.service';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-headline',
-  imports: [PanelModule,CarouselModule, ButtonModule],
+  imports: [CommonModule,PanelModule,CarouselModule, ButtonModule],
   templateUrl: './headline.component.html',
   styleUrl: './headline.component.scss'
 })
@@ -49,7 +50,7 @@ export class HeadlineComponent implements OnInit {
   initHeadlines() {
     this.variousService.getHeadlineData().subscribe({
       next: (data: Headline[]) => {
-        this.headlines = data;
+        this.headlines = data/*.filter(item=>item.icon==='Relevez vos index')*/;
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'à la une :', error);

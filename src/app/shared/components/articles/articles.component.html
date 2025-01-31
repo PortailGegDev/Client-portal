@@ -11,10 +11,10 @@
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="numVisibleArticles" [showNavigators]="false" [circular]="true"
-        [numScroll]="3" [showIndicators]="false" autoplayInterval="3000" [responsiveOptions]="responsiveOptions">
+    <p-carousel [value]="articles" [numVisible]="3" [showNavigators]="false" [circular]="true"
+        [numScroll]="3" [showIndicators]="false" autoplayInterval="5000" [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>
-            <div class="card-text" style="margin: 20px;">
+            <div class="card-text" style="margin: 10px;">
                 <img src="{{ article.img }}" [alt]="article.title" class="w-full rounded-border" style="width: 100%;" />
                 <div class="card-title mb-4">{{ article.title }}</div>
                 <div class="flex justify-between items-center">
