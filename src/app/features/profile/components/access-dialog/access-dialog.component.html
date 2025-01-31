@@ -1,63 +1,43 @@
-<!-- <div id="overlay" class="overlay" *ngIf="isOverlayVisible" (click)="hideOverlay()">
-    <div class="overlay-content" (click)="$event.stopPropagation()">
-        <div class="header">
-            <div class="close-icon" (click)="hideOverlay()"></div>
-        </div>
-        <div class="content">
-            <div class="title1">Créer l’accès pour un co-titulaire</div>
-            <div class="description">
-                <p>Ci-dessous la liste de vos contacts.<br>Si le contact ne figure pas dans la liste,
-                    veuillez contacter le service client.</p>
-            </div>
-        </div>
-
-        <div class="options">
-            <div [ngClass]="optionClass">
-                <div class="dropdown-header" (click)="toggleDropdown()">
-                    <span class="text">
-                        {{ selectedContract ? selectedContract.name : 'Choisir un contact' }}
-                    </span>
-                    <div class="arrow" [class.rotate]="isOpen"></div>
-                </div>
-                <div *ngIf="isOpen" class="dropdown-menu">
-                    <div *ngFor="let contract of contracts" class="dropdown-item" (click)="selectContract(contract)"
-                        [class.selected]="contract === selectedContract">
-                        {{ contract.name }}
-                    </div>
-                    <button class="validate-button" (click)="validateContract()" [disabled]="!selectedContract">
-                        Valider
-                    </button>
-                </div>
-            </div>
-
-            <div [ngClass]="accessOptionClass">
-                <div class="dropdown-header" (click)="toggleAccessDropdown()">
-                    <span class="text">
-                        {{ selectedAccess ? selectedAccess.address : 'Donnez les accès aux contrats' }}
-                    </span>
-                    <div class="arrow" [class.rotate]="isAccessOpen"></div>
-                </div>
-                <div *ngIf="isAccessOpen" class="dropdown-menu">
-                    <div *ngFor="let access of accessDetails" class="dropdown-item" (click)="selectAccess(access)"
-                        [class.selected]="access === selectedAccess">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <circle cx="16.5" cy="14" r="7.5" fill="#E2F133" />
-                            <path
-                                d="M3.82696 6.74844V12.6153C3.82696 14.1501 3.82696 14.9175 4.12565 15.5037C4.38838 16.0193 4.80762 16.4386 5.32326 16.7013C5.90947 17 6.67687 17 8.21166 17H12.231C13.7657 17 14.5331 17 15.1194 16.7013C15.635 16.4386 16.0542 16.0193 16.317 15.5037C16.6157 14.9175 16.6157 14.1501 16.6157 12.6153V2.38434M18.4426 8.77869L13.4795 3.26491C12.3507 2.01092 11.7863 1.38392 11.1217 1.15245C10.5379 0.949139 9.90249 0.949186 9.31873 1.15258C8.6541 1.38415 8.08981 2.01123 6.96123 3.26539L2 8.77869M12.0483 17V11.5191H8.39435V17"
-                                stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        {{ access.address }} - {{ access.number }} <br>- {{ access.details }}
-                    </div>
-                    <button class="validate-button" (click)="validateAccess()" [disabled]="!selectedAccess">
-                        Valider
-                    </button>
-                </div>
-            </div>
-
-        </div>
-        <div class="footer">
-            <span class="footer-text" (click)="onSendAccountCreation()">Envoyer la création du
-                compte</span>
-        </div>
+<div class="row" style="text-align: center; height: 900px;">
+    <div class="col-12 mb-3">
+        Ci-dessous la liste de vos contacts.<br>Si le contact ne figure pas dans la liste,
+        veuillez contacter le service client.
     </div>
-</div> -->
+
+    <div class="col-12 mb-3">
+        <p-select [options]="contracts" [(ngModel)]="selectedContract" optionLabel="name"
+            placeholder="Choisir un contact" class="w-full md:w-56" [style]="{'width':'60%', 'text-align':'left'}" />
+    </div>
+
+    <div class="col-12 mb-3">
+        <p-multiselect [options]="accessDetails" [append]="'body'" [(ngModel)]="selectedAccess" placeholder="Donnez les accès aux contrats"
+            optionLabel="name" styleClass="w-full md:w-80" display="chip"
+            [style]="{'width':'60%', 'text-align':'left'}">
+            <ng-template let-accessDetails #item>
+                <div class="flex items-center gap-2">
+                    <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                        viewBox="0 0 24 25" fill="none">
+                        <g clip-path="url(#clip0_2920_28613)">
+                            <circle class="circle" cx="16.5" cy="14.5" r="7.5" />
+                            <path
+                                d="M3.82696 7.24844V13.1153C3.82696 14.6501 3.82696 15.4175 4.12565 16.0037C4.38838 16.5193 4.80762 16.9386 5.32326 17.2013C5.90947 17.5 6.67687 17.5 8.21166 17.5H12.231C13.7657 17.5 14.5331 17.5 15.1194 17.2013C15.635 16.9386 16.0542 16.5193 16.317 16.0037C16.6157 15.4175 16.6157 14.6501 16.6157 13.1153V2.88434M18.4426 9.27869L13.4795 3.76491C12.3507 2.51092 11.7863 1.88392 11.1217 1.65245C10.5379 1.44914 9.90249 1.44919 9.31873 1.65258C8.6541 1.88415 8.08981 2.51123 6.96123 3.76539L2 9.27869M12.0483 17.5V12.0191H8.39435V17.5"
+                                stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_2920_28613">
+                                <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    &nbsp; &nbsp; 
+                    <div>{{ accessDetails.address }} <br> {{ accessDetails.number }} - {{ accessDetails.details }}  </div>
+                </div>
+            </ng-template>
+        </p-multiselect>
+    </div>
+
+    <div class="col-12 mb-3">
+        <p-button [disabled]="!selectedContract && !selectedContract" label="Envoyer la création du compte"
+            (click)="onSendAccountCreation()" />
+    </div>
+</div>

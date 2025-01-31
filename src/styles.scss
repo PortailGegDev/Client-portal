@@ -16,7 +16,13 @@
 
 // Text
 
+.p-select:not(.p-disabled).p-focus {
+  border-color:#D4E22C !important;
+}
 
+.p-select-option::after {
+  border-bottom: 1px solid #D4E22C;
+}
 
 /* Information sur la consommation */
 .consumption-info {

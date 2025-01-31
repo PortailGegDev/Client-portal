@@ -86,11 +86,11 @@
             <div class="contact-actions">
                 @if(isEditMode){
                 <div class="col-12 mb-3">
-                    <p-button label="Annuler" severity="help" (click)="saveEdit()"/>
-            
+                    <p-button label="Annuler" severity="help" (click)="saveEdit()" />
+
                     &nbsp;
-                    <p-button label="Enregistrer" (click)="saveEdit()"/>
-                </div>            
+                    <p-button label="Enregistrer" (click)="saveEdit()" />
+                </div>
                 }
             </div>
         </p-panel>
@@ -113,8 +113,16 @@
                 </div>
             </div>
             }
-            <div class="create-access" (click)="showOverlay()">Créer l’accès +</div>
+            <div class="create-access" (click)="showAccessdialog()">Créer l’accès +</div>
 
         </p-panel>
     </div>
 </div>
+
+@if(accessdialogVisible){
+<p-dialog header="Gérer l'accès pour un co-titulaire" [modal]="true" [(visible)]="accessdialogVisible" [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+
+    <app-profile-access-dialog [contracts]="contracts" [accessDetails]="accessDetails" (onCloseAccessDialog)="closeAccessDialog()" />
+</p-dialog>
+}
