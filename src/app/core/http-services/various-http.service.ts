@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Carousel } from '../../shared/models/carousel.model';
 import { Faq } from '../../shared/models/faq.model';
 import { Article } from '../../shared/models/article.model';
+import { Headline } from '../../shared/models/headline.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,17 @@ export class VariousHttpService {
   fetchArticlesData(): Observable<Article[]> {
     return this.http.get<{ articles: Article[] }>('/articles-data.json').pipe(
       map(response => response.articles || []), // Transforme la réponse pour ne renvoyer que les données nécessaires
+      catchError(error => {
+        console.error('Erreur lors de la requête:', error);
+        // Retourne un tableau vide ou une valeur par défaut en cas d'erreur
+        return of([]);
+      })
+    );
+  }
+
+  fetchHeadlineData(): Observable<Headline[]> {
+    return this.http.get<{ headlines: Headline[] }>('/headline-data.json').pipe(
+      map(response => response.headlines || []), // Transforme la réponse pour ne renvoyer que les données nécessaires
       catchError(error => {
         console.error('Erreur lors de la requête:', error);
         // Retourne un tableau vide ou une valeur par défaut en cas d'erreur

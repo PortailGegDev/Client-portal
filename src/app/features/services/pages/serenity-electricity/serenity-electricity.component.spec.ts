@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SerenityElectricityComponent } from './serenity-electricity.component';
+import { AppServicesSerenityElectricityComponent } from './serenity-electricity.component';
 
-describe('SerenityElectricityComponent', () => {
-  let component: SerenityElectricityComponent;
-  let fixture: ComponentFixture<SerenityElectricityComponent>;
+describe('AppServicesSerenityElectricityComponent', () => {
+  let component: AppServicesSerenityElectricityComponent;
+  let fixture: ComponentFixture<AppServicesSerenityElectricityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SerenityElectricityComponent]
+      imports: [AppServicesSerenityElectricityComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SerenityElectricityComponent);
+    fixture = TestBed.createComponent(AppServicesSerenityElectricityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

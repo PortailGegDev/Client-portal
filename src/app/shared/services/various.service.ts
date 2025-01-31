@@ -4,6 +4,7 @@ import { Carousel } from '../models/carousel.model';
 import { VariousHttpService } from '../../core/http-services/various-http.service';
 import { Faq } from '../models/faq.model';
 import { Article } from '../models/article.model';
+import { Headline } from '../models/headline.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class VariousService {
 
   getArticlesData(): Observable<Article[]> {
     return this.variousHttpService.fetchArticlesData();
+  }
+
+  getHeadlineData(): Observable<Headline[]> {
+    return this.variousHttpService.fetchHeadlineData();
   }
 }
