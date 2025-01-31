@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-serenity-electricity',
+  selector: 'app-services-serenity-electricity',
   imports: [],
   templateUrl: './serenity-electricity.component.html',
   styleUrl: './serenity-electricity.component.scss'
 })
-export class SerenityElectricityComponent {
+export class AppServicesSerenityElectricityComponent {
 
   constructor(private router: Router) { }
 

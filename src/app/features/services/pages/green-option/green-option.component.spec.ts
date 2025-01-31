@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GreenOptionComponent } from './green-option.component';
+import { AppServicesGreenOptionComponent } from './green-option.component';
 
-describe('GreenOptionComponent', () => {
-  let component: GreenOptionComponent;
-  let fixture: ComponentFixture<GreenOptionComponent>;
+describe('AppServicesGreenOptionComponent', () => {
+  let component: AppServicesGreenOptionComponent;
+  let fixture: ComponentFixture<AppServicesGreenOptionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GreenOptionComponent]
+      imports: [AppServicesGreenOptionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GreenOptionComponent);
+    fixture = TestBed.createComponent(AppServicesGreenOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
