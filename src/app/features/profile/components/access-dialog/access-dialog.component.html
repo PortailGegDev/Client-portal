@@ -1,4 +1,4 @@
-<div class="row" style="text-align: center; height: 900px;">
+<div class="row" style="text-align: center; height: 400px;">
     <div class="col-12 mb-3">
         Ci-dessous la liste de vos contacts.<br>Si le contact ne figure pas dans la liste,
         veuillez contacter le service client.
@@ -10,8 +10,8 @@
     </div>
 
     <div class="col-12 mb-3">
-        <p-multiselect [options]="accessDetails" [append]="'body'" [(ngModel)]="selectedAccess" placeholder="Donnez les accès aux contrats"
-            optionLabel="name" styleClass="w-full md:w-80" display="chip"
+        <p-multiselect [options]="accessDetails" [(ngModel)]="selectedAccess" [appendTo]="'body'"
+            placeholder="Donnez les accès aux contrats" optionLabel="name" styleClass="w-full md:w-80" display="chip"
             [style]="{'width':'60%', 'text-align':'left'}">
             <ng-template let-accessDetails #item>
                 <div class="flex items-center gap-2">
@@ -29,8 +29,9 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    &nbsp; &nbsp; 
-                    <div>{{ accessDetails.address }} <br> {{ accessDetails.number }} - {{ accessDetails.details }}  </div>
+                    &nbsp; &nbsp;
+                    <div>{{ accessDetails.address }} <br> {{ accessDetails.number }} - {{ accessDetails.details }}
+                    </div>
                 </div>
             </ng-template>
         </p-multiselect>
