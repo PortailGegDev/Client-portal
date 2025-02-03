@@ -2,8 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { BrandService } from '../../../../shared/services/brand.service';
-import * as moment from 'moment';
-import jsPDF from 'jspdf';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';

@@ -3,7 +3,7 @@
         <p-panel header="Identité" [style]="{'width': '100%', 'height': '100%'}">
             <div class="col-md-12">
                 <label class="detail-label">Prénom, nom</label>
-                <p class="detail-value">{{ person?.FullName }} </p>
+                <p class="detail-value">{{ currentUser()?.firstname }} {{ currentUser()?.lastname }} </p>
             </div>
 
             <div class="col-md-12">

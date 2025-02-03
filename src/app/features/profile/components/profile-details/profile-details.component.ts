@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
 import { AppProfileAccessDialogComponent } from '../access-dialog/access-dialog.component';
+import { User } from '../../../../shared/models/user.model';
+import { AuthService } from '../../../../core/http-services/auth.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -14,13 +16,18 @@ import { AppProfileAccessDialogComponent } from '../access-dialog/access-dialog.
 })
 export class AppProfileDetailsComponent {
   @Input() person: any = null;
-
+  currentUser = signal<User | undefined>(undefined);
   isEditMode: boolean = false;
   email = 'eugenie.verret@gmail.com'; // Initial email value
   phone = '+33 6 65 43 22 11'; // Initial phone value
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
   
+  constructor (private authService: AuthService){}
+  ngOnInit() {
+    this.currentUser.set(this.authService.getUserData());
+  }
+
   contracts = [
     { id: 1, name: 'Valentin Verret' },
     { id: 2, name: 'Pauline Verret' },
@@ -32,6 +39,7 @@ export class AppProfileDetailsComponent {
     { address: '20 rue de la Paix, 75002 Paris', number: 'n° 7654321', details: 'Gaz - Base - 12kVA' }
   ];
 
+  
   toggleEdit() {
     this.isEditMode = !this.isEditMode;
   }
