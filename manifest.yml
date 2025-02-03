@@ -1,7 +1,7 @@
 ---
 applications:
-  - name: client-portal-V1
-    memory: 512M
+  - name: client-portal
+    memory: 2G
     path: ./dist/client-portal
     disk_quota: 1024M
     stack: cflinuxfs4

@@ -73,21 +73,21 @@ export class ContractHttpService {
   }
 
   //Profil Client
-  Url1 = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_SAPAccount?$filter=BusinessPartnerID eq '1510000926'&$format=json";
-  fetchPerson(): Observable<ApiResponse> {
-    const headers = new HttpHeaders({
-      'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    });
-    return this.http.get<ApiResponse>(this.Url1)
-      .pipe(
-        catchError(error => {
-          console.error('Erreur lors de la requête:', error);
-          return throwError(() => error);
-        })
-      );
-  }
+  // Url1 = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_SAPAccount?$filter=BusinessPartnerID eq '1510000926'&$format=json";
+  // fetchPerson(): Observable<ApiResponse> {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   });
+  //   return this.http.get<ApiResponse>(this.Url1)
+  //     .pipe(
+  //       catchError(error => {
+  //         console.error('Erreur lors de la requête:', error);
+  //         return throwError(() => error);
+  //       })
+  //     );
+  // }
 
   Url = 'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/ZAPI_SAP_SF_V2_QF1/ZA_Contract/$count';
   fetchContractData(): Observable<string> {

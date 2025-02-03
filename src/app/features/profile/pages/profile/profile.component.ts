@@ -7,6 +7,11 @@ import { TabsModule } from 'primeng/tabs';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { AppProfileDetailsComponent } from '../../components/profile-details/profile-details.component';
+import { AuthService } from '../../../../core/http-services/auth.service';
+import { ProfilService } from '../../../../shared/services/profil.service';
+import { Profil } from '../../../../shared/models/profil.model';
+import { Subscription } from 'rxjs';
+import { User } from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +30,7 @@ export class AppProfileComponent {
   contactsWithAccess: string[] = [];
   person: any = null; // Objet pour stocker les données de la personne
 
+  profils: Profil[] = [];
 
   contracts = [
     { id: 1, name: 'Valentin Verret' },
@@ -39,11 +45,13 @@ export class AppProfileComponent {
     private router: Router, 
     private renderer: Renderer2, 
     private elRef: ElementRef, 
-    private service: ContractHttpService
+    private service: ContractHttpService,
+    private authService: AuthService, private profileService: ProfilService
   ) { }
 
   ngOnInit() {
-    this.fetchPerson();
+    // this.fetchPerson();
+    this.loadProfil(this.bp);
     // Récupérer le contrat sélectionné depuis le localStorage
     const savedContract = localStorage.getItem('selectedContract');
     if (savedContract) {
@@ -59,25 +67,43 @@ export class AppProfileComponent {
     if (savedContactsWithAccess) {
       this.contactsWithAccess = JSON.parse(savedContactsWithAccess);
     }
-  }
-  fetchPerson(): void {
-    this.service.fetchPerson().subscribe(
-      data => {
-        console.log('Données reçues:', data);
-        if (data?.d?.results?.length > 0) {
-          this.person = data.d.results[0]; // Récupère la première personne
-          this.email = this.generateEmail(this.person.FirstName, this.person.LastName);
 
-        } else {
-          console.error('Aucune donnée trouvée.');
-          this.person = null;
-        }
-      },
-      error => {
-        console.error('Erreur lors de la récupération des données:', error);
-      }
-    );
+  
   }
+  bp: string = '1510060117';
+
+  loadProfil(bp:string): void {
+    this.profils = [];
+    this.profileService.getProfil(bp).subscribe({
+      next: (data: Profil[]) => {
+        this.profils = data;
+        console.log(this.profils);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération du profil:', error);
+        this.profils = [];
+      }
+    });
+  }
+
+  // fetchPerson(): void {
+  //   this.service.fetchPerson().subscribe(
+  //     data => {
+  //       console.log('Données reçues:', data);
+  //       if (data?.d?.results?.length > 0) {
+  //         this.person = data.d.results[0]; // Récupère la première personne
+  //         this.email = this.generateEmail(this.person.FirstName, this.person.LastName);
+
+  //       } else {
+  //         console.error('Aucune donnée trouvée.');
+  //         this.person = null;
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Erreur lors de la récupération des données:', error);
+  //     }
+  //   );
+  // }
 
 
   toggleAccessDropdown() {

@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
 import { ContractService } from '../../../../shared/services/contract.service';
-
 import { AppInvoicesFilterComponent } from '../../components/filter/filter.component';
 import { AppInvoicesTableComponent } from '../../components/table/table.component';
 import { Facture } from '../../../../shared/models/facture-model';

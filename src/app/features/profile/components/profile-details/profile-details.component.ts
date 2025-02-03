@@ -7,6 +7,9 @@ import { PanelModule } from 'primeng/panel';
 import { AppProfileAccessDialogComponent } from '../access-dialog/access-dialog.component';
 import { User } from '../../../../shared/models/user.model';
 import { AuthService } from '../../../../core/http-services/auth.service';
+import { Subscription } from 'rxjs';
+import { ProfilService } from '../../../../shared/services/profil.service';
+import { Profil } from '../../../../shared/models/profil.model';
 
 @Component({
   selector: 'app-profile-details',
@@ -15,19 +18,22 @@ import { AuthService } from '../../../../core/http-services/auth.service';
   styleUrl: './profile-details.component.scss'
 })
 export class AppProfileDetailsComponent {
-  @Input() person: any = null;
-  currentUser = signal<User | undefined>(undefined);
+  @Input() profils: Profil[] = [];
+
+  userSubscription: Subscription | null = null;
   isEditMode: boolean = false;
   email = 'eugenie.verret@gmail.com'; // Initial email value
   phone = '+33 6 65 43 22 11'; // Initial phone value
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
-  
-  constructor (private authService: AuthService){}
-  ngOnInit() {
-    this.currentUser.set(this.authService.getUserData());
-  }
+  currentUser: User | null = null;
 
+  constructor (  private authService: AuthService, private profileService: ProfilService){}
+  ngOnInit(){
+    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+    });
+  }
   contracts = [
     { id: 1, name: 'Valentin Verret' },
     { id: 2, name: 'Pauline Verret' },
