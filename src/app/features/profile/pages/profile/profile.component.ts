@@ -10,8 +10,7 @@ import { AppProfileDetailsComponent } from '../../components/profile-details/pro
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
-import { Subscription } from 'rxjs';
-import { User } from '../../../../shared/models/user.model';
+
 
 @Component({
   selector: 'app-profile',
@@ -32,26 +31,19 @@ export class AppProfileComponent {
 
   profils: Profil[] = [];
 
-  contracts = [
-    { id: 1, name: 'Valentin Verret' },
-    { id: 2, name: 'Pauline Verret' },
-    { id: 3, name: 'Jean Dupont' }
-  ];
-  accessDetails = [
-    { address: '16 rue Pierre Larousse, 75014 Paris', number: 'n° 1234567', details: 'Electricité - Base - 9kVA' },
-    { address: '20 rue de la Paix, 75002 Paris', number: 'n° 7654321', details: 'Gaz - Base - 12kVA' }
-  ];
+
   constructor(
     private router: Router, 
     private renderer: Renderer2, 
     private elRef: ElementRef, 
     private service: ContractHttpService,
-    private authService: AuthService, private profileService: ProfilService
+    private authService: AuthService,
+    private profileService: ProfilService
   ) { }
 
   ngOnInit() {
-    // this.fetchPerson();
-    this.loadProfil(this.bp);
+    const bp = '1510060117';  // ID de test, remplace par une variable dynamique si nécessaire
+    this.loadProfil(bp);
     // Récupérer le contrat sélectionné depuis le localStorage
     const savedContract = localStorage.getItem('selectedContract');
     if (savedContract) {
@@ -67,21 +59,17 @@ export class AppProfileComponent {
     if (savedContactsWithAccess) {
       this.contactsWithAccess = JSON.parse(savedContactsWithAccess);
     }
-
-  
   }
-  bp: string = '1510060117';
 
-  loadProfil(bp:string): void {
-    this.profils = [];
+  loadProfil(bp: string): void {
     this.profileService.getProfil(bp).subscribe({
       next: (data: Profil[]) => {
-        this.profils = data;
-        console.log(this.profils);
+        this.profils = data;  // Stocker les profils reçus
+        console.log('Profils chargés:', this.profils); // Vérification dans la console
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération du profil:', error);
-        this.profils = [];
+        console.error('Erreur lors de la récupération des profils:', error);
+        this.profils = []; // Réinitialiser en cas d'erreur
       }
     });
   }
@@ -126,17 +114,8 @@ export class AppProfileComponent {
   showSection(section: string) {
     this.currentSection = section;
   }
-  email = 'eugenie.verret@gmail.com'; // Initial email value
-  phone = '+33 6 65 43 22 11'; // Initial phone value
-  generateEmail(firstName: string, lastName: string): string {
-    if (firstName && lastName) {
-      // Nettoyer les noms pour éviter les espaces ou majuscules
-      const emailFirstName = firstName.toLowerCase().replace(/\s+/g, '');
-      const emailLastName = lastName.toLowerCase().replace(/\s+/g, '');
-      return `${emailFirstName}.${emailLastName}@gmail.com`;
-    }
-    return 'email.inconnu@gmail.com'; // Valeur par défaut si aucune donnée
-  }
+
+
 
   // Function to toggle edit mode
   toggleEdit() {

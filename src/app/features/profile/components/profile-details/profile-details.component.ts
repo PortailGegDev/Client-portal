@@ -22,17 +22,23 @@ export class AppProfileDetailsComponent {
 
   userSubscription: Subscription | null = null;
   isEditMode: boolean = false;
-  email = 'eugenie.verret@gmail.com'; // Initial email value
+
   phone = '+33 6 65 43 22 11'; // Initial phone value
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
   currentUser: User | null = null;
+  email: string = '';
 
   constructor (  private authService: AuthService, private profileService: ProfilService){}
   ngOnInit(){
     this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-    });
+      this.email = user?.email || ''; // ✅ Utilisation correcte de l'email
+
+  });
+
+    // console.log('Profils reçus dans le composant enfant:', this.profils);
+
   }
   contracts = [
     { id: 1, name: 'Valentin Verret' },
@@ -65,5 +71,16 @@ export class AppProfileDetailsComponent {
 
   closeAccessDialog(){
     this.accessdialogVisible = false;
+  }
+
+
+    generateEmail(firstName: string, lastName: string): string {
+    if (firstName && lastName) {
+      // Nettoyer les noms pour éviter les espaces ou majuscules
+      const emailFirstName = firstName.toLowerCase().replace(/\s+/g, '');
+      const emailLastName = lastName.toLowerCase().replace(/\s+/g, '');
+      return `${emailFirstName}.${emailLastName}@gmail.com`;
+    }
+    return 'email.inconnu@gmail.com'; // Valeur par défaut si aucune donnée
   }
 }
