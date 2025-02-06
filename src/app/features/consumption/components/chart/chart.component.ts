@@ -14,7 +14,7 @@ import { AppConsumptionActivationComponent } from '../activation/activation.comp
 
 @Component({
   selector: 'app-consumption-chart',
-  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, Message, AppConsumptionActivationComponent],
+  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule,  AppConsumptionActivationComponent],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })

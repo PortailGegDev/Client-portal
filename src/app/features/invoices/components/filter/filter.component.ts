@@ -16,7 +16,7 @@ import { AppInvoicesEstimateDialogComponent } from '../estimate-dialog/estimate-
 import { AppInvoicesEnergyCheckComponent } from '../energy-check/energy-check.component';
 @Component({
   selector: 'app-invoices-filter',
-  imports: [CommonModule, FormsModule,DatePickerModule,IconField,TimeSpanToDatePipe,InputIcon,InputTextModule,Message,Dialog,ButtonModule,TableModule, AppInvoicesEstimateDialogComponent, AppInvoicesEnergyCheckComponent],
+  imports: [CommonModule, FormsModule,DatePickerModule,IconField,InputIcon,InputTextModule,Message,Dialog,ButtonModule,TableModule, AppInvoicesEstimateDialogComponent, AppInvoicesEnergyCheckComponent],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
