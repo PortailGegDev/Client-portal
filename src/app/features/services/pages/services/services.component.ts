@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-services',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
