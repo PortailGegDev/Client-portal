@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    @defer (when consumptions()?.length && lastInvoice();){
+    <!-- @defer (when consumptions()?.length && lastInvoice();){ -->
     <div class="row">
         <div class="col-md-7 mb-3">
             <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
@@ -33,9 +33,9 @@
             <app-articles />
         </div>
     </div>
-    }
+    <!-- } -->
 
-    @placeholder {
+    <!-- @placeholder {
     <app-loading-spinner [showSpinner]=true />
-    }
+    } -->
 </div>
