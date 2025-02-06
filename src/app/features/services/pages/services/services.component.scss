@@ -103,14 +103,14 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     background: var(--Primary-500, #D4E22C);
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   }
-  .box-container {
+  .services-box-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns */
     gap: 24px;
     width: 100%;
   }
   
-  .box {
+  .services-box {
     height: 201px;
     padding: 16px;
     background-size: cover;
@@ -122,7 +122,7 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     overflow: hidden;
   }
   
-  .box-header {
+  .services-box-header {
     display: flex;
     align-items: flex-end;
     gap: 8px;
@@ -130,7 +130,7 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     width: 85px;
   }
   
-  .box-icon {
+  .services-box-icon {
     width: 16px;
     height: 16px;
     display: flex;
@@ -138,7 +138,7 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     justify-content: flex-start;
   }
   
-  .box-status {
+  .services-box-status {
     color: #3A3A3A;
     font-size: 11px;
     font-weight: 600;
@@ -146,43 +146,43 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     letter-spacing: 0.44px;
   }
   
-  .box-content {
+  .services-box-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
     height: 92.5px;
   }
   
-  .box-price {
+  .services-box-price {
     color: #E2F133;
     font-size: 16px;
     font-weight: 600;
   }
   
-  .box-details {
+  .services-box-details {
     display: flex;
     flex-direction: column;
     gap: 8px;
     height: 35px;
   }
   
-  .box-service, .box-title {
+  .services-box-service, .services-box-title {
     color: white;
     font-weight: 600;
   }
   
-  .box-title {
+  .services-box-title {
     font-size: 18px;
   }
   
-  .box-service {
+  .services-box-service {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.44px;
   }
   
  
-.box-badge {
+.services-box-badge {
     border-radius: 4px;
     display: flex;
     justify-content: right;
@@ -190,7 +190,7 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
     margin-top: -90px;
   }
   
-  .box-badge-icon {
+  .services-box-badge-icon {
     width: 24px;
     height: 24px;
     background: #D4E22C;
@@ -203,9 +203,9 @@ box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
   
   
   /* Ensure that the 2nd row only has 3 boxes */
-  .box:nth-child(5),
-  .box:nth-child(6),
-  .box:nth-child(7) {
+  .services-box:nth-child(5),
+  .services-box:nth-child(6),
+  .services-box:nth-child(7) {
     grid-column: span 1;
   }
   
