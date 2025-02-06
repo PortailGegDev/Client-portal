@@ -1,5 +1,4 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +6,6 @@ import { TabsModule } from 'primeng/tabs';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { AppProfileDetailsComponent } from '../../components/profile-details/profile-details.component';
-import { AuthService } from '../../../../core/http-services/auth.service';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
 
@@ -29,15 +27,13 @@ export class AppProfileComponent {
   contactsWithAccess: string[] = [];
   person: any = null; // Objet pour stocker les données de la personne
 
-  profils: Profil[] = [];
+  profil: Profil | undefined;
 
 
   constructor(
     private router: Router, 
     private renderer: Renderer2, 
     private elRef: ElementRef, 
-    private service: ContractHttpService,
-    private authService: AuthService,
     private profileService: ProfilService
   ) { }
 
@@ -63,36 +59,16 @@ export class AppProfileComponent {
 
   loadProfil(bp: string): void {
     this.profileService.getProfil(bp).subscribe({
-      next: (data: Profil[]) => {
-        this.profils = data;  // Stocker les profils reçus
-        console.log('Profils chargés:', this.profils); // Vérification dans la console
+      next: (data: any) => {
+        this.profil = data;  // Stocker les profils reçus
+        console.log('Profils chargés:', this.profil); // Vérification dans la console
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des profils:', error);
-        this.profils = []; // Réinitialiser en cas d'erreur
+        this.profil = undefined; // Réinitialiser en cas d'erreur
       }
     });
   }
-
-  // fetchPerson(): void {
-  //   this.service.fetchPerson().subscribe(
-  //     data => {
-  //       console.log('Données reçues:', data);
-  //       if (data?.d?.results?.length > 0) {
-  //         this.person = data.d.results[0]; // Récupère la première personne
-  //         this.email = this.generateEmail(this.person.FirstName, this.person.LastName);
-
-  //       } else {
-  //         console.error('Aucune donnée trouvée.');
-  //         this.person = null;
-  //       }
-  //     },
-  //     error => {
-  //       console.error('Erreur lors de la récupération des données:', error);
-  //     }
-  //   );
-  // }
-
 
   toggleAccessDropdown() {
     this.isAccessOpen = !this.isAccessOpen;
@@ -114,7 +90,6 @@ export class AppProfileComponent {
   showSection(section: string) {
     this.currentSection = section;
   }
-
 
 
   // Function to toggle edit mode

@@ -12,24 +12,22 @@ interface ApiResponse {
 })
 export class ProfilHttpService {
 
-  constructor( private http: HttpClient) { }
-    //Profil Client
- Url1 = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_SAPAccount";
- fetchPerson(bp: string | null): Observable<Profil[]> {
-  if (!bp) {
-    bp = '1510060117'; // Valeur par défaut
-  }
+  constructor(private http: HttpClient) { }
+  //Profil Client
+  Url1 = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_SAPAccount";
+  fetchPerson(bp: string | null): Observable<Profil | undefined> {
+    if (!bp) {
+      bp = '1510060117'; // Valeur par défaut
+    }
 
-  let url = `${this.Url1}?$format=json&$filter=BusinessPartnerID eq '${bp}'`;
+    let url = `${this.Url1}?$format=json&$filter=BusinessPartnerID eq '${bp}'`;
 
-  return this.http.get<{profils:Profil[]}>(url)
-  .pipe(map((response:any) => response.d.results || [] ),
-  catchError(error =>{
-    console.error('erreur lors de la récupperation de la facture',error);
-    return of ([]);
+    return this.http.get<{ profil: Profil | undefined }>(url)
+      .pipe(map((response: any) => response.d.results[0] || []),
+        catchError(error => {
+          console.error('erreur lors de la récupperation de la facture', error);
+          return of(undefined);
+        })
+      );
   }
-    )
-    );
 }
-
-  }

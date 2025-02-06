@@ -12,9 +12,8 @@
             </div>
         </p-panel>
     </div>
-    
+
     <div class="col-md-6 mb-4">
-        <div *ngFor="let profil of profils" >
         <p-panel header="Adresse de facturation" [style]="{'width': '100%', 'height': '100%'}">
             <div class="row">
                 <div class="col-md-6">
@@ -43,7 +42,6 @@
             </div>
         </p-panel>
     </div>
-        </div>
     <div class="col-md-12 mb-4">
         <p-panel>
             <ng-template #header>
@@ -121,9 +119,10 @@
 </div>
 
 @if(accessdialogVisible){
-<p-dialog header="Gérer l'accès pour un co-titulaire" [modal]="true" [(visible)]="accessdialogVisible" [style]="{ width: '50rem' }"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+<p-dialog header="Gérer l'accès pour un co-titulaire" [modal]="true" [(visible)]="accessdialogVisible"
+    [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
 
-    <app-profile-access-dialog [contracts]="contracts" [accessDetails]="accessDetails" (onCloseAccessDialog)="closeAccessDialog()" />
+    <app-profile-access-dialog [contracts]="contracts" [accessDetails]="accessDetails"
+        (onCloseAccessDialog)="closeAccessDialog()" />
 </p-dialog>
 }

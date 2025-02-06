@@ -18,7 +18,7 @@ import { Profil } from '../../../../shared/models/profil.model';
   styleUrl: './profile-details.component.scss'
 })
 export class AppProfileDetailsComponent {
-  @Input() profils: Profil[] = [];
+  @Input() profil: Profil | undefined;
 
   userSubscription: Subscription | null = null;
   isEditMode: boolean = false;

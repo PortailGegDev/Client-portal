@@ -11,7 +11,7 @@ export class ProfilService {
 
   constructor(private profilhttpService: ProfilHttpService) { }
 
-  getProfil(bp: string | null): Observable<Profil[]> {
+  getProfil(bp: string | null): Observable<Profil | undefined> {
     console.log(`Fetching profile for BusinessPartnerID: ${bp}`);
     return this.profilhttpService.fetchPerson(bp);
   }
