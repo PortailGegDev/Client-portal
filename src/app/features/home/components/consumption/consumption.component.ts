@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Facture } from '../../../../shared/models/facture-model';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
@@ -14,19 +14,32 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
-export class AppHomeConsumptionComponent implements OnChanges {
+export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
   @Input() lastInvoice: Facture | null = null;
   @Input() consumptions: ChartConsumption[] | null = null;
 
-  basicData: any;
-  basicOptions: any;
+  basicData: any = null;
+  basicOptions: any = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private cd: ChangeDetectorRef) { }
 
   ngOnChanges() {
+    // Nettoyage des anciennes données
+    this.basicData = null;
+    this.basicOptions = null;
+    this.cd.detectChanges();
+
     if (this.consumptions) {
       this.getChartDataAndOptions(this.consumptions);
     }
+  }
+
+  ngOnDestroy() {
+    // Nettoyage au moment de la destruction du composant
+    this.basicData = null;
+    this.basicOptions = null;
+    this.cd.detectChanges();
   }
 
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
@@ -98,6 +111,9 @@ export class AppHomeConsumptionComponent implements OnChanges {
         },
       },
     };
+
+    // Forcer l’actualisation de l’UI
+    this.cd.detectChanges();
   }
 
   navigateToConsumption() {

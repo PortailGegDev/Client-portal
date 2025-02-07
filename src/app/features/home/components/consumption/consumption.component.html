@@ -9,8 +9,9 @@
         <div class="col">
             <p>SUR LES 4 DERNIERS MOIS</p>
 
+            @if(basicData && basicOptions){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
-
+            }
             <p class="col-md-12 consumption-info">
                 <span class="info-icon">i</span>
                 Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,

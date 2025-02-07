@@ -61,5 +61,5 @@ export function getMonthNameByMonthNumber(monthNumber: number): string {
   }
 
   // Retourner le mois correspondant (l'index est monthNumber - 1)
-  return frenchMonth[monthNumber - 1];
+  return shortFrenchMonth[monthNumber - 1];
 }

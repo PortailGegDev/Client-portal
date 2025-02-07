@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { TabsModule } from 'primeng/tabs';
+import { AuthService } from '../../../../core/http-services/auth.service';
+import { ContractService } from '../../../../shared/services/contract.service';
+import { AppDocumentsContractsListComponent } from '../../components/contracts-list/contracts-list.component';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule],
+  imports: [CommonModule, TabsModule, AppDocumentsContractsListComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })
@@ -13,10 +16,37 @@ export class AppDocumentsComponent {
   showDetails = false;
   selectedContract: any = null;
   currentSection: string = 'contrat'; // Par défaut, afficher la section "Contrat"
+  contracts: any[] = [];
+
+  constructor(private router: Router,
+    private authService: AuthService,
+    private contractService: ContractService) {
+      this.loadContract();
+  }
+
+  private loadContract() {
+    const bp = this.authService.getUserData()?.bp;
+    console.log('bp', bp)
+
+    // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
+    if (!bp) {
+      // console.error('Pas de bp lié à cet utilisateur');
+      // return;
+    }
+
+    this.contractService.getContracts(bp!).subscribe({
+
+      next: (contracts) => {
+        this.contracts = contracts;
+        console.log(contracts);
+      }
+    });
+  }
 
   showSection(section: string) {
     this.currentSection = section;
   }
+
   items = [
     {
       contractNumber: 'Contrat n° 1234567',
@@ -69,11 +99,10 @@ export class AppDocumentsComponent {
     },
   ];
 
-  constructor(private router: Router) {}
 
   viewDetails(item: any) {
     this.router.navigate(['/documents/contract-details']);
   }
 
-  backToList() {}
+  backToList() { }
 }

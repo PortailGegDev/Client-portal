@@ -10,8 +10,8 @@
     </div>
 
     <div class="col-12 mb-3">
-        <p-multiselect [options]="accessDetails" [(ngModel)]="selectedAccess" [appendTo]="'body'"
-            placeholder="Donnez les accès aux contrats" optionLabel="name" styleClass="w-full md:w-80" display="chip"
+        <p-multiselect [options]="accessDetails" [(ngModel)]="selectedAccess" [appendTo]="'body'"  [maxSelectedLabels]="3"
+            placeholder="Donnez les accès aux contrats" styleClass="w-full md:w-80" display="chip"
             [style]="{'width':'60%', 'text-align':'left'}">
             <ng-template let-accessDetails #item>
                 <div class="flex items-center gap-2">
