@@ -3,6 +3,7 @@ export class Profil{
     StreetName!: string;
     PostalCode!: string;
     CityName!: string;
+    PostalAddress!: string;
 
 
     public constructor(init?: Partial<Profil>) {

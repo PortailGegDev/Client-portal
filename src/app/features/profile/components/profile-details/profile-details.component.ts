@@ -33,11 +33,9 @@ export class AppProfileDetailsComponent {
   ngOnInit(){
     this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-      this.email = user?.email || ''; // ✅ Utilisation correcte de l'email
+      this.email = user?.email || ''; 
 
   });
-
-    // console.log('Profils reçus dans le composant enfant:', this.profils);
 
   }
   contracts = [
@@ -74,13 +72,13 @@ export class AppProfileDetailsComponent {
   }
 
 
-    generateEmail(firstName: string, lastName: string): string {
-    if (firstName && lastName) {
-      // Nettoyer les noms pour éviter les espaces ou majuscules
-      const emailFirstName = firstName.toLowerCase().replace(/\s+/g, '');
-      const emailLastName = lastName.toLowerCase().replace(/\s+/g, '');
-      return `${emailFirstName}.${emailLastName}@gmail.com`;
-    }
-    return 'email.inconnu@gmail.com'; // Valeur par défaut si aucune donnée
-  }
+  //   generateEmail(firstName: string, lastName: string): string {
+  //   if (firstName && lastName) {
+  //     // Nettoyer les noms pour éviter les espaces ou majuscules
+  //     const emailFirstName = firstName.toLowerCase().replace(/\s+/g, '');
+  //     const emailLastName = lastName.toLowerCase().replace(/\s+/g, '');
+  //     return `${emailFirstName}.${emailLastName}@gmail.com`;
+  //   }
+  //   return 'email.inconnu@gmail.com'; // Valeur par défaut si aucune donnée
+  // }
 }

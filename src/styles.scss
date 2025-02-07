@@ -504,3 +504,21 @@
 
 .p-tablist-active-bar {
  background:transparent !important;}
+
+
+ .listing-box .p-panel-content {
+  padding:none !important;
+  display: flex !important;
+  gap: 16px !important;
+  align-items: center !important;
+}
+.listing-box .p-panel-header{
+  padding: 5px !important;
+}
+.p-button-label {
+  font-weight: var(--p-button-label-font-weight);
+  color: #586022 !important;
+}
+.pi-arrow-right:before {
+  color:#586022 !important;
+}

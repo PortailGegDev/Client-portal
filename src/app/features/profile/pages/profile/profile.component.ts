@@ -8,11 +8,12 @@ import { PanelModule } from 'primeng/panel';
 import { AppProfileDetailsComponent } from '../../components/profile-details/profile-details.component';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
+import { AppMesLogementsComponent } from '../../components/mes-logements/mes-logements.component';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent,AppMesLogementsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

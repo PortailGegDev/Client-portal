@@ -1,0 +1,106 @@
+.row2{
+    padding: 16px;
+    margin: 16px;
+    border: 1px solid #ddd; /* Bordure du cadre */
+    border-radius: 2px; /* Coins arrondis */
+    background-color: #fff; /* Couleur de fond */
+    display: flex;
+      gap: 15px;
+      width: 100%;
+      margin-left: 2px;
+      align-items: center;
+  }
+  
+  .text3{
+    color: var(--Black, #3A3A3A);
+    font-family: Figtree;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal; 
+  }
+  .ic {
+    display: flex;
+    width: var(--Dimensions-Padding-24, 24px);
+    height: var(--Dimensions-Padding-24, 24px);
+    padding: 3px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: var(--Dimensions-Padding-24, 24px);
+    background: var(--Semantic-Accent, #14A3A0);
+    background-size: cover; /* Adjusts the size of the background image to cover the entire div */
+    background-position: center; /* Centers the background image */
+  }
+  .icc{
+    display: flex;
+    width: var(--Dimensions-Padding-24, 24px);
+    height: var(--Dimensions-Padding-24, 24px);
+    padding: 3px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: var(--Dimensions-Padding-24, 24px);
+    background: var(--Semantic-Accent, #00B0F0);
+    background-size: cover; /* Adjusts the size of the background image to cover the entire div */
+    background-position: center;
+  }
+  .title {
+    color: #3A3A3A;
+    font-size: 18px;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 600;
+    line-height: 21.6px;
+    word-wrap: break-word;
+  }
+
+  .notification {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #D4E22C;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  
+  .notification-text {
+    color: #1E1E1E;
+    font-size: 16px;
+    font-family: Figtree;
+    font-weight: 600;
+    word-wrap: break-word;
+  }
+  
+  .notification-icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  
+  .notification-border {
+    width: 10px;
+    height: 8.33px;
+    position: absolute;
+    left: 5px;
+    top: 5.83px;
+    border: 1.5px solid #1E1E1E;
+  }
+  
+  .notification1{
+
+
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #8E9D25;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  
