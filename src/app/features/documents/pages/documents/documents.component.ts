@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { TabsModule } from 'primeng/tabs';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { ContractService } from '../../../../shared/services/contract.service';
-import { AppDocumentsContractsListComponent } from '../../components/contracts-list/contracts-list.component';
+import { AppDocumentsContractsComponent } from '../../components/contracts/contracts.component';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule, TabsModule, AppDocumentsContractsListComponent],
+  imports: [CommonModule, TabsModule, AppDocumentsContractsComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })

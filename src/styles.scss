@@ -17,7 +17,7 @@
 // Text
 
 .p-select:not(.p-disabled).p-focus {
-  border-color:#D4E22C !important;
+  border-color: #D4E22C !important;
 }
 
 .p-select-option::after {
@@ -421,6 +421,19 @@
   background: var(--Brand-Energy-type-Electricity-background, #FF6C00);
 }
 
+.custom-icon1 {
+  position: relative;
+  display: flex;
+  width: var(--Dimensions-Padding-24, 24px);
+  height: var(--Dimensions-Padding-24, 24px);
+  padding: 3px 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--Dimensions-Padding-24, 24px);
+  background: var(--Semantic-Info, #00B0F0);
+}
+
 .info-consumption-icon {
   width: 60px;
   height: 60px;
@@ -504,22 +517,31 @@
 
 
 .p-tablist-active-bar {
- background:transparent !important;}
+  background: transparent !important;
+}
 
 
- .listing-box .p-panel-content {
-  padding:none !important;
+.listing-box .p-panel-content {
+  padding: none !important;
   display: flex !important;
   gap: 16px !important;
   align-items: center !important;
+  padding: 10px 15px 10px 15px !important;
 }
-.listing-box .p-panel-header{
+
+.listing-box .p-panel-content .p-button {
+  margin: 0px !important;
+}
+
+.listing-box .p-panel-header {
   padding: 5px !important;
 }
+
 .p-button-label {
   font-weight: var(--p-button-label-font-weight);
   color: #586022 !important;
 }
+
 .pi-arrow-right:before {
   color:#586022 !important;
 }

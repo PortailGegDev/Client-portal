@@ -1,0 +1,27 @@
+<p-panel [style]="{'border':'none'}">
+    <ng-template #header>
+        <div class="flex items-center">
+            <span class="header-text">Contrats actifs</span>
+            &nbsp;
+            <p-badge [value]="activeContractCount" [style]="{'background': '#586022' }" />
+        </div>
+    </ng-template>
+
+    <div class="col-md-12 mb-3">
+        <app-documents-contracts-list [groupedContracts]="groupedActiveContracts" [activeContract]="true"/>
+    </div>
+</p-panel>
+
+<p-panel [style]="{'border':'none'}">
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <span class="header-text">Contrats cessés</span>
+            &nbsp;
+            <p-badge [value]="ceasedContractCount" [style]="{'background': '#586022' }" />
+        </div>
+    </ng-template>
+
+    <div class="col-md-12 mb-3">
+        <app-documents-contracts-list [groupedContracts]="groupedCeasedContracts" [activeContract]="false"/>
+    </div>
+</p-panel>
