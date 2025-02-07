@@ -9,11 +9,12 @@ import { AppProfileDetailsComponent } from '../../components/profile-details/pro
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
 import { AppMesLogementsComponent } from '../../components/mes-logements/mes-logements.component';
+import { AppMesPreferencesComponent } from '../../components/mes-preferences/mes-preferences.component';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent,AppMesLogementsComponent],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent,AppMesLogementsComponent,AppMesPreferencesComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
