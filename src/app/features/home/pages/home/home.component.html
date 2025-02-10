@@ -8,9 +8,9 @@
         </div>
     </div>
 
-    @defer (when consumptions()?.length && lastInvoice();){
+    @defer (when consumptions()?.length || lastInvoice();){
 
-    @if(consumptions() && lastInvoice() )
+    @if(consumptions() || lastInvoice() )
     {
     <div class="row">
         <div class="col-md-7 mb-3">
