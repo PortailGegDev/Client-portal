@@ -12,7 +12,7 @@ export class ChartService {
 
   constructor() { }
 
-  initChartConsumptionData(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]): any {
+  initChartConsumptionDataByMonth(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]): any {
     return {
       labels: shortFrenchMonth,
       datasets: [
@@ -65,6 +65,30 @@ export class ChartService {
             hcConsumptions.find(item => item.monthNumber === 12)?.value,
           ]
         },
+      ]
+    };
+  }
+
+  initChartConsumptionDataByYear(groppedConsumptionsByYear: any): any {
+
+    // Extraire les années triées
+    const years = Object.keys(groppedConsumptionsByYear).map(y => parseInt(y)).sort((a, b) => a - b);
+
+    return {
+      labels: years.map(y => y.toString()), // Les labels sont les années
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Heures creuses',
+          backgroundColor: '#0DB58D',
+          data: years.map(y => groppedConsumptionsByYear[y].hp) // Somme des valeurs HP par année
+        },
+        {
+          type: 'bar',
+          label: 'Heures pleines',
+          backgroundColor: '#FF6C00',
+          data: years.map(y => groppedConsumptionsByYear[y].hc) // Somme des valeurs HC par année
+        }
       ]
     };
   }
@@ -200,6 +224,78 @@ export class ChartService {
         }
 
       }
+    };
+  }
+
+  initChartConsumptionByYear(groupedData: any): any {
+    const years = Object.keys(groupedData).map(Number).sort(); // Labels (années)
+    const hpValues = years.map(year => groupedData[year].hp); // Données HP
+    const hcValues = years.map(year => groupedData[year].hc); // Données HC
+
+    return {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
+            label: (tooltipItem: any) => {
+              const year = parseInt(tooltipItem.label);
+              return [
+                `Heures pleines: ${groupedData[year].hc} kWh`,
+                `Heures creuses: ${groupedData[year].hp} kWh`
+              ];
+            }
+          },
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          titleColor: 'white',
+          bodyColor: 'white',
+          borderColor: '#FF6C00',
+          borderWidth: 2,
+          padding: 10,
+          caretSize: 5,
+          position: 'nearest',
+          displayColors: false
+        },
+        legend: {
+          position: 'bottom',
+          align: 'end',
+          labels: {
+            generateLabels: (chart: Chart) => [
+              { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
+              ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
+            ],
+            boxWidth: 10,
+            padding: 15
+          }
+        },
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          color: 'gray',
+          font: { weight: 'bold', size: 12 },
+          // formatter: (_: any, context: any) => {
+          //   const year = years[context.dataIndex];
+          //   const total = groupedData[year].hp + groupedData[year].hc;
+          //   return total ? `${total} kWh` : '';
+          // }
+        }
+      },
+      scales: {
+        x: { stacked: true, ticks: { color: 'gray' }, grid: { display: false }, barPercentage: 0.5, categoryPercentage: 0.6 },
+        y: {
+          stacked: true,
+          title: { display: true, text: 'kWh', color: 'gray', font: { size: 14 } },
+          ticks: { color: 'gray' },
+          grid: { color: '#f3f3f3', drawBorder: false }
+        }
+      },
+      labels: years,
+      datasets: [
+        { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
+        { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues }
+      ]
     };
   }
 }

@@ -25,6 +25,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
   hpConsumptions: ChartConsumption[] = [];
 
   data: any = null;
+  chartData: any = null;
   options: any = null;
 
   selectedChartOptionsValue: number = 3;
@@ -67,10 +68,45 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
   }
 
   initChart(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {
-    this.data = this.chartService.initChartConsumptionData(hpConsumptions, hcConsumptions);
+    this.data = this.chartService.initChartConsumptionDataByMonth(hpConsumptions, hcConsumptions);
+    this.chartData = this.data;
     this.options = this.chartService.initChartConsumption(hpConsumptions, hcConsumptions, this.data);
 
     // Forcer l’actualisation de l’UI
-    this.cd.detectChanges(); 
+    this.cd.detectChanges();
+  }
+
+  onOptionClick(event: any) {
+    this.chartData = null;
+    // Forcer l’actualisation de l’UI
+    this.cd.detectChanges();
+
+    if (event.index === 2) {
+      this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions);
+      this.options = this.chartService.initChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+    }
+
+    if (event.index === 3) {
+      const groupedConsumptionsByYear = this.groupConsumptionByYear(this.hpConsumptions, this.hcConsumptions);
+      this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
+      this.options = this.chartService.initChartConsumptionByYear(groupedConsumptionsByYear);
+    }
+  }
+
+  private groupConsumptionByYear(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {
+    const yearlyData: { [year: number]: { hp: number, hc: number } } = {};
+
+    [...hpConsumptions, ...hcConsumptions].forEach(item => {
+      if (!yearlyData[item.year]) {
+        yearlyData[item.year] = { hp: 0, hc: 0 };
+      }
+      if (hpConsumptions.includes(item)) {
+        yearlyData[item.year].hp += item.value;
+      } else {
+        yearlyData[item.year].hc += item.value;
+      }
+    });
+
+    return yearlyData;
   }
 }

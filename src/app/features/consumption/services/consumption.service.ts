@@ -37,6 +37,7 @@ export class ConsumptionService {
             let chartConsumption: ChartConsumption = {
               date: dateConsumption!,
               monthNumber: getMonthFromDate(dateConsumption!),
+              year : dateConsumption!.getFullYear(),
               value: value,
               idSeasonal: consumption.IdSeasonal
             };
@@ -46,54 +47,85 @@ export class ConsumptionService {
 
 
           // TODO: A Supprimer 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 12,
-            value: 200,
-            idSeasonal: 'HP'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 12,
+          //   year:2024,
+          //   value: 200,
+          //   idSeasonal: 'HP'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 12,
-            value: 134,
-            idSeasonal: 'HC'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/10120241"),
+          //   monthNumber: 12,
+          //   year:2024,
+          //   value: 134,
+          //   idSeasonal: 'HC'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 9,
-            value: 123,
-            idSeasonal: 'HP'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 9,
+          //   year:2024,
+          //   value: 123,
+          //   idSeasonal: 'HP'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 9,
-            value: 130,
-            idSeasonal: 'HC'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 9,
+          //   year:2024,
+          //   value: 130,
+          //   idSeasonal: 'HC'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 8,
-            value: 120,
-            idSeasonal: 'HP'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 8,
+          //   year:2024,
+          //   value: 120,
+          //   idSeasonal: 'HP'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 8,
-            value: 90,
-            idSeasonal: 'HC'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 8,
+          //   year:2024,
+          //   value: 90,
+          //   idSeasonal: 'HC'
+          // });
 
-          chartConsumptions.push({
-            date: new Date("11/11/1011"),
-            monthNumber: 12,
-            value: 200,
-            idSeasonal: 'HP'
-          });
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2024"),
+          //   monthNumber: 12,
+          //   year:2024,
+          //   value: 200,
+          //   idSeasonal: 'HP'
+          // });
+
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2023"),
+          //   monthNumber: 12,
+          //   year:2023,
+          //   value: 200,
+          //   idSeasonal: 'HP'
+          // });
+
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2023"),
+          //   monthNumber: 12,
+          //   year:2023,
+          //   value: 200,
+          //   idSeasonal: 'Hc'
+          // });
+
+          // chartConsumptions.push({
+          //   date: new Date("11/11/2023"),
+          //   monthNumber: 12,
+          //   year:2023,
+          //   value: 200,
+          //   idSeasonal: 'HP'
+          // });
 
           // Trier les données par date (du plus récent au plus ancien)
           chartConsumptions = chartConsumptions.sort((a, b) => b.date.getTime() - a.date.getTime());

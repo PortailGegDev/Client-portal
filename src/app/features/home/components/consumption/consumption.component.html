@@ -11,12 +11,20 @@
 
             @if(basicData && basicOptions){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
-            }
             <p class="col-md-12 consumption-info">
                 <span class="info-icon">i</span>
                 Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
                 estimées.
             </p>
+            } @else{
+                <div class="info-box-center">
+                    <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">            
+            
+                        <p>Les données de consommation sont temporairement indisponibles.</p>
+                    </div>
+                </div>
+            }
+
         </div>
 
         <div class="col">
@@ -41,7 +49,8 @@
 
     <div class="row">
         <div class="col-md-4">
-            <p-button label="Voir en détails" (click)="navigateToConsumption()" iconPos="right" icon="pi pi-arrow-right" />
+            <p-button label="Voir en détails" (click)="navigateToConsumption()" iconPos="right"
+                icon="pi pi-arrow-right" />
         </div>
     </div>
 </p-panel>

@@ -24,7 +24,7 @@ export class ConsumptionHttpService {
   fetchConsumptionData(contractNumber: string): Observable<ApiResponseConsumption> {
 
     // TODO: Asupprimer après avoir finir la consommation 
-    contractNumber = '0350000261'
+    // contractNumber = '0350000261'
     let url = `${this.Url} eq '${contractNumber}'`;
 
     return this.http.get<ApiResponseConsumption>(url)
