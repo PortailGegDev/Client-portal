@@ -1,8 +1,10 @@
-<app-nav-bar />
+<div class="main-container">
+    <app-nav-bar />
 
-<div style="background-color: #f0f0f0; padding: 50px;">
-    <!-- <app-loading-spinner /> -->
-    <router-outlet />
+    <div class="main-content" style="background-color: #f0f0f0; padding: 50px;">
+        <!-- <app-loading-spinner /> -->
+        <router-outlet />
+    </div>
+
+    <app-footer />
 </div>
-
-<app-footer />
