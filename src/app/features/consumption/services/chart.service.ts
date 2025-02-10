@@ -113,7 +113,7 @@ export class ChartService {
               const hcValue = hcConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0; // Heure pleine
 
               // Retourner une ligne avec les valeurs des heures pleines et creuses
-              return [`Heures pleines: ${hcValue} kWh`, `Heures creuses: ${hpValue} kWh`];
+              return [`Heures pleines: ${hcValue} kWh`, `Heures creuses: ${hpValue} kWh`, `Total: ${hcValue + hpValue} kWh`];
             }
           },
           backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
@@ -150,7 +150,7 @@ export class ChartService {
         },
         datalabels: {
           anchor: 'end', // Position du texte au-dessus des barres
-          align: 'top',  // Alignement du texte
+          // align: 'top',  // Alignement du texte
           color: 'gray',
           font: {
             weight: 'bold',
@@ -158,18 +158,18 @@ export class ChartService {
           },
           formatter: (value: any, context: any) => {
 
-            const index = context.dataIndex;
-            const datasetIndex = context.datasetIndex;
+            // const index = context.dataIndex;
+            // const datasetIndex = context.datasetIndex;
 
-            // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
-            if (datasetIndex === data.datasets.length - 1) {
-              const hpValue = hpConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-              const hcValue = hcConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-              const total = hpValue + hcValue;
-              return total ? `${total} kWh` : '';
-            }
+            // // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
+            // if (datasetIndex === data.datasets.length - 1) {
+            //   const hpValue = hpConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
+            //   const hcValue = hcConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
+            //   const total = hpValue + hcValue;
+            //   return total ? `${total} kWh` : '';
+            // }
 
-            return ''; // Ne rien afficher pour la première barre
+             return ''; // Ne rien afficher pour la première barre
           }
         }
       },
@@ -227,7 +227,7 @@ export class ChartService {
     };
   }
 
-  initChartConsumptionByYear(groupedData: any): any {
+  initChartConsumptionByYear(groupedData: any, data: any): any {
     const years = Object.keys(groupedData).map(Number).sort(); // Labels (années)
     const hpValues = years.map(year => groupedData[year].hp); // Données HP
     const hcValues = years.map(year => groupedData[year].hc); // Données HC
@@ -244,7 +244,8 @@ export class ChartService {
               const year = parseInt(tooltipItem.label);
               return [
                 `Heures pleines: ${groupedData[year].hc} kWh`,
-                `Heures creuses: ${groupedData[year].hp} kWh`
+                `Heures creuses: ${groupedData[year].hp} kWh`,
+                `Total: ${groupedData[year].hc + groupedData[year].hp} kWh`
               ];
             }
           },
@@ -272,14 +273,19 @@ export class ChartService {
         },
         datalabels: {
           anchor: 'end',
-          align: 'top',
+          // align: 'top',
           color: 'gray',
           font: { weight: 'bold', size: 12 },
-          // formatter: (_: any, context: any) => {
-          //   const year = years[context.dataIndex];
-          //   const total = groupedData[year].hp + groupedData[year].hc;
-          //   return total ? `${total} kWh` : '';
-          // }
+          formatter: (_: any, context: any) => {
+
+            // if (context.datasetIndex === data.datasets.length - 1) {
+            //   const year = years[context.dataIndex];
+            //   const total = groupedData[year].hp + groupedData[year].hc;
+            //   return total ? `${total} kWh` : '';
+            // }
+
+             return ''; // Ne rien afficher pour la première barre
+          }
         }
       },
       scales: {

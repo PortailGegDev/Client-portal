@@ -89,7 +89,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     if (event.index === 3) {
       const groupedConsumptionsByYear = this.groupConsumptionByYear(this.hpConsumptions, this.hcConsumptions);
       this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
-      this.options = this.chartService.initChartConsumptionByYear(groupedConsumptionsByYear);
+      this.options = this.chartService.initChartConsumptionByYear(groupedConsumptionsByYear, this.chartData);
     }
   }
 

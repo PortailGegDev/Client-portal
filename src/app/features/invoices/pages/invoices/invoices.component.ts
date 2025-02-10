@@ -20,14 +20,13 @@ import { PanelModule } from 'primeng/panel';
 })
 export class AppInvoicesComponent {
   constructor(
-    private router: Router,
     private contractService: ContractHttpService,
     private contractServicee: ContractService,
     private invoicesService: InvoicesService,
     private brandService: BrandService,
   ) {
     this.contractServicee.contract$.subscribe((data) => {
-      this.loadFacture(data.ISUContract);
+      this.loadFacture(data.ContractISU);
     });
     
   }
@@ -44,6 +43,7 @@ globalFiltervalue: string='';
   contractts: any[] = [];
   loadFacture(contractId: string): void{
     this.invoices=[];
+
     this.invoicesService.getInvoices(contractId).subscribe({
       next: (factures:Facture[]) => {
         this.invoices=factures;
