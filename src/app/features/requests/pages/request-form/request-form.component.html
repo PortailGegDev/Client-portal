@@ -68,6 +68,10 @@
                     <div class="form-group col">
                         <span class="label" for="address">Adresse</span>
                         <input type="text" pInputText formControlName="address" />
+
+                        @if(addressForm?.invalid && (addressForm?.touched || addressForm?.dirty)){
+                        <small class="error">L'adresse du client est obligatoire.</small>
+                        }
                     </div>
                 </div>
 
@@ -75,11 +79,19 @@
                     <div class="form-group col">
                         <span class="label" for="postalCode">Code Postal</span>
                         <input type="text" pInputText formControlName="postalCode" />
+
+                        @if(postalCodeForm?.invalid && (postalCodeForm?.touched || postalCodeForm?.dirty)){
+                        <small class="error">Le code postal est obligatoire.</small>
+                        }
                     </div>
 
                     <div class="form-group col">
                         <span class="label" for="city">Ville</span>
                         <input type="text" pInputText formControlName="city" />
+
+                        @if(cityForm?.invalid && (cityForm?.touched || cityForm?.dirty)){
+                        <small class="error">La ville est obligatoire.</small>
+                        }
                     </div>
                 </div>
 
@@ -88,18 +100,27 @@
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="reclamationMotif">Motif de ma réclamation</span>
-                        <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name" class="w-full md:w-56" />
+                        <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name"
+                            class="w-full md:w-56" />
+
+                        @if(reclamationMotifForm?.invalid && (reclamationMotifForm?.touched || reclamationMotifForm?.dirty)){
+                        <small class="error">Le motif de réclamation est obligatoire.</small>
+                        }
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="message">Message</span>
-                        <p-editor formControlName="message" [style]="{ height: '320px' }" />
+                        <textarea rows="5" cols="30" pTextarea formControlName="message"></textarea>
+
+                        @if(messageForm?.invalid && (messageForm?.touched || messageForm?.dirty)){
+                        <small class="error">Le message du client est obligatoire.</small>
+                        }
                     </div>
                 </div>
 
-            }
+                }
 
                 <div class="row mt-3">
                     <p-button label="Envoyer la demande" type="submit" [disabled]="!form.valid"></p-button>

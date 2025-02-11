@@ -8,10 +8,11 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { EditorModule } from 'primeng/editor';
 import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, EditorModule, SelectModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, EditorModule, SelectModule, TextareaModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -25,14 +26,20 @@ export class AppRequestsFormComponent implements OnInit {
   get firstNameForm(): any { return this.form.get('firstName'); }
   get emailForm(): any { return this.form.get('email'); }
   get refClientForm(): any { return this.form.get('clientRef'); }
+  get addressForm(): any { return this.form.get('address'); }
+  get postalCodeForm(): any { return this.form.get('postalCode'); }
+  get cityForm(): any { return this.form.get('city'); }
+  get reclamationMotifForm(): any { return this.form.get('reclamationMotif'); }
+  get messageForm(): any { return this.form.get('message'); }
 
-  get isReclamation(): boolean { return this.requestType=== Constants.DemandeType.RECLAMATION; }
 
-  get isRelocation(): boolean { return this.requestType=== Constants.DemandeType.RELOCATION; }
+  get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
 
-  get isRescision(): boolean { return this.requestType=== Constants.DemandeType.RESCISION; }
+  get isRelocation(): boolean { return this.requestType === Constants.DemandeType.RELOCATION; }
 
-  get lastModificationPower(): boolean { return this.requestType=== Constants.DemandeType.POWER_MODIFICATION; }
+  get isRescision(): boolean { return this.requestType === Constants.DemandeType.RESCISION; }
+
+  get lastModificationPower(): boolean { return this.requestType === Constants.DemandeType.POWER_MODIFICATION; }
 
 
   constructor(private router: Router,
@@ -61,6 +68,14 @@ export class AppRequestsFormComponent implements OnInit {
       reclamationMotif: [''],
       message: [''],
     });
+
+    if (this.isReclamation) {
+      this.setControlRequired('address');
+      this.setControlRequired('postalCode');
+      this.setControlRequired('reclamationMotif');
+      this.setControlRequired('message');
+      this.setControlRequired('city');
+    }
   }
 
   submitDemande() {
@@ -71,11 +86,16 @@ export class AppRequestsFormComponent implements OnInit {
     console.log(this.form.value)
   }
 
+  setControlRequired(formControlName: string) {
+    this.form.get(formControlName)?.setValidators([Validators.required]);
+    this.form.get(formControlName)?.updateValueAndValidity();
+  }
 
 
   RetourEnBack() {
     this.router.navigate(['requests', 'new']);
   }
+
   selectedDate: Date | null = null; // Variable pour stocker la date sélectionnée
   isDateSelected: boolean = false; // État pour vérifier si une date est sélectionnée
 
