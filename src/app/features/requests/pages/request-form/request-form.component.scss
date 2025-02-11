@@ -72,13 +72,7 @@ body {
     gap: 6px;
 }
 
-.label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: rgba(84, 78, 78, 0.60);
-    letter-spacing: 0.44px;
-}
+
 
 .input-box {
     height: 40px;
@@ -137,10 +131,7 @@ body {
     gap: 16px;
     margin-bottom: 16px;
 }
-.form-group {
-    flex: 1;
-    margin-right: 10px;
-}
+
 .calendar-input {
 width: auto;
 margin-left: auto; 
@@ -283,9 +274,7 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 30%;
     background: white;
-    height: 100%;
   } 
   .itemm {
     background: white;

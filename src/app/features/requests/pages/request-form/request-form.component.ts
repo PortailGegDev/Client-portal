@@ -1,15 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Constants } from '../../../../shared/utils/constants';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
-export class AppRequestsFormComponent {
-  constructor(private router: Router) { }
+export class AppRequestsFormComponent implements OnInit {
+  title: string = 'Demande de résiliation';
+  demandeType: string = '';
+  form!: FormGroup;
+
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder) {
+
+    this.demandeType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
+    this.title = this.getPageTitle(this.demandeType);
+  }
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      clientRef: ['', Validators.required]
+    });
+  }
 
   addresses: string[] = [
     "16 rue Pierre Larousse, 75014 Paris",
@@ -53,4 +78,19 @@ export class AppRequestsFormComponent {
   viewDetail() {
     this.router.navigate(['/requests']);
   }
+
+  private getPageTitle(demandeType: string): string {
+    if (demandeType === Constants.DemandeType.POWER_MODIFICATION) {
+      return Constants.DemandeTitle.POWER_MODIFICATION;
+    } else if (demandeType === Constants.DemandeType.RECLAMATION) {
+      return Constants.DemandeTitle.RECLAMATION;
+
+    } else if (demandeType === Constants.DemandeType.RELOCATION) {
+      return Constants.DemandeTitle.RELOCATION;
+
+    } else {
+      return Constants.DemandeTitle.RESCISION;
+    }
+  }
 }
+
