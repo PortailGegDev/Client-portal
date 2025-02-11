@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-requests-rescission',
+  selector: 'app-requests-form-rescission',
   imports: [CommonModule],
-  templateUrl: './rescission.component.html',
-  styleUrl: './rescission.component.scss'
+  templateUrl: './request-form.component.html',
+  styleUrl: './request-form.component.scss'
 })
-export class AppRequestsRescissionComponent {
+export class AppRequestsFormComponent {
   constructor(private router: Router) { }
 
   addresses: string[] = [

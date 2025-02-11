@@ -11,7 +11,19 @@ export class AppRequestsNewRequestComponent {
   
   constructor(private router: Router){}
 
-  viewDetail() {
+  goToRescission() {
     this.router.navigate(['/requests/rescission']);
+  }
+
+  goToRelocation() {
+    this.router.navigate(['/requests/relocation']);
+  }
+
+  goToPowerModification() {
+    this.router.navigate(['/requests/power-modification']);
+  }
+
+  goToReclamation() {
+    this.router.navigate(['/requests/reclamation']);
   }
 }
