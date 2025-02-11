@@ -2,60 +2,79 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, EditorModule, SelectModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
 export class AppRequestsFormComponent implements OnInit {
   title: string = 'Demande de résiliation';
-  demandeType: string = '';
+  requestType: string = '';
+  reclamationMotifs: any[] | undefined;
   form!: FormGroup;
+
+  get lastNameForm(): any { return this.form.get('lastName'); }
+  get firstNameForm(): any { return this.form.get('firstName'); }
+  get emailForm(): any { return this.form.get('email'); }
+  get refClientForm(): any { return this.form.get('clientRef'); }
+
+  get isReclamation(): boolean { return this.requestType=== Constants.DemandeType.RECLAMATION; }
+
+  get isRelocation(): boolean { return this.requestType=== Constants.DemandeType.RELOCATION; }
+
+  get isRescision(): boolean { return this.requestType=== Constants.DemandeType.RESCISION; }
+
+  get lastModificationPower(): boolean { return this.requestType=== Constants.DemandeType.POWER_MODIFICATION; }
+
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
 
-    this.demandeType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
-    this.title = this.getPageTitle(this.demandeType);
+    this.requestType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
+    this.title = this.getPageTitle(this.requestType);
   }
 
   ngOnInit() {
+    this.reclamationMotifs = Constants.ReclamationMotif;
+    this.buildForm();
+  }
+
+  buildForm() {
     this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
-      LastName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
-      clientRef: ['', Validators.required]
+      clientRef: [''],
+      address: [''],
+      postalCode: [''],
+      city: [''],
+      reclamationMotif: [''],
+      message: [''],
     });
   }
 
-  addresses: string[] = [
-    "16 rue Pierre Larousse, 75014 Paris",
-    "12 avenue des Champs-Élysées, 75008 Paris",
-    "45 boulevard Montmartre, 75002 Paris",
-    "28 rue de Rivoli, 75001 Paris",
-    "7 place de la République, 75011 Paris"
-  ];
+  submitDemande() {
+    if (!this.form.valid) {
+      return;
+    }
 
-  electricityOptions: string[] = [
-    "Electricité 3 kVA",
-    "Electricité 6 kVA",
-    "Electricité 8 kVA",
-    "Electricité 9 kVA",
-    "Electricité 12 kVA",
-    "Electricité 15 kVA"
-  ];
+    console.log(this.form.value)
+  }
+
 
 
   RetourEnBack() {
-    this.router.navigate(['/pages/creer-une-demande']);
+    this.router.navigate(['requests', 'new']);
   }
   selectedDate: Date | null = null; // Variable pour stocker la date sélectionnée
   isDateSelected: boolean = false; // État pour vérifier si une date est sélectionnée
@@ -79,13 +98,14 @@ export class AppRequestsFormComponent implements OnInit {
     this.router.navigate(['/requests']);
   }
 
-  private getPageTitle(demandeType: string): string {
-    if (demandeType === Constants.DemandeType.POWER_MODIFICATION) {
+  private getPageTitle(requestType: string): string {
+    if (requestType === Constants.DemandeType.POWER_MODIFICATION) {
       return Constants.DemandeTitle.POWER_MODIFICATION;
-    } else if (demandeType === Constants.DemandeType.RECLAMATION) {
+
+    } else if (requestType === Constants.DemandeType.RECLAMATION) {
       return Constants.DemandeTitle.RECLAMATION;
 
-    } else if (demandeType === Constants.DemandeType.RELOCATION) {
+    } else if (requestType === Constants.DemandeType.RELOCATION) {
       return Constants.DemandeTitle.RELOCATION;
 
     } else {

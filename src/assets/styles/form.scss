@@ -10,3 +10,20 @@
     color: rgba(84, 78, 78, 0.60) !important;
     letter-spacing: 0.44px !important;
 }
+
+.p-select:not(.p-disabled).p-focus {
+    border-color: #D4E22C !important;
+}
+
+.p-select-option::after {
+    border-bottom: 1px solid #D4E22C;
+}
+
+.p-checkbox-checked .p-checkbox-box {
+    border-color: #AAB614 !important;
+    background: #AAB614 !important;
+}
+
+.error {
+    color: red;
+}

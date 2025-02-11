@@ -22,7 +22,8 @@ export class AppInvoicesTableComponent implements OnChanges {
   @Input() invoices: Facture[] = [];
   @Input() inputvalue: string = '';
   @ViewChild('dt') dt: Table | undefined;
-  ngOnChanges(changes: SimpleChanges): void {
+
+  ngOnChanges(): void {
     if (this.invoices.length > 0) {
       console.log(this.invoices);
     }

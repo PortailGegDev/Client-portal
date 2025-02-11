@@ -1,20 +1,31 @@
+<div class="custom-container">
+    <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
+</div>
+
 <h1>{{ title }}</h1>
 
 <div class="row">
     <div class="col-md-8 mb-3">
         <p-panel>
-            <form [formGroup]="form">
+            <form [formGroup]="form" (submit)="submitDemande()">
                 <h4>Coordonnées</h4>
 
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="firstName">Prénom</span>
                         <input type="text" pInputText formControlName="firstName" />
+
+                        @if(firstNameForm?.invalid && (firstNameForm?.touched || firstNameForm?.dirty)){
+                        <small class="error">Le prénom est obligatoire.</small>
+                        }
                     </div>
 
                     <div class="form-group col">
-                        <span class="label" for="LastName">Nom</span>
-                        <input type="text" pInputText formControlName="LastName" />
+                        <span class="label" for="lastName">Nom</span>
+                        <input type="text" pInputText formControlName="lastName" />
+                        @if(lastNameForm?.invalid && (lastNameForm?.touched || lastNameForm?.dirty)){
+                        <small class="error">Le nom est obligatoire.</small>
+                        }
                     </div>
                 </div>
 
@@ -22,6 +33,16 @@
                     <div class="form-group col">
                         <span class="label" for="email">Adresse E-mail</span>
                         <input type="text" pInputText formControlName="email" />
+                        @if(emailForm?.invalid && (emailForm?.touched || emailForm?.dirty)){
+
+                        @if(emailForm?.errors?.required){
+                        <small class="error">L'email est obligatoire.</small>
+                        }
+
+                        @if(emailForm?.errors?.email){
+                        <small class="error">L'email est invalide.</small>
+                        }
+                        }
                     </div>
 
                     <div class="form-group col">
@@ -34,8 +55,51 @@
                     <div class="form-group col">
                         <span class="label" for="clientRef">Référence client</span>
                         <input type="text" pInputText formControlName="clientRef" />
+                        @if(refClientForm?.invalid && (refClientForm?.touched || refClientForm?.dirty)){
+                        <small class="error">Le référence du client est obligatoire.</small>
+                        }
                     </div>
                 </div>
+
+                @if(isReclamation){
+                <h4 class="mt-3">Adresse</h4>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="address">Adresse</span>
+                        <input type="text" pInputText formControlName="address" />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="postalCode">Code Postal</span>
+                        <input type="text" pInputText formControlName="postalCode" />
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="city">Ville</span>
+                        <input type="text" pInputText formControlName="city" />
+                    </div>
+                </div>
+
+                <h4 class="mt-3">Réclamation</h4>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="reclamationMotif">Motif de ma réclamation</span>
+                        <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name" class="w-full md:w-56" />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="message">Message</span>
+                        <p-editor formControlName="message" [style]="{ height: '320px' }" />
+                    </div>
+                </div>
+
+            }
 
                 <div class="row mt-3">
                     <p-button label="Envoyer la demande" type="submit" [disabled]="!form.valid"></p-button>
@@ -107,93 +171,4 @@
             </div>
         </div>
     </div>
-</div>
-<div class="custom-container">
-    <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
-</div>
-<h1 *ngIf="!isSubmitted">Demande de résiliation</h1>
-<div class="main-container">
-    <div class="left-container">
-        <div class="container" *ngIf="!isSubmitted">
-            <div class="section">
-                <div class="title1">Vos coordonnées</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <div class="label">Prénom</div>
-                        <div class="input-box">Eugénie</div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="label">Nom</div>
-                        <div class="input-box">Verret</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <div class="label">Adresse e-mail</div>
-                    <div class="input-box">eugenie.verretgmail.com</div>
-                </div>
-                <div class="form-group">
-                    <div class="label">N de téléphone</div>
-                    <div class="input-box">+33 6 65 43 22 11</div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <div class="label">Référence client</div>
-                    <div class="input-box1">123456789</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="title2">Résiliation</div>
-                <div class="form-group">
-                    <div class="label">Date de résiliation souhaitée</div>
-                    <!-- <div class="input-box1">
-                <span class="date" *ngIf="!isDateSelected">Précisez</span>
-                <span class="date" *ngIf="isDateSelected">{{ selectedDate | date: 'dd/MM/yyyy' }}</span>
-                <input 
-                    [value]="isDateSelected ? (selectedDate | date: 'dd/MM/yyyy') : ''" 
-                    matInput 
-                    [matDatepicker]="picker" 
-                    (dateChange)="onDateChange($event)" 
-                    class="calendar-input" 
-                />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </div> -->
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <div class="label">Adresse du logement à résilier</div>
-                        <div class="select-wrapper">
-                            <select class="box">
-                                <option value="" disabled selected>Sélectionnez</option>
-                                <option *ngFor="let address of addresses" [value]="address">{{ address }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="label">Sélection du contrat</div>
-                        <div class="select-wrapper">
-                            <select class="box">
-                                <option value="" disabled selected>Sélectionnez</option>
-                                <option *ngFor="let option of electricityOptions" [value]="option">{{ option }}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="submit-btn" (click)="onSubmit()">Envoyer la demande</div>
-        </div>
-        <div *ngIf="isSubmitted" class="confirmation-message">
-            <div class="thank-you">Merci, votre demande a été envoyée !</div>
-            <div class="processing-message">Nous la traitons dans les plus brefs délais</div>
-            <div class="btn" (click)="viewDetail()">Suivre ma demande</div>
-        </div>
-    </div>
-
 </div>
