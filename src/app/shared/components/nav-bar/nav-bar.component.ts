@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DeminingIconComponent } from '../demining/demining-icon.component';
 import { HelpContactIconComponent } from '../help-contact-icon/help-contact-icon.component';
 import { SplitButton } from 'primeng/splitbutton';
@@ -17,6 +17,7 @@ import { User } from '../../models/user.model';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent implements OnInit, OnDestroy {
+
   userSubscription: Subscription | null = null;
   currentUser: User | null = null;
 
@@ -38,7 +39,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   profilItems: MenuItem[] = []
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+    private router: Router
+  ) {
     this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
 
@@ -50,7 +53,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
         },
         {
           label: 'Mon profil',
-          routerLink:['/profile']
+          routerLink: ['/profile']
         },
         { separator: true },
         { label: 'Me déconnecté' }
@@ -63,7 +66,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   navigateHome() {
-
+    this.router.navigate(['home']);
   }
 
   logout() {
