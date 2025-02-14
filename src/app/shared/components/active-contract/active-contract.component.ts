@@ -71,27 +71,27 @@ export class ActiveContractComponent implements OnInit {
     { label: 'Cessé', value: 'CESSÉ' },
   ];
   filterContracts(event: any) {
-    // Initialiser les contrats filtrés en fonction des critères sélectionnés
+   
     let filtered = this.contracts;
 
-    // Filtrage par secteur
+
     if (this.value) {
       filtered = filtered.filter(
         contract => contract.BusinessSectorText === this.value
       );
     }
 
-    // Filtrage par statut (ACTIF / CESSÉ)
+
     if (this.value1) {
       filtered = filtered.filter(
         contract => contract.ContractStatus === this.value1
       );
     }
 
-    // Mettre à jour les contrats filtrés
+    
     this.filteredContracts = filtered;
 
-    // Si aucun contrat ne correspond, le premier sera null
+
     if (this.filteredContracts.length > 0) {
       this.selectedContract = this.filteredContracts[0];
     } else {
