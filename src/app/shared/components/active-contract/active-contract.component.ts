@@ -19,6 +19,7 @@ export class ActiveContractComponent implements OnInit {
   theme: string = "";
   selectedContract: any = null;
   contracts: any[] = [];
+  filteredContracts: any[] = [];
 
   get contractCount(): number {
     return this.contractService.contracts.length;
@@ -29,6 +30,7 @@ export class ActiveContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     const bp = this.authService.getUserData()?.bp;
     console.log('bp',bp)
 
@@ -42,11 +44,11 @@ export class ActiveContractComponent implements OnInit {
     
       next: (contracts) => {
         this.contracts = contracts;
+        this.filteredContracts=contracts;
         console.log(contracts);
 
-
-        if (contracts.length > 0) {
-          this.selectedContract = contracts[0]
+        if (this.filterContracts.length > 0) {
+          this.selectedContract = this.filteredContracts[0]
         }
       }
     });
@@ -55,18 +57,51 @@ export class ActiveContractComponent implements OnInit {
   onChangeContract(event: any) {
     this.selectedContract = event.value
     this.contractService.changeContract(this.selectedContract);
+    
   }
 
-  value1! : string;
-  value2 : string = 'Beginner';
-  value3 : string = 'Expert';
-  options: any[] = [
-      { label: 'Elec', value: '1' },
-      { label: 'Gaz', value: '2' },
+  value: string ='';
+  options = [
+    { label: 'Électricité', value: 'Electricité' },
+    { label: 'Gaz', value: 'Gaz' }
   ];
+
+  filterContracts(event: any) {
+    // console.log("Selected value: ", selectedValue); 
+    debugger;
+    this.filteredContracts = [];  
+  
+    if (event.originalEvent.checked) {
+      this.filteredContracts = this.contracts.filter(
+        contract => contract.BusinessSectorText === event.option.value
+      );
+    }
+
+  else {
+    this.filteredContracts = this.contracts;
+  }
+    console.log("Filtered contracts: ", this.filteredContracts);  
+    
+
+    if (this.filteredContracts.length > 0) {
+      this.selectedContract = this.filteredContracts[0];
+    } else {
+      this.selectedContract = null;
+    }
+  }
+  
+  
 
 
   
+
+
+  value1! : string;
+  option: any[] = [
+      { label: 'Actif', value: '3' },
+      { label: 'Cessé', value: '4' },
+  ];
+
 }
 
 

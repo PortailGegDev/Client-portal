@@ -38,8 +38,8 @@
                     <p>{{ lastInvoice?.TotalAmount }} €</p>
                     <h2>Prochain prélèvement {{ lastInvoice!.PostingDate | timeSpanToDate:'short' }}</h2>
                 </div>
-            }
             </div>
+        }
             <br>
             <br>
             <p class="col-md-12 consumption-info">
@@ -48,8 +48,7 @@
                 Paiement par prélèvement mensuel.
             </p>
         </div>
-
-
+    </div>
     <div class="grid-container grid-1">
         <p-button label="Voir en détails" (click)="navigateToConsumption()" iconPos="right" icon="pi pi-arrow-right" />
     </div>
