@@ -5,33 +5,34 @@
         </div>
     </ng-template>
 
-    <div class="row">
-        <div class="col">
+    <div class="grid-container grid-2">
+        <div class="grid-item" style="background-color: #ffffff;">
             <p>SUR LES 4 DERNIERS MOIS</p>
 
             @if(basicData && basicOptions){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
-            <p class="col-md-12 consumption-info">
+            <p class="consumption-info">
                 <span class="info-icon">i</span>
                 Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
                 estimées.
             </p>
             } @else{
-                <div class="info-box-center">
-                    <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">            
-            
-                        <p>Les données de consommation sont temporairement indisponibles.</p>
-                    </div>
+            <div class="info-box-center">
+                <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">
+
+                    <p>Les données de consommation sont temporairement indisponibles.</p>
                 </div>
+            </div>
             }
 
         </div>
 
-        <div class="col">
+        <div class="grid-item" style="background-color: #ffffff;">
             <p>CE QUE JE DOIS</p>
             <br>
-            <div class="col-md-12 payment">
+       
                 @if(lastInvoice){
+            <div class="payment">
                 <div class="payment-box">
                     <div class="payment-icon"></div>
                     <p>{{ lastInvoice?.TotalAmount }} €</p>
@@ -47,12 +48,9 @@
                 Paiement par prélèvement mensuel.
             </p>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <p-button label="Voir en détails" (click)="navigateToConsumption()" iconPos="right"
-                icon="pi pi-arrow-right" />
-        </div>
+
+    <div class="grid-container grid-1">
+        <p-button label="Voir en détails" (click)="navigateToConsumption()" iconPos="right" icon="pi pi-arrow-right" />
     </div>
 </p-panel>

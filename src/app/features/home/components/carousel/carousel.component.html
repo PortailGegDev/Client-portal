@@ -1,8 +1,8 @@
 <div class="mb3" style="margin-top: 3px;">
     <p-carousel [value]="carouselData" [numVisible]="1" [numScroll]="1" [circular]="true"
-        [showNavigators]="false" [showIndicators]="true" [responsiveOptions]="responsiveOptions"
-        
+        [showNavigators]="false" [showIndicators]="true" [responsiveOptions]="responsiveOptions"        
         autoplayInterval="3000">
+        
         <ng-template let-carousel #item>
             <img src="{{ carousel.img }}" [alt]="carousel.title" class="w-full rounded-border"
                 style="width: 100%;" />

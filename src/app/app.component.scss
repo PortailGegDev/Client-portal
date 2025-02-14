@@ -11,4 +11,12 @@ html, body {
 
 .main-content {
     flex: 1;
-}
+    background-color: #f0f0f0; 
+    padding: 30px 49px 50px;}
+
+/* Classes utilitaires pour le responsive */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 30px 10px 10px;    }
+  }
+  

@@ -1,4 +1,38 @@
-<div>
+<div class="grid-container grid-1">
+    <h3>Bonjour {{ currentUser()?.firstname }},</h3>
+    <p>Bienvenue dans votre espace client</p>
+</div>
+
+<div class="grid-container grid-1 mb-3">
+    <div class="grid-item">
+        <app-active-contract />
+    </div>
+</div>
+
+<div class="grid-container grid-2-1-1 mb-3">
+    <div class="grid-item">
+        <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
+    </div>
+    <div class="grid-item">
+        <app-home-documents [lastInvoice]="lastInvoice()" />
+    </div>
+
+    <div class="grid-item">
+        <app-home-carousel />
+    </div>
+</div>
+
+<div class="grid-container grid-1-3">
+    <div class="grid-item">
+        <app-headline [isConsumptionPage]="false" />
+    </div>
+
+    <div class="grid-item">
+        <app-articles />
+    </div>
+</div>
+
+<!-- <div>
     <h3>Bonjour {{ currentUser()?.firstname }},</h3>
     <p>Bienvenue dans votre espace client</p>
 
@@ -26,7 +60,7 @@
 
     <div class="row">
         <div class="col-md-3 mb-3">
-            <app-headline [isConsumptionPage]="false"/>
+            <app-headline [isConsumptionPage]="false" />
         </div>
 
         <div class="col-md-9 mb-3">
@@ -38,4 +72,4 @@
     @placeholder {
     <app-loading-spinner [showSpinner]=true />
     }
-</div>
+</div> -->

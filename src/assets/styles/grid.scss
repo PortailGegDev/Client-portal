@@ -1,0 +1,54 @@
+/* Classe de base pour la grille */
+.grid-container {
+  display: grid;
+  width: 100%;
+  gap: 16px; /* Espacement par défaut */
+}
+
+/* Classes utilitaires pour les colonnes */
+.grid-1 {
+  grid-template-columns: 1fr; /* Une seule colonne */
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes égales */
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr); /* Trois colonnes égales */
+}
+
+.grid-2-1 {
+  grid-template-columns: 2fr 1fr; /* Deux colonnes : 2/3 et 1/3 */
+}
+
+.grid-1-3 {
+  grid-template-columns: 1fr 3fr; /* Deux colonnes : 1/4 et 3/4 */
+}
+
+.grid-2-1-1 {
+  grid-template-columns: 3fr 2fr 1fr; /* Trois colonnes : 3/6, 2/6, 1/6 */
+}
+
+/* Classes utilitaires pour le responsive */
+@media (max-width: 1000px) {
+  .grid-2,
+  .grid-3,
+  .grid-2-1,
+  .grid-1-3,
+  .grid-2-1-1 {
+    grid-template-columns: 1fr; /* Une seule colonne sur tablette et mobile */
+  }
+}
+
+/* Styles pour les éléments de la grille */
+.grid-item {
+  background-color: #f0f0f0;
+  overflow: hidden; /* Empêche le contenu de déborder */
+}
+
+/* Gestion des images */
+.grid-item img {
+  max-width: 100%; /* Limite la largeur de l'image à celle de la colonne */
+  height: auto; /* Garde le ratio de l'image */
+}

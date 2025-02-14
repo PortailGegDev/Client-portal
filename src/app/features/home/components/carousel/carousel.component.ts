@@ -23,17 +23,17 @@ export class AppHomeCarouselComponent implements OnInit {
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
-        numVisible: 2,
+        numVisible: 1,
         numScroll: 1
       },
       {
         breakpoint: '1199px',
-        numVisible: 3,
+        numVisible: 1,
         numScroll: 1
       },
       {
         breakpoint: '767px',
-        numVisible: 2,
+        numVisible: 1,
         numScroll: 1
       },
       {
