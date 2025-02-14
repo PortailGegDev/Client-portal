@@ -31,11 +31,13 @@
             <p>CE QUE JE DOIS</p>
             <br>
             <div class="col-md-12 payment">
+                @if(lastInvoice){
                 <div class="payment-box">
                     <div class="payment-icon"></div>
                     <p>{{ lastInvoice?.TotalAmount }} €</p>
                     <h2>Prochain prélèvement {{ lastInvoice!.PostingDate | timeSpanToDate:'short' }}</h2>
                 </div>
+            }
             </div>
             <br>
             <br>

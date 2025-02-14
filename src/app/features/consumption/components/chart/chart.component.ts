@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, Simp
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
-import { shortFrenchMonth } from '../../../../shared/utils/date-utilities';
 import { Chart, Title } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { SelectButtonModule } from 'primeng/selectbutton';

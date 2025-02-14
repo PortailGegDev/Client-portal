@@ -1,8 +1,10 @@
 <p-panel>
-    <label><b>Mes contrats actifs</b></label>
+    <label><b>Mes contrats</b></label>
     &nbsp;
-    <p-badge [value]="contractCount" [style]="{'background': '#586022' }" />
+    <p-badge [value]="contractCount" [style]="{'background': '#586022'}" />
     &nbsp;&nbsp;
+    <div class="row">
+        <div class="col-md-9">
     <p-select [options]="contracts" [(ngModel)]="selectedContract" (onChange)="onChangeContract($event)"
         class="w-full md:w-56" [style]="{'width': '80%'}">
         <ng-template #selectedItem let-selectedOption>
@@ -87,4 +89,9 @@
             </div>
         </ng-template>
     </p-select>
+</div>
+<div class="col-md-3">
+    <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
+</div>
+</div>
 </p-panel>

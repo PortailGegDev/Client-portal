@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-active-contract',
-  imports: [CommonModule, BadgeModule, PanelModule, FormsModule, SelectModule],
+  imports: [CommonModule, BadgeModule, PanelModule, FormsModule, SelectModule,SelectButton],
   templateUrl: './active-contract.component.html',
   styleUrl: './active-contract.component.scss'
 })
@@ -55,4 +56,17 @@ export class ActiveContractComponent implements OnInit {
     this.selectedContract = event.value
     this.contractService.changeContract(this.selectedContract);
   }
+
+  value1! : string;
+  value2 : string = 'Beginner';
+  value3 : string = 'Expert';
+  options: any[] = [
+      { label: 'Elec', value: '1' },
+      { label: 'Gaz', value: '2' },
+  ];
+
+
+  
 }
+
+

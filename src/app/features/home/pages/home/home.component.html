@@ -10,8 +10,6 @@
 
     @defer (when consumptions()?.length || lastInvoice();){
 
-    @if(consumptions() || lastInvoice() )
-    {
     <div class="row">
         <div class="col-md-7 mb-3">
             <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
@@ -25,7 +23,6 @@
             <app-home-carousel />
         </div>
     </div>
-    }
 
     <div class="row">
         <div class="col-md-3 mb-3">
@@ -36,7 +33,7 @@
             <app-articles />
         </div>
     </div>
-    }
+}
 
     @placeholder {
     <app-loading-spinner [showSpinner]=true />

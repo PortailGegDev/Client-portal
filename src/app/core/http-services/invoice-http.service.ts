@@ -22,10 +22,14 @@ export class InvoiceHTTPService {
   fetchFactures(contractId: string | null): Observable<Facture[]> {
 
     if (!contractId) {
-      contractId = '0350103717'
+      contractId = '0350153099';
     }
-
-    let url = `${this.Url}?$format=json&amp;$filter=ISUContract eq '${contractId}'`;
+    
+    let url = `${this.Url}?$filter=ISUContract eq '${contractId}'`;
+    
+    console.log("URL générée :", url); // Vérification dans la console
+    
+    
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,

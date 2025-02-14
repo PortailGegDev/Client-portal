@@ -31,6 +31,9 @@ export class AppRequestsFormComponent implements OnInit {
   get cityForm(): any { return this.form.get('city'); }
   get reclamationMotifForm(): any { return this.form.get('reclamationMotif'); }
   get messageForm(): any { return this.form.get('message'); }
+  get puissanceForm(): any { return this.form.get('puissance'); }
+  get tarifForm(): any { return this.form.get('tarif'); }
+
 
 
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
@@ -60,6 +63,8 @@ export class AppRequestsFormComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      puissance: ['', [Validators.required]],
+      tarif: ['', [Validators.required]],
       phone: [''],
       clientRef: [''],
       address: [''],
@@ -75,6 +80,13 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('reclamationMotif');
       this.setControlRequired('message');
       this.setControlRequired('city');
+    }
+
+    if(this.lastModificationPower){
+      this.setControlRequired('puissance')
+      this.setControlRequired('tarif')
+
+
     }
   }
 
