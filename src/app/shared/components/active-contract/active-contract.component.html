@@ -4,7 +4,7 @@
     <p-badge [value]="contractCount" [style]="{'background': '#586022'}" />
     &nbsp;&nbsp;
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
     <p-select [options]="filteredContracts" [(ngModel)]="selectedContract" (onChange)="onChangeContract($event)" 
         class="w-full md:w-56" [style]="{'width': '80%'}">
         <ng-template #selectedItem let-selectedOption>
@@ -91,11 +91,14 @@
     </p-select>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-3">
    <label>Vous pouvez filtrer les contrats par :</label>
+   &nbsp;&nbsp;
+
+   <br>
     <p-selectbutton [(ngModel)]="value" [options]="options" (onOptionClick)="filterContracts($event)"/>
-    <p-selectbutton [(ngModel)]="value1" [options]="option" />
-</div>
+    <p-selectbutton [(ngModel)]="value1" [options]="option" (onOptionClick)="filterContracts($event)"/>
+    </div>
 
 </div>
 </p-panel>

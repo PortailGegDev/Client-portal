@@ -65,42 +65,41 @@ export class ActiveContractComponent implements OnInit {
     { label: 'Électricité', value: 'Electricité' },
     { label: 'Gaz', value: 'Gaz' }
   ];
-
+  value1!: string;
+  option: any[] = [
+    { label: 'Actif', value: 'ACTIF' },
+    { label: 'Cessé', value: 'CESSÉ' },
+  ];
   filterContracts(event: any) {
-    // console.log("Selected value: ", selectedValue); 
-    debugger;
-    this.filteredContracts = [];  
-  
-    if (event.originalEvent.checked) {
-      this.filteredContracts = this.contracts.filter(
-        contract => contract.BusinessSectorText === event.option.value
+    // Initialiser les contrats filtrés en fonction des critères sélectionnés
+    let filtered = this.contracts;
+
+    // Filtrage par secteur
+    if (this.value) {
+      filtered = filtered.filter(
+        contract => contract.BusinessSectorText === this.value
       );
     }
 
-  else {
-    this.filteredContracts = this.contracts;
-  }
-    console.log("Filtered contracts: ", this.filteredContracts);  
-    
+    // Filtrage par statut (ACTIF / CESSÉ)
+    if (this.value1) {
+      filtered = filtered.filter(
+        contract => contract.ContractStatus === this.value1
+      );
+    }
 
+    // Mettre à jour les contrats filtrés
+    this.filteredContracts = filtered;
+
+    // Si aucun contrat ne correspond, le premier sera null
     if (this.filteredContracts.length > 0) {
       this.selectedContract = this.filteredContracts[0];
     } else {
       this.selectedContract = null;
     }
+
+    console.log("Filtered contracts: ", this.filteredContracts);
   }
-  
-  
-
-
-  
-
-
-  value1! : string;
-  option: any[] = [
-      { label: 'Actif', value: '3' },
-      { label: 'Cessé', value: '4' },
-  ];
 
 }
 
