@@ -104,8 +104,12 @@
         <div class="grid-item-white">
             <label>Filtrer les contrats par :</label>
             <br>
-            <p-selectbutton [(ngModel)]="value" [options]="options" (onOptionClick)="filterContracts($event)" />
-            <p-selectbutton [(ngModel)]="value1" [options]="option" (onOptionClick)="filterContracts($event)" />
+            @if(!haveSameTypeOfContracts){
+            <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions" (onOptionClick)="filterContracts($event)" />
+        }
+            @if(!haveSameStatusOfContracts){
+            <p-selectbutton [(ngModel)]="actifCesse" [options]="statusOptions" (onOptionClick)="filterContracts($event)" />
+        }
         </div>
 
     </div>

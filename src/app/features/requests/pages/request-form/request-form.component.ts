@@ -72,6 +72,7 @@ export class AppRequestsFormComponent implements OnInit {
       city: [''],
       reclamationMotif: [''],
       message: [''],
+      refPCE:['',]
     });
 
     if (this.isReclamation) {

@@ -7,6 +7,7 @@ import { SelectModule } from 'primeng/select';
 import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { SelectButton } from 'primeng/selectbutton';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-active-contract',
@@ -21,8 +22,17 @@ export class ActiveContractComponent implements OnInit {
   contracts: any[] = [];
   filteredContracts: any[] = [];
 
+
   get contractCount(): number {
     return this.contractService.contracts.length;
+  }
+
+  get haveSameTypeOfContracts(): boolean {
+    return this.contracts.every(item=> item.BusinessSectorText === this.contracts[0].BusinessSectorText)  ;
+  }
+
+  get haveSameStatusOfContracts(): boolean {
+    return this.contracts.every(item=> item.ContractStatus === this.contracts[0].ContractStatus)  ;
   }
 
   constructor(private contractService: ContractService,
@@ -44,6 +54,7 @@ export class ActiveContractComponent implements OnInit {
     
       next: (contracts) => {
         this.contracts = contracts;
+
         this.filteredContracts=contracts;
         console.log(contracts);
 
@@ -54,37 +65,40 @@ export class ActiveContractComponent implements OnInit {
     });
   }
 
+
+
   onChangeContract(event: any) {
     this.selectedContract = event.value
     this.contractService.changeContract(this.selectedContract);
     
   }
 
-  value: string ='';
-  options = [
+  gazElecValue: string ='';
+  typeGazElecOptions = [
     { label: 'Électricité', value: 'Electricité' },
     { label: 'Gaz', value: 'Gaz' }
   ];
-  value1!: string;
-  option: any[] = [
+  actifCesse: string='';
+  statusOptions = [
     { label: 'Actif', value: 'ACTIF' },
     { label: 'Cessé', value: 'CESSÉ' },
   ];
+
   filterContracts(event: any) {
    
     let filtered = this.contracts;
 
 
-    if (this.value) {
+    if (this.gazElecValue) {
       filtered = filtered.filter(
-        contract => contract.BusinessSectorText === this.value
+        contract => contract.BusinessSectorText === this.gazElecValue
       );
     }
 
 
-    if (this.value1) {
+    if (this.actifCesse) {
       filtered = filtered.filter(
-        contract => contract.ContractStatus === this.value1
+        contract => contract.ContractStatus === this.actifCesse
       );
     }
 
@@ -97,6 +111,7 @@ export class ActiveContractComponent implements OnInit {
     } else {
       this.selectedContract = null;
     }
+
 
     console.log("Filtered contracts: ", this.filteredContracts);
   }
