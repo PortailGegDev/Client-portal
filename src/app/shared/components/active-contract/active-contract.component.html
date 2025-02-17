@@ -102,9 +102,9 @@
         </div>
 
         <div class="grid-item-white">
+            @if(!haveSameTypeOfContracts){
             <label>Filtrer les contrats par :</label>
             <br>
-            @if(!haveSameTypeOfContracts){
             <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions" (onOptionClick)="filterContracts($event)" />
         }
             @if(!haveSameStatusOfContracts){

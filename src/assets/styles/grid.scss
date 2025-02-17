@@ -54,11 +54,13 @@
 .grid-item-white {
   background-color: #ffffff;
   overflow: hidden; /* Empêche le contenu de déborder */
+
 }
 
 .grid-item-transparent {
   background-color: transparent;
   overflow: hidden; /* Empêche le contenu de déborder */
+  gap: 6px !important;
 }
 
 /* Gestion des images */
