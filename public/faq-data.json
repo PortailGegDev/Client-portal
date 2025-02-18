@@ -31,6 +31,11 @@
       "isOpen": false
     },
     {
+      "question": "J'ai une question sur mon relevé de compteu",
+      "answer": "Pour nous faire part d'une erreur de relève, nous vous invitons à nous appeler au 04 76 84 20 00, choix 2. <br> Nous sommes joignables du lundi au vendredi de 8h à 20h.",
+      "isOpen": false
+    },
+    {
       "question": "Je souhaite des conseils en maitrise de l'énergie",
       "answer": "GEG vous accompagne dans la réduction de vos consommations d'énergies.<br><br>Retrouvez tous nos conseils, vidéos, articles, guide sur notre page dédiée <a href='https://particuliers.geg.fr/501-sobriete-energetique.htm' target='_blank' (click)='$event.stopPropagation()' class='yellow'>Sobriété énergétique</a>",
       "isOpen": false
