@@ -15,6 +15,8 @@
 @import "./assets/styles/form.scss";
 @import "./assets/styles/message.scss";
 @import "./assets/styles/grid.scss";
+@import "./assets/styles/menu.scss";
+
 
 
 
@@ -277,18 +279,6 @@
   display: flex;
 }
 
-// Menu
-.p-menubar-item:not(.p-disabled)>.p-menubar-item-content:hover {
-  background-color: transparent !important;
-}
-
-.p-menubar-item-link-active {
-  background-color: transparent !important;
-  color: black;
-  font-weight: 600;
-  font-size: 17px;
-  border-bottom: 3px solid var(--Primary-600, #AAB614);
-}
 
 .profile {
   display: inline-flex;

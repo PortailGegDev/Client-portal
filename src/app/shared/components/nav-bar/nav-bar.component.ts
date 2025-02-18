@@ -26,7 +26,27 @@ export class NavBarComponent implements OnInit, OnDestroy {
     { label: 'Consommation', routerLink: ['/consumption'] },
     { label: 'Factures', routerLink: ['/invoices'] },
     { label: 'Documents', routerLink: ['/documents'] },
-    { label: 'Services', routerLink: ['/services'] }
+    { label: 'Services', routerLink: ['/services'] },
+    {
+      separator: true, // Élément séparateur (espaceur)
+      styleClass: 'menu-spacer' // Classe pour l'espace dynamique
+    },
+    {
+      label: 'Je déménage',
+      styleClass: 'right-menu-item' // Classe pour aligner à droite
+
+    },
+    {
+      label: 'Aide et contact',
+      styleClass: 'right-menu-item',
+      items: [
+        { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
+        { separator: true },
+        { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
+        { separator: true },
+        { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['requests/frequently-asked-questions'] }
+      ]
+    }
   ];
 
   aideContactItems: MenuItem[] = [

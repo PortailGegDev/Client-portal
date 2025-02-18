@@ -1,4 +1,4 @@
-<p-menubar [model]="items" class="text-font" [style]="{'padding-left': '50px','padding-right': '50px', 'border-radius': '0px'}">
+<p-menubar [model]="items" class="text-font" [style]="{'width':'100%'}">
   <ng-template pTemplate="start">
     <div class="logo-container">
       <a class="logo" href="#" (click)="navigateHome()" style="padding-right: 20px;">
@@ -8,7 +8,7 @@
   </ng-template>
   <ng-template pTemplate="end">
     <div class="flex items-center gap-2">
-      <p-button label="Je déménage" variant="text" severity="secondary" routerLink="/requests/relocation">
+      <!-- <p-button label="Je déménage" variant="text" severity="secondary" routerLink="/requests/relocation">
         <app-demining-icon />
       </p-button>
       &nbsp;
@@ -16,7 +16,7 @@
 
       <p-splitbutton label="Aide et contact" [model]="aideContactItems" text severity="secondary">
       </p-splitbutton>
-      &nbsp;
+      &nbsp; -->
       <p-splitbutton class="disable-main-button" icon="fa-regular fa-user fa-xl" [model]="profilItems" text
         severity="secondary" />
       &nbsp;
@@ -24,3 +24,5 @@
     </div>
   </ng-template>
 </p-menubar>
+
+
