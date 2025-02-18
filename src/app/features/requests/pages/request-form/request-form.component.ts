@@ -6,13 +6,12 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
-import { EditorModule } from 'primeng/editor';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, EditorModule, SelectModule, TextareaModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
