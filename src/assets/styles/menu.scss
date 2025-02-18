@@ -4,10 +4,10 @@
 
 .p-menubar-item-link-active {
     background-color: transparent !important;
-    color: black;
-    font-weight: 600;
-    font-size: 17px;
-    border-bottom: 3px solid var(--Primary-600, #AAB614);
+    color: black !important;
+    font-weight: 600 !important;
+    font-size: 17px !important;
+    border-bottom: 3px solid #AAB614 !important;
 }
 
 .p-menubar {
@@ -30,7 +30,7 @@
 }
 
 p-menubarsub {
-    width: 100%;
+    width: 80%;
 }
 
 @media (max-width: 1000px) {
@@ -38,5 +38,13 @@ p-menubarsub {
     .p-menubar {
         padding-left: 10px !important;
         padding-right: 10px !important;
+    }
+
+    p-menubarsub {
+        width: 20%;
+    }
+
+    .p-menubar-end {
+        margin-right: 10px;
     }
 }

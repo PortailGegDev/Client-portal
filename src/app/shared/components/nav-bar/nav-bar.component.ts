@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
@@ -9,19 +9,21 @@ import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [MenubarModule, ButtonModule, SplitButton, RouterModule, DeminingIconComponent, HelpContactIconComponent],
+  imports: [CommonModule, MenubarModule, ButtonModule, SplitButton, RouterModule, DeminingIconComponent, HelpContactIconComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent implements OnInit, OnDestroy {
+export class NavBarComponent implements OnDestroy {
 
   userSubscription: Subscription | null = null;
   currentUser: User | null = null;
+  profilItems: MenuItem[] = []
 
-  items: MenuItem[] = [
+  menuItems: MenuItem[] = [
     { label: 'Accueil', routerLink: ['/home'] },
     { label: 'Consommation', routerLink: ['/consumption'] },
     { label: 'Factures', routerLink: ['/invoices'] },
@@ -33,11 +35,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
     },
     {
       label: 'Je déménage',
-      styleClass: 'right-menu-item' // Classe pour aligner à droite
-
+      routerLink: '/requests/relocation',
+      styleClass: 'right-menu-item', // Classe pour aligner à droite
     },
     {
       label: 'Aide et contact',
+      routerLink: '/requests/relocation',
       styleClass: 'right-menu-item',
       items: [
         { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
@@ -48,16 +51,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
       ]
     }
   ];
-
-  aideContactItems: MenuItem[] = [
-    { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
-    { separator: true },
-    { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
-    { separator: true },
-    { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['requests/frequently-asked-questions'] },
-  ];
-
-  profilItems: MenuItem[] = []
 
   constructor(private authService: AuthService,
     private router: Router
@@ -79,10 +72,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
         { label: 'Me déconnecté' }
       ];
     });
-  }
-
-  ngOnInit() {
-    console.log(this.authService.getCurrentUser());
   }
 
   navigateHome() {
