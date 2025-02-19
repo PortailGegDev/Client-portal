@@ -33,18 +33,26 @@ p-menubarsub {
     width: 80%;
 }
 
-@media (max-width: 1000px) {
+.p-tieredmenu-overlay {
+    margin-left: -110px !important;
+}
 
+@media (max-width: 1000px) {
     .p-menubar {
         padding-left: 10px !important;
         padding-right: 10px !important;
     }
 
     p-menubarsub {
-        width: 20%;
+        width: 0%;
     }
 
     .p-menubar-end {
-        margin-right: 10px;
+        margin-right: 10px !important;
+    }
+
+    .p-tieredmenu-mobile {
+        position: absolute !important;
+        left: -130px !important;
     }
 }

@@ -1,4 +1,4 @@
-<p-menubar [model]="menuItems" class="text-font" #menuContainer>
+<p-menubar [model]="menuItems" class="text-font">
   <ng-template pTemplate="start">
     <div class="logo-container">
       <a class="logo" href="#" (click)="navigateHome()" style="padding-right: 20px;">
@@ -21,12 +21,14 @@
       <app-help-contact-icon />
       <span [class]="item.icon"></span>
       <span style="margin-left: 8px;">{{item.label}}</span>
+      <span class="pi pi-angle-down"></span>
     </a>
 
 
     } @else {
 
     <a pripple class="p-menubar-item-link" [routerLink]="item.routerLink">
+      <span [class]="item.icon"></span>
       <span class="p-menubar-item-label" data-pc-section="label">{{ item.label }}</span>
     </a>
     }
@@ -36,7 +38,7 @@
   <ng-template pTemplate="end">
     <div class="flex items-center gap-2">
       <p-splitbutton class="disable-main-button" icon="fa-regular fa-user fa-xl" [model]="profilItems" text
-        severity="secondary" [appendTo]="'menuContainer'"/>
+        severity="secondary" />
       &nbsp;
       <i class="fa-regular fa-bell fa-xl"></i>
     </div>

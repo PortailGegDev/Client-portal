@@ -47,7 +47,7 @@ export class NavBarComponent implements OnDestroy {
         { separator: true },
         { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
         { separator: true },
-        { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['requests/frequently-asked-questions'] }
+        { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['/requests/frequently-asked-questions'] }
       ]
     }
   ];
