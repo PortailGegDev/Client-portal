@@ -62,10 +62,19 @@
 }
 
 /* Responsive pour les écrans de mobiles */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .footer {
     flex-direction: column;
     font-size: 10px;
     margin: 5px 10px 5px 10px;
+    text-align: center;
+  }
+
+  .social-media {
+    margin-top: 10px;
+  }
+
+  .logo-img {
+    margin-bottom: 20px;
   }
 }

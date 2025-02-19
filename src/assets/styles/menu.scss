@@ -33,6 +33,15 @@
     /* Occupe tout l'espace disponible */
 }
 
+.p-menubar-item-label {
+    color: rgba(84, 78, 78, 0.70);
+    font-size: 16px;
+    font-family: Figtree;
+    font-weight: 500;
+    line-height: 19px;
+    word-wrap: break-word;
+}
+
 p-menubarsub {
     width: 80% !important;
 }
@@ -40,6 +49,26 @@ p-menubarsub {
 .p-tieredmenu-overlay {
     margin-left: -90px !important;
 }
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.disable-main-button .p-splitbutton-defaultbutton {
+    pointer-events: none;
+    /* Empêche les clics sur le bouton principal */
+    opacity: 0.6;
+    /* Change l'apparence pour refléter un état désactivé */
+    cursor: not-allowed;
+    /* Modifie le curseur pour refléter l'état désactivé */
+}
+
 
 @media (max-width: 1000px) {
     .p-menubar {
