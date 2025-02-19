@@ -60,16 +60,6 @@ p-menubarsub {
     align-items: center;
 }
 
-.disable-main-button .p-splitbutton-defaultbutton {
-    pointer-events: none;
-    /* Empêche les clics sur le bouton principal */
-    opacity: 0.6;
-    /* Change l'apparence pour refléter un état désactivé */
-    cursor: not-allowed;
-    /* Modifie le curseur pour refléter l'état désactivé */
-}
-
-
 @media (max-width: 1000px) {
     .p-menubar {
         padding-left: 10px !important;
@@ -77,7 +67,7 @@ p-menubarsub {
     }
 
     p-menubarsub {
-        width: 0%;
+        width: 0% !important;
     }
 
     .p-menubar-end {

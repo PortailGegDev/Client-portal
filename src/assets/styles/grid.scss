@@ -30,6 +30,10 @@
   grid-template-columns: 1fr 3fr; /* Deux colonnes : 1/4 et 3/4 */
 }
 
+.grid-1-4 {
+  grid-template-columns: 1fr 4fr; /* Deux colonnes : 1/5 et 4/5 */
+}
+
 .grid-2-1-1 {
   grid-template-columns: 3fr 2fr 1fr; /* Trois colonnes : 3/6, 2/6, 1/6 */
 }
