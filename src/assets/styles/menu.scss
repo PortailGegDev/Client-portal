@@ -2,12 +2,16 @@
     background-color: transparent !important;
 }
 
-.p-menubar-item-link-active {
+.p-menubar-item-link.active {
     background-color: transparent !important;
     color: black !important;
     font-weight: 600 !important;
     font-size: 17px !important;
     border-bottom: 3px solid #AAB614 !important;
+}
+
+.p-menubar-item .p-focus {
+    background-color: transparent !important;
 }
 
 .p-menubar {
@@ -20,21 +24,21 @@
 }
 
 .right-menu-item {
-    margin-left: auto;
+    margin-left: auto !important;
     /* Pousse les éléments à droite */
 }
 
 .p-menubar-separator {
-    flex-grow: 1;
+    flex-grow: 1 !important;
     /* Occupe tout l'espace disponible */
 }
 
 p-menubarsub {
-    width: 80%;
+    width: 80% !important;
 }
 
 .p-tieredmenu-overlay {
-    margin-left: -110px !important;
+    margin-left: -90px !important;
 }
 
 @media (max-width: 1000px) {
@@ -53,6 +57,9 @@ p-menubarsub {
 
     .p-tieredmenu-mobile {
         position: absolute !important;
-        left: -130px !important;
+    }
+
+    .p-tieredmenu-overlay {
+        margin-left: -100px !important;
     }
 }

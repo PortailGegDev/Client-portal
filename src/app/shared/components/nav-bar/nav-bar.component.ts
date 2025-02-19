@@ -69,7 +69,7 @@ export class NavBarComponent implements OnDestroy {
           routerLink: ['/profile']
         },
         { separator: true },
-        { label: 'Me déconnecté' }
+        { label: 'Me déconnecter' }
       ];
     });
   }
