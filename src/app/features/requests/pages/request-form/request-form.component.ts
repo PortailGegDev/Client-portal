@@ -32,6 +32,7 @@ export class AppRequestsFormComponent implements OnInit {
   get messageForm(): any { return this.form.get('message'); }
   get puissanceForm(): any { return this.form.get('puissance'); }
   get tarifForm(): any { return this.form.get('tarif'); }
+  get rescisionForm(): any { return this.form.get('rescision'); }
 
 
 
@@ -85,9 +86,13 @@ export class AppRequestsFormComponent implements OnInit {
     if (this.lastModificationPower) {
       this.setControlRequired('puissance')
       this.setControlRequired('tarif')
-
-
     }
+
+    if (this.isRescision) {
+      this.setControlRequired('rescision')
+    }
+
+
   }
 
   submitDemande() {
@@ -140,7 +145,7 @@ export class AppRequestsFormComponent implements OnInit {
     } else if (requestType === Constants.DemandeType.RELOCATION) {
       return Constants.DemandeTitle.RELOCATION;
 
-    } else {
+    } else  {
       return Constants.DemandeTitle.RESCISION;
     }
   }
