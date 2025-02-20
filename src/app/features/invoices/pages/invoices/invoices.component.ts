@@ -1,6 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
+import { Component } from '@angular/core';
 import { BrandService } from '../../../../shared/services/brand.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,39 +12,39 @@ import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-invoices',
-  imports: [CommonModule, FormsModule,PanelModule,ActiveContractComponent,AppInvoicesFilterComponent,AppInvoicesTableComponent],
+  imports: [CommonModule, FormsModule, PanelModule, ActiveContractComponent, AppInvoicesFilterComponent, AppInvoicesTableComponent],
   templateUrl: './invoices.component.html',
   styleUrl: './invoices.component.scss',
 })
 export class AppInvoicesComponent {
   constructor(
-    private contractService: ContractHttpService,
-    private contractServicee: ContractService,
+    private contractService: ContractService,
     private invoicesService: InvoicesService,
     private brandService: BrandService,
   ) {
-    this.contractServicee.contract$.subscribe((data) => {
+    this.contractService.contract$.subscribe((data) => {
       this.loadFacture(data.ContractISU);
     });
-    
+
   }
 
-invoices: Facture[] = [];
-globalFiltervalue: string='';
+  invoices: Facture[] = [];
+  globalFiltervalue: string = '';
 
 
   theme: string = '';
+  
   ngOnInit(): void {
     this.theme = this.brandService.getBrand();
   }
 
   contractts: any[] = [];
-  loadFacture(contractId: string): void{
-    this.invoices=[];
+  loadFacture(contractId: string): void {
+    this.invoices = [];
 
     this.invoicesService.getInvoices(contractId).subscribe({
-      next: (factures:Facture[]) => {
-        this.invoices=factures;
+      next: (factures: Facture[]) => {
+        this.invoices = factures;
         console.log(this.invoices);
       },
       error: (error) => {
@@ -54,8 +52,9 @@ globalFiltervalue: string='';
         this.contractts = []; // Assure que contractts reste vide en cas d'erreur
       }
     });
-}
-globalFilter(value:string){
-this.globalFiltervalue=value;
-}
+  }
+
+  globalFilter(value: string) {
+    this.globalFiltervalue = value;
+  }
 }

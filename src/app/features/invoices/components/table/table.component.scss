@@ -1,26 +1,30 @@
 .facture-cell {
-    color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 19px; 
-  }
+  color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+}
 
 
-  .p-tag-warn {
-    color: #fff;
-    background: var(--Semantic-Danger, #FF6C00);
-  }
-  
-  .p-tag-info {
-    color: #333;
-    background: var(--Semantic-Primary, #64DAE4);
-  }
-  
-  .p-tag-secondary {
-    color: #333;
-    background: var(--Fundamental-Grey-10, rgba(84, 78, 78, .1));
-  }
+.p-tag-warn {
+  color: #fff;
+  background: var(--Semantic-Danger, #FF6C00);
+}
 
+.p-tag-info {
+  color: #333;
+  background: var(--Semantic-Primary, #64DAE4);
+}
 
+.p-tag-secondary {
+  color: #333;
+  background: var(--Fundamental-Grey-10, rgba(84, 78, 78, .1));
+}
+
+@media (max-width: 1000px) {
+  .p-datatable-tbody > tr > td {
+    justify-content: normal !important;
+  }
+}

@@ -16,6 +16,7 @@
 .p-datatable-thead tr th {
   border-bottom: 1px Black !important;
   color: rgba(84, 78, 78, 0.70) !important;
+  font-size: 12px;
 }
 
 .p-paginator-page.p-paginator-page-selected {
@@ -36,4 +37,43 @@
   border: 1px solid var(--Brand-Primary-600, #AAB614) !important;
   background: var(--Brand-Primary-50, #FEFDE9) !important;
   gap: 16px !important;
+}
+
+@media (max-width: 1000px) {
+
+  /* Afficher chaque ligne comme une grille */
+  .p-datatable tbody tr {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    padding: 15px !important;
+    border: 1px solid #f0f0f0 !important;
+  }
+
+  /* Afficher chaque cellule comme un bloc avec une étiquette */
+  .p-datatable tbody td {
+    display: flex !important;
+    justify-content: normal !important;
+    align-items: center !important;
+    padding: 8px !important;
+    border-bottom: none !important;
+  }
+
+  /* Ajouter des étiquettes aux cellules */
+  .p-datatable tbody td::before {
+    font-weight: bold !important;
+    margin-right: 10px !important;
+    color: #333 !important;
+  }
+
+  /* Ajuster le style des boutons */
+  .p-datatable tbody td .p-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Ajuster le style des icônes */
+  .p-datatable tbody td .pi {
+    font-size: 1.2rem !important;
+  }
+
 }

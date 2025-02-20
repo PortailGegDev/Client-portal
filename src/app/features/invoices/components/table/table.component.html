@@ -1,5 +1,5 @@
 @if(selectedInvoices.length>0){
-<div class="row" style=" align-items: center; background-color: #FEFDE9;padding: 8px 16px;">
+<div class="row" style=" align-items: center; background-color: #FEFDE9;padding: 8px 16px;margin: 10px 10px 20px 10px;">
   <div class="col-md-2 mb-2">
     <p-message variant="simple">{{selectedInvoices.length}} Factures sélectionnés</p-message>
   </div>
@@ -13,16 +13,13 @@
 </div>
 }
 
-
-
-<p-table #dt [value]="invoices" [rows]="5" [paginator]="true"
+<p-table #dt [value]="invoices" [rows]="5" [paginator]="true" responsiveLayout="stack"
   [globalFilterFields]="['PostingDate', 'UtilitiesInvoicingDocument', 'TotalAmountHT', 'StatusInvoicingDocument']"
-  [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedInvoices" [rowHover]="true"
-  dataKey="UtilitiesInvoicingDocument" [showCurrentPageReport]="" showFirstLastIcon="false"
-  emptymessage="Pas de factures ou facture introuvable.">
+  [(selection)]="selectedInvoices" [rowHover]="true" dataKey="UtilitiesInvoicingDocument" [showCurrentPageReport]=""
+  showFirstLastIcon="false" emptymessage="Pas de factures ou facture introuvable.">
 
   <ng-template #header>
-    <tr style="  border-bottom:1px Black !important;">
+    <tr style="border-bottom:1px Black !important;">
       <th style="width: 3rem">
         <p-tableHeaderCheckbox />
       </th>
@@ -45,12 +42,15 @@
       <th style="min-width: 12rem"></th>
     </tr>
   </ng-template>
-  <ng-template #body let-invoice> <!-- objet-->
+  <ng-template #body let-invoice>
     <tr>
       <td style="width: 3rem">
         <p-tableCheckbox [value]="invoice" />
       </td>
-      <td style="min-width: 12rem"> <strong>{{ invoice.PostingDate | timeSpanToDate:'short'}}</strong></td>
+
+      <td style="min-width: 12rem">
+        <strong>{{ invoice.PostingDate | timeSpanToDate:'short'}}</strong>
+      </td>
 
       <td style="min-width: 16rem" class="facture-cell">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
@@ -59,7 +59,10 @@
             stroke="#544E4E" stroke-linecap="round" stroke-linejoin="round" />
         </svg> {{ invoice.UtilitiesInvoicingDocument }}
       </td>
-      <td> <strong>{{ invoice.TotalAmountHT}}€ </strong></td>
+
+      <td>
+        <strong>{{ invoice.TotalAmountHT}}€ </strong>
+      </td>
 
       <td>
         @if(invoice.StatusInvoicingDocument==='Partiellement soldée'){

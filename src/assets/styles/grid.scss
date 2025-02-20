@@ -30,8 +30,16 @@
   grid-template-columns: 1fr 3fr; /* Deux colonnes : 1/4 et 3/4 */
 }
 
+.grid-1-4 {
+  grid-template-columns: 1fr 4fr; /* Deux colonnes : 1/5 et 4/5 */
+}
+
 .grid-2-1-1 {
   grid-template-columns: 3fr 2fr 1fr; /* Trois colonnes : 3/6, 2/6, 1/6 */
+}
+
+.grid-4-1 {
+  grid-template-columns: 4fr 1fr; /* Trois colonnes : 3/6, 2/6, 1/6 */
 }
 
 /* Classes utilitaires pour le responsive */
@@ -40,7 +48,8 @@
   .grid-3,
   .grid-2-1,
   .grid-1-3,
-  .grid-2-1-1 {
+  .grid-2-1-1,
+  .grid-4-1 {
     grid-template-columns: 1fr; /* Une seule colonne sur tablette et mobile */
   }
 }

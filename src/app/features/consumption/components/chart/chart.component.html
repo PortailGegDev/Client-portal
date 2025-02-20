@@ -11,12 +11,12 @@
                 optionLabel="name" optionValue="value" (onOptionClick)="onOptionClick($event)"/>
         </div>
 
-        <div class="col-md-6 mb-3 gap-2" style="text-align: right;">
+        <div class="col-md-6 mb-3 gap-2" style="text-align: right; display: flex;">
             <span>Affichage</span>
-            &nbsp; &nbsp;
+            &nbsp;
             <p-selectbutton [options]="unityOptions" [(ngModel)]="selectUnityValue" [multiple]="false"
                 optionLabel="name" optionValue="value" />
-            &nbsp; &nbsp;
+            &nbsp;
             <p-select [options]="typeDataChart" [(ngModel)]="selectedTypeDataChart" optionLabel="name"
                 placeholder="Sélectionnez" class="w-full md:w-56" />
         </div>

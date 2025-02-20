@@ -2,17 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
-import { EditorModule } from 'primeng/editor';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, EditorModule, SelectModule, TextareaModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -72,7 +71,7 @@ export class AppRequestsFormComponent implements OnInit {
       city: [''],
       reclamationMotif: [''],
       message: [''],
-      refPCE:['',]
+      refPCE: ['',]
     });
 
     if (this.isReclamation) {
@@ -83,7 +82,7 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('city');
     }
 
-    if(this.lastModificationPower){
+    if (this.lastModificationPower) {
       this.setControlRequired('puissance')
       this.setControlRequired('tarif')
 
