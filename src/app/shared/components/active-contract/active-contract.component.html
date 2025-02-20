@@ -1,7 +1,7 @@
 <p-panel>
     <div class="grid-container grid-2-1">
         <div class="grid-item-white">
-            <label><b>Mes contrats</b></label>
+            <label class="mb-2"><b>Mes contrats</b></label>
             &nbsp;
             <p-badge [value]="contractCount" [style]="{'background': '#586022'}" />
             <br>
@@ -103,7 +103,7 @@
 
         <div class="grid-item-white">
             @if(!haveSameTypeOfContracts){
-            <label>Filtrer les contrats par :</label>
+            <label class="mb-2">Filtrer les contrats par :</label>
             <br>
             <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions" (onOptionClick)="filterContracts($event)" />
         }
