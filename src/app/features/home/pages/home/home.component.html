@@ -14,7 +14,8 @@
         <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
     </div>
     <div class="grid-item">
-        <app-home-documents [lastInvoice]="lastInvoice()" />
+        <app-home-documents [lastInvoice]="lastInvoice()" [selectedContract]="selectedContract"
+            [currentUser]="currentUser()" />
     </div>
 
     <div class="grid-item">

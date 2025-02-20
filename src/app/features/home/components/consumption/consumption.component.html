@@ -9,7 +9,7 @@
         <div class="grid-item" style="background-color: #ffffff;">
             <p>SUR LES 4 DERNIERS MOIS</p>
 
-            @if(basicData && basicOptions){
+            @if(basicData && basicOptions && basicData.length > 0){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
             <p class="consumption-info">
                 <span class="info-icon">i</span>
@@ -19,7 +19,7 @@
             } @else{
             <div class="info-box-center">
                 <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">
-
+                    <i class="pi pi-info-circle mb-3" style="font-size: 2.5rem;"></i>
                     <p>Les données de consommation sont temporairement indisponibles.</p>
                 </div>
             </div>
@@ -30,8 +30,8 @@
         <div class="grid-item" style="background-color: #ffffff;">
             <p>CE QUE JE DOIS</p>
             <br>
-       
-                @if(lastInvoice){
+
+            @if(lastInvoice){
             <div class="payment">
                 <div class="payment-box">
                     <div class="payment-icon"></div>
@@ -39,7 +39,8 @@
                     <h2>Prochain prélèvement {{ lastInvoice!.PostingDate | timeSpanToDate:'short' }}</h2>
                 </div>
             </div>
-        }
+            }
+
             <br>
             <br>
             <p class="col-md-12 consumption-info">
