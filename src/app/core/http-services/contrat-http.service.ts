@@ -115,7 +115,7 @@ export class ContractHttpService {
   fetchContractISU(bp: string | null): Observable<any> {
 
     if (!bp) {
-      //bp = '1510060116'; // bp consommation pour QF1
+      //bp = '1510060117'; // bp consommation pour QF1
       bp='1510023652'; // bp liste de contrats pour DF1
     }
 
