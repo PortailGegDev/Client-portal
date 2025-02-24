@@ -40,7 +40,7 @@ export class ActiveContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    
     const bp = this.authService.getUserData()?.bp;
     console.log('bp',bp)
 
@@ -50,7 +50,7 @@ export class ActiveContractComponent implements OnInit {
       // return;
     }
 
-    this.contractService.getContracts(bp!).subscribe({
+    this.contractService.getcontracts2(bp!).subscribe({
     
       next: (contracts) => {
         this.contracts = contracts;
@@ -109,6 +109,7 @@ export class ActiveContractComponent implements OnInit {
     console.log("Filtered contracts: ", this.filteredContracts);
   }
 
+  
 }
 
 

@@ -56,6 +56,7 @@ export class AppHomeComponent {
   ngOnInit() {
     this.currentUser.set(this.authService.getUserData());
     this.theme = this.brandService.getBrand();
+
   }
 
   loadLastInvoice(contractId: string): void {
@@ -90,19 +91,7 @@ export class AppHomeComponent {
     });
   }
 
-  contractPartner: any[] = []; // Assurez-vous que ce n'est pas undefined
 
-
-  getContractsPartner(CCBusinessPartner: string): void {
-    this.contractHttpService.fetchContractPartner(CCBusinessPartner)
-      .pipe(
-        map(response => response?.d?.results ?? [])
-      )
-      .subscribe(data => {
-        console.log('Données reçues dans le composant :', data);
-        this.contractPartner = data; // Assurez-vous que la variable est bien assignée
-      });
-  }
   
   
 }

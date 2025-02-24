@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 
@@ -93,35 +93,23 @@ export class ContractHttpService {
   }
 
 
-  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
-  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
+  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
+  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
 
   
-  fetchContractISU(bp: string | null): Observable<any> {
+  fetchContractISU(filter: string | null): Observable<any> {
 
-    if (!bp) {
-      //bp = '1510060117'; // bp consommation pour QF1
-      bp='1510023652'; // bp liste de contrats pour DF1
-    }
+    // if (!bp) {
+    //   //bp = '1510060117'; // bp consommation pour QF1
+    //   bp='1510023652'; // bp liste de contrats pour DF1
+    // }
 
-    const url = `${this.Url3}?$format=json&$filter=BusinessPartnerId eq '${bp}'`;
-    // Create headers for the request
-    const headers = new HttpHeaders({
-      'Accept': 'application/json',  // Expecting JSON response
-      'Accept-Language': 'fr',      // Language header
-      'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,  // Basic Auth (base64 encoded)
-      'Content-Type': 'application/json',  // Request body format
-      'X-Requested-With': 'XMLHttpRequest',  // To help with CORS
-    });
-
-    // Making the GET request
+    const url = `${this.Url3}?$format=json&$filter=${filter}`;
     return this.httpClient.get(url).pipe(
-      tap((response) => {
-        console.log('Données récupérées avec succès :', response);  // Log successful data retrieval
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.error('Erreur lors de la récupération des données :', error);
-        return throwError(() => error);  // Return the error to be handled by the caller
+      map((response:any) => response?.d?.results ?? []),
+      catchError(error =>{
+        console.error('errreur lors de la récup',error);
+        return of([]);
       })
     );
   }
@@ -132,28 +120,17 @@ fetchContractPartner(CCBusinessPartner: string | null): Observable<any> {
 
   if (!CCBusinessPartner) {
     //bp = '1510060117'; // bp consommation pour QF1
-    CCBusinessPartner='1510063413'; // bp liste de contrats pour DF1
+    CCBusinessPartner='1510129774'; // bp liste de contrats pour DF1
   }
 
   const url = `${this.Url4}?$format=json&$filter=CCBusinessPartner eq '${CCBusinessPartner}'`;
   console.log("URL de la requête:", url);  // Vérifiez que l'URL est correcte
-  const headers = new HttpHeaders({
-    'Accept': 'application/json',  // Expecting JSON response
-    'Accept-Language': 'fr',      // Language header
-    'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,  // Basic Auth (base64 encoded)
-    'Content-Type': 'application/json',  // Request body format
-    'X-Requested-With': 'XMLHttpRequest',  // To help with CORS
-  });
-  // Making the GET request
   return this.httpClient.get(url).pipe(
-    tap((response) => {
-      console.log('Données récupérées avec succès :', response);  // Log successful data retrieval
-    }),
-    catchError((error: HttpErrorResponse) => {
-      console.error('Erreur lors de la récupération des données :', error);
-      return throwError(() => error);  // Return the error to be handled by the caller
+    map((response:any) => response?.d?.results ?? []),
+    catchError(error =>{
+      console.error('errreur lors de la récup',error);
+      return of([]);
     })
   );
-
 }
 }
