@@ -1,0 +1,31 @@
+.carousel-container {
+    width: 220px;
+    height: 380px;
+    overflow: hidden;
+}
+
+p-carousel {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (min-width: 700px) and (max-width: 1200px) {
+    .carousel-container {
+        width: 220px;
+        height: 380px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 700px) {
+    // .carousel-container {
+    //     width: 390px !important;
+    //     height: 380px;
+    //     overflow: hidden;
+    // }
+
+    // p-carousel {
+    //     width: 100% !important;
+    //     height: 100% !important;
+    // }
+}

@@ -17,6 +17,7 @@ import { PanelModule } from 'primeng/panel';
   styleUrl: './invoices.component.scss',
 })
 export class AppInvoicesComponent {
+  
   constructor(
     private contractService: ContractService,
     private invoicesService: InvoicesService,
