@@ -8,10 +8,11 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -32,16 +33,24 @@ export class AppRequestsFormComponent implements OnInit {
   get messageForm(): any { return this.form.get('message'); }
   get puissanceForm(): any { return this.form.get('puissance'); }
   get tarifForm(): any { return this.form.get('tarif'); }
-  get rescisionForm(): any { return this.form.get('rescision'); }
-
+  get rescissionStreetNumberForm(): any { return this.form.get('rescissionStreetNumber'); }
+  get rescissionStreetForm(): any { return this.form.get('rescissionStreet'); }
+  get rescissionPostalCodeForm(): any { return this.form.get('rescissionPostalCode'); }
+  get rescissionCityForm(): any { return this.form.get('rescissionCity'); }
+  get rescissionInvoiceStreetNumberForm(): any { return this.form.get('rescissionInvoiceStreetNumber'); }
+  get rescissionInvoiceStreetForm(): any { return this.form.get('rescissionInvoiceStreet'); }
+  get rescissionInvoicePostalCodeForm(): any { return this.form.get('rescissionInvoicePostalCode'); }
+  get rescissionInvoiceCityForm(): any { return this.form.get('rescissionInvoiceCity'); }
+  get rescissionDepartureDateForm(): any { return this.form.get('rescissionDepartureDate'); }
+  get rescissionContractForm(): any { return this.form.get('rescissionContract'); }
+  get hpReadingForm(): any { return this.form.get('hpReading'); }
+  get hcReadingForm(): any { return this.form.get('hcReading'); }
+  get gazReadingForm(): any { return this.form.get('gazReading'); }
 
 
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
-
   get isRelocation(): boolean { return this.requestType === Constants.DemandeType.RELOCATION; }
-
-  get isRescision(): boolean { return this.requestType === Constants.DemandeType.RESCISION; }
-
+  get isRescission(): boolean { return this.requestType === Constants.DemandeType.RESCISSION; }
   get lastModificationPower(): boolean { return this.requestType === Constants.DemandeType.POWER_MODIFICATION; }
 
 
@@ -50,6 +59,7 @@ export class AppRequestsFormComponent implements OnInit {
     private formBuilder: FormBuilder) {
 
     this.requestType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
+
     this.title = this.getPageTitle(this.requestType);
   }
 
@@ -72,7 +82,21 @@ export class AppRequestsFormComponent implements OnInit {
       city: [''],
       reclamationMotif: [''],
       message: [''],
-      refPCE: ['',]
+      refPCE: [''],
+      rescissionStreetNumber: [''],
+      rescissionStreet: [''],
+      rescissionPostalCode: [''],
+      rescissionCity: [''],
+      rescissionInvoiceStreetNumber: [''],
+      rescissionInvoiceStreet: [''],
+      rescissionInvoicePostalCode: [''],
+      rescissionInvoiceCity: [''],
+      rescissionDepartureDate: [''],
+      rescissionContract:[''],
+      hpReading:[''],
+      hcReading:[''],
+      gazReading:['']
+
     });
 
     if (this.isReclamation) {
@@ -84,12 +108,21 @@ export class AppRequestsFormComponent implements OnInit {
     }
 
     if (this.lastModificationPower) {
-      this.setControlRequired('puissance')
-      this.setControlRequired('tarif')
+      this.setControlRequired('puissance');
+      this.setControlRequired('tarif');
     }
 
-    if (this.isRescision) {
-      this.setControlRequired('rescision')
+    if (this.isRescission) {
+      this.setControlRequired('rescissionStreetNumber');
+      this.setControlRequired('rescissionStreet');
+      this.setControlRequired('rescissionPostalCode');
+      this.setControlRequired('rescissionCity');
+      this.setControlRequired('rescissionInvoiceStreetNumber');
+      this.setControlRequired('rescissionInvoiceStreet');
+      this.setControlRequired('rescissionInvoicePostalCode');
+      this.setControlRequired('rescissionInvoiceCity');
+      this.setControlRequired('rescissionDepartureDate');
+      this.setControlRequired('rescissionContract');
     }
 
 
@@ -107,7 +140,6 @@ export class AppRequestsFormComponent implements OnInit {
     this.form.get(formControlName)?.setValidators([Validators.required]);
     this.form.get(formControlName)?.updateValueAndValidity();
   }
-
 
   RetourEnBack() {
     this.router.navigate(['requests', 'new']);
@@ -146,7 +178,7 @@ export class AppRequestsFormComponent implements OnInit {
       return Constants.DemandeTitle.RELOCATION;
 
     } else  {
-      return Constants.DemandeTitle.RESCISION;
+      return Constants.DemandeTitle.RESCISSION;
     }
   }
 }
