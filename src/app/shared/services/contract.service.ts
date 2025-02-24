@@ -12,7 +12,7 @@ export class ContractService {
   selectedContract: any;
   contracts: any[] = [];
 
-  constructor(private contractHttpService: ContractHttpService) { }
+  constructor(private contractHttpService: ContractHttpService,) { }
 
   getContracts(bp: string): Observable<any> {
     return this.contractHttpService.fetchContractISU(bp)
@@ -34,6 +34,23 @@ export class ContractService {
         })
       );
   }
+
+contractPartner:any;
+getContractsPartner(CCBusinessPartner:string): Observable<any>{
+  return this.contractHttpService.fetchContractPartner(CCBusinessPartner)
+  .pipe(
+    map((response: any) => {
+
+      if (response?.d?.results) {
+        this.contractPartner = response.d.results; // Récupère le tableau de résultats
+      } else {
+        this.contractPartner = []; // Assure que contractts est un tableau vide si aucune donnée n'est trouvée
+      }
+
+      return this.contractPartner;
+    })
+  );
+}
 
   changeContract(contract: any) {
     this.selectedContract = contract;

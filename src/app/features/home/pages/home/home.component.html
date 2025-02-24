@@ -8,7 +8,22 @@
         <app-active-contract />
     </div>
 </div>
-
+@if (contractPartner.length > 0) {
+    @for (contract of contractPartner; track contract.LogicalKey) {
+      <div class="contract-item">
+        <p><strong>LogicalKey :</strong> {{ contract.LogicalKey }}</p>
+        <p><strong>BusinessPartner :</strong> {{ contract.BusinessPartner }}</p>
+        <p><strong>Type :</strong> {{ contract.partnertype }}</p>
+        <p><strong>Contract Account :</strong> {{ contract.ContractAccount }}</p>
+        <p><strong>Contrat CRM :</strong> {{ contract.ContratCRM }}</p>
+        <p><strong>Contract ISU :</strong> {{ contract.ContractISU }}</p>
+        <p><strong>Title :</strong> {{ contract.Title }}</p>
+      </div>
+    }
+  } @else {
+    <p>Aucun contrat trouvé.</p>
+  }
+  
 <div class="grid-container grid-2-1-1 mb-3">
     <div class="grid-item">
         <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />

@@ -95,24 +95,17 @@ export class ActiveContractComponent implements OnInit {
       );
     }
 
-
     if (this.actifCesse) {
       filtered = filtered.filter(
         contract => contract.ContractStatus === this.actifCesse
       );
     }
-
-    
     this.filteredContracts = filtered;
-
-
     if (this.filteredContracts.length > 0) {
       this.selectedContract = this.filteredContracts[0];
     } else {
       this.selectedContract = null;
     }
-
-
     console.log("Filtered contracts: ", this.filteredContracts);
   }
 

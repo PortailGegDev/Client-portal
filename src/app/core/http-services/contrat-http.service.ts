@@ -72,22 +72,7 @@ export class ContractHttpService {
       );
   }
 
-  //Profil Client
-  // Url1 = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_SAPAccount?$filter=BusinessPartnerID eq '1510000926'&$format=json";
-  // fetchPerson(): Observable<ApiResponse> {
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json',
-  //   });
-  //   return this.http.get<ApiResponse>(this.Url1)
-  //     .pipe(
-  //       catchError(error => {
-  //         console.error('Erreur lors de la requête:', error);
-  //         return throwError(() => error);
-  //       })
-  //     );
-  // }
+
 
   Url = 'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/ZAPI_SAP_SF_V2_QF1/ZA_Contract/$count';
   fetchContractData(): Observable<string> {
@@ -142,4 +127,33 @@ export class ContractHttpService {
   }
 
 
+Url4 =  `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_ContractPartner`;
+fetchContractPartner(CCBusinessPartner: string | null): Observable<any> {
+
+  if (!CCBusinessPartner) {
+    //bp = '1510060117'; // bp consommation pour QF1
+    CCBusinessPartner='1510063413'; // bp liste de contrats pour DF1
+  }
+
+  const url = `${this.Url4}?$format=json&$filter=CCBusinessPartner eq '${CCBusinessPartner}'`;
+  console.log("URL de la requête:", url);  // Vérifiez que l'URL est correcte
+  const headers = new HttpHeaders({
+    'Accept': 'application/json',  // Expecting JSON response
+    'Accept-Language': 'fr',      // Language header
+    'Authorization': `Basic ${btoa('KTRIMECHE:IliadeConsulting@2024')}`,  // Basic Auth (base64 encoded)
+    'Content-Type': 'application/json',  // Request body format
+    'X-Requested-With': 'XMLHttpRequest',  // To help with CORS
+  });
+  // Making the GET request
+  return this.httpClient.get(url).pipe(
+    tap((response) => {
+      console.log('Données récupérées avec succès :', response);  // Log successful data retrieval
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.error('Erreur lors de la récupération des données :', error);
+      return throwError(() => error);  // Return the error to be handled by the caller
+    })
+  );
+
+}
 }

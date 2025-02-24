@@ -15,6 +15,8 @@ import { ArticlesComponent } from '../../../../shared/components/articles/articl
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
+import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
+import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +37,8 @@ export class AppHomeComponent {
     private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
-    private authService: AuthService
+    private authService: AuthService,
+    private contractHttpService: ContractHttpService
   ) {
 
     // Effet : Charger les données lorsque le contrat change
@@ -86,4 +89,20 @@ export class AppHomeComponent {
       },
     });
   }
+
+  contractPartner: any[] = []; // Assurez-vous que ce n'est pas undefined
+
+
+  getContractsPartner(CCBusinessPartner: string): void {
+    this.contractHttpService.fetchContractPartner(CCBusinessPartner)
+      .pipe(
+        map(response => response?.d?.results ?? [])
+      )
+      .subscribe(data => {
+        console.log('Données reçues dans le composant :', data);
+        this.contractPartner = data; // Assurez-vous que la variable est bien assignée
+      });
+  }
+  
+  
 }
