@@ -8,7 +8,7 @@
     <div class="grid-item mb-3">
         <p-panel>
             <form [formGroup]="form" (submit)="submitDemande()">
-                <h4>Coordonnées</h4>
+                <h6>Coordonnées</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -61,7 +61,7 @@
                 </div>
 
                 @if(isReclamation) {
-                <h4 class="mt-3">Adresse</h4>
+                <h6 class="mt-3">Adresse</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Réclamation</h4>
+                <h6 class="mt-3">Réclamation</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Puissance</h4>
+                <h6 class="mt-3">Puissance</h6>
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="puissance">Puissance demandée</span>
@@ -155,7 +155,7 @@
                 }
 
                 @if(isRescission){
-                <h4 class="mt-3">Adresse du logement à résilier</h4>
+                <h6 class="mt-3">Adresse du logement à résilier</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col-md-4">
@@ -196,7 +196,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Adresse d’envoi de la facture de résiliation</h4>
+                <h6 class="mt-3">Adresse d’envoi de la facture de résiliation</h6>
                 <div class="row mt-3">
                     <div class="form-group col-sm-4">
                         <span class="label" for="rescissionInvoiceStreetNumber">Numéro de voie</span>
@@ -237,7 +237,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Résiliation</h4>
+                <h6 class="mt-3">Résiliation</h6>
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="rescissionDepartureDate">Date de départ</span>
@@ -258,7 +258,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Si mon compteur est à l’intérieur du logement</h4>
+                <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -279,7 +279,7 @@
                 }
 
                 @if(isRelocation){
-                <h4 class="mt-3">Adresse</h4>
+                <h6 class="mt-3">Adresse</h6>
 
                 }
 
