@@ -2,16 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { Select } from 'primeng/select';
+interface City {
+  name: string;
+  code: string;
+}
+
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule,Select],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -20,7 +26,10 @@ export class AppRequestsFormComponent implements OnInit {
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
   form!: FormGroup;
+  cities: City[] | undefined;
+  selectedCity: City | undefined;
 
+  
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
   get emailForm(): any { return this.form.get('email'); }
@@ -33,6 +42,10 @@ export class AppRequestsFormComponent implements OnInit {
   get puissanceForm(): any { return this.form.get('puissance'); }
   get tarifForm(): any { return this.form.get('tarif'); }
   get rescisionForm(): any { return this.form.get('rescision'); }
+  get adresseDeLogementForm(): any {return this.form.get('adresseDeLogement');}
+  get adresseFactureForm(): any {return this.form.get('adresseFacture');}
+  get contratForm(): any {return this.form.get('contrat');}
+
 
 
 
@@ -56,6 +69,13 @@ export class AppRequestsFormComponent implements OnInit {
   ngOnInit() {
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' }
+  ];
   }
 
   buildForm() {
@@ -63,8 +83,6 @@ export class AppRequestsFormComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      puissance: ['', [Validators.required]],
-      tarif: ['', [Validators.required]],
       phone: [''],
       clientRef: [''],
       address: [''],
@@ -72,7 +90,12 @@ export class AppRequestsFormComponent implements OnInit {
       city: [''],
       reclamationMotif: [''],
       message: [''],
-      refPCE: ['',]
+      refPCE: ['',],
+      puissance: ['',],
+      tarif: ['',],
+      adresseDeLogement: ['',],
+      adresseFacture: ['',],
+      contrat:['',]
     });
 
     if (this.isReclamation) {
@@ -84,12 +107,18 @@ export class AppRequestsFormComponent implements OnInit {
     }
 
     if (this.lastModificationPower) {
-      this.setControlRequired('puissance')
-      this.setControlRequired('tarif')
+      this.setControlRequired('puissance');
+      this.setControlRequired('tarif');
     }
 
     if (this.isRescision) {
-      this.setControlRequired('rescision')
+      
+
+    }
+    if(this.isRelocation){
+      this.setControlRequired('adresseDeLogement');
+      this.setControlRequired('adresseFacture')
+      this.setControlRequired('contrat');
     }
 
 
