@@ -27,7 +27,7 @@ export class AppProfileComponent {
   isAccessOpen = false;
   selectedAccess: any = null;
   contactsWithAccess: string[] = [];
-  person: any = null; // Objet pour stocker les données de la personne
+  person: any = null;
 
   profil: Profil | undefined;
 
