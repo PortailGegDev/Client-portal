@@ -7,7 +7,7 @@
 
     <div class="grid-container grid-2">
         <div class="grid-item" style="background-color: #ffffff;">
-            <p>SUR LES 4 DERNIERS MOIS</p>
+            <p style="font-size: 10px;">SUR LES 4 DERNIERS MOIS</p>
 
             @if(basicData && basicOptions && basicData.length > 0){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
@@ -28,7 +28,7 @@
         </div>
 
         <div class="grid-item" style="background-color: #ffffff;">
-            <p>CE QUE JE DOIS</p>
+            <p style="font-size: 10px;">CE QUE JE DOIS</p>
             <br>
 
             @if(lastInvoice){

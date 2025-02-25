@@ -4,11 +4,11 @@
 
 <h1>{{ title }}</h1>
 
-<div class="row">
-    <div class="col-md-8 mb-3">
+<div class="grid-container grid-2-1">
+    <div class="grid-item mb-3">
         <p-panel>
             <form [formGroup]="form" (submit)="submitDemande()">
-                <h4>Coordonnées</h4>
+                <h6>Coordonnées</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -60,8 +60,8 @@
                     </div>
                 </div>
 
-                @if(isReclamation){
-                <h4 class="mt-3">Adresse</h4>
+                @if(isReclamation) {
+                <h6 class="mt-3">Adresse</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-3">Réclamation</h4>
+                <h6 class="mt-3">Réclamation</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
@@ -102,7 +102,8 @@
                         <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name"
                             class="w-full md:w-56" />
 
-                        @if(reclamationMotifForm?.invalid && (reclamationMotifForm?.touched || reclamationMotifForm?.dirty)){
+                        @if(reclamationMotifForm?.invalid && (reclamationMotifForm?.touched ||
+                        reclamationMotifForm?.dirty)){
                         <small class="error">Le motif de réclamation est obligatoire.</small>
                         }
                     </div>
@@ -119,43 +120,168 @@
                     </div>
                 </div>
                 }
-               
 
 
-                @if(lastModificationPower){
-                    <div class="row mt-3">
-                        <div class="form-group col">
-                            <span class="label" for="refPCE">Ref pce</span>
-                            <input type="text" pInputText formControlName="refPCE" />
-                        </div>
-                    </div>
 
-                    <h4 class="mt-3">Puissance</h4>
-                    <div class="row mt-3">
-                        <div class="form-group col">
-                            <span class="label" for="puissance">Puissance demandée</span>
-                            <input type="text" pInputText formControlName="puissance" />
-    
-                            @if(puissanceForm?.invalid && (puissanceForm?.touched || puissanceForm?.dirty)){
-                            <small class="error">La puissnace est obligatoire.</small>
-                            }
-                        </div>
+                @if(lastModificationPower ){
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="refPCE">Ref pce</span>
+                        <input type="text" pInputText formControlName="refPCE" />
                     </div>
-                    <div class="row mt-3">
-                        <div class="form-group col">
-                            <span class="label" for="tarif">Option tarifaire demandée</span>
-                            <input type="text" pInputText formControlName="tarif" />
-    
-                            @if(tarifForm?.invalid && (tarifForm?.touched || tarifForm?.dirty)){
-                            <small class="error">L'option tarifaire est obligatoire.</small>
-                            }
-                        </div>
+                </div>
+
+                <h6 class="mt-3">Puissance</h6>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="puissance">Puissance demandée</span>
+                        <input type="text" pInputText formControlName="puissance" />
+
+                        @if(puissanceForm?.invalid && (puissanceForm?.touched || puissanceForm?.dirty)){
+                        <small class="error">La puissnace est obligatoire.</small>
+                        }
                     </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="tarif">Option tarifaire demandée</span>
+                        <input type="text" pInputText formControlName="tarif" />
+
+                        @if(tarifForm?.invalid && (tarifForm?.touched || tarifForm?.dirty)){
+                        <small class="error">L'option tarifaire est obligatoire.</small>
+                        }
+                    </div>
+                </div>
                 }
 
+                @if(isRescission){
+                <h6 class="mt-3">Adresse du logement à résilier</h6>
+
+                <div class="row mt-3">
+                    <div class="form-group col-md-4">
+                        <span class="label" for="rescissionStreetNumber">Numéro de voie</span>
+                        <input type="text" pInputText formControlName="rescissionStreetNumber" />
+                        @if(rescissionStreetNumberForm?.invalid && (rescissionStreetNumberForm?.touched ||
+                        rescissionStreetNumberForm?.dirty)){
+                        <small class="error">Le numéro de voie d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <span class="label" for="rescissionStreet">Voie</span>
+                        <input type="text" pInputText formControlName="rescissionStreet" />
+                        @if(rescissionStreetForm?.invalid && (rescissionStreetForm?.touched ||
+                        rescissionStreetForm?.dirty)){
+                        <small class="error">La voie d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="rescissionPostalCode">Code postal</span>
+                        <input type="text" pInputText formControlName="rescissionPostalCode" />
+                        @if(rescissionPostalCodeForm?.invalid && (rescissionPostalCodeForm?.touched ||
+                        rescissionPostalCodeForm?.dirty)){
+                        <small class="error">Le code postal d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="rescissionCity">Ville</span>
+                        <input type="text" pInputText formControlName="rescissionCity" />
+                        @if(rescissionCityForm?.invalid && (rescissionCityForm?.touched || rescissionCityForm?.dirty)){
+                        <small class="error">La ville d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Adresse d’envoi de la facture de résiliation</h6>
+                <div class="row mt-3">
+                    <div class="form-group col-sm-4">
+                        <span class="label" for="rescissionInvoiceStreetNumber">Numéro de voie</span>
+                        <input type="text" pInputText formControlName="rescissionInvoiceStreetNumber" />
+                        @if(rescissionInvoiceStreetNumberForm?.invalid && (rescissionInvoiceStreetNumberForm?.touched ||
+                        rescissionInvoiceStreetNumberForm?.dirty)){
+                        <small class="error">Le numéro de voie d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col-sm-8">
+                        <span class="label" for="rescissionInvoiceStreet">Voie</span>
+                        <input type="text" pInputText formControlName="rescissionInvoiceStreet" />
+                        @if(rescissionInvoiceStreetForm?.invalid && (rescissionInvoiceStreetForm?.touched ||
+                        rescissionInvoiceStreetForm?.dirty)){
+                        <small class="error">La voie d'adresse de facturation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="rescissionInvoicePostalCode">Code postal</span>
+                        <input type="text" pInputText formControlName="rescissionInvoicePostalCode" />
+                        @if(rescissionInvoicePostalCodeForm?.invalid && (rescissionInvoicePostalCodeForm?.touched ||
+                        rescissionInvoicePostalCodeForm?.dirty)){
+                        <small class="error">Le code postal d'adresse de facturation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="rescissionInvoiceCity">Ville</span>
+                        <input type="text" pInputText formControlName="rescissionInvoiceCity" />
+                        @if(rescissionInvoiceCityForm?.invalid && (rescissionInvoiceCityForm?.touched ||
+                        rescissionInvoiceCityForm?.dirty)){
+                        <small class="error">La ville d'adresse de facturation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Résiliation</h6>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="rescissionDepartureDate">Date de départ</span>
+                        <p-datepicker formControlName="rescissionDepartureDate" [appendTo]="'body'" [style]="{'width':'100%'}"/>
+                        @if(rescissionDepartureDateForm?.invalid && (rescissionDepartureDateForm?.touched ||
+                        rescissionDepartureDateForm?.dirty)){
+                        <small class="error">La date de départ est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="rescissionContract">Contrat à résilier</span>
+                        <input type="text" pInputText formControlName="rescissionContract" />
+                        @if(rescissionContractForm?.invalid && (rescissionContractForm?.touched ||
+                        rescissionContractForm?.dirty)){
+                        <small class="error">Le contrat à résilier est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="hpReading">Relevé d’électricité Heures Pleines</span>
+                        <input type="text" pInputText formControlName="hpReading" />
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
+                        <input type="text" pInputText formControlName="hcReading" />
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="gazReading">Relevé Gaz</span>
+                        <input type="text" pInputText formControlName="gazReading" />
+                    </div>
+                </div>
+                }
 
                 @if(isRelocation){
-                    <h4 class="mt-3">Adresse</h4>
+                <h6 class="mt-3">Adresse</h6>
+
+                 
                     <div class="row mt-3">
                         <div class="form-group col">
                             <span class="label" for="adresseDeLogement">Adresse du logement à résilier</span>
@@ -197,13 +323,7 @@
     </div>
 
 
-
-
-
-
-
-
-    <div class="col-md-4 mb-3" style="margin-top: 100px;">
+    <div class="grid-item mb-3">
         <div class="right-container">
             <div class="content-box">
                 <div class="itemm">

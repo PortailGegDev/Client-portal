@@ -5,7 +5,7 @@
         </div>
     </ng-template>
 
-    <p>CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
+    <p style="font-size: 10px;">CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
 
     @if(lastInvoice) {
     <div class="row">
@@ -28,7 +28,8 @@
                         stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 &nbsp; &nbsp;
-                <p>Dernière facture<br>{{ lastInvoice.PostingDate | timeSpanToDate:'short' }}</p>
+                <p style="font-size: 12px;">Dernière facture<br>{{ lastInvoice.PostingDate | timeSpanToDate:'short' }}
+                </p>
 
                 <ng-container>
                     @switch (lastInvoice.StatusInvoicingDocument) {
@@ -62,9 +63,8 @@
                     </defs>
                 </svg>
                 &nbsp; &nbsp;
-                <p>Justificatif de domicile<br>5 Mai 2023</p>
-                <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger"
-                    (click)="downloadJustifPDF()">
+                <p style="font-size: 12px;">Justificatif de domicile<br>5 Mai 2023</p>
+                <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger" (click)="downloadJustifPDF()">
 
             </div>
         </div>

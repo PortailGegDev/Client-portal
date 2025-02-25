@@ -42,8 +42,9 @@
       <th style="min-width: 12rem"></th>
     </tr>
   </ng-template>
+
   <ng-template #body let-invoice>
-    <tr>
+    <tr class="responsive-row">
       <td style="width: 3rem">
         <p-tableCheckbox [value]="invoice" />
       </td>
@@ -65,18 +66,20 @@
       </td>
 
       <td>
-        @if(invoice.StatusInvoicingDocument==='Partiellement soldée'){
-        <p-tag severity="info" [value]="invoice.StatusInvoicingDocument" />
-        Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
-        }
-        @else if(invoice.StatusInvoicingDocument ==='Non Soldée'){
-        <p-tag severity="warn" [value]="invoice.StatusInvoicingDocument" />
-        {{ invoice.TotalUnpaidHT}}€ Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
-        }
-        @else {
-        <p-tag severity="secondary" [value]="invoice.StatusInvoicingDocument" />
-        Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
-        }
+        <span>
+          @if(invoice.StatusInvoicingDocument==='Partiellement soldée'){
+          <p-tag severity="info" [value]="invoice.StatusInvoicingDocument" />
+          Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+          }
+          @else if(invoice.StatusInvoicingDocument ==='Non Soldée'){
+          <p-tag severity="warn" [value]="invoice.StatusInvoicingDocument" />
+          {{ invoice.TotalUnpaidHT}}€ Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
+          }
+          @else {
+          <p-tag severity="secondary" [value]="invoice.StatusInvoicingDocument" />
+          Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+          }
+        </span>
       </td>
       <td>
         <div style="text-align: right;">
