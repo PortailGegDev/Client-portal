@@ -9,7 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
-import { Select } from 'primeng/select';
+import { TreeSelect } from 'primeng/treeselect';
+
 interface City {
   name: string;
   code: string;
@@ -18,7 +19,7 @@ interface City {
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,Select],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,TreeSelect],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -30,7 +31,7 @@ export class AppRequestsFormComponent implements OnInit {
   cities: City[] | undefined;
   selectedCity: City | undefined;
 
-  
+
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
   get emailForm(): any { return this.form.get('email'); }
@@ -115,15 +116,14 @@ export class AppRequestsFormComponent implements OnInit {
       rescissionContract:[''],
       hpReading:[''],
       hcReading:[''],
-      gazReading:['']
-
-      refPCE: ['',],
-      puissance: ['',],
-      tarif: ['',],
-      adresseDeLogement: ['',],
-      adresseFacture: ['',],
-      contrat:['',]
+      gazReading:[''],
+      puissance: [''],
+      tarif: [''],
+      relocationadresseDeLogement: [''],
+      relocationadresseFacture: [''],
+      relocationContrat:['']
     });
+  
 
     if (this.isReclamation) {
       this.setControlRequired('address');
@@ -151,24 +151,20 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionInvoiceCity');
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
-    if (this.isRescision) {
-      
 
-    }
     if(this.isRelocation){
       this.setControlRequired('adresseDeLogement');
       this.setControlRequired('adresseFacture')
       this.setControlRequired('contrat');
     }
 
-
+  }
   }
 
   submitDemande() {
     if (!this.form.valid) {
       return;
     }
-
     console.log(this.form.value)
   }
 
@@ -179,24 +175,6 @@ export class AppRequestsFormComponent implements OnInit {
 
   RetourEnBack() {
     this.router.navigate(['requests', 'new']);
-  }
-
-  selectedDate: Date | null = null; // Variable pour stocker la date sélectionnée
-  isDateSelected: boolean = false; // État pour vérifier si une date est sélectionnée
-
-  // Méthode appelée lorsque la date change
-  onDateChange(event: any) {
-    console.log('Date sélectionnée:', event.value); // Affichez la valeur de l'événement
-    this.selectedDate = new Date(event.value); // Convertir en objet Date
-    console.log('selectedDate:', this.selectedDate); // Affichez la date sélectionnée
-    this.isDateSelected = true; // Indiquez qu'une date a été sélectionnée
-  }
-
-  isSubmitted: boolean = false;
-
-  // Fonction appelée lors du clic sur le bouton "Envoyer la demande"
-  onSubmit() {
-    this.isSubmitted = true; // Changez l'état pour afficher le message
   }
 
   viewDetail() {
@@ -217,5 +195,6 @@ export class AppRequestsFormComponent implements OnInit {
       return Constants.DemandeTitle.RESCISSION;
     }
   }
+
 }
 

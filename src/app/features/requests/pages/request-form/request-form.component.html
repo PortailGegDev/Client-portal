@@ -285,7 +285,7 @@
                     <div class="row mt-3">
                         <div class="form-group col">
                             <span class="label" for="adresseDeLogement">Adresse du logement à résilier</span>
-                            <input type="text" pInputText formControlName="adresseDeLogement" />
+                            <input type="text" pInputText formControlName="relocationadresseDeLogement" />
     
                             @if(adresseDeLogementForm?.invalid && (adresseDeLogementForm?.touched || adresseDeLogementForm?.dirty)){
                             <small class="error">L'adresse de logement est obligatoire.</small>
@@ -293,7 +293,8 @@
                         </div>
                         <div class="form-group col">
                             <span class="label" for="contrat">Sélection du contrat</span>
-                            <p-select [options]="cities"  optionLabel="name" formControlName="contrat" class="w-full md:w-56" />
+                            <p-select [options]="cities"  optionLabel="name" formControlName="relocationContrat" class="w-full md:w-56" />
+
                             @if(contratForm?.invalid && (contratForm?.touched || contratForm?.dirty)){
                                 <small class="error">Le contrat est obligatoire.</small>
                                 }
@@ -304,7 +305,7 @@
                     <div class="row mt-3">
                         <div class="form-group col">
                             <span class="label" for="adresseFacture">Adresse d’envoie de la facture de résiliation</span>
-                            <input type="text" pInputText formControlName="adresseFacture" />
+                            <input type="text" pInputText formControlName="relocationadresseFacture" />
     
                             @if(adresseFactureForm?.invalid && (adresseFactureForm?.touched || adresseFactureForm?.dirty)){
                             <small class="error">L'adresse d'envoie de la facture est obligatoire.</small>

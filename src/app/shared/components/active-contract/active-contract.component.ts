@@ -50,7 +50,7 @@ export class ActiveContractComponent implements OnInit {
       // return;
     }
 
-    this.contractService.getcontracts2(bp!).subscribe({
+    this.contractService.getAllBpContracts(bp!).subscribe({
     
       next: (contracts) => {
         this.contracts = contracts;

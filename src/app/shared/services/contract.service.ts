@@ -15,21 +15,37 @@ export class ContractService {
 
   constructor(private contractHttpService: ContractHttpService,) { }
 
-  getcontracts2(bp:string) : Observable<any>{
+  getAllBpContracts(bp:string) : Observable<any>{
     return this.getContractsPartner(bp).pipe(
-      switchMap((bussinessPartners:any)=>{
-        let filter=`BusinessPartnerId eq '${bussinessPartners[0]}'`;
-        bussinessPartners.forEach((element: String)=> {
-          if(bussinessPartners.indexOf(element)===0){
+      switchMap((contractISUs:any)=>{
+        let filter=`ContractISU eq '${contractISUs[0]}'`;
+        contractISUs.forEach((element: String)=> {
+          if(contractISUs.indexOf(element)===0){
             return ;
           }
-          filter=filter+` or BusinessPartnerId eq '${element}'`;
+          filter=filter+` or ContractISU eq '${element}'`;
         });
         // debugger;
-        return this.getContracts(filter);
+        return this.getContractsByContractISU(filter);
         
       })
     );
+  }
+
+  getContractsByContractISU(contractISUs: string): Observable<any> {
+    return this.contractHttpService.fetchContractISU(contractISUs)
+      .pipe(
+        map((contracts: any) => {
+            this.contracts = contracts;
+
+            if (this.contracts.length > 0) {
+              this.selectedContract = this.contracts[0]; // Le premier contrat sera sélectionné par défaut
+              this.contractSubject.next(this.selectedContract);
+            }
+          
+          return this.contracts;
+        })
+      );
   }
 
   getContracts(bp: string): Observable<any> {
@@ -48,14 +64,13 @@ export class ContractService {
       );
   }
 
-
   getContractsPartner(CCBusinessPartner: string): Observable<String[]> {
   return this.contractHttpService.fetchContractPartner(CCBusinessPartner) 
       .pipe(
         map((contracts:any) => {
               this.contractPartner = contracts;
-              const contractPartnerBp = [...new Set(this.contractPartner.map(item => item.BusinessPartner))];
-        return contractPartnerBp;
+              const contractPartnerISU = [...new Set(this.contractPartner.map(item => item.ContractISU))];
+        return contractPartnerISU;
         })
       );
     //   .subscribe(data => {

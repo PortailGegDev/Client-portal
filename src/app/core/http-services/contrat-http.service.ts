@@ -115,6 +115,7 @@ export class ContractHttpService {
   }
 
 
+
 Url4 =  `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_ContractPartner`;
 fetchContractPartner(CCBusinessPartner: string | null): Observable<any> {
 
