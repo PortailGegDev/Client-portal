@@ -25,7 +25,7 @@ export class ContractService {
           }
           filter=filter+` or BusinessPartnerId eq '${element}'`;
         });
-        debugger;
+        // debugger;
         return this.getContracts(filter);
         
       })

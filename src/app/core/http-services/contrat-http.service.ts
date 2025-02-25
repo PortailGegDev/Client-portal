@@ -120,7 +120,7 @@ fetchContractPartner(CCBusinessPartner: string | null): Observable<any> {
 
   if (!CCBusinessPartner) {
     //bp = '1510060117'; // bp consommation pour QF1
-    CCBusinessPartner='1510129774'; // bp liste de contrats pour DF1
+    CCBusinessPartner='1510063413'; // bp liste de contrats pour DF1
   }
 
   const url = `${this.Url4}?$format=json&$filter=CCBusinessPartner eq '${CCBusinessPartner}'`;
