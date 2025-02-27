@@ -29,6 +29,11 @@ export class ContractService {
   getAllBpContracts(bp: string): Observable<Contract[]> {
     return this.getContractsPartner(bp).pipe(
       switchMap((contracts: Contract[]) => {
+        
+        if (contracts.length === 0) {
+          console.log('Information : Pas de contrat partenaire');
+          return [];
+        }
 
         let filter = `ContractISU eq '${contracts[0].contractISU}'`;
 
