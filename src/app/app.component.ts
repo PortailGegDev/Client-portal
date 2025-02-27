@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'client-portal';
   baseURL = '/sap/opu/odata/SAP/Z001_SRV/FlightSet?$top=2&$format=json'
 
-  constructor(private authService: AuthService,) {
+  constructor(private authService: AuthService) {
     this.authService.logTokenDetails();
    }
  

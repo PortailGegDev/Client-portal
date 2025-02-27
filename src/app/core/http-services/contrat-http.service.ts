@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 
 interface ContactClass {
@@ -39,8 +40,19 @@ const headers = new HttpHeaders({
 export class ContractHttpService {
   /* private apiUrl = 'https://service.sap.com/sap/opu/odata/sap/ERP_ISU_UMC/ContractAccounts'; */
   private apiUrl = 'https://vhgrgQF1ci.sap.geg.fr:44300/sap/opu/odata/sap/ERP_ISU_UMC/Channels';
+  private apiUrlProMax: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private httpClient: HttpClient) { }
+  constructor(private http: HttpClient,
+    private httpClient: HttpClient) { }
+
+  private getHeaders(): HttpHeaders {
+    // Ajoutez les en-têtes nécessaires ici
+    return new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('KTRIMECHE:IliadeConsulting@2024'), // Remplacez par vos informations d'authentification
+      'Content-Type': 'application/json'
+    });
+  }
+
 
   /* getContracts(accountId: string): Observable<any> {
 
@@ -72,8 +84,6 @@ export class ContractHttpService {
       );
   }
 
-
-
   Url = 'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/ZAPI_SAP_SF_V2_QF1/ZA_Contract/$count';
   fetchContractData(): Observable<string> {
     const headers = new HttpHeaders({
@@ -92,11 +102,6 @@ export class ContractHttpService {
     );
   }
 
-
-  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
-  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
-
-  
   fetchContractISU(filter: string | null): Observable<any> {
 
     // if (!bp) {
@@ -104,34 +109,32 @@ export class ContractHttpService {
     //   bp='1510023652'; // bp liste de contrats pour DF1
     // }
 
-    const url = `${this.Url3}?$format=json&$filter=${filter}`;
+    const url = `${this.apiUrlProMax}/ZA_Contract?$format=json&$filter=${filter}`;
     return this.httpClient.get(url).pipe(
-      map((response:any) => response?.d?.results ?? []),
-      catchError(error =>{
-        console.error('errreur lors de la récup',error);
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
         return of([]);
       })
     );
   }
 
+  fetchContractPartner(businessPartner: string | null): Observable<any[]> {
 
+    if (!businessPartner) {
+      //bp = '1510060117'; // bp consommation pour QF1
+      businessPartner = '1510063413'; // bp liste de contrats pour DF1
+      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
+    }
 
-Url4 =  `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_ContractPartner`;
-fetchContractPartner(CCBusinessPartner: string | null): Observable<any> {
+    const url = `${this.apiUrlProMax}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
 
-  if (!CCBusinessPartner) {
-    //bp = '1510060117'; // bp consommation pour QF1
-    CCBusinessPartner='1510063413'; // bp liste de contrats pour DF1
+    return this.httpClient.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
   }
-
-  const url = `${this.Url4}?$format=json&$filter=CCBusinessPartner eq '${CCBusinessPartner}'`;
-  console.log("URL de la requête:", url);  // Vérifiez que l'URL est correcte
-  return this.httpClient.get(url).pipe(
-    map((response:any) => response?.d?.results ?? []),
-    catchError(error =>{
-      console.error('errreur lors de la récup',error);
-      return of([]);
-    })
-  );
-}
 }

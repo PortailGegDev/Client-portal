@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-active-contract',
-  imports: [CommonModule, BadgeModule, PanelModule, FormsModule, SelectModule,SelectButton],
+  imports: [CommonModule, BadgeModule, PanelModule, FormsModule, SelectModule, SelectButton],
   templateUrl: './active-contract.component.html',
   styleUrl: './active-contract.component.scss'
 })
@@ -22,17 +22,28 @@ export class ActiveContractComponent implements OnInit {
   contracts: any[] = [];
   filteredContracts: any[] = [];
 
+  gazElecValue: string = '';
+  typeGazElecOptions = [
+    { label: 'Électricité', value: 'Electricité' },
+    { label: 'Gaz', value: 'Gaz' }
+  ];
+
+  actifCesse: string = '';
+  statusOptions = [
+    { label: 'Actif', value: 'ACTIF' },
+    { label: 'Cessé', value: 'CESSÉ' },
+  ];
 
   get contractCount(): number {
     return this.contractService.contracts.length;
   }
 
   get haveSameTypeOfContracts(): boolean {
-    return this.contracts.every(item=> item.BusinessSectorText === this.contracts[0].BusinessSectorText)  ;
+    return this.contracts.every(item => item.BusinessSectorText === this.contracts[0].BusinessSectorText);
   }
 
   get haveSameStatusOfContracts(): boolean {
-    return this.contracts.every(item=> item.ContractStatus === this.contracts[0].ContractStatus)  ;
+    return this.contracts.every(item => item.ContractStatus === this.contracts[0].ContractStatus);
   }
 
   constructor(private contractService: ContractService,
@@ -40,9 +51,9 @@ export class ActiveContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     const bp = this.authService.getUserData()?.bp;
-    console.log('bp',bp)
+    console.log('bp', bp)
 
     // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
     if (!bp) {
@@ -51,11 +62,10 @@ export class ActiveContractComponent implements OnInit {
     }
 
     this.contractService.getAllBpContracts(bp!).subscribe({
-    
       next: (contracts) => {
         this.contracts = contracts;
 
-        this.filteredContracts=contracts;
+        this.filteredContracts = contracts;
         console.log(contracts);
 
         if (this.filterContracts.length > 0) {
@@ -65,51 +75,33 @@ export class ActiveContractComponent implements OnInit {
     });
   }
 
-
-
   onChangeContract(event: any) {
     this.selectedContract = event.value
     this.contractService.changeContract(this.selectedContract);
-    
   }
 
-  gazElecValue: string ='';
-  typeGazElecOptions = [
-    { label: 'Électricité', value: 'Electricité' },
-    { label: 'Gaz', value: 'Gaz' }
-  ];
-  actifCesse: string='';
-  statusOptions = [
-    { label: 'Actif', value: 'ACTIF' },
-    { label: 'Cessé', value: 'CESSÉ' },
-  ];
-
   filterContracts(event: any) {
-   
+
     let filtered = this.contracts;
 
-
     if (this.gazElecValue) {
-      filtered = filtered.filter(
-        contract => contract.BusinessSectorText === this.gazElecValue
-      );
+      filtered = filtered.filter(contract => contract.BusinessSectorText === this.gazElecValue);
     }
 
     if (this.actifCesse) {
-      filtered = filtered.filter(
-        contract => contract.ContractStatus === this.actifCesse
-      );
+      filtered = filtered.filter(contract => contract.ContractStatus === this.actifCesse);
     }
+
     this.filteredContracts = filtered;
+
     if (this.filteredContracts.length > 0) {
       this.selectedContract = this.filteredContracts[0];
     } else {
       this.selectedContract = null;
     }
+
     console.log("Filtered contracts: ", this.filteredContracts);
   }
-
-  
 }
 
 
