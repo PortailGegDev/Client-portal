@@ -1,0 +1,12 @@
+export class Contract {
+    contractISU!: string;
+    businessPartner!: string;
+    ccBusinessPartner!: string;
+    partnerFunction!: string;
+    contractAccount!: string;
+    isPartner!: boolean;
+
+    public constructor(init?: Partial<Contract>) {
+        Object.assign(this, init);
+    }
+}

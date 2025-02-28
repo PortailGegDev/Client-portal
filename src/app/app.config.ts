@@ -16,9 +16,14 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura,
       },
-    }),    provideZoneChangeDetection({ eventCoalescing: true }),
+    }),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    {provide: LocationStrategy, useClass: HashLocationStrategy} //utiliser pour resoudre le pb d'actualiser
+    //utiliser pour resoudre le pb de perte de l'application lors d'actualisation de la page
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    } 
   ]
 };
