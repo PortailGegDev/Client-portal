@@ -123,8 +123,8 @@ export class ContractHttpService {
 
     if (!businessPartner) {
       //bp = '1510060117'; // bp consommation pour QF1
-      // businessPartner = '1510063413'; // bp liste de contrats pour DF1
-      businessPartner='1510031862'; // bp liste de contrats pour partenaire
+      businessPartner = '1510063413'; // bp liste de contrats pour DF1
+      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
     }
 
     const url = `${this.apiUrlProMax}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;

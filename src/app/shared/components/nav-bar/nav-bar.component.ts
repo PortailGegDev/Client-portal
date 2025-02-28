@@ -24,42 +24,49 @@ export class NavBarComponent implements OnDestroy {
   currentUser: User | null = null;
   profilItems: MenuItem[] = []
 
+  initalMenuItem: MenuItem[] = [
+    { label: 'Accueil', routerLink: ['/home'] },
+    { label: 'Consommation', routerLink: ['/consumption'] },
+    { label: 'Factures', routerLink: ['/invoices'] }
+  ];
   menuItems: MenuItem[] = [];
 
   constructor(private authService: AuthService,
     private contractService: ContractService,
     private router: Router
   ) {
+    this.menuItems = this.initalMenuItem;
 
     effect(() => {
       this.contractService.contract$.subscribe(contract => {
         if (contract) {
+          this.menuItems = this.initalMenuItem;
+
           const selectedContract = contract;
 
           this.menuItems = [
-            { label: 'Accueil', routerLink: ['/home'] },
-            { label: 'Consommation', routerLink: ['/consumption'] },
-            { label: 'Factures', routerLink: ['/invoices'] },
+            ...this.menuItems, // Conserve les éléments initiaux
             { label: 'Documents', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/documents'] },
             { label: 'Services', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/services'] },
             {
-              separator: true, // Élément séparateur (espaceur)
-              styleClass: 'menu-spacer' // Classe pour l'espace dynamique
+              separator: true,
+              styleClass: 'menu-spacer'
             },
             {
               label: 'Je déménage',
               routerLink: '/requests/relocation',
               visible: !this.contractService.contractPartner[0].isPartner,
-              styleClass: 'right-menu-item', // Classe pour aligner à droite
+              styleClass: 'right-menu-item'
             },
             {
               label: 'Aide et contact',
               routerLink: '/requests/relocation',
               styleClass: 'right-menu-item',
+              visible: !this.contractService.contractPartner[0].isPartner,
               items: [
-                { label: 'Créer une demande', visible: !this.contractService.contractPartner[0].isPartner, icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
+                { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
                 { separator: true },
-                { label: 'Mes demandes', visible: !this.contractService.contractPartner[0].isPartner, icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
+                { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
                 { separator: true },
                 { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['/requests/frequently-asked-questions'] }
               ]
@@ -68,7 +75,7 @@ export class NavBarComponent implements OnDestroy {
 
           this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
             this.currentUser = user;
-      
+
             this.profilItems = [
               {
                 label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,

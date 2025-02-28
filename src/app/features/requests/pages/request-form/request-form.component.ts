@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +10,8 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { TreeSelect } from 'primeng/treeselect';
+import { User } from '../../../../shared/models/user.model';
+import { AuthService } from '../../../../core/http-services/auth.service';
 
 interface City {
   name: string;
@@ -19,7 +21,7 @@ interface City {
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,TreeSelect],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, TreeSelect],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -31,6 +33,7 @@ export class AppRequestsFormComponent implements OnInit {
   cities: City[] | undefined;
   selectedCity: City | undefined;
 
+  currentUser = signal<User | undefined>(undefined);
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -57,12 +60,9 @@ export class AppRequestsFormComponent implements OnInit {
   get hcReadingForm(): any { return this.form.get('hcReading'); }
   get gazReadingForm(): any { return this.form.get('gazReading'); }
   get rescisionForm(): any { return this.form.get('rescision'); }
-  get adresseDeLogementForm(): any {return this.form.get('adresseDeLogement');}
-  get adresseFactureForm(): any {return this.form.get('adresseFacture');}
-  get contratForm(): any {return this.form.get('contrat');}
-
-
-
+  get adresseDeLogementForm(): any { return this.form.get('adresseDeLogement'); }
+  get adresseFactureForm(): any { return this.form.get('adresseFacture'); }
+  get contratForm(): any { return this.form.get('contrat'); }
 
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
   get isRelocation(): boolean { return this.requestType === Constants.DemandeType.RELOCATION; }
@@ -71,6 +71,7 @@ export class AppRequestsFormComponent implements OnInit {
 
 
   constructor(private router: Router,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
 
@@ -80,15 +81,19 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
+    this.currentUser.set(this.authService.getUserData());
+    this.initForm();
+
     this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },
       { name: 'London', code: 'LDN' },
       { name: 'Istanbul', code: 'IST' },
       { name: 'Paris', code: 'PRS' }
-  ];
+    ];
   }
 
   buildForm() {
@@ -113,17 +118,17 @@ export class AppRequestsFormComponent implements OnInit {
       rescissionInvoicePostalCode: [''],
       rescissionInvoiceCity: [''],
       rescissionDepartureDate: [''],
-      rescissionContract:[''],
-      hpReading:[''],
-      hcReading:[''],
-      gazReading:[''],
+      rescissionContract: [''],
+      hpReading: [''],
+      hcReading: [''],
+      gazReading: [''],
       puissance: [''],
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      relocationContrat:['']
+      relocationContrat: ['']
     });
-  
+
 
     if (this.isReclamation) {
       this.setControlRequired('address');
@@ -152,13 +157,22 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
 
-    if(this.isRelocation){
-      this.setControlRequired('adresseDeLogement');
-      this.setControlRequired('adresseFacture')
-      this.setControlRequired('contrat');
-    }
+      if (this.isRelocation) {
+        this.setControlRequired('adresseDeLogement');
+        this.setControlRequired('adresseFacture')
+        this.setControlRequired('contrat');
+      }
 
+    }
   }
+
+  initForm() {
+    const user = this.currentUser();
+    if (user) {
+      this.lastNameForm.setValue(user.lastname);
+      this.firstNameForm.setValue(user.firstname);
+      this.emailForm.setValue(user.email);
+    }
   }
 
   submitDemande() {
@@ -191,7 +205,7 @@ export class AppRequestsFormComponent implements OnInit {
     } else if (requestType === Constants.DemandeType.RELOCATION) {
       return Constants.DemandeTitle.RELOCATION;
 
-    } else  {
+    } else {
       return Constants.DemandeTitle.RESCISSION;
     }
   }
