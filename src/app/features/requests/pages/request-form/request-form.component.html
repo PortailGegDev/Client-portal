@@ -321,7 +321,7 @@
 
                     <div class="form-group col">
                         <span class="label" for="contrat">Sélection du ou des contrats</span>
-                        <p-multiselect [options]="cities"  optionLabel="name" display="chip" placeholder="Sélectionnez" formControlName="relocationContrat" [maxSelectedLabels]="5" styleClass="w-full md:w-80" />
+                        <p-multiselect [options]=""  optionLabel="name" display="chip" placeholder="Sélectionnez" formControlName="relocationContrat" [maxSelectedLabels]="5" styleClass="w-full md:w-80" />
 
                         @if(contratForm?.invalid && (contratForm?.touched || contratForm?.dirty)){
                             <small class="error">Le contrat est obligatoire.</small>
