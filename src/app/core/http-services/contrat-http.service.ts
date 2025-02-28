@@ -93,8 +93,8 @@ export class ContractHttpService {
   }
 
 
-  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
-  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
+  // Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_Contract`;
+  Url3 = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_DF1/ZA_Contract`;
 
   
   fetchContractISU(filter: string | null): Observable<any> {

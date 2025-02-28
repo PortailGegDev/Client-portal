@@ -10,6 +10,8 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { TreeSelect } from 'primeng/treeselect';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 
 interface City {
   name: string;
@@ -19,7 +21,7 @@ interface City {
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,TreeSelect],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,MultiSelectModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -60,6 +62,7 @@ export class AppRequestsFormComponent implements OnInit {
   get adresseDeLogementForm(): any {return this.form.get('adresseDeLogement');}
   get adresseFactureForm(): any {return this.form.get('adresseFacture');}
   get contratForm(): any {return this.form.get('contrat');}
+  get relocationAdresseNouveauLogementForm(): any {return this.form.get('relocationAdresseNouveauLogement');}
 
 
 
@@ -121,7 +124,8 @@ export class AppRequestsFormComponent implements OnInit {
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      relocationContrat:['']
+      relocationContrat:[''],
+      relocationAdresseNouveauLogement:['']
     });
   
 
@@ -151,13 +155,12 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionInvoiceCity');
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
-
+    }
     if(this.isRelocation){
       this.setControlRequired('adresseDeLogement');
       this.setControlRequired('adresseFacture')
       this.setControlRequired('contrat');
-    }
-
+  
   }
   }
 
