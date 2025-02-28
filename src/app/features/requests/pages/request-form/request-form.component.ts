@@ -163,7 +163,7 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionInvoiceCity');
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
-
+    }
       if (this.isRelocation) {
         this.setControlRequired('adresseDeLogement');
         this.setControlRequired('adresseFacture')
@@ -171,7 +171,7 @@ export class AppRequestsFormComponent implements OnInit {
       }
 
     
-    }
+    
     if(this.isRelocation){
       this.setControlRequired('adresseDeLogement');
       this.setControlRequired('adresseFacture')
