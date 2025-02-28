@@ -29,24 +29,24 @@ export class AppServicesComponent {
   }
 
   ngOnInit(): void {
-    this.getContractData(); // Récupère le nombre de contrats
-    this.fetchContract(); // Récupère les contrats
+    // this.getContractData(); // Récupère le nombre de contrats
+    // this.fetchContract(); // Récupère les contrats
   }
-  fetchContract(): void {
-    this.service.fetchContract().subscribe(
-      data => {
-        console.log(data); // Vérifiez la structure des données ici
-        if (data && data.d && Array.isArray(data.d.results)) {
-          this.contracts = data.d.results;
-        } else {
-          console.error('Structure des données inattendue:', data);
-        }
-      },
-      error => {
-        console.error('Erreur lors de la récupération des données', error);
-      }
-    );
-  }
+  // fetchContract(): void {
+  //   this.service.fetchContract().subscribe(
+  //     data => {
+  //       console.log(data); // Vérifiez la structure des données ici
+  //       if (data && data.d && Array.isArray(data.d.results)) {
+  //         this.contracts = data.d.results;
+  //       } else {
+  //         console.error('Structure des données inattendue:', data);
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Erreur lors de la récupération des données', error);
+  //     }
+  //   );
+  // }
 
 
   viewDetails() {
@@ -56,18 +56,18 @@ export class AppServicesComponent {
     this.router.navigate(['/services/serenity-electricity']);
   }
 
-  contractCount: number | null = null;
-  getContractData(): void {
-    this.service.fetchContractData().subscribe(
-      (count) => {
-        this.contractCount = Number(count);  // Convertir la chaîne en nombre
-        console.log('Number of contracts:', this.contractCount);
-      },
-      (error) => {
-        console.error('Error fetching contract count:', error);
-      }
-    );
-  }
+  // contractCount: number | null = null;
+  // getContractData(): void {
+  //   this.service.fetchContractData().subscribe(
+  //     (count) => {
+  //       this.contractCount = Number(count);  // Convertir la chaîne en nombre
+  //       console.log('Number of contracts:', this.contractCount);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching contract count:', error);
+  //     }
+  //   );
+  // }
   addressCompteur: string = '';
   businessSectorText: string = '';
   isOpen: boolean = false;

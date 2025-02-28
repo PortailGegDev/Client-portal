@@ -1,0 +1,14 @@
+{
+    "/sap/opu/*": {
+        "target": "https://client-portal-001.cfapps.eu10-004.hana.ondemand.com",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug"
+      },
+      "/user-api/*": {
+        "target": "https://client-portal-001.cfapps.eu10-004.hana.ondemand.com",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug"
+      }
+  }
