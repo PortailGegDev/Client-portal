@@ -62,9 +62,9 @@ export class AppRequestsFormComponent implements OnInit {
   get hcReadingForm(): any { return this.form.get('hcReading'); }
   get gazReadingForm(): any { return this.form.get('gazReading'); }
   get rescisionForm(): any { return this.form.get('rescision'); }
-  get adresseDeLogementForm(): any {return this.form.get('adresseDeLogement');}
-  get adresseFactureForm(): any {return this.form.get('adresseFacture');}
-  get contratForm(): any {return this.form.get('contrat');}
+  get relocationadresseDeLogementForm(): any {return this.form.get('relocationadresseDeLogement');}
+  get relocationadresseFactureForm(): any {return this.form.get('relocationadresseFacture');}
+  get relocationContratForm(): any {return this.form.get('relocationContrat');}
   get relocationAdresseNouveauLogementForm(): any {return this.form.get('relocationAdresseNouveauLogement');}
 
 
@@ -165,18 +165,13 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionContract');
     }
       if (this.isRelocation) {
-        this.setControlRequired('adresseDeLogement');
-        this.setControlRequired('adresseFacture')
-        this.setControlRequired('contrat');
+        this.setControlRequired('relocationadresseDeLogement');
+        this.setControlRequired('relocationadresseFacture')
+        this.setControlRequired('relocationContrat');
+        this.setControlRequired('rescissionDepartureDate');
       }
-
     
-    
-    if(this.isRelocation){
-      this.setControlRequired('adresseDeLogement');
-      this.setControlRequired('adresseFacture')
-      this.setControlRequired('contrat');
-    }
+ 
   }
   
 
