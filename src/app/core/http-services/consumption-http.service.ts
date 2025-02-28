@@ -1,37 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Consumption } from '../../shared/models/consumption.model';
-
-export interface ApiResponseConsumption {
-  d: {
-    results: Consumption[];
-  };
-}
+import { BaseHttpService } from './base-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConsumptionHttpService {
+export class ConsumptionHttpService extends BaseHttpService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-    // TODO: Asupprimer après avoir finir la consommation 
+  fetchConsumptionData(contractNumber: string): Observable<any[]> {
 
-  Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com:443/CataloguePortail_DF1/ZA_MeterReadingDocument?$format=json&$filter=ContractISU";
-    // TODO: A décommenter après avoir finir la consommation 
-  // Url = "https://geg-api.test.apimanagement.eu10.hana.ondemand.com/CataloguePortail_QF1/ZA_MeterReadingDocument?sap-client={{mandant}}&$format=json&$filter=ContractISU";
-  fetchConsumptionData(contractNumber: string): Observable<ApiResponseConsumption> {
+    let url = `${this.apiUrl}/ZA_MeterReadingDocument?$format=json&$filter=ContractISU eq '${contractNumber}'`;
 
-    // TODO: Asupprimer après avoir finir la consommation 
-    contractNumber = '0350000261'
-    let url = `${this.Url} eq '${contractNumber}'`;
-
-    return this.http.get<ApiResponseConsumption>(url)
+    return this.http.get<any[]>(url)
       .pipe(
+        map((response: any) => response.d.results || []),
         catchError(error => {
-          console.error('Erreur lors de la requête:', error);
-          return throwError(() => error);
+          console.error('erreur lors de la récupperation de données de consommation', error);
+          return of([]);
         })
       );
   }

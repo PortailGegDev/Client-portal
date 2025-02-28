@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiResponseConsumption, ConsumptionHttpService } from '../../../core/http-services/consumption-http.service';
+import { ConsumptionHttpService } from '../../../core/http-services/consumption-http.service';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { convertSAPDateToTsDate, getMonthFromDate } from '../../../shared/utils/date-utilities';
 import { map, Observable } from 'rxjs';
@@ -15,9 +15,9 @@ export class ConsumptionService {
   getChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
     return this.consumptionHttpService.fetchConsumptionData(contractNumber)
       .pipe(
-        map((response: ApiResponseConsumption) => {
+        map((consumptionsData: any[]) => {
           let chartConsumptions: ChartConsumption[] = [];
-          let consumptions = response.d.results;
+          let consumptions = consumptionsData;
 
           consumptions.forEach(consumption => {
 
@@ -37,7 +37,7 @@ export class ConsumptionService {
             let chartConsumption: ChartConsumption = {
               date: dateConsumption!,
               monthNumber: getMonthFromDate(dateConsumption!),
-              year : dateConsumption!.getFullYear(),
+              year: dateConsumption!.getFullYear(),
               value: value,
               idSeasonal: consumption.IdSeasonal
             };
@@ -50,7 +50,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 12,
-            year:2024,
+            year: 2024,
             value: 200,
             idSeasonal: 'HP'
           });
@@ -58,7 +58,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/10120241"),
             monthNumber: 12,
-            year:2024,
+            year: 2024,
             value: 134,
             idSeasonal: 'HC'
           });
@@ -66,7 +66,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 9,
-            year:2024,
+            year: 2024,
             value: 123,
             idSeasonal: 'HP'
           });
@@ -74,7 +74,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 9,
-            year:2024,
+            year: 2024,
             value: 130,
             idSeasonal: 'HC'
           });
@@ -82,7 +82,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 8,
-            year:2024,
+            year: 2024,
             value: 120,
             idSeasonal: 'HP'
           });
@@ -90,7 +90,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 8,
-            year:2024,
+            year: 2024,
             value: 90,
             idSeasonal: 'HC'
           });
@@ -98,7 +98,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2024"),
             monthNumber: 12,
-            year:2024,
+            year: 2024,
             value: 200,
             idSeasonal: 'HP'
           });
@@ -106,7 +106,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2023"),
             monthNumber: 12,
-            year:2023,
+            year: 2023,
             value: 200,
             idSeasonal: 'HP'
           });
@@ -114,7 +114,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2023"),
             monthNumber: 12,
-            year:2023,
+            year: 2023,
             value: 200,
             idSeasonal: 'Hc'
           });
@@ -122,7 +122,7 @@ export class ConsumptionService {
           chartConsumptions.push({
             date: new Date("11/11/2023"),
             monthNumber: 12,
-            year:2023,
+            year: 2023,
             value: 200,
             idSeasonal: 'HP'
           });
@@ -137,8 +137,8 @@ export class ConsumptionService {
 
   getLastfourChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
     return this.consumptionHttpService.fetchConsumptionData(contractNumber).pipe(
-      map((response: ApiResponseConsumption) => {
-        return response.d.results
+      map((consumptionsData: any[]) => {
+        return consumptionsData
           .map(consumption => {
             const dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
 
