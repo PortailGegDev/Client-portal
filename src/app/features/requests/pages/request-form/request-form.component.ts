@@ -23,7 +23,6 @@ interface City {
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, TreeSelect],
   imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,MultiSelectModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
@@ -63,9 +62,6 @@ export class AppRequestsFormComponent implements OnInit {
   get hcReadingForm(): any { return this.form.get('hcReading'); }
   get gazReadingForm(): any { return this.form.get('gazReading'); }
   get rescisionForm(): any { return this.form.get('rescision'); }
-  get adresseDeLogementForm(): any { return this.form.get('adresseDeLogement'); }
-  get adresseFactureForm(): any { return this.form.get('adresseFacture'); }
-  get contratForm(): any { return this.form.get('contrat'); }
   get adresseDeLogementForm(): any {return this.form.get('adresseDeLogement');}
   get adresseFactureForm(): any {return this.form.get('adresseFacture');}
   get contratForm(): any {return this.form.get('contrat');}
@@ -136,8 +132,7 @@ export class AppRequestsFormComponent implements OnInit {
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      relocationContrat: ['']
-      relocationContrat:[''],
+      relocationContrat: [''],
       relocationAdresseNouveauLogement:['']
     });
 
@@ -175,15 +170,15 @@ export class AppRequestsFormComponent implements OnInit {
         this.setControlRequired('contrat');
       }
 
-    }
+    
     }
     if(this.isRelocation){
       this.setControlRequired('adresseDeLogement');
       this.setControlRequired('adresseFacture')
       this.setControlRequired('contrat');
+    }
+  }
   
-  }
-  }
 
   initForm() {
     const user = this.currentUser();
