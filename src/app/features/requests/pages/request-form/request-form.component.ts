@@ -23,7 +23,7 @@ interface City {
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule,MultiSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -62,10 +62,10 @@ export class AppRequestsFormComponent implements OnInit {
   get hcReadingForm(): any { return this.form.get('hcReading'); }
   get gazReadingForm(): any { return this.form.get('gazReading'); }
   get rescisionForm(): any { return this.form.get('rescision'); }
-  get relocationadresseDeLogementForm(): any {return this.form.get('relocationadresseDeLogement');}
-  get relocationadresseFactureForm(): any {return this.form.get('relocationadresseFacture');}
-  get relocationContratForm(): any {return this.form.get('relocationContrat');}
-  get relocationAdresseNouveauLogementForm(): any {return this.form.get('relocationAdresseNouveauLogement');}
+  get relocationadresseDeLogementForm(): any { return this.form.get('relocationadresseDeLogement'); }
+  get relocationadresseFactureForm(): any { return this.form.get('relocationadresseFacture'); }
+  get relocationContratForm(): any { return this.form.get('relocationContrat'); }
+  get relocationAdresseNouveauLogementForm(): any { return this.form.get('relocationAdresseNouveauLogement'); }
 
 
 
@@ -104,10 +104,10 @@ export class AppRequestsFormComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [''],
+      firstName: [{ value: '', disabled: true }, Validators.required],
+      lastName: [{ value: '', disabled: true }, Validators.required],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
+      phone: [{ value: '', disabled: true }],
       clientRef: [''],
       address: [''],
       postalCode: [''],
@@ -133,7 +133,7 @@ export class AppRequestsFormComponent implements OnInit {
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
       relocationContrat: [''],
-      relocationAdresseNouveauLogement:['']
+      relocationAdresseNouveauLogement: ['']
     });
 
 
@@ -164,16 +164,16 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
     }
-      if (this.isRelocation) {
-        this.setControlRequired('relocationadresseDeLogement');
-        this.setControlRequired('relocationadresseFacture')
-        this.setControlRequired('relocationContrat');
-        this.setControlRequired('rescissionDepartureDate');
-      }
-    
- 
+    if (this.isRelocation) {
+      this.setControlRequired('relocationadresseDeLogement');
+      this.setControlRequired('relocationadresseFacture')
+      this.setControlRequired('relocationContrat');
+      this.setControlRequired('rescissionDepartureDate');
+    }
+
+
   }
-  
+
 
   initForm() {
     const user = this.currentUser();
