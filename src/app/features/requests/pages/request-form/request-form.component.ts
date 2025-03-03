@@ -9,10 +9,12 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
-import { TreeSelect } from 'primeng/treeselect';
 import { User } from '../../../../shared/models/user.model';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ContractService } from '../../../../shared/services/contract.service';
+import { map } from 'rxjs';
+import { Contract } from '../../../../shared/models/contract-partner.model';
 
 
 interface City {
@@ -34,7 +36,7 @@ export class AppRequestsFormComponent implements OnInit {
   form!: FormGroup;
   cities: City[] | undefined;
   selectedCity: City | undefined;
-
+  contracts: any[] = [];
   currentUser = signal<User | undefined>(undefined);
 
   get lastNameForm(): any { return this.form.get('lastName'); }
@@ -77,7 +79,7 @@ export class AppRequestsFormComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private authService: AuthService,
+    private authService: AuthService,private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
 
@@ -87,7 +89,37 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    const bp = this.authService.getUserData()?.bp;
+    console.log('bp', bp)
 
+    // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
+    if (!bp) {
+      // console.error('Pas de bp lié à cet utilisateur');
+      // return;
+    }
+
+    this.contractService.getAllBpContracts(bp!).subscribe({
+      next: (contracts) => {
+        console.log('Données brutes reçues:', contracts); 
+    
+        this.contracts = contracts.map((contract) => {
+          console.log('Contrat avant mapping:', contract); 
+          
+          return {
+            name: contract.AddressCompteur, 
+            code: contract.ContractISU 
+          };
+        });
+        
+    
+        console.log('Contracts après mapping:', this.contracts);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des contrats:', err);
+      }
+    });
+    
+    
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
@@ -170,8 +202,6 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('relocationContrat');
       this.setControlRequired('rescissionDepartureDate');
     }
-
-
   }
 
 

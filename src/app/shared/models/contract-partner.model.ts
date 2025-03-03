@@ -5,7 +5,8 @@ export class Contract {
     partnerFunction!: string;
     contractAccount!: string;
     isPartner!: boolean;
-    PostalAddress!: string;
+    ContractISU!: string;
+    AddressCompteur!: string;
 
     public constructor(init?: Partial<Contract>) {
         Object.assign(this, init);
