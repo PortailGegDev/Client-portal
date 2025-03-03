@@ -72,7 +72,6 @@ export class ActiveContractComponent  {
   }
 
   onChangeContract(event: any) {
-    debugger
     this.contractService.changeContract(event.value);
   }
 

@@ -26,14 +26,12 @@ export class AppConsumptionComponent {
 
   constructor(private consumptionService: ConsumptionService,
     private contractService: ContractService) {
-    // Effet : Charger les données lorsque le contrat change
     effect(() => {
-      this.contractService.contract$.subscribe(contract => {
-        if (contract) {
-          this.selectedContract = contract;
-          this.loadConsumption(contract.ContractISU);
-        }
-      });
+      const selectedContract = this.contractService.selectedContract();
+
+      if (selectedContract) {
+        this.loadConsumption(selectedContract.ContractISU);
+      }
     });
   }
 
@@ -43,9 +41,9 @@ export class AppConsumptionComponent {
 
   }
 
-  loadConsumption(contractNumber: string) {
-    contractNumber = '0350103717';
-    this.consumptionService.getChartConsumptionData(contractNumber).subscribe({
+  loadConsumption(contractISU: string) {
+    contractISU = '0350103717';
+    this.consumptionService.getChartConsumptionData(contractISU).subscribe({
       next: (consumptions) => {
         this.consumptions.set(consumptions);
       },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { BrandService } from '../../../../shared/services/brand.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,16 +17,19 @@ import { PanelModule } from 'primeng/panel';
   styleUrl: './invoices.component.scss',
 })
 export class AppInvoicesComponent {
-  
+
   constructor(
     private contractService: ContractService,
     private invoicesService: InvoicesService,
     private brandService: BrandService,
   ) {
-    this.contractService.contract$.subscribe((data) => {
-      this.loadFacture(data.ContractISU);
+    // Effet : Réagir aux changements de selectedContract
+    effect(() => {
+      const selectedContract = this.contractService.selectedContract();
+      if (selectedContract) {
+        this.loadFacture(selectedContract.ContractISU);
+      }
     });
-
   }
 
   invoices: Facture[] = [];
@@ -34,23 +37,22 @@ export class AppInvoicesComponent {
 
 
   theme: string = '';
-  
+
   ngOnInit(): void {
     this.theme = this.brandService.getBrand();
   }
 
-  contractts: any[] = [];
-  loadFacture(contractId: string): void {
+  loadFacture(contractISU: string): void {
     this.invoices = [];
 
-    this.invoicesService.getInvoices(contractId).subscribe({
+    this.invoicesService.getInvoices(contractISU).subscribe({
       next: (factures: Facture[]) => {
         this.invoices = factures;
         console.log(this.invoices);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
-        this.contractts = []; // Assure que contractts reste vide en cas d'erreur
+        this.invoices = [];
       }
     });
   }

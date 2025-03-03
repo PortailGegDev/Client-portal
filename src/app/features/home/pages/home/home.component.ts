@@ -15,8 +15,6 @@ import { ArticlesComponent } from '../../../../shared/components/articles/articl
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
-import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
-import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -41,14 +39,12 @@ export class AppHomeComponent {
 
     // Effet : Réagir aux changements de selectedContract
     effect(() => {
-      debugger
       const selectedContract = this.contractService.selectedContract();
       if (selectedContract) {
         this.loadConsumption(selectedContract.ContractISU);
         this.loadLastInvoice(selectedContract.ContractISU);
       }
     });
-
   }
 
   ngOnInit() {
