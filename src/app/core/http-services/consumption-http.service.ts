@@ -13,9 +13,9 @@ export class ConsumptionHttpService extends BaseHttpService {
     super();
   }
 
-  fetchConsumptionData(contractNumber: string): Observable<any[]> {
+  fetchConsumptionData(contractISU: string): Observable<any[]> {
 
-    let url = `${this.apiUrl}/ZA_MeterReadingDocument?$format=json&$filter=ContractISU eq '${contractNumber}'`;
+    let url = `${this.apiUrl}/ZA_MeterReadingDocument?$format=json&$filter=ContractISU eq '${contractISU}'`;
 
     return this.http.get<any[]>(url)
       .pipe(

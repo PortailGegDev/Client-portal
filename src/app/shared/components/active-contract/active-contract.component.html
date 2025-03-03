@@ -5,7 +5,7 @@
             &nbsp;
             <p-badge [value]="contractCount" [style]="{'background': '#586022'}" />
             <br>
-            <p-select [appendTo]="'body'" [options]="filteredContracts" [(ngModel)]="selectedContract"
+            <p-select [appendTo]="'body'" [options]="filteredContracts()" [(ngModel)]="selectedContractValue"
                 (onChange)="onChangeContract($event)" class="w-full md:w-56" [style]="{'width': '100%'}">
                 <ng-template #selectedItem let-selectedOption>
                     <div class="grid-container grid-2">
@@ -105,11 +105,12 @@
             @if(!haveSameTypeOfContracts){
             <label class="mb-2">Filtrer les contrats par :</label>
             <br>
-            <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions" (onOptionClick)="filterContracts($event)" />
-        }
+            <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions"
+                (onOptionClick)="filterContracts()" />
+            }
             @if(!haveSameStatusOfContracts){
-            <p-selectbutton [(ngModel)]="actifCesse" [options]="statusOptions" (onOptionClick)="filterContracts($event)" />
-        }
+            <p-selectbutton [(ngModel)]="actifCesse" [options]="statusOptions" (onOptionClick)="filterContracts()" />
+            }
         </div>
 
     </div>

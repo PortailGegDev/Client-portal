@@ -14,12 +14,12 @@ export class InvoiceHTTPService extends BaseHttpService {
     super();
   }
 
-  fetchFactures(contractId: string | null): Observable<Facture[]> {
-    if (!contractId) {
-      contractId = '0350153099';
+  fetchFactures(contractISU: string | null): Observable<Facture[]> {
+    if (!contractISU) {
+      contractISU = '0350153099';
     }
 
-    let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=ISUContract eq '${contractId}'`;
+    let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=ISUContract eq '${contractISU}'`;
 
 
     const headers = new HttpHeaders({

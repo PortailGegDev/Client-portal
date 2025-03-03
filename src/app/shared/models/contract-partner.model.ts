@@ -1,4 +1,4 @@
-export class Contract {
+export class ContractPartner {
     contractISU!: string;
     businessPartner!: string;
     ccBusinessPartner!: string;
@@ -9,7 +9,7 @@ export class Contract {
     AddressCompteur!: string;
     BusinessSectorText!: string;
 
-    public constructor(init?: Partial<Contract>) {
+    public constructor(init?: Partial<ContractPartner>) {
         Object.assign(this, init);
     }
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../../shared/models/user.model';
-import { BehaviorSubject, catchError, firstValueFrom, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, Observable, switchMap, throwError } from 'rxjs';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({
@@ -70,7 +70,6 @@ export class AuthService {
       }
     });
   }
-
 
 
   getUserBp(email: string): Observable<any> {

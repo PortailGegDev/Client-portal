@@ -10,7 +10,7 @@ export class InvoicesService {
 
   constructor( private invoicesHTTPservice: InvoiceHTTPService) { }
 
-  getInvoices(contractId: string | null):Observable<Facture[]>{
-    return this.invoicesHTTPservice.fetchFactures(contractId);
+  getInvoices(contractISU: string | null):Observable<Facture[]>{
+    return this.invoicesHTTPservice.fetchFactures(contractISU);
   }
 }

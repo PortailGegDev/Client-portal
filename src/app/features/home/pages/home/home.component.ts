@@ -37,20 +37,18 @@ export class AppHomeComponent {
     private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
-    private authService: AuthService,
-    private contractHttpService: ContractHttpService
-  ) {
+    private authService: AuthService ) {
 
-    // Effet : Charger les données lorsque le contrat change
+    // Effet : Réagir aux changements de selectedContract
     effect(() => {
-      this.contractService.contract$.subscribe(contract => {
-        if (contract) {
-          this.selectedContract = contract;
-          this.loadConsumption(contract.ContractISU);
-          this.loadLastInvoice(contract.ContractISU);
-        }
-      });
+      debugger
+      const selectedContract = this.contractService.selectedContract();
+      if (selectedContract) {
+        this.loadConsumption(selectedContract.ContractISU);
+        this.loadLastInvoice(selectedContract.ContractISU);
+      }
     });
+
   }
 
   ngOnInit() {
@@ -59,8 +57,8 @@ export class AppHomeComponent {
 
   }
 
-  loadLastInvoice(contractId: string): void {
-    this.invoicesService.getInvoices(contractId).subscribe({
+  loadLastInvoice(contractISU: string): void {
+    this.invoicesService.getInvoices(contractISU).subscribe({
       next: (invoices: Facture[]) => {
 
         // Trier par date décroissante pour trouver la dernière facture
@@ -79,9 +77,8 @@ export class AppHomeComponent {
     });
   }
 
-  loadConsumption(contractNumber: string) {
-    contractNumber = '0350103717';
-    this.consumptionService.getLastfourChartConsumptionData(contractNumber).subscribe({
+  loadConsumption(contractISU: string) {
+    this.consumptionService.getLastfourChartConsumptionData(contractISU).subscribe({
       next: (consumptions) => {
         this.consumptions.set(consumptions);
       },
@@ -90,8 +87,4 @@ export class AppHomeComponent {
       },
     });
   }
-
-
-  
-  
 }

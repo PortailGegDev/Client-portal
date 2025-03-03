@@ -12,8 +12,8 @@ export class ConsumptionService {
 
   constructor(private consumptionHttpService: ConsumptionHttpService) { }
 
-  getChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
-    return this.consumptionHttpService.fetchConsumptionData(contractNumber)
+  getChartConsumptionData(contractISU: string): Observable<ChartConsumption[]> {
+    return this.consumptionHttpService.fetchConsumptionData(contractISU)
       .pipe(
         map((consumptionsData: any[]) => {
           let chartConsumptions: ChartConsumption[] = [];
@@ -135,8 +135,8 @@ export class ConsumptionService {
       );
   }
 
-  getLastfourChartConsumptionData(contractNumber: string): Observable<ChartConsumption[]> {
-    return this.consumptionHttpService.fetchConsumptionData(contractNumber).pipe(
+  getLastfourChartConsumptionData(contractISU: string): Observable<ChartConsumption[]> {
+    return this.consumptionHttpService.fetchConsumptionData(contractISU).pipe(
       map((consumptionsData: any[]) => {
         return consumptionsData
           .map(consumption => {

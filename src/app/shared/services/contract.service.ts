@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { map, Observable, of, Subject, switchMap } from 'rxjs';
 import { ContractHttpService } from '../../core/http-services/contrat-http.service';
-import { Contract } from '../models/contract-partner.model';
+import {  ContractPartner } from '../models/contract-partner.model';
 import { LocalStorageService } from './local-storage.service';
+import { Contract } from '../models/contract.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,15 @@ export class ContractService {
   private contractPartnerSubject = new Subject<boolean>();
   contractPartner$ = this.contractPartnerSubject.asObservable();
 
-  selectedContract: any;
-  contracts: any[] = [];
-  partnerContract: Contract[] = [];
+  private contractsSignal = signal<Contract[]>([]);
+  private selectedContractSignal = signal<Contract | null>(null);
+
+  contracts = computed(() => this.contractsSignal());
+  selectedContract = computed(() => this.selectedContractSignal());
+
+  // selectedContract: any;
+  // contracts: any[] = [];
+  partnerContract: ContractPartner[] = [];
 
   constructor(private contractHttpService: ContractHttpService,
     private localStorageService: LocalStorageService
@@ -28,8 +35,8 @@ export class ContractService {
 
   getAllBpContracts(bp: string): Observable<Contract[]> {
     return this.getContractsPartner(bp).pipe(
-      switchMap((contracts: Contract[]) => {
-        
+      switchMap((contracts: ContractPartner[]) => {
+
         if (contracts.length === 0) {
           console.log('Information : Pas de contrat partenaire');
           return [];
@@ -37,7 +44,7 @@ export class ContractService {
 
         let filter = `ContractISU eq '${contracts[0].contractISU}'`;
 
-        contracts.forEach((element: Contract) => {
+        contracts.forEach((element: ContractPartner) => {
           if (contracts.indexOf(element) === 0) {
             return;
           }
@@ -50,24 +57,26 @@ export class ContractService {
     );
   }
 
-  getContractsByContractISU(contractISUs: string): Observable<any[]> {
+  getContractsByContractISU(contractISUs: string): Observable<Contract[]> {
     return this.contractHttpService.fetchContractISU(contractISUs)
       .pipe(
-        map((contracts: any) => {
-          this.contracts = contracts;
+        map((contracts: Contract[]) => {
+          // this.contracts = contracts;
+          this.contractsSignal.set(contracts);
 
-          if (this.contracts.length > 0) {
+          if (this.contracts().length > 0) {
             // Le premier contrat sera sélectionné par défaut
-            this.selectedContract = this.contracts[0];
-            this.contractSubject.next(this.selectedContract);
+            // this.selectedContract = this.contracts[0];
+            // this.contractSubject.next(this.selectedContract);
+            this.selectedContractSignal.set(this.contracts()[0]);
 
             // Enregistrer l'utilisateur en cours s'il est partenaire
-            const partnerContract = this.partnerContract?.filter(item => item.contractISU === this.selectedContract.ContractISU)
+            const partnerContract = this.partnerContract?.filter(item => item.contractISU === this.selectedContract()?.ContractISU)
               .map(item => ({ contract: item.contractISU, isPartner: item.isPartner }));
             this.localStorageService.setItem('partnerContract', partnerContract)
           }
 
-          return this.contracts;
+          return this.contracts();
         })
       );
   }
@@ -75,11 +84,11 @@ export class ContractService {
   getContracts(bp: string): Observable<any> {
     return this.contractHttpService.fetchContractISU(bp)
       .pipe(
-        map((contracts: any) => {
-          this.contracts = contracts;
+        map((contracts: Contract[]) => {
+          this.contractsSignal.set(contracts);
 
           if (this.contracts.length > 0) {
-            this.selectedContract = this.contracts[0]; // Le premier contrat sera sélectionné par défaut
+            this.selectedContractSignal.set(this.contracts()[0]);
             this.contractSubject.next(this.selectedContract);
           }
 
@@ -88,7 +97,7 @@ export class ContractService {
       );
   }
 
-  getContractsPartner(businessPartner: string): Observable<Contract[]> {
+  getContractsPartner(businessPartner: string): Observable<ContractPartner[]> {
     return this.contractHttpService.fetchContractPartner(businessPartner)
       .pipe(
         map((contracts: any[]) => {
@@ -99,15 +108,19 @@ export class ContractService {
             partnerFunction: contract.ContractAccount,
             contractAccount: contract.ContractISU,
             isPartner: contract.PartnerFct !== '00000001'
-          } as Contract));
+          } as ContractPartner));
 
           return this.partnerContract;
         })
       );
   }
 
+  // changeContract(contract: any) {
+  //   this.selectedContract = contract;
+  //   this.contractSubject.next(this.selectedContract);
+  // }
+
   changeContract(contract: any) {
-    this.selectedContract = contract;
-    this.contractSubject.next(this.selectedContract);
+    this.selectedContractSignal.set(contract);
   }
 }
