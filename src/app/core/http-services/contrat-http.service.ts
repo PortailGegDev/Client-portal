@@ -46,7 +46,7 @@ export class ContractHttpService extends BaseHttpService {
     if (!businessPartner) {
       //bp = '1510060117'; // bp consommation pour QF1
       //businessPartner = '1510023652'; // bp liste de contrats pour QF1
-      businessPartner = '1510063413'; // bp liste de contrats pour QF1
+      businessPartner = '1510023652'; // bp liste de contrats pour QF1
       // businessPartner='1510031862'; // bp liste de contrats pour partenaire
     }
 

@@ -13,31 +13,24 @@ import { User } from '../../../../shared/models/user.model';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
-import { map } from 'rxjs';
-import { Contract } from '../../../../shared/models/contract-partner.model';
 
-
-interface City {
-  name: string;
-  code: string;
-}
 
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
+
 export class AppRequestsFormComponent implements OnInit {
   title: string = 'Demande de résiliation';
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
   form!: FormGroup;
-  cities: City[] | undefined;
-  selectedCity: City | undefined;
   contracts: any[] = [];
   currentUser = signal<User | undefined>(undefined);
+  selectedContracts: any[] = [];
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -94,23 +87,17 @@ export class AppRequestsFormComponent implements OnInit {
 
     // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
     if (!bp) {
-      // console.error('Pas de bp lié à cet utilisateur');
-      // return;
     }
 
     this.contractService.getAllBpContracts(bp!).subscribe({
       next: (contracts) => {
         console.log('Données brutes reçues:', contracts); 
     
-        this.contracts = contracts.map((contract) => {
-          console.log('Contrat avant mapping:', contract); 
-          
-          return {
-            name: contract.AddressCompteur, 
-            code: contract.ContractISU 
-          };
-        });
-        
+        this.contracts = contracts.map((contract) => ({
+          name: contract.AddressCompteur, 
+          code: contract.contractISU,
+          TypeEtAdress: `${contract.BusinessSectorText} - ${contract.AddressCompteur}` 
+        }));
     
         console.log('Contracts après mapping:', this.contracts);
       },
@@ -120,18 +107,14 @@ export class AppRequestsFormComponent implements OnInit {
     });
     
     
+    
+    
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
 
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-    ];
+
   }
 
   buildForm() {
@@ -248,6 +231,20 @@ export class AppRequestsFormComponent implements OnInit {
       return Constants.DemandeTitle.RESCISSION;
     }
   }
+
+
+ shouldShowReading(type: string): boolean {
+  return !this.selectedContracts || this.selectedContracts.length === 0 ||
+         this.selectedContracts.some(c => c.TypeEtAdress.toLowerCase().includes(type));
+}
+
+shouldShowGasReading(): boolean {
+  return this.shouldShowReading('gaz');
+}
+
+shouldShowElectricityReading(): boolean {
+  return this.shouldShowReading('electricité');
+}
 
 }
 
