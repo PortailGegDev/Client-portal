@@ -37,62 +37,55 @@ export class NavBarComponent implements OnDestroy {
   ) {
     this.menuItems = this.initalMenuItem;
 
-    effect(() => {
-      this.contractService.contract$.subscribe(contract => {
-        if (contract) {
-          this.menuItems = this.initalMenuItem;
 
-          const selectedContract = contract;
+    this.menuItems = this.initalMenuItem;
 
-          this.menuItems = [
-            ...this.menuItems, // Conserve les éléments initiaux
-            { label: 'Documents', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/documents'] },
-            { label: 'Services', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/services'] },
-            {
-              separator: true,
-              styleClass: 'menu-spacer'
-            },
-            {
-              label: 'Je déménage',
-              routerLink: '/requests/relocation',
-              visible: !this.contractService.contractPartner[0].isPartner,
-              styleClass: 'right-menu-item'
-            },
-            {
-              label: 'Aide et contact',
-              routerLink: '/requests/relocation',
-              styleClass: 'right-menu-item',
-              visible: !this.contractService.contractPartner[0].isPartner,
-              items: [
-                { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
-                { separator: true },
-                { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
-                { separator: true },
-                { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['/requests/frequently-asked-questions'] }
-              ]
-            }
-          ];
+    this.menuItems = [
+      ...this.menuItems, // Conserve les éléments initiaux
+      { label: 'Documents', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/documents'] },
+      { label: 'Services', visible: !this.contractService.contractPartner[0].isPartner, routerLink: ['/services'] },
+      {
+        separator: true,
+        styleClass: 'menu-spacer'
+      },
+      {
+        label: 'Je déménage',
+        routerLink: '/requests/relocation',
+        visible: !this.contractService.contractPartner[0].isPartner,
+        styleClass: 'right-menu-item'
+      },
+      {
+        label: 'Aide et contact',
+        routerLink: '/requests/relocation',
+        styleClass: 'right-menu-item',
+        visible: !this.contractService.contractPartner[0].isPartner,
+        items: [
+          { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
+          { separator: true },
+          { label: 'Mes demandes', icon: 'fa fa-solid fa-list', routerLink: ['/requests'] },
+          { separator: true },
+          { label: 'Questions fréquentes', icon: 'fa fa-solid fa-question', routerLink: ['/requests/frequently-asked-questions'] }
+        ]
+      }
+    ];
 
-          this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-            this.currentUser = user;
+    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
 
-            this.profilItems = [
-              {
-                label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
-                icon: 'fa-regular fa-user',
-                styleClass: 'profile',
-                visible: !this.contractService.contractPartner[0].isPartner
-              },
-              {
-                label: 'Mon profil',
-                routerLink: ['/profile']
-              },
-              { separator: true },
-              { label: 'Me déconnecter' }
-            ];
-          });
-        }
-      });
+      this.profilItems = [
+        {
+          label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
+          icon: 'fa-regular fa-user',
+          styleClass: 'profile',
+          visible: !this.contractService.contractPartner[0].isPartner
+        },
+        {
+          label: 'Mon profil',
+          routerLink: ['/profile']
+        },
+        { separator: true },
+        { label: 'Me déconnecter' }
+      ];
     });
   }
 
