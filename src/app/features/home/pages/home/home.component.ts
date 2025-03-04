@@ -40,7 +40,7 @@ export class AppHomeComponent {
     // Effet : Réagir aux changements de selectedContract
     effect(() => {
       const selectedContract = this.contractService.selectedContract();
-      debugger
+
       if (selectedContract) {
         this.loadConsumption(selectedContract.ContractISU);
         this.loadLastInvoice(selectedContract.ContractISU);

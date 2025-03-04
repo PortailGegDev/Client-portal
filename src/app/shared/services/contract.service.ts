@@ -11,25 +11,19 @@ import { ContractDetails } from '../models/contract-details.model';
 })
 export class ContractService {
 
-  private isContractPartnerSignal = signal<boolean>(false);
   private contractsSignal = signal<Contract[]>([]);
   private selectedContractSignal = signal<Contract | null>(null);
+  private isSelectedContractPartnerSignal = signal<boolean>(false);
 
   contracts = computed(() => this.contractsSignal());
   selectedContract = computed(() => this.selectedContractSignal());
-  isContractPartner = computed(() => this.isContractPartnerSignal());
+  isSelectedContractPartner = computed(() => this.isSelectedContractPartnerSignal());
 
   partnerContract: ContractPartner[] = [];
 
-  constructor(private contractHttpService: ContractHttpService,
-    private localStorageService: LocalStorageService
-  ) { }
+  constructor(private contractHttpService: ContractHttpService) { }
 
-  get contractPartner(): any | null {
-    return this.localStorageService.getItem('partnerContract');
-  }
-
-  fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
+  getContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
     return this.contractHttpService.fetchContractByBusinessPartner(businessPartner)
       .pipe(
         map((contracts: Contract[]) => {
@@ -40,8 +34,8 @@ export class ContractService {
             this.selectedContractSignal.set(this.contracts()[0]);
 
             // Enregistrer l'utilisateur en cours s'il est partenaire
-            const isContractPartner = this.partnerContract?.find(item => item.contractISU === this.selectedContract()?.ContractISU)?.isPartner;
-            this.updatePartnerContract(isContractPartner ?? false);
+            const isSelectedContractTitular = this.selectedContractSignal()?.PartnerFct === '00000001';
+            this.updateSelectedPartnerContract(!isSelectedContractTitular);
           }
 
           return this.contracts();
@@ -103,7 +97,7 @@ export class ContractService {
     this.selectedContractSignal.set(contract);
   }
 
-  updatePartnerContract(isContractPartner: boolean) {
-    this.isContractPartnerSignal.set(isContractPartner);
+  updateSelectedPartnerContract(isContractPartner: boolean) {
+    this.isSelectedContractPartnerSignal.set(isContractPartner);
   }
 }

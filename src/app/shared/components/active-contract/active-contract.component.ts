@@ -76,6 +76,7 @@ export class ActiveContractComponent  {
 
   onChangeContract(event: any) {
     this.contractService.changeContract(event.value);
+    this.contractService.updateSelectedPartnerContract(event.value.PartnerFct !=='00000001');
   }
 
   filterContracts() {

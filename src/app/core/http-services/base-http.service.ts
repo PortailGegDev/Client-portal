@@ -7,8 +7,10 @@ import { environment } from '../../../environments/environment';
 export abstract class BaseHttpService {
 
   protected apiUrl: string;
+  protected apiUrlContractList: string;
 
   constructor() {
     this.apiUrl = environment.apiUrl;
+    this.apiUrlContractList = environment.apiUrlContractList;
   }
 }

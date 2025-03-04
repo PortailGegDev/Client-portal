@@ -22,7 +22,7 @@ export class ContractHttpService extends BaseHttpService {
   }
 
   fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
-    const url = `${this.apiUrl}/ZA_ContractList?$format=json&$filter=PartnerId eq '${businessPartner}'`;
+    const url = `${this.apiUrlContractList}/ZA_ContractList?$format=json&$filter=PartnerId eq '${businessPartner}'`;
     
     return this.httpClient.get(url).pipe(
       map((response: any) => response?.d?.results ?? []),

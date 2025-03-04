@@ -15,8 +15,6 @@ import { Contract } from './shared/models/contract.model';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'client-portal';
-  baseURL = '/sap/opu/odata/SAP/Z001_SRV/FlightSet?$top=2&$format=json'
 
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
@@ -38,7 +36,7 @@ export class AppComponent implements OnInit {
 
     if (!businessPartner) {
       businessPartner = '1510051212'; // pour tester en locale dans la DF1
-      //businessPartner = '1510060117'; // bp consommation pour QF1
+      // businessPartner = '1510060117'; // bp consommation pour QF1
       // businessPartner = '1510023652'; // bp liste de contrats pour DF1
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1
       // businessPartner='1510031862'; // bp liste de contrats pour partenaire
@@ -46,7 +44,7 @@ export class AppComponent implements OnInit {
     }
 
     // Charger les contrats via le service
-    this.contractService.fetchContractByBusinessPartner(businessPartner!).subscribe({
+    this.contractService.getContractByBusinessPartner(businessPartner!).subscribe({
       next: (contracts) => {
         // Les contrats sont déjà mis à jour via les signaux
         console.log('Contrats chargés :', contracts);
