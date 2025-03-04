@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../../shared/models/user.model';
-import { BehaviorSubject, catchError, firstValueFrom, map, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({
@@ -10,10 +10,9 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 })
 export class AuthService {
 
-  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSubject.asObservable();
-
-  currentUser?: User;
+  private user?: User;
+  private currentUserSignal = signal<User | null>(null);
+  currentUSer = this.currentUserSignal.asReadonly();
 
   constructor(private http: HttpClient,
     private localStorageService: LocalStorageService
@@ -24,7 +23,7 @@ export class AuthService {
       next: (data) => {
         if (data) {
 
-          this.currentUser = {
+          this.user = {
             firstname: data.firstname,
             lastname: data.lastname,
             email: data.email,
@@ -34,15 +33,15 @@ export class AuthService {
           };
 
           // récupération de pb
-          this.getUserBp(this.currentUser.email).subscribe({
+          this.getUserBp(this.user.email).subscribe({
             next: (jsonUserDataResponse: any) => {
               const resource = jsonUserDataResponse.Resources[0];
 
-              this.currentUser!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
-              this.currentUser!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
+              this.user!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
+              this.user!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
-              this.localStorageService.setItem('user', this.currentUser);
-              this.currentUserSubject.next(this.currentUser!);
+              this.localStorageService.setItem('user', this.user);
+              this.currentUserSignal.set(this.user ?? null);
             }
             , error: (error) => {
               console.error('Failed to fetch token:', error);
@@ -59,7 +58,7 @@ export class AuthService {
             const decodedToken = jwtDecode<any>(token);
             console.log('Decoded Token:', decodedToken);
           } else {
-            console.error('No token found in the response:', this.currentUser);
+            console.error('No token found in the response:', this.user);
           }
         } else {
           console.error('Empty response from /user-api/currentUser');
@@ -70,7 +69,6 @@ export class AuthService {
       }
     });
   }
-
 
   getUserBp(email: string): Observable<any> {
     let url = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/IdDS_SCIM/Users?filter=emails.value eq "${email}"`;
@@ -84,13 +82,9 @@ export class AuthService {
       );
   }
 
-  getCurrentUser(): Observable<User | null> {
-    return this.currentUserSubject.asObservable();
-  }
-
   logout() {
     this.localStorageService.clear();
-    this.currentUserSubject.next(null);
+    this.currentUserSignal.set(null);
   }
 
   getUserData(): User {

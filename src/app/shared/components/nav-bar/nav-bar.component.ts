@@ -1,4 +1,4 @@
-import { Component, effect, OnDestroy, Signal } from '@angular/core';
+import { Component, effect, Signal } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
@@ -7,7 +7,6 @@ import { HelpContactIconComponent } from '../help-contact-icon/help-contact-icon
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/http-services/auth.service';
-import { Subscription } from 'rxjs';
 import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 import { ContractService } from '../../services/contract.service';
@@ -18,12 +17,11 @@ import { ContractService } from '../../services/contract.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent implements OnDestroy {
+export class NavBarComponent {
 
   isSelectedContractPartner: Signal<boolean>;
+  currentUser: Signal<User | null>;
 
-  userSubscription: Subscription | null = null;
-  currentUser: User | null = null;
   profilItems: MenuItem[] = []
 
   initalMenuItem: MenuItem[] = [
@@ -39,10 +37,10 @@ export class NavBarComponent implements OnDestroy {
   ) {
 
     this.isSelectedContractPartner = this.contractService.isSelectedContractPartner;
-
+    this.currentUser = this.authService.currentUSer;
+    
     effect(() => {
-      const isSelectedContractPartner = this.contractService.isSelectedContractPartner();
-      this.menuItems = this.initalMenuItem;
+      const isSelectedContractPartner = this.isSelectedContractPartner();
 
       this.menuItems = this.initalMenuItem;
 
@@ -64,7 +62,7 @@ export class NavBarComponent implements OnDestroy {
           label: 'Aide et contact',
           routerLink: '/requests/relocation',
           styleClass: 'right-menu-item',
-          visible:!isSelectedContractPartner ,
+          visible: !isSelectedContractPartner,
           items: [
             { label: 'Créer une demande', icon: 'fa fa-solid fa-plus', routerLink: ['/requests/new'] },
             { separator: true },
@@ -74,14 +72,10 @@ export class NavBarComponent implements OnDestroy {
           ]
         }
       ];
-    });
-
-    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-      this.currentUser = user;
 
       this.profilItems = [
         {
-          label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
+          label: `${this.currentUser()?.firstname} ${this.currentUser()?.lastname}`,
           icon: 'fa-regular fa-user',
           styleClass: 'profile',
         },
@@ -93,6 +87,25 @@ export class NavBarComponent implements OnDestroy {
         { label: 'Me déconnecter' }
       ];
     });
+
+    //   this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
+    //     this.currentUser = user;
+
+    //     this.profilItems = [
+    //       {
+    //         label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
+    //         icon: 'fa-regular fa-user',
+    //         styleClass: 'profile',
+    //       },
+    //       {
+    //         label: 'Mon profil',
+    //         routerLink: ['/profile']
+    //       },
+    //       { separator: true },
+    //       { label: 'Me déconnecter' }
+    //     ];
+    //   });
+    // }
   }
 
   navigateHome() {
@@ -101,12 +114,5 @@ export class NavBarComponent implements OnDestroy {
 
   logout() {
 
-  }
-
-  ngOnDestroy() {
-    // Se désabonner lorsque le composant est détruit
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
   }
 }

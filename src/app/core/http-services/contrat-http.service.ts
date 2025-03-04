@@ -33,9 +33,7 @@ export class ContractHttpService extends BaseHttpService {
     );
   }
 
-
   fetchContractISU(filter: string | null): Observable<ContractDetails[]> {
-
     const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
     
     return this.httpClient.get(url).pipe(

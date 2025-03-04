@@ -1,8 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { map, Observable, of, Subject, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { ContractHttpService } from '../../core/http-services/contrat-http.service';
 import { ContractPartner } from '../models/contract-partner.model';
-import { LocalStorageService } from './local-storage.service';
 import { Contract } from '../models/contract.model';
 import { ContractDetails } from '../models/contract-details.model';
 
@@ -43,8 +42,8 @@ export class ContractService {
       );
   }
 
-  getAllBpContracts(bp: string): Observable<ContractDetails[]> {
-    return this.getContractsPartner(bp).pipe(
+  getAllBpContracts(businessPartner: string): Observable<ContractDetails[]> {
+    return this.getContractsPartner(businessPartner).pipe(
       switchMap((contracts: ContractPartner[]) => {
 
         if (contracts.length === 0) {
@@ -71,8 +70,8 @@ export class ContractService {
     return this.contractHttpService.fetchContractISU(contractISUs);
   }
 
-  getContracts(bp: string): Observable<any> {
-    return this.contractHttpService.fetchContractISU(bp);
+  getContracts(businessPartner: string): Observable<any> {
+    return this.contractHttpService.fetchContractISU(businessPartner);
   }
 
   getContractsPartner(businessPartner: string): Observable<ContractPartner[]> {

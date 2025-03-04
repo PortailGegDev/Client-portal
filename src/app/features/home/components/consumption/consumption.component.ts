@@ -45,15 +45,15 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
     this.basicData = {
       labels: [
-        `${getMonthNameByMonthNumber(consumptions[3].monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[2].monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[1].monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[0].monthNumber)} (kWh)`
+        `${getMonthNameByMonthNumber(consumptions[3]?.monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[2]?.monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[1]?.monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[0]?.monthNumber)} (kWh)`
       ],
       datasets: [
         {
           label: 'Consommation',
-          data: [consumptions[3].value, consumptions[2].value, consumptions[1].value, consumptions[0].value],
+          data: [consumptions[3]?.value, consumptions[2]?.value, consumptions[1]?.value, consumptions[0]?.value],
           backgroundColor: [
             'rgba(255, 108, 0, 0.10)',
             'rgba(255, 108, 0, 0.10',

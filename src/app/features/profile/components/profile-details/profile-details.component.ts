@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, signal } from '@angular/core';
+import { Component, effect, Input, Signal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -20,22 +20,31 @@ import { Profil } from '../../../../shared/models/profil.model';
 export class AppProfileDetailsComponent {
   @Input() profil: Profil | undefined;
 
-  userSubscription: Subscription | null = null;
-  isEditMode: boolean = false;
+  currentUser: Signal<User | null>;
 
+  user: User | null = null;
+  isEditMode: boolean = false;
   phone = '+33 6 65 43 22 11'; // Initial phone value
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
-  currentUser: User | null = null;
   email: string = '';
 
-  constructor (  private authService: AuthService, private profileService: ProfilService){}
-  ngOnInit(){
-    this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-      this.currentUser = user;
-      this.email = user?.email || ''; 
+  constructor(private authService: AuthService,
+    private profileService: ProfilService) {
+    this.currentUser = this.authService.currentUSer;
 
-  });
+    effect(() => {
+      this.user = this.currentUser();
+      this.email = this.currentUser()?.email || '';
+    });
+  }
+
+  ngOnInit() {
+    // this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
+    //   this.currentUser = user;
+    //   this.email = user?.email || '';
+
+    // });
 
   }
   contracts = [
@@ -49,7 +58,7 @@ export class AppProfileDetailsComponent {
     { address: '20 rue de la Paix, 75002 Paris', number: 'n° 7654321', details: 'Gaz - Base - 12kVA' }
   ];
 
-  
+
   toggleEdit() {
     this.isEditMode = !this.isEditMode;
   }
@@ -67,7 +76,7 @@ export class AppProfileDetailsComponent {
     // Here you can add logic to revert the changes if necessary
   }
 
-  closeAccessDialog(){
+  closeAccessDialog() {
     this.accessdialogVisible = false;
   }
 
