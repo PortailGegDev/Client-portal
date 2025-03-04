@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BaseHttpService } from './base-http.service';
 import { Contract } from '../../shared/models/contract.model';
+import { ContractDetails } from '../../shared/models/contract-details.model';
 
 
 const headers = new HttpHeaders({
@@ -20,7 +21,20 @@ export class ContractHttpService extends BaseHttpService {
     super();
   }
 
-  fetchContractISU(filter: string | null): Observable<Contract[]> {
+  fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
+    const url = `${this.apiUrl}/ZA_ContractList?$format=json&$filter=PartnerId eq '${businessPartner}'`;
+    
+    return this.httpClient.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
+  }
+
+
+  fetchContractISU(filter: string | null): Observable<ContractDetails[]> {
 
     const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
     
@@ -34,14 +48,6 @@ export class ContractHttpService extends BaseHttpService {
   }
 
   fetchContractPartner(businessPartner: string | null): Observable<any[]> {
-    if (!businessPartner) {
-      //businessPartner = '1510060117'; // bp consommation pour QF1
-      businessPartner = '1510023652'; // bp liste de contrats pour DF1
-      // businessPartner = '1510063413'; // bp liste de contrats pour QF1
-      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
-      //businessPartner='350000261'; //bp DF1
-    }
-
     const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
 
     return this.httpClient.get(url).pipe(

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { SelectModule } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
+import { Constants } from '../../utils/constants';
 
 @Component({
   selector: 'app-active-contract',
@@ -16,13 +17,15 @@ import { SelectButton } from 'primeng/selectbutton';
   styleUrls: ['./active-contract.component.scss'],
 })
 export class ActiveContractComponent  {
+
+  Constants = Constants;
   theme: string = '';
   gazElecValue: string = '';
   actifCesse: string = '';
 
   typeGazElecOptions = [
-    { label: 'Électricité', value: 'Electricité' },
-    { label: 'Gaz', value: 'Gaz' },
+    { label: Constants.EnergyType.ELECTRICITY, value: Constants.EnergyType.ELECTRICITY_LABEL },
+    { label: Constants.EnergyType.GAZ, value: Constants.EnergyType.GAZ_LABEL },
   ];
 
   statusOptions = [
@@ -40,7 +43,7 @@ export class ActiveContractComponent  {
     let filtered = this.contracts();
 
     if (this.gazElecValue) {
-      filtered = filtered.filter((contract) => contract.BusinessSectorText === this.gazElecValue);
+      filtered = filtered.filter((contract) => contract.BusinessSector === this.gazElecValue);
     }
 
     if (this.actifCesse) {
@@ -55,7 +58,7 @@ export class ActiveContractComponent  {
   }
 
   get haveSameTypeOfContracts(): boolean {
-    return this.contracts().every((item) => item.BusinessSectorText === this.contracts()[0].BusinessSectorText);
+    return this.contracts().every((item) => item.BusinessSector === this.contracts()[0].BusinessSector);
   }
 
   get haveSameStatusOfContracts(): boolean {

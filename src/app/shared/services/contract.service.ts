@@ -4,6 +4,7 @@ import { ContractHttpService } from '../../core/http-services/contrat-http.servi
 import { ContractPartner } from '../models/contract-partner.model';
 import { LocalStorageService } from './local-storage.service';
 import { Contract } from '../models/contract.model';
+import { ContractDetails } from '../models/contract-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,27 @@ export class ContractService {
     return this.localStorageService.getItem('partnerContract');
   }
 
-  getAllBpContracts(bp: string): Observable<Contract[]> {
+  fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
+    return this.contractHttpService.fetchContractByBusinessPartner(businessPartner)
+      .pipe(
+        map((contracts: Contract[]) => {
+          this.contractsSignal.set(contracts);
+
+          if (this.contracts().length > 0) {
+            // Le premier contrat sera sélectionné par défaut
+            this.selectedContractSignal.set(this.contracts()[0]);
+
+            // Enregistrer l'utilisateur en cours s'il est partenaire
+            const isContractPartner = this.partnerContract?.find(item => item.contractISU === this.selectedContract()?.ContractISU)?.isPartner;
+            this.updatePartnerContract(isContractPartner ?? false);
+          }
+
+          return this.contracts();
+        })
+      );
+  }
+
+  getAllBpContracts(bp: string): Observable<ContractDetails[]> {
     return this.getContractsPartner(bp).pipe(
       switchMap((contracts: ContractPartner[]) => {
 
@@ -52,39 +73,12 @@ export class ContractService {
     );
   }
 
-  getContractsByContractISU(contractISUs: string): Observable<Contract[]> {
-    return this.contractHttpService.fetchContractISU(contractISUs)
-      .pipe(
-        map((contracts: Contract[]) => {
-          this.contractsSignal.set(contracts);
-
-          if (this.contracts().length > 0) {
-            // Le premier contrat sera sélectionné par défaut
-            this.selectedContractSignal.set(this.contracts()[0]);
-
-            // Enregistrer l'utilisateur en cours s'il est partenaire
-            const isContractPartner = this.partnerContract?.find(item => item.contractISU === this.selectedContract()?.ContractISU)?.isPartner;
-            this.updatePartnerContract(isContractPartner ?? false);
-          }
-
-          return this.contracts();
-        })
-      );
+  getContractsByContractISU(contractISUs: string): Observable<ContractDetails[]> {
+    return this.contractHttpService.fetchContractISU(contractISUs);
   }
 
   getContracts(bp: string): Observable<any> {
-    return this.contractHttpService.fetchContractISU(bp)
-      .pipe(
-        map((contracts: Contract[]) => {
-          this.contractsSignal.set(contracts);
-
-          if (this.contracts.length > 0) {
-            this.selectedContractSignal.set(this.contracts()[0]);
-          }
-
-          return this.contracts;
-        })
-      );
+    return this.contractHttpService.fetchContractISU(bp);
   }
 
   getContractsPartner(businessPartner: string): Observable<ContractPartner[]> {
@@ -104,11 +98,6 @@ export class ContractService {
         })
       );
   }
-
-  // changeContract(contract: any) {
-  //   this.selectedContract = contract;
-  //   this.contractSubject.next(this.selectedContract);
-  // }
 
   changeContract(contract: any) {
     this.selectedContractSignal.set(contract);

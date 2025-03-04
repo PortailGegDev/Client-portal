@@ -62,9 +62,6 @@ export class AppRequestsFormComponent implements OnInit {
   get relocationContratForm(): any { return this.form.get('relocationContrat'); }
   get relocationAdresseNouveauLogementForm(): any { return this.form.get('relocationAdresseNouveauLogement'); }
 
-
-
-
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
   get isRelocation(): boolean { return this.requestType === Constants.DemandeType.RELOCATION; }
   get isRescission(): boolean { return this.requestType === Constants.DemandeType.RESCISSION; }
@@ -95,7 +92,7 @@ export class AppRequestsFormComponent implements OnInit {
     
         this.contracts = contracts.map((contract) => ({
           name: contract.AddressCompteur, 
-          code: contract.contractISU,
+          code: contract.ContractISU,
           TypeEtAdress: `${contract.BusinessSectorText} - ${contract.AddressCompteur}` 
         }));
     
