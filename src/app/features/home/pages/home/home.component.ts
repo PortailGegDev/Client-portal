@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, Signal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrandService } from '../../../../shared/services/brand.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
@@ -15,6 +15,7 @@ import { ArticlesComponent } from '../../../../shared/components/articles/articl
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
+import { Contract } from '../../../../shared/models/contract.model';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
   styleUrl: './home.component.scss'
 })
 export class AppHomeComponent {
-  selectedContract: any = null;
+  selectedContract: Signal<Contract | null>;
   theme: string = "";
   carouselData: any[] = [];
   currentUser = signal<User | undefined>(undefined);
@@ -35,15 +36,14 @@ export class AppHomeComponent {
     private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
-    private authService: AuthService ) {
+    private authService: AuthService) {
+      this.selectedContract = this.contractService.selectedContract;
 
     // Effet : Réagir aux changements de selectedContract
     effect(() => {
-      const selectedContract = this.contractService.selectedContract();
-
-      if (selectedContract) {
-        this.loadConsumption(selectedContract.ContractISU);
-        this.loadLastInvoice(selectedContract.ContractISU);
+      if (this.selectedContract()) {
+        this.loadConsumption(this.selectedContract()!.ContractISU);
+        this.loadLastInvoice(this.selectedContract()!.ContractISU);
       }
     });
   }
