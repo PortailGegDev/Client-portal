@@ -36,9 +36,9 @@ export class AppHomeDocumentsComponent {
   }
 
   downloadJustifPDF() {
-    if(!this.currentUser || !this.selectedContract){
-      return;
-    }
+    // if(!this.currentUser || !this.selectedContract){
+    //   return;
+    // }
 
     this.docGeneratorService.downloadJustifDomicilePDF(this.currentUser!, this.selectedContract);
   }

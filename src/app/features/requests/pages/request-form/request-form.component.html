@@ -2,10 +2,14 @@
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
 
+@if(!requestSended){
 <h1>{{ title }}</h1>
+}
 
 <div class="grid-container grid-2-1">
     <div class="grid-item mb-3">
+        @if(!requestSended){
+
         <p-panel>
             <form [formGroup]="form" (submit)="submitDemande()">
                 <h6>Coordonnées</h6>
@@ -360,16 +364,16 @@
                         <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
                         <input type="text" pInputText formControlName="hcReading" />
                     </div>
-                
+
                     }
-                    
+
                     @if (shouldShowGasReading()) {
-                        <div class="form-group col">
-                            <span class="label" for="gazReading">Relevé Gaz</span>
-                            <input type="text" pInputText formControlName="gazReading" />
-                        </div>
+                    <div class="form-group col">
+                        <span class="label" for="gazReading">Relevé Gaz</span>
+                        <input type="text" pInputText formControlName="gazReading" />
+                    </div>
                     }
-                    
+
                 </div>
                 }
                 <div class="row mt-3">
@@ -386,8 +390,11 @@
                 </div>
             </form>
         </p-panel>
+        
+        }@else{
+        <app-requests-request-sended></app-requests-request-sended>
+        }
     </div>
-
 
     <div class="grid-item mb-3">
         <div class="right-container">

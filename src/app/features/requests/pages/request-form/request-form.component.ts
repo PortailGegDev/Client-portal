@@ -13,12 +13,11 @@ import { User } from '../../../../shared/models/user.model';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
-
-
+import { AppRequestsRequestSendedComponent } from '../../components/request-sended/request-sended.component';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule,FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, AppRequestsRequestSendedComponent],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -31,6 +30,7 @@ export class AppRequestsFormComponent implements OnInit {
   contracts: any[] = [];
   currentUser = signal<User | undefined>(undefined);
   selectedContracts: any[] = [];
+  requestSended: boolean = false;
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -69,7 +69,7 @@ export class AppRequestsFormComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private authService: AuthService,private contractService: ContractService,
+    private authService: AuthService, private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
 
@@ -88,24 +88,24 @@ export class AppRequestsFormComponent implements OnInit {
 
     this.contractService.getAllBpContracts(bp!).subscribe({
       next: (contracts) => {
-        console.log('Données brutes reçues:', contracts); 
-    
+        console.log('Données brutes reçues:', contracts);
+
         this.contracts = contracts.map((contract) => ({
-          name: contract.AddressCompteur, 
+          name: contract.AddressCompteur,
           code: contract.ContractISU,
-          TypeEtAdress: `${contract.BusinessSectorText} - ${contract.AddressCompteur}` 
+          TypeEtAdress: `${contract.BusinessSectorText} - ${contract.AddressCompteur}`
         }));
-    
+
         console.log('Contracts après mapping:', this.contracts);
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des contrats:', err);
       }
     });
-    
-    
-    
-    
+
+
+
+
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
@@ -198,7 +198,9 @@ export class AppRequestsFormComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    
     console.log(this.form.value)
+    this.requestSended = true;
   }
 
   setControlRequired(formControlName: string) {
@@ -230,18 +232,18 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
 
- shouldShowReading(type: string): boolean {
-  return !this.selectedContracts || this.selectedContracts.length === 0 ||
-         this.selectedContracts.some(c => c.TypeEtAdress.toLowerCase().includes(type));
-}
+  shouldShowReading(type: string): boolean {
+    return !this.selectedContracts || this.selectedContracts.length === 0 ||
+      this.selectedContracts.some(c => c.TypeEtAdress.toLowerCase().includes(type));
+  }
 
-shouldShowGasReading(): boolean {
-  return this.shouldShowReading('gaz');
-}
+  shouldShowGasReading(): boolean {
+    return this.shouldShowReading('gaz');
+  }
 
-shouldShowElectricityReading(): boolean {
-  return this.shouldShowReading('electricité');
-}
+  shouldShowElectricityReading(): boolean {
+    return this.shouldShowReading('electricité');
+  }
 
 }
 
