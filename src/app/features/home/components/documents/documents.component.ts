@@ -40,7 +40,7 @@ export class AppHomeDocumentsComponent {
       return;
     }
 
-    this.docGeneratorService.downloadJustifDomicilePDF(this.currentUser, this.selectedContract);
+    this.docGeneratorService.downloadJustifDomicilePDF(this.currentUser!, this.selectedContract);
   }
 
   navigateToDocument() {
