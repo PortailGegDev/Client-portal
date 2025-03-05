@@ -51,23 +51,25 @@ export class ContractService {
           return [];
         }
 
-        let filter = `ContractISU eq '${contracts[0].contractISU}'`;
+        const contractsISUList = contracts.map(item => item.ContractISU);
 
-        contracts.forEach((element: ContractPartner) => {
-          if (contracts.indexOf(element) === 0) {
-            return;
-          }
-
-          filter = filter + ` or ContractISU eq '${element.contractISU}'`;
-        });
-
-        return this.getContractsByContractISU(filter);
+        return this.getContractsByContractISUList(contractsISUList);
       })
     );
   }
 
-  getContractsByContractISU(contractISUs: string): Observable<ContractDetails[]> {
-    return this.contractHttpService.fetchContractISU(contractISUs);
+  getContractsByContractISUList(contractsISUList: string[]): Observable<ContractDetails[]> {
+    let filter = `ContractISU eq '${contractsISUList[0]}'`;
+
+    contractsISUList.forEach((element: string) => {
+      if (contractsISUList.indexOf(element) === 0) {
+        return;
+      }
+
+      filter = filter + ` or ContractISU eq '${element}'`;
+    });
+
+    return this.contractHttpService.fetchContractISU(filter);
   }
 
   getContracts(businessPartner: string): Observable<any> {

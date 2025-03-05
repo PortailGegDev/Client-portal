@@ -46,6 +46,7 @@ export class DocGeneratorService {
       // Texte principal
       pdf.setTextColor(0, 0, 0); // Noir
       pdf.setFontSize(11);
+      // TODO : Remplacer contract?.ContractISU par product name
       const bodyText = `Par la présente, GEG atteste que ${currentUser?.firstname} ${currentUser?.lastname} est titulaire d'un contrat d'énergie ${contract?.ContractISU} auprès de GEG pour le logement situé au ${contract?.HouseNumber}, ${contract?.StreetName} ${contract?.CityName} ${contract?.PostalCode}, depuis le ${convertSAPDate(contract?.contstart)}.
 
 Ce contrat a été établi sur la base de ses déclarations. Pour servir et valoir ce que de droit.`;
