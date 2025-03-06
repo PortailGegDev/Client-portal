@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, Signal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,6 +14,8 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppRequestsRequestSendedComponent } from '../../components/request-sended/request-sended.component';
+import { Contract } from '../../../../shared/models/contract.model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-requests-form-rescission',
@@ -27,10 +29,13 @@ export class AppRequestsFormComponent implements OnInit {
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
   form!: FormGroup;
-  contracts: any[] = [];
+  contractList: Contract[]=[];
   currentUser = signal<User | undefined>(undefined);
-  selectedContracts: any[] = [];
   requestSended: boolean = false;
+    // Utilisez les signaux du ContractService
+    contracts: Signal<Contract[]>;
+    selectedContractValue:Contract[]=[];
+
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -76,33 +81,21 @@ export class AppRequestsFormComponent implements OnInit {
     this.requestType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
 
     this.title = this.getPageTitle(this.requestType);
-  }
+    this.contracts = this.contractService.contracts;
+
+    effect(() => {
+    //  this.contractList = this.contracts().map((contract: Contract) => ({
+    //     name :`${contract.BusinessSector ==='01'? 'Electricité' :'Gas'} - ${contract.HouseNumber} ${contract.StreetName} ${contract.PostalCode} ${contract.CityName}` ,
+    //     code: contract.ContractISU,
+    //   }));   
+    });}
+
+  
 
   ngOnInit() {
     const bp = this.authService.getUserData()?.bp;
-    console.log('bp', bp)
-
-    // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
-    if (!bp) {
-    }
-
-    this.contractService.getAllBpContracts(bp!).subscribe({
-      next: (contracts) => {
-        console.log('Données brutes reçues:', contracts);
-
-        this.contracts = contracts.map((contract) => ({
-          name: contract.AddressCompteur,
-          code: contract.ContractISU,
-          TypeEtAdress: `${contract.BusinessSectorText} - ${contract.AddressCompteur}`
-        }));
-
-        console.log('Contracts après mapping:', this.contracts);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération des contrats:', err);
-      }
-    });
-
+    console.log('bp', bp);
+  
 
 
 
@@ -231,19 +224,33 @@ export class AppRequestsFormComponent implements OnInit {
     }
   }
 
-
-  shouldShowReading(type: string): boolean {
-    return !this.selectedContracts || this.selectedContracts.length === 0 ||
-      this.selectedContracts.some(c => c.TypeEtAdress.toLowerCase().includes(type));
-  }
-
   shouldShowGasReading(): boolean {
-    return this.shouldShowReading('gaz');
+    return this.selectedContractValue.some(item => item.BusinessSector=== Constants.EnergyType.GAZ);
   }
 
   shouldShowElectricityReading(): boolean {
-    return this.shouldShowReading('electricité');
+    return this.selectedContractValue.some(item => item.BusinessSector=== Constants.EnergyType.ELECTRICITY);
   }
 
+
+  getContractLabel(contract:Contract):string{
+    let contractLabel = '';
+    if(contract.BusinessSector=== Constants.EnergyType.ELECTRICITY){
+      contractLabel =  Constants.EnergyType.ELECTRICITY_LABEL;
+    }
+    else{
+      contractLabel = Constants.EnergyType.GAZ_LABEL;
+    }
+    contractLabel +=` - ${contract.HouseNumber} ${contract.StreetName } ${contract.PostalCode } ${ contract.CityName}`;
+    return contractLabel;
+  }
+
+  getSelectedContractLabel():string{
+    if (this.selectedContractValue.length > 0){
+      debugger;
+      return this.getContractLabel(this.selectedContractValue[0]);
+    }
+  return ''; 
+  }
 }
 

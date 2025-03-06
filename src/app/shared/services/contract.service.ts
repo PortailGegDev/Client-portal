@@ -101,4 +101,8 @@ export class ContractService {
   updateSelectedPartnerContract(isContractPartner: boolean) {
     this.isSelectedContractPartnerSignal.set(isContractPartner);
   }
+
+
+  
+  
 }
