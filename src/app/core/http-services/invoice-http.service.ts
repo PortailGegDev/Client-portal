@@ -15,9 +15,9 @@ export class InvoiceHTTPService extends BaseHttpService {
   }
 
   fetchFactures(contractISU: string | null): Observable<Facture[]> {
-    if (!contractISU) {
-      contractISU = '0350153099';
-    }
+    // if (!contractISU) {
+    //   contractISU = '0350153099';
+    // }
 
     let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=ISUContract eq '${contractISU}'`;
 

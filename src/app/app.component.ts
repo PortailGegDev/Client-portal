@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
 
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
+  haveContract: boolean | undefined = undefined;
 
   constructor(private authService: AuthService,
     private contractService: ContractService
@@ -35,17 +36,18 @@ export class AppComponent implements OnInit {
     let businessPartner = this.authService.getUserData()?.bp;
 
     if (!businessPartner) {
-      businessPartner = '1510051212'; // pour tester en locale dans la DF1
+      // pour tester en locale dans la DF1
       // businessPartner = '1510060117'; // bp consommation pour QF1
       // businessPartner = '1510023652'; // bp liste de contrats pour DF1
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1
       // businessPartner='1510031862'; // bp liste de contrats pour partenaire
       // businessPartner='350000261'; //bp DF1
     }
-
+    businessPartner = '1510136444'; 
     // Charger les contrats via le service
     this.contractService.getContractByBusinessPartner(businessPartner!).subscribe({
       next: (contracts) => {
+        this.haveContract = contracts.length > 0;
         // Les contrats sont déjà mis à jour via les signaux
         console.log('Contrats chargés :', contracts);
       }
