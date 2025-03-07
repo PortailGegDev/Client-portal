@@ -29,13 +29,14 @@ export class AppRequestsFormComponent implements OnInit {
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
   form!: FormGroup;
-  contractList: Contract[]=[];
+  contractList: Contract[] = [];
   currentUser = signal<User | undefined>(undefined);
   requestSended: boolean = false;
-    // Utilisez les signaux du ContractService
-    contracts: Signal<Contract[]>;
-    selectedContractValue:Contract[]=[];
+  shouldShowGasReading: boolean = false;
+  shouldShowElectricityReading: boolean = false;
 
+  // Utilisez les signaux du ContractService
+  contracts: Signal<Contract[]>;
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -84,27 +85,21 @@ export class AppRequestsFormComponent implements OnInit {
     this.contracts = this.contractService.contracts;
 
     effect(() => {
-    //  this.contractList = this.contracts().map((contract: Contract) => ({
-    //     name :`${contract.BusinessSector ==='01'? 'Electricité' :'Gas'} - ${contract.HouseNumber} ${contract.StreetName} ${contract.PostalCode} ${contract.CityName}` ,
-    //     code: contract.ContractISU,
-    //   }));   
-    });}
-
-  
+      //  this.contractList = this.contracts().map((contract: Contract) => ({
+      //     name :`${contract.BusinessSector ==='01'? 'Electricité' :'Gas'} - ${contract.HouseNumber} ${contract.StreetName} ${contract.PostalCode} ${contract.CityName}` ,
+      //     code: contract.ContractISU,
+      //   }));   
+    });
+  }
 
   ngOnInit() {
     const bp = this.authService.getUserData()?.bp;
     console.log('bp', bp);
-  
-
-
 
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
-
-
   }
 
   buildForm() {
@@ -137,7 +132,7 @@ export class AppRequestsFormComponent implements OnInit {
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      relocationContrat: [''],
+      relocationContrat: [[]],
       relocationAdresseNouveauLogement: ['']
     });
 
@@ -169,12 +164,20 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionDepartureDate');
       this.setControlRequired('rescissionContract');
     }
+
     if (this.isRelocation) {
       this.setControlRequired('relocationadresseDeLogement');
       this.setControlRequired('relocationadresseFacture')
       this.setControlRequired('relocationContrat');
       this.setControlRequired('rescissionDepartureDate');
     }
+
+    this.relocationContratForm?.valueChanges.subscribe((value: any) => {
+      if (value.length > 0) {
+        this.shouldShowGasReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.GAZ);
+        this.shouldShowElectricityReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.ELECTRICITY);
+      }
+    });
   }
 
 
@@ -191,7 +194,7 @@ export class AppRequestsFormComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    
+
     console.log(this.form.value)
     this.requestSended = true;
   }
@@ -224,33 +227,25 @@ export class AppRequestsFormComponent implements OnInit {
     }
   }
 
-  shouldShowGasReading(): boolean {
-    return this.selectedContractValue.some(item => item.BusinessSector=== Constants.EnergyType.GAZ);
-  }
-
-  shouldShowElectricityReading(): boolean {
-    return this.selectedContractValue.some(item => item.BusinessSector=== Constants.EnergyType.ELECTRICITY);
-  }
-
-
-  getContractLabel(contract:Contract):string{
+  getContractLabel(contract: Contract): string {
     let contractLabel = '';
-    if(contract.BusinessSector=== Constants.EnergyType.ELECTRICITY){
-      contractLabel =  Constants.EnergyType.ELECTRICITY_LABEL;
+    if (contract.BusinessSector === Constants.EnergyType.ELECTRICITY) {
+      contractLabel = Constants.EnergyType.ELECTRICITY_LABEL;
     }
-    else{
+    else {
       contractLabel = Constants.EnergyType.GAZ_LABEL;
     }
-    contractLabel +=` - ${contract.HouseNumber} ${contract.StreetName } ${contract.PostalCode } ${ contract.CityName}`;
+    contractLabel += ` - ${contract.HouseNumber} ${contract.StreetName} ${contract.PostalCode} ${contract.CityName}`;
     return contractLabel;
   }
 
-  getSelectedContractLabel():string{
-    if (this.selectedContractValue.length > 0){
-      debugger;
-      return this.getContractLabel(this.selectedContractValue[0]);
+  getSelectedContractLabel(): string {
+    console.log(this.relocationContratForm)
+    if (this.relocationContratForm.value.length > 0) {
+      return this.getContractLabel(this.relocationContratForm.value[0]);
     }
-  return ''; 
+
+    return '';
   }
 }
 
