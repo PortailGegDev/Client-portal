@@ -70,7 +70,7 @@ export class ActiveContractComponent  {
     this.selectedContract = this.contractService.selectedContract;
 
     effect(() => {
-      this.selectedContractValue = this.contractService.selectedContract();
+      this.selectedContractValue = this.selectedContract();
     });
   }
 

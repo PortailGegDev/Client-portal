@@ -38,7 +38,7 @@ export class NavBarComponent {
 
     this.isSelectedContractPartner = this.contractService.isSelectedContractPartner;
     this.currentUser = this.authService.currentUSer;
-    
+
     effect(() => {
       const isSelectedContractPartner = this.isSelectedContractPartner();
 
@@ -87,25 +87,6 @@ export class NavBarComponent {
         { label: 'Me déconnecter' }
       ];
     });
-
-    //   this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-    //     this.currentUser = user;
-
-    //     this.profilItems = [
-    //       {
-    //         label: `${this.currentUser?.firstname} ${this.currentUser?.lastname}`,
-    //         icon: 'fa-regular fa-user',
-    //         styleClass: 'profile',
-    //       },
-    //       {
-    //         label: 'Mon profil',
-    //         routerLink: ['/profile']
-    //       },
-    //       { separator: true },
-    //       { label: 'Me déconnecter' }
-    //     ];
-    //   });
-    // }
   }
 
   navigateHome() {
@@ -113,6 +94,6 @@ export class NavBarComponent {
   }
 
   logout() {
-
+    this.authService.logout();
   }
 }

@@ -12,6 +12,8 @@ applications:
       - route: client-portal-001.cfapps.eu10-004.hana.ondemand.com
     env:
       SESSION_TIMEOUT: 960
+      destinations: '[{"name":"portail_client-destination","url":"http://df1s4conn.sap.geg.fr:443","forwardAuthToken":false}]'
+
     services:
       - portail_client-connectivity
       - portail_client-destination
