@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { User } from '../../shared/models/user.model';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class AuthService {
   private user?: User;
   private currentUserSignal = signal<User | null>(null);
   currentUSer = this.currentUserSignal.asReadonly();
-
+  private apiAuthUser: string;
   constructor(private http: HttpClient,
     private localStorageService: LocalStorageService
-  ) { }
+  ) { this.apiAuthUser = environment.apiAuthUser;}
 
   logTokenDetails() {
     this.http.get<any>('/user-api/currentUser').subscribe({
@@ -71,7 +72,7 @@ export class AuthService {
   }
 
   getUserBp(email: string): Observable<any> {
-    let url = `https://geg-api.test.apimanagement.eu10.hana.ondemand.com/IdDS_SCIM/Users?filter=emails.value eq "${email}"`;
+    let url = `${this.apiAuthUser}/Users?filter=emails.value eq "${email}"`;
 
     return this.http.get<any>(url)
       .pipe(
