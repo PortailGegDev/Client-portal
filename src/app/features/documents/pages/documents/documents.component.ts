@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect, Signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabsModule } from 'primeng/tabs';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppDocumentsContractsComponent } from '../../components/contracts/contracts.component';
+import { Contract } from '../../../../shared/models/contract.model';
+import { ContractDetails } from '../../../../shared/models/contract-details.model';
 
 @Component({
   selector: 'app-documents',
@@ -16,28 +18,29 @@ export class AppDocumentsComponent {
   showDetails = false;
   selectedContract: any = null;
   currentSection: string = 'contrat'; // Par défaut, afficher la section "Contrat"
-  contracts: any[] = [];
+  contracts: Signal<Contract[]>;
+  allContracts: ContractDetails[] = [];
 
   constructor(private router: Router,
     private authService: AuthService,
     private contractService: ContractService) {
-      this.loadContract();
+    this.contracts = this.contractService.contracts;
+
+    effect(() => {
+      debugger
+      if (this.contracts()) {
+        const contractsISUList = this.contracts().map(item => item.ContractISU);
+
+        this.loadContract(contractsISUList);
+      }
+    });
   }
 
-  private loadContract() {
-    const bp = this.authService.getUserData()?.bp;
-    console.log('bp', bp)
+  private loadContract(contractsISUList: string[]) {
+    this.contractService.getContractsByContractISUList(contractsISUList).subscribe({
 
-    // Décommenter tous les lignes commentées pour gérer l'exception d'avoir un compte sans bp
-    if (!bp) {
-      // console.error('Pas de bp lié à cet utilisateur');
-      // return;
-    }
-
-    this.contractService.getContracts(bp!).subscribe({
-
-      next: (contracts) => {
-        this.contracts = contracts;
+      next: (contracts: ContractDetails[]) => {
+        this.allContracts = contracts;
         console.log(contracts);
       }
     });

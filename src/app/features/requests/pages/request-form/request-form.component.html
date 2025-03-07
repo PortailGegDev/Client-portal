@@ -330,10 +330,9 @@
 
                     <div class="form-group col">
                         <span class="label" for="relocationContrat">Sélection du ou des contrats</span>
-                        <p-multiselect [options]="contracts()" placeholder="Sélectionnez"
-                            formControlName="relocationContrat" [maxSelectedLabels]="1" [(ngModel)]="selectedContractValue"
-                            [selectedItemsLabel]="'{0} élèments sélectionnés'"
-                            styleClass="w-full md:w-80">
+                        <p-multiselect [options]="contracts" placeholder="Sélectionnez" optionLabel="TypeEtAdress"
+                            formControlName="relocationContrat" [maxSelectedLabels]="1"
+                            [selectedItemsLabel]="'{0} élèments sélectionnés'" styleClass="w-full md:w-80">
 
                             <ng-template let-contract pTemplate="item">
                             {{getContractLabel(contract)}}
@@ -393,7 +392,7 @@
                 </div>
             </form>
         </p-panel>
-        
+
         }@else{
         <app-requests-request-sended></app-requests-request-sended>
         }
