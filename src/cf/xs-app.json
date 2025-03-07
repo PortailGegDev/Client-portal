@@ -9,6 +9,12 @@
             "csrfProtection": false
         },
         {
+            "source": "^/scim/(.*)$",
+            "destination": "CIS_dest",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
             "source": "^/user-api/currentUser$",
             "target": "/currentUser",
             "service": "sap-approuter-userapi"
