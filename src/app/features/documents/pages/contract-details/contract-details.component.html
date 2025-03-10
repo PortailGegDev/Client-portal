@@ -1,16 +1,57 @@
 <div class="custom-container">
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
+
 <h1>Détails contrat</h1>
+<div class="row" style=" background-color: #fefefe">
+    <div class="col-sm-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
+            <path
+                d="M11.1111 3H6.84444C5.8488 3 5.35097 3 4.97068 3.19377C4.63617 3.36421 4.36421 3.63617 4.19377 3.97068C4 4.35097 4 4.8488 4 5.84444V16.1556C4 17.1512 4 17.649 4.19377 18.0293C4.36421 18.3638 4.63617 18.6358 4.97068 18.8062C5.35097 19 5.8488 19 6.84444 19H13.6C14.5956 19 15.0935 19 15.4738 18.8062C15.8083 18.6358 16.0802 18.3638 16.2507 18.0293C16.4444 17.649 16.4444 17.1512 16.4444 16.1556V8.33333M11.1111 3L16.4444 8.33333M11.1111 3V6.91111C11.1111 7.40894 11.1111 7.65785 11.208 7.84799C11.2932 8.01525 11.4292 8.15123 11.5965 8.23645C11.7866 8.33333 12.0355 8.33333 12.5333 8.33333H16.4444M6.66667 5.66667H8.44444M6.66667 8.33333H8.44444M13.7778 15.4444H12L11.1111 14.1111L10.2222 15.4444L8.44444 12.7778L8 15.4444H6.66667"
+                stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        &nbsp;
+        <label class="contract-number">Contrat n° 1234567</label>
+        &nbsp;
+        <p-button icon="pi pi-download" [text]="true" iconPos="right" severity="help" label="Télécharger"/>
+    </div>
+</div>
+    
+
+
+<div class="row" style=" background-color: #fefde9">
+
+    <p-table [value]="contracts()" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th class="label">Titulaire</th>
+                <th class="label">Lieu de consommation</th>
+                <th class="label">Puissance</th>
+                <th class="label">Option tarifaire</th>
+            </tr>
+        </ng-template>
+       
+        <ng-template #body let-contract>
+            <tr>
+                <td class="value">{{ contract.PayerFullName }}</td>
+                <td class="value">{{ contract.HouseNumber }} {{ contract.StreetName }} {{ contract.PostalCode }} {{ contract.CityName }}</td>
+                <td class="value">{{ contract.GazDeliveryRate }}</td>
+                <td class="value">{{ contract.TarifOption }}</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+
+
 <div class="container1">
     <div class="header">
         <img src="/images/icones-bicolores.png">
         <div class="contract-number">Contrat n° 1234567</div>
         <div class="download">
             <div class="download-text">Télécharger</div>
-            <img class="download-icon" src="images/download.png" alt="Télécharger"
-                (click)="downloadPDF(facture)">
-            <!-- <div class="download-icon-shape"></div> -->
+            <img class="download-icon" src="images/download.png">
         </div>
     </div>
     <div class="details">
@@ -83,7 +124,7 @@
                     <div class="mandate-text">Mandat SEPA, 1234579004°°°9846</div>
                     <div class="sign-date">Signé lé 1 Juin 2023</div>
                     <img class="download-icon" src="images/download.png" alt="Télécharger"
-                        (click)="downloadPDF(facture)" style="margin-left:120px">
+                       style="margin-left:120px">
                 </div>
             </div>
             <div *ngIf="!isHidden" class="update-info">
@@ -113,7 +154,7 @@
                         <div class="detail-title5">18 Sept. 2022</div>
                         <div class="detail-subtitle5">Calendrier de paiement</div>
                         <img class="download-icon" src="/images/download.png" alt="Télécharger"
-                            (click)="downloadPDF(facture)" style="margin-left:250px">
+                         style="margin-left:250px">
                     </div>
                 </div>
             </div>

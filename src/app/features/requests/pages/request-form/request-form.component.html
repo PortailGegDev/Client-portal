@@ -364,7 +364,7 @@
 
                     <div class="form-group col">
                         <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
-                        <input type="text" pInputText formControlName="hcReading" />
+                        <p-input type="text" pInputText formControlName="hcReading" />
                     </div>
 
                     }
@@ -372,7 +372,7 @@
                     @if (shouldShowGasReading) {
                     <div class="form-group col">
                         <span class="label" for="gazReading">Relevé Gaz</span>
-                        <input type="text" pInputText formControlName="gazReading" />
+                        <p-inputnumber inputId="integeronly" formControlName="gazReading" />
                     </div>
                     }
 

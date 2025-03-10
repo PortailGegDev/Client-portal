@@ -27,7 +27,6 @@ export class AppDocumentsComponent {
     this.contracts = this.contractService.contracts;
 
     effect(() => {
-      debugger
       if (this.contracts()) {
         const contractsISUList = this.contracts().map(item => item.ContractISU);
 
