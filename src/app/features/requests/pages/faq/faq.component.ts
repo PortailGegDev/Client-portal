@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { Faq } from '../../../../shared/models/faq.model';
 import { VariousService } from '../../../../shared/services/various.service';
+import { AppRequestsHighlightComponent } from '../../components/highlight/highlight.component';
 
 
 @Component({
   selector: 'app-requests-faq',
-  imports: [CommonModule],
+  imports: [CommonModule, AppRequestsHighlightComponent],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.scss'
 })

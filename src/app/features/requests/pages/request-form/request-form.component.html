@@ -335,7 +335,7 @@
                             [selectedItemsLabel]="'{0} élèments sélectionnés'" styleClass="w-full md:w-80">
 
                             <ng-template let-contract pTemplate="item">
-                            {{getContractLabel(contract)}}
+                                {{getContractLabel(contract)}}
                             </ng-template>
 
                             <ng-template let-selectedContract pTemplate="selectedItems">
@@ -400,66 +400,6 @@
     </div>
 
     <div class="grid-item mb-3">
-        <div class="right-container">
-            <div class="content-box">
-                <div class="itemm">
-                    <div class="inner-box">
-                        <img src="/images/Rectangle 1477 (11).png" alt="Image">
-                        <div class="text">
-                            <div class="title">Vous déménagez ?</div>
-                            <div class="subtitle">Nous vous simplifions les démarches de déménagement</div>
-                            <div class="button-section">
-                                <div class="button-text">En savoir plus</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                    fill="none">
-                                    <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                        stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="itemm">
-                    <div class="inner-box">
-                        <img src="/images/Rectangle 1477 (2).png" alt="Image">
-                        <div class="text">
-                            <div class="title">Des questions ?</div>
-                            <div class="subtitle">Consultez la FAQ</div>
-                            <div class="button-section">
-                                <div class="button-text">Voir</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                    fill="none">
-                                    <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                        stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="itemm">
-                    <div class="inner-box">
-                        <img src="/images/Rectangle 1477 (3).png" alt="Image">
-                        <div class="text">
-                            <div class="title">Service client</div>
-                            <div class="subtitle">Contactez-nous au 04 76 84 38 83 <br> ou</div>
-                            <div class="button-section">
-                                <div class="button-text">Contactez via formulaire</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                    fill="none">
-                                    <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                        stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-            </div>
-        </div>
+        <app-requests-highlight />
     </div>
 </div>

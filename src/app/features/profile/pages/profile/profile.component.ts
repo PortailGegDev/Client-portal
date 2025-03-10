@@ -63,6 +63,7 @@ export class AppProfileComponent {
     this.profileService.getProfil(bp).subscribe({
       next: (data: any) => {
         this.profil = data;  // Stocker les profils reçus
+
         console.log('Profils chargés:', this.profil); // Vérification dans la console
       },
       error: (error) => {

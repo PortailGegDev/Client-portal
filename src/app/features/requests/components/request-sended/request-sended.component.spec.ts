@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestSendedComponent } from './request-sended.component';
+import { AppRequestsRequestSendedComponent } from './request-sended.component';
 
-describe('RequestSendedComponent', () => {
-  let component: RequestSendedComponent;
-  let fixture: ComponentFixture<RequestSendedComponent>;
+describe('AppRequestsRequestSendedComponent', () => {
+  let component: AppRequestsRequestSendedComponent;
+  let fixture: ComponentFixture<AppRequestsRequestSendedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RequestSendedComponent]
+      imports: [AppRequestsRequestSendedComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RequestSendedComponent);
+    fixture = TestBed.createComponent(AppRequestsRequestSendedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
