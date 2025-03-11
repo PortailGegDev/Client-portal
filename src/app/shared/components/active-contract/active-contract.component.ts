@@ -24,8 +24,8 @@ export class ActiveContractComponent  {
   actifCesse: string = '';
 
   typeGazElecOptions = [
-    { label: Constants.EnergyType.ELECTRICITY, value: Constants.EnergyType.ELECTRICITY_LABEL },
-    { label: Constants.EnergyType.GAZ, value: Constants.EnergyType.GAZ_LABEL },
+    { label: Constants.EnergyType.ELECTRICITY_LABEL, value: Constants.EnergyType.ELECTRICITY},
+    { label: Constants.EnergyType.GAZ_LABEL, value: Constants.EnergyType.GAZ },
   ];
 
   statusOptions = [
