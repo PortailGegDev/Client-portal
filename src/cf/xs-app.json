@@ -10,7 +10,13 @@
         },
         {
             "source": "^/scim/(.*)$",
-            "destination": "CIS_dest",
+            "destination": "geg_fournisseur_CIS",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/Contact/(.*)$",
+            "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },

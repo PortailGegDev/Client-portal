@@ -1,0 +1,25 @@
+::ng-deep .p-datatable thead tr th {
+    background-color: transparent !important;
+}
+::ng-deep .p-datatable-tbody  tr {
+    background-color: transparent !important;
+}
+
+.label {
+    color: #878686;
+     font-size: 11px;
+     font-family: Figtree;
+     font-weight: 600;
+     text-transform: uppercase;
+     letter-spacing: 0.44px;
+     word-wrap: break-word
+   }
+
+   .value {
+    color: #544e4e;
+    font-size: 14px;
+    font-family: Figtree;
+    font-weight: 400;
+    line-height: 19px;
+  }
+  

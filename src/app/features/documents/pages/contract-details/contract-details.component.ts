@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, Signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { Contract } from '../../../../shared/models/contract.model';
 import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { AppDocumentsContractHeaderComponent } from '../../components/contract-header/contract-header.component';
 
 @Component({
   selector: 'app-contract-details',
-  imports: [CommonModule,TableModule,ButtonModule],
+  imports: [CommonModule,AppDocumentsContractHeaderComponent],
   templateUrl: './contract-details.component.html',
   styleUrl: './contract-details.component.scss',
 })
 export class AppDocumentContractDetailsComponent {
     contracts: Signal<Contract[]>;
     allContracts: ContractDetails[] = [];
+ 
+
+
     showContent = false;
     showTable = false;
   constructor(private router: Router,
