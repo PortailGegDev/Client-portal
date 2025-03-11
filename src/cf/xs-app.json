@@ -4,7 +4,7 @@
     "routes": [
         {
             "source": "^/sap/opu/(.*)$",
-            "destination": "geg_fournisseur_s4_dev_200",
+            "destination": "geg_fournisseur_s4",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
