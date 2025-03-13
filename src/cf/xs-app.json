@@ -16,7 +16,7 @@
         },
         {
             "source": "^/scim/(.*)$",
-            "destination": "CIS_dest",
+            "destination": "geg_fournisseur_CIS",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
