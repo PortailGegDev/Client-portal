@@ -9,7 +9,7 @@
             "csrfProtection": false
         },
         {
-            "source": "^/http/(.*)$",
+            "source": "^/DownloadFacture/(.*)$",
             "destination": "geg_fournisseur_CPI",
             "authenticationType": "xsuaa",
             "csrfProtection": false

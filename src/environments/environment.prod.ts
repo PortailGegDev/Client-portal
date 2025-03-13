@@ -5,5 +5,5 @@ export const environment = {
     // apiUrlQualAlaMaYati:'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/Api_PortailClientQF1/ZA_ContractList'
     apiUrlContractList: '/sap/opu/odata/SAP/ZAPI_SAP_PORTAL_V2',
     apiAuthUser: '/scim',
-    apiSP : '/http'
+    apiSP : '/DownloadFacture'
 };
