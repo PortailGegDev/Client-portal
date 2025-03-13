@@ -1,9 +1,9 @@
 ---
 applications:
   - name: client-portal
-    memory: 2G
+    memory: 1G
     path: ./dist/client-portal
-    disk_quota: 1024M
+    disk_quota: 512M
     stack: cflinuxfs4
     buildpacks:
       - nodejs_buildpack

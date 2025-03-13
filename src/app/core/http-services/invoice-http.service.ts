@@ -32,7 +32,7 @@ export class InvoiceHTTPService extends BaseHttpService {
   }
 
   downloadInvoiceByInvoiceNumber(invoiceNumber: string): Observable<any> {
-    let url = `${this.apiSP}/DownloadFacture/${invoiceNumber}`;
+    let url = `${this.apiSP}/${invoiceNumber}`;
 
     return this.http.post<any>(url, {}).pipe(
       map(response => response.value?.[0]?.["@microsoft.graph.downloadUrl"]), // Récupérer l'URL de téléchargement
