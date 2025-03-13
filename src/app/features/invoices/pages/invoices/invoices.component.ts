@@ -45,8 +45,21 @@ export class AppInvoicesComponent {
     this.theme = this.brandService.getBrand();
   }
 
-  loadInvoices(contractISU: string): void {
+  private loadInvoices(contractISU: string): void {
     this.invoicesService.getInvoices(contractISU).subscribe({
+      next: (factures: Invoice[]) => {
+        this.invoices = factures;
+        console.log(this.invoices);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
+        this.invoices = [];
+      }
+    });
+  }
+
+  private filterInvoicesByDates(contractISU: string, startDate: Date, endDate: Date): void {
+    this.invoicesService.filterInvoicesByDates(contractISU, startDate, endDate).subscribe({
       next: (factures: Invoice[]) => {
         this.invoices = factures;
         console.log(this.invoices);
@@ -62,20 +75,12 @@ export class AppInvoicesComponent {
     this.globalFiltervalue = value;
   }
 
-  filterInvoicesByDateRange(dateRange: Date[]) {
-    if (dateRange[0] === null || dateRange[1] === null) {
+  filterInvoicesByDateRange(dateRange: Date[]) {   
+    if (dateRange.length === 0 || (dateRange[0] === null || dateRange[1] === null)) {
+      this.loadInvoices(this.selectedContract!.ContractISU);
       return;
     }
 
-    this.invoicesService.filterInvoicesByDates(this.selectedContract!.ContractISU, dateRange[0], dateRange[1]).subscribe({
-      next: (factures: Invoice[]) => {
-        this.invoices = factures;
-        console.log(this.invoices);
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
-        this.invoices = [];
-      }
-    });
+    this.filterInvoicesByDates(this.selectedContract!.ContractISU, dateRange[0], dateRange[1]);
   }
 }

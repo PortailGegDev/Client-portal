@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { AppInvoicesEstimateDialogComponent } from '../estimate-dialog/estimate-dialog.component';
 import { AppInvoicesEnergyCheckComponent } from '../energy-check/energy-check.component';
+
 @Component({
   selector: 'app-invoices-filter',
   imports: [CommonModule, FormsModule, DatePickerModule, IconField, InputIcon, InputTextModule, Message, Dialog, ButtonModule, TableModule, AppInvoicesEstimateDialogComponent, AppInvoicesEnergyCheckComponent],
@@ -45,5 +46,9 @@ export class AppInvoicesFilterComponent {
 
   onSelectDateRange() {
     this.onDateRangeSelected.emit(this.rangeDates);
+  }
+
+  onClearDateRange(){
+    this.onDateRangeSelected.emit([]);
   }
 }

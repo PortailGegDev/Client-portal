@@ -18,4 +18,8 @@ export class InvoicesService {
     const filter = `and PostingDate ge datetime'${startDate.toISOString().slice(0, 19)}' and PostingDate le datetime'${endDate.toISOString().slice(0, 19)}'`
     return this.invoicesHTTPservice.fetchFactures(contractISU, filter);
   }
+
+  downloadInvoiceByInvoiceNumber(invoiceNumber : string){
+    return this.invoicesHTTPservice.downloadInvoiceByInvoiceNumber(invoiceNumber);
+  }
 }

@@ -10,6 +10,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { Message } from 'primeng/message';
+import { InvoicesService } from '../../../../shared/services/invoices.service';
 
 
 @Component({
@@ -23,6 +24,10 @@ export class AppInvoicesTableComponent implements OnChanges {
   @Input() inputvalue: string = '';
   @ViewChild('dt') dt: Table | undefined;
 
+  selectedInvoices: Invoice[] = [];
+
+  constructor(private invoiceService: InvoicesService) { }
+
   ngOnChanges(): void {
     if (this.invoices.length > 0) {
       console.log(this.invoices);
@@ -33,7 +38,6 @@ export class AppInvoicesTableComponent implements OnChanges {
     }
   }
 
-  selectedInvoices: Invoice[] = [];
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
@@ -49,10 +53,27 @@ export class AppInvoicesTableComponent implements OnChanges {
   filterGlobal(inputValue: string) {
     this.dt?.filterGlobal(inputValue, 'contains');
   }
+
   payFacture(facture: Invoice) {
   }
 
   deselectAllInvoices() {
     this.selectedInvoices = [];
+  }
+
+  downloadInvoiceDoc(invoiceNumber: string) {
+    this.invoiceService.downloadInvoiceByInvoiceNumber(invoiceNumber).subscribe({
+      next: (response : any) => {
+        let url = window.URL.createObjectURL(response);
+        let link = document.createElement('a');
+        link.href = url;
+        link.download = response.headers.get('Content-Disposition').split('filename=')[1].slice(1, -1);
+        link.target = '_blank';
+        link.click();
+      }, 
+      error:(err)=>{
+        console.error('Erreur de téléchargement...');
+      }
+    });
   }
 }
