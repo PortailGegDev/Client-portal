@@ -63,15 +63,20 @@ export class AppInvoicesTableComponent implements OnChanges {
 
   downloadInvoiceDoc(invoiceNumber: string) {
     this.invoiceService.downloadInvoiceByInvoiceNumber(invoiceNumber).subscribe({
-      next: (response : any) => {
-        let url = window.URL.createObjectURL(response);
-        let link = document.createElement('a');
-        link.href = url;
-        link.download = response.headers.get('Content-Disposition').split('filename=')[1].slice(1, -1);
-        link.target = '_blank';
-        link.click();
-      }, 
-      error:(err)=>{
+      next: (downloadUrl: any) => {
+        if (downloadUrl) {
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.target = '_blank';
+          a.download = `${invoiceNumber}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          console.error("Aucune URL de téléchargement trouvée.");
+        }
+      },
+      error: (err) => {
         console.error('Erreur de téléchargement...');
       }
     });

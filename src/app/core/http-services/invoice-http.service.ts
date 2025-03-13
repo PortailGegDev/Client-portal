@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Invoice } from '../../shared/models/invoice-model';
 import { BaseHttpService } from './base-http.service';
@@ -34,9 +34,12 @@ export class InvoiceHTTPService extends BaseHttpService {
   downloadInvoiceByInvoiceNumber(invoiceNumber: string): Observable<any> {
     let url = `${this.apiSP}/DownloadFacture/${invoiceNumber}`;
 
-    return this.http.post<Blob>(`${url}`, {
-      responseType: 'blob' as 'json',
-      observe: 'response'
-    });
+    return this.http.post<any>(url, {}).pipe(
+      map(response => response.value?.[0]?.["@microsoft.graph.downloadUrl"]), // Récupérer l'URL de téléchargement
+      catchError(error => {
+        console.error('Erreur lors de la récupération du lien de téléchargement', error);
+        return throwError(() => new Error('Impossible de récupérer le fichier.'));
+      })
+    )
   }
 }
