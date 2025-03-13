@@ -68,7 +68,7 @@ export class AppInvoicesTableComponent implements OnChanges {
           const a = document.createElement('a');
           a.href = downloadUrl;
           a.target = '_blank';
-          a.download = `${invoiceNumber}.pdf`;
+          a.download = `Facture numéro ${invoiceNumber}.pdf`;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
