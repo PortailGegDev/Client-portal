@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProfilHttpService } from '../../core/http-services/profil-http.service';
 import { Observable } from 'rxjs';
-import { Facture } from '../models/facture-model';
 import { Profil } from '../models/profil.model';
 
 @Injectable({

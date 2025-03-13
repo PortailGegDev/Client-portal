@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
@@ -15,7 +15,7 @@ import { DocGeneratorService } from '../../services/doc-generator.service';
   styleUrl: './documents.component.scss'
 })
 export class AppHomeDocumentsComponent {
-  @Input() lastInvoice: Facture | null = null;
+  @Input() lastInvoice: Invoice | null = null;
   @Input() selectedContract: any | null = null;
   @Input() currentUser: User | undefined = undefined;
 
@@ -23,13 +23,13 @@ export class AppHomeDocumentsComponent {
     private docGeneratorService: DocGeneratorService
   ) { }
 
-  payFacture(facture: Facture): void {
+  payFacture(facture: Invoice): void {
     if (facture.StatusInvoicingDocument === "Non Soldée") {
       console.log("Paiement de la facture en cours...");
     }
   }
 
-  downloadPDF(facture: Facture): void {
+  downloadPDF(facture: Invoice): void {
     if (facture.StatusInvoicingDocument === "Totalement Soldée") {
       console.log("Téléchargement du PDF de la facture...");
     }

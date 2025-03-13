@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { ButtonModule } from 'primeng/button';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -14,12 +14,12 @@ import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message,ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
+  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
 export class AppInvoicesTableComponent implements OnChanges {
-  @Input() invoices: Facture[] = [];
+  @Input() invoices: Invoice[] = [];
   @Input() inputvalue: string = '';
   @ViewChild('dt') dt: Table | undefined;
 
@@ -33,7 +33,7 @@ export class AppInvoicesTableComponent implements OnChanges {
     }
   }
 
-  selectedInvoices: Facture[] = [];
+  selectedInvoices: Invoice[] = [];
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
@@ -49,10 +49,10 @@ export class AppInvoicesTableComponent implements OnChanges {
   filterGlobal(inputValue: string) {
     this.dt?.filterGlobal(inputValue, 'contains');
   }
-  payFacture(facture: Facture) {
+  payFacture(facture: Invoice) {
   }
 
-  deselectAllInvoices(){
-    this.selectedInvoices=[];
+  deselectAllInvoices() {
+    this.selectedInvoices = [];
   }
 }

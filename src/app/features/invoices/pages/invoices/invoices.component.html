@@ -11,7 +11,7 @@
   <div class="col-md-12 mb-3">
     <p-panel>
   
-      <app-invoices-filter [invoices]="invoices"  (onGlobalFilter)="globalFilter($event)" />
+      <app-invoices-filter [invoices]="invoices"  (onGlobalFilter)="globalFilter($event)" (onDateRangeSelected)="filterInvoicesByDateRange($event)" />
       <app-invoices-table [invoices]="invoices" [inputvalue]="globalFiltervalue" /> 
     </p-panel>
   </div>
