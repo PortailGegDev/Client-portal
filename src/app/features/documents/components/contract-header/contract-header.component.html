@@ -1,6 +1,7 @@
 
-<div class="row" style=" background-color: #fefefe; padding: 10px;">
-    <div class="col-sm-6" style=" margin-bottom:20px;">
+<div class="card flex justify-center" style="margin-bottom: 24px;">
+    <p-panel [showHeader]="false">
+    <div class="col-sm-6" style="margin-bottom: 15px;padding: 10px;" >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
             <path
@@ -8,17 +9,13 @@
                 stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         &nbsp;
-        <label class="contract-number">Contrat n° {{contract.ContractISU}}</label>
+        <label class="tittle">Contrat n° {{contract.ContractISU}}</label>
         &nbsp;
         <p-button icon="pi pi-download" [text]="true" iconPos="right" severity="help" label="Télécharger"/>
     </div>
 
-    
 
-
-
-
-    <p-table #dt [value]="contracts" [tableStyle]="{ 'min-width': '50rem' }" [ngStyle]="{ 'background-color': '#fefde9' }">
+    <p-table #dt [value]="contracts" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr class="responsive-row">
                 <th class="label" style="min-width: 12rem">Titulaire</th>
@@ -36,7 +33,6 @@
                 <td class="value" style="min-width: 12rem">{{ contract.TarifOption }}</td>
             </tr>
         </ng-template>
-
     </p-table>
-
+ </p-panel>
 </div>

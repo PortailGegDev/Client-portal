@@ -4,7 +4,14 @@
 ::ng-deep .p-datatable-tbody  tr {
     background-color: transparent !important;
 }
-
+::ng-deep .p-datatable-tbody > tr > td {
+    border-style: none !important;
+  }
+  
+::ng-deep .p-datatable-table {
+    background-color: #fefde9;
+  }
+  
 .label {
     color: #878686;
      font-size: 11px;
@@ -21,5 +28,15 @@
     font-family: Figtree;
     font-weight: 400;
     line-height: 19px;
+  }
+  .tittle{
+    color: var(--Black, #3A3A3A);
+  /* Desktop/H3 */
+  font-family: Figtree;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 22px */
+  letter-spacing: -0.22px;
   }
   

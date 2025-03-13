@@ -23,7 +23,7 @@ export class AppDocumentsContractsListComponent implements OnChanges {
     if (this.activeContract) { }
   }
 
-  viewDetails() {
-    this.router.navigate(['/documents/contract-details']);
+  viewDetails(contractIsu:String) {
+    this.router.navigate([`/documents/contract-details/${contractIsu}`]);
   }
 }

@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'consumption', component: AppConsumptionComponent },
     { path: 'invoices', component: AppInvoicesComponent },
     { path: 'documents', component: AppDocumentsComponent },
-    { path: 'documents/contract-details', component: AppDocumentContractDetailsComponent },
+    { path: 'documents/contract-details/:contractIsu', component: AppDocumentContractDetailsComponent },
     { path: 'services', component: AppServicesComponent },
     { path: 'services/serenity-electricity', component: AppServicesSerenityElectricityComponent },
     { path: 'services/green-option', component: AppServicesGreenOptionComponent },

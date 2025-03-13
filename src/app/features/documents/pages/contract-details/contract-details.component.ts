@@ -1,37 +1,44 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, Signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { Contract } from '../../../../shared/models/contract.model';
 import { ContractDetails } from '../../../../shared/models/contract-details.model';
 import { AppDocumentsContractHeaderComponent } from '../../components/contract-header/contract-header.component';
+import { PanelModule } from 'primeng/panel';
+import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contract-details',
-  imports: [CommonModule,AppDocumentsContractHeaderComponent],
+  imports: [CommonModule,FormsModule,AppDocumentsContractHeaderComponent,PanelModule,CardModule,TableModule,DialogModule,InputNumberModule],
   templateUrl: './contract-details.component.html',
   styleUrl: './contract-details.component.scss',
 })
 export class AppDocumentContractDetailsComponent {
-    contracts: Signal<Contract[]>;
+    contracts: ContractDetails[] =[];
     allContracts: ContractDetails[] = [];
- 
+    MettreAJourLeRIB:boolean=false;
+    value1: number=1;
+    showDialog() {
+      this.MettreAJourLeRIB  = true;
+  }
+  
 
 
     showContent = false;
     showTable = false;
   constructor(private router: Router,
-       private contractService: ContractService) {
-      this.contracts = this.contractService.contracts;
-
-    effect(() => {
-      debugger
-      if (this.contracts()) {
-        const contractsISUList = this.contracts().map(item => item.ContractISU);
-
-        this.loadContract(contractsISUList);
-      }
-    });
+       private contractService: ContractService, private activeRoute: ActivatedRoute) {
+      this.activeRoute.params.subscribe(params => {
+        const contractIsu=[... params['contractIsu']]
+        this.contractService.getContractsByContractISUList(contractIsu).subscribe({
+          next: (contracts:ContractDetails[]) =>{ this.contracts=contracts}
+        })
+      });
   }
 
     private loadContract(contractsISUList: string[]) {
@@ -42,6 +49,7 @@ export class AppDocumentContractDetailsComponent {
         console.log(contracts);
       }
     });
+    
   }
 
  
