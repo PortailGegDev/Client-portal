@@ -10,11 +10,9 @@
     @if(lastInvoice) {
     <div class="row">
         @if(lastInvoice.StatusInvoicingDocument === 'Non Soldée') {
-        <div class="col-md-12 mb-3">
-            <div class="invoice-status">
-                <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
-                <h6>Une facture non-payée en attente.</h6>
-            </div>
+        <div class="col-md-12 mb-3" style="color: #FF6C00;">
+            <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
+            Une facture non-payée en attente.
         </div>
         }
 
@@ -28,21 +26,21 @@
                         stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 &nbsp; &nbsp;
-                <p style="font-size: 12px;">Dernière facture<br>{{ lastInvoice.PostingDate | timeSpanToDate:'short' }}
+                <p style="font-size: 12px;">Dernière facture<br>{{ lastInvoice.NetDueDate | timeSpanToDate:'short' }}
                 </p>
 
-                <ng-container>
-                    @switch (lastInvoice.StatusInvoicingDocument) {
-                    @case ('Non Soldée') {
-                    <button class="bb" (click)="payFacture(lastInvoice)">
-                        <b>à payer </b>
-                    </button> }
-                    @case ('Totalement Soldée') {
-                    <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger"
-                        (click)="downloadPDF(lastInvoice)">
-                    }
-                    }
-                </ng-container>
+                @switch (lastInvoice.StatusInvoicingDocument) {
+                @case ('Non Soldée') {
+                <button class="payment-button" (click)="payFacture(lastInvoice)">
+                    <b>à payer </b>
+                </button>
+                }
+
+                @case ('Totalement Soldée') {
+                <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger"
+                    (click)="downloadPDF(lastInvoice)">
+                }
+                }
             </div>
         </div>
     </div>
@@ -66,7 +64,7 @@
                     </defs>
                 </svg>
                 &nbsp; &nbsp;
-                <p style="font-size: 12px;">Justificatif de domicile<br>5 Mai 2023</p>
+                <p style="font-size: 12px;">Justificatif de domicile<br>{{ formattedDate }}</p>
                 <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger" (click)="downloadJustifPDF()">
 
             </div>
