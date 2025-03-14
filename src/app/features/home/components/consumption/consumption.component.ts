@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy } from '@angular/core';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
@@ -15,7 +15,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './consumption.component.scss'
 })
 export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
-  @Input() lastInvoice: Facture | null = null;
+  @Input() lastInvoice: Invoice | null = null;
   @Input() consumptions: ChartConsumption[] | null = null;
 
   basicData: any = null;

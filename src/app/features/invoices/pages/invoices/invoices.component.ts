@@ -6,9 +6,10 @@ import { ActiveContractComponent } from '../../../../shared/components/active-co
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppInvoicesFilterComponent } from '../../components/filter/filter.component';
 import { AppInvoicesTableComponent } from '../../components/table/table.component';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
 import { PanelModule } from 'primeng/panel';
+import { Contract } from '../../../../shared/models/contract.model';
 
 @Component({
   selector: 'app-invoices',
@@ -18,6 +19,8 @@ import { PanelModule } from 'primeng/panel';
 })
 export class AppInvoicesComponent {
 
+  selectedContract: Contract | null = null;
+
   constructor(
     private contractService: ContractService,
     private invoicesService: InvoicesService,
@@ -25,14 +28,14 @@ export class AppInvoicesComponent {
   ) {
     // Effet : Réagir aux changements de selectedContract
     effect(() => {
-      const selectedContract = this.contractService.selectedContract();
-      if (selectedContract) {
-        this.loadFacture(selectedContract.ContractISU);
+      this.selectedContract = this.contractService.selectedContract();
+      if (this.selectedContract) {
+        this.loadInvoices(this.selectedContract.ContractISU);
       }
     });
   }
 
-  invoices: Facture[] = [];
+  invoices: Invoice[] = [];
   globalFiltervalue: string = '';
 
 
@@ -42,11 +45,22 @@ export class AppInvoicesComponent {
     this.theme = this.brandService.getBrand();
   }
 
-  loadFacture(contractISU: string): void {
-    this.invoices = [];
-
+  private loadInvoices(contractISU: string): void {
     this.invoicesService.getInvoices(contractISU).subscribe({
-      next: (factures: Facture[]) => {
+      next: (factures: Invoice[]) => {
+        this.invoices = factures;
+        console.log(this.invoices);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème
+        this.invoices = [];
+      }
+    });
+  }
+
+  private filterInvoicesByDates(contractISU: string, startDate: Date, endDate: Date): void {
+    this.invoicesService.filterInvoicesByDates(contractISU, startDate, endDate).subscribe({
+      next: (factures: Invoice[]) => {
         this.invoices = factures;
         console.log(this.invoices);
       },
@@ -59,5 +73,14 @@ export class AppInvoicesComponent {
 
   globalFilter(value: string) {
     this.globalFiltervalue = value;
+  }
+
+  filterInvoicesByDateRange(dateRange: Date[]) {   
+    if (dateRange.length === 0 || (dateRange[0] === null || dateRange[1] === null)) {
+      this.loadInvoices(this.selectedContract!.ContractISU);
+      return;
+    }
+
+    this.filterInvoicesByDates(this.selectedContract!.ContractISU, dateRange[0], dateRange[1]);
   }
 }

@@ -8,7 +8,7 @@ import { ChartConsumption } from '../../../../shared/models/chart-consumption.mo
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppHomeCarouselComponent } from '../../components/carousel/carousel.component';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { AppHomeDocumentsComponent } from '../../components/documents/documents.component';
 import { AppHomeConsumptionComponent } from '../../components/consumption/consumption.component';
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
@@ -28,7 +28,7 @@ export class AppHomeComponent {
   theme: string = "";
   carouselData: any[] = [];
   currentUser = signal<User | undefined>(undefined);
-  lastInvoice = signal<Facture | null>(null);
+  lastInvoice = signal<Invoice | null>(null);
   consumptions = signal<ChartConsumption[] | null>(null);
 
   constructor(
@@ -56,7 +56,7 @@ export class AppHomeComponent {
 
   loadLastInvoice(contractISU: string): void {
     this.invoicesService.getInvoices(contractISU).subscribe({
-      next: (invoices: Facture[]) => {
+      next: (invoices: Invoice[]) => {
 
         // Trier par date décroissante pour trouver la dernière facture
         const sortedInvoices = invoices.sort(

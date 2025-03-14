@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Facture } from '../../../../shared/models/facture-model';
+import { Invoice } from '../../../../shared/models/invoice-model';
 import { ButtonModule } from 'primeng/button';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -10,18 +10,23 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { Message } from 'primeng/message';
+import { InvoicesService } from '../../../../shared/services/invoices.service';
 
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message,ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
+  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
 export class AppInvoicesTableComponent implements OnChanges {
-  @Input() invoices: Facture[] = [];
+  @Input() invoices: Invoice[] = [];
   @Input() inputvalue: string = '';
   @ViewChild('dt') dt: Table | undefined;
+
+  selectedInvoices: Invoice[] = [];
+
+  constructor(private invoiceService: InvoicesService) { }
 
   ngOnChanges(): void {
     if (this.invoices.length > 0) {
@@ -33,7 +38,6 @@ export class AppInvoicesTableComponent implements OnChanges {
     }
   }
 
-  selectedInvoices: Facture[] = [];
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
@@ -49,10 +53,32 @@ export class AppInvoicesTableComponent implements OnChanges {
   filterGlobal(inputValue: string) {
     this.dt?.filterGlobal(inputValue, 'contains');
   }
-  payFacture(facture: Facture) {
+
+  payFacture(facture: Invoice) {
   }
 
-  deselectAllInvoices(){
-    this.selectedInvoices=[];
+  deselectAllInvoices() {
+    this.selectedInvoices = [];
+  }
+
+  downloadInvoiceDoc(invoiceNumber: string) {
+    this.invoiceService.downloadInvoiceByInvoiceNumber(invoiceNumber).subscribe({
+      next: (downloadUrl: any) => {
+        if (downloadUrl) {
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.target = '_blank';
+          a.download = `Facture numéro ${invoiceNumber}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          console.error("Aucune URL de téléchargement trouvée.");
+        }
+      },
+      error: (err) => {
+        console.error('Erreur de téléchargement...');
+      }
+    });
   }
 }

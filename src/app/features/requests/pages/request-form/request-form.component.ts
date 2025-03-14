@@ -15,11 +15,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppRequestsRequestSendedComponent } from '../../components/request-sended/request-sended.component';
 import { Contract } from '../../../../shared/models/contract.model';
-import { InputNumber } from 'primeng/inputnumber';
+import { map } from 'rxjs';
+import { AppRequestsHighlightComponent } from '../../components/highlight/highlight.component';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule,InputNumber, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, AppRequestsRequestSendedComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })

@@ -1,7 +1,7 @@
 <div class="row" style="margin-bottom: 20px;">
   <div class="col-md-3 mb-3">
     <p-datepicker [(ngModel)]="rangeDates" placeholder="01/01/2024-12/09/2025" [iconDisplay]="'input'" [showIcon]="true"
-      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" [style]="{width: '90%'}" />
+      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" [showClear]="true" [style]="{width: '100%'}" (onSelect)="onSelectDateRange()" (onClear)="onClearDateRange()"/>
   </div>
 
   <div class="col-md-3 mb-3">

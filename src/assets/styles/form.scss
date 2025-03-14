@@ -1,6 +1,9 @@
 .form-group {
     flex: 1 !important;
     margin-right: 10px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .label {

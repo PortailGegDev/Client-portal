@@ -4,19 +4,19 @@
     "routes": [
         {
             "source": "^/sap/opu/(.*)$",
-            "destination": "geg_fournisseur_s4_dev_200",
+            "destination": "geg_fournisseur_s4",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
+            "source": "^/DownloadFacture/(.*)$",
+            "destination": "geg_fournisseur_CPI",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
         {
             "source": "^/scim/(.*)$",
             "destination": "geg_fournisseur_CIS",
-            "authenticationType": "xsuaa",
-            "csrfProtection": false
-        },
-        {
-            "source": "^/Contact/(.*)$",
-            "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },

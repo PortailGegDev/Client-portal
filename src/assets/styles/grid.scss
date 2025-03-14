@@ -18,7 +18,9 @@
   grid-template-columns: repeat(3, 1fr); /* Trois colonnes égales */
 }
 
-
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr); /* Trois colonnes égales */
+}
 
 .grid-2-1 {
   grid-template-columns: 2fr 1fr; /* Deux colonnes : 2/3 et 1/3 */
@@ -60,12 +62,16 @@
 .grid-item-white {
   background-color: #ffffff;
   overflow: hidden; /* Empêche le contenu de déborder */
-
 }
 
 .grid-item-transparent {
   background-color: transparent;
   overflow: hidden; /* Empêche le contenu de déborder */
+  gap: 6px !important;
+}
+
+.grid-item-no-overflow {
+  background-color: transparent;
   gap: 6px !important;
 }
 
@@ -100,11 +106,16 @@
   .grid-3-1-1 > :nth-child(3) {
     justify-self: end; /* Alignement optionnel */
   }
+
+  .grid-4{
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 1000px) {
   .grid-2,
   .grid-3,
+  .grid-4,
   .grid-2-1,
   .grid-1-3,
   .grid-4-1 {
