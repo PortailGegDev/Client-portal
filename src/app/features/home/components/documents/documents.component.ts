@@ -8,12 +8,15 @@ import { ButtonModule } from 'primeng/button';
 import { User } from '../../../../shared/models/user.model';
 import { DocGeneratorService } from '../../services/doc-generator.service';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-home-documents',
-  imports: [CommonModule, PanelModule, TimeSpanToDatePipe, ButtonModule],
+  imports: [CommonModule, PanelModule, TimeSpanToDatePipe, ButtonModule, ToastModule],
   templateUrl: './documents.component.html',
-  styleUrl: './documents.component.scss'
+  styleUrl: './documents.component.scss',
+  providers: [MessageService]
 })
 export class AppHomeDocumentsComponent {
   @Input() lastInvoice: Invoice | null = null;
@@ -24,7 +27,8 @@ export class AppHomeDocumentsComponent {
 
   constructor(private router: Router,
     private docGeneratorService: DocGeneratorService,
-    private invoiceService: InvoicesService
+    private invoiceService: InvoicesService,
+    private messageService: MessageService
   ) { }
 
   payFacture(invoice: Invoice): void {
@@ -53,7 +57,7 @@ export class AppHomeDocumentsComponent {
         }
       },
       error: (err) => {
-        console.error('Erreur de téléchargement...');
+        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: err });
       }
     });
   }

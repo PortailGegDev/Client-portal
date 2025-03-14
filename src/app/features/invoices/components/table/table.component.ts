@@ -11,13 +11,15 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { Message } from 'primeng/message';
 import { InvoicesService } from '../../../../shared/services/invoices.service';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule],
+  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule, ToastModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrl: './table.component.scss',
+  providers: [MessageService]
 })
 export class AppInvoicesTableComponent implements OnChanges {
   @Input() invoices: Invoice[] = [];
@@ -26,7 +28,9 @@ export class AppInvoicesTableComponent implements OnChanges {
 
   selectedInvoices: Invoice[] = [];
 
-  constructor(private invoiceService: InvoicesService) { }
+  constructor(private invoiceService: InvoicesService,
+    private messageService: MessageService
+  ) { }
 
   ngOnChanges(): void {
     if (this.invoices.length > 0) {
@@ -77,7 +81,7 @@ export class AppInvoicesTableComponent implements OnChanges {
         }
       },
       error: (err) => {
-        console.error('Erreur de téléchargement...');
+        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: err });
       }
     });
   }
