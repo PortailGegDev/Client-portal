@@ -47,31 +47,6 @@
     <p-carousel [value]="headlines" [numVisible]="1" [showNavigators]="false" [circular]="false" [numScroll]="1"
         [showIndicators]="false" autoplayInterval="5000">
         <ng-template let-headline #item>
-
-            <!-- <div class="rounded-border m-2 p-4 bg-cover bg-center"
-                [ngStyle]="{'background-image': 'url(' + headline.img + ')'}">
-                <div class="card-text" style="margin: 10px; color: white;">
-                    <h2>{{ headline.icon }}</h2>
-                </div>
-            </div> -->
-
-
-            <!-- <div class="rounded-border m-2 p-4">
-
-                <div class="card-text" style="margin: 10px;"  [ngStyle]="{'background-image': 'url(' + headline.img + ')'}">
-                    <img src="{{ headline.img }}" [alt]="article.title" class="w-full rounded-border"
-                        style="width: 100%;" />
-                </div>
-
-            </div> -->
-
-            <!-- <div class="card-text" style="margin: 20px;">
-                <div class="relative mx-auto">
-                    <img src="{{ headline.img }}" [alt]="headline.title" class="w-full rounded-border"
-                        style="width: 100%;" />
-                </div>
-            </div> -->
-
             <img src="{{ headline.img }}" style="width: 100%;">
         <div class="icon-service">
             <div class="icon-frame">{{ headline.icon}}</div>

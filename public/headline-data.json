@@ -9,6 +9,11 @@
             "icon": "Chèque énergie",
             "text": "Ce mois-ci saisissez votre chèque énergie",
             "img": "/images/eco-geste copy.jpg"
+        },
+        {
+            "icon": "Chèque énergie",
+            "text": "Ce mois-ci saisissez votre chèque énergie",
+            "img": "/images/service-facture copy.jpg"
         }
     ]
 }
