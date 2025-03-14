@@ -24,10 +24,11 @@
 
    .value {
     color: #544e4e;
-    font-size: 14px;
     font-family: Figtree;
-    font-weight: 400;
-    line-height: 19px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
   .tittle{
     color: var(--Black, #3A3A3A);
@@ -40,3 +41,15 @@
   letter-spacing: -0.22px;
   }
   
+  .pi-bolt:before {
+    border-radius: 24px;
+    color: aliceblue;
+    background: var(--Dataviz-01, #0DB58D);
+    display: flex;
+    width: 24px;
+    height: 24px;
+    padding: 3px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}

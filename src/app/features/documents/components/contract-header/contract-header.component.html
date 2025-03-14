@@ -20,7 +20,7 @@
             <tr class="responsive-row">
                 <th class="label" style="min-width: 12rem">Titulaire</th>
                 <th class="label" style="min-width: 12rem">Lieu de consommation</th>
-                <th class="label" style="min-width: 12rem">Puissance</th>
+                 <th class="label" style="min-width: 12rem">Puissance</th>           
                 <th class="label" style="min-width: 12rem">Option tarifaire</th>
             </tr>
         </ng-template>
@@ -28,9 +28,13 @@
         <ng-template #body let-contract>
             <tr>
                 <td class="value" style="min-width: 12rem">{{ contract.PayerFullName }}</td>
-                <td class="value" style="min-width: 16rem">{{ contract.HouseNumber }} {{ contract.StreetName }}, {{ contract.PostalCode }} {{ contract.CityName }}</td>
-                <td class="value" style="min-width: 12rem">{{ contract.GazDeliveryRate }}</td>
-                <td class="value" style="min-width: 12rem">{{ contract.TarifOption }}</td>
+                <td class="value" style="min-width: 16rem">{{ contract.AddressCompteur}} </td>
+                  
+                <td class="value" style="min-width: 12rem"> 
+                    <i class="pi pi-bolt"></i>
+                    {{ contract.Power_BTINF}} kVA
+                </td>
+                <td class="value" style="min-width: 12rem">{{ contract.TarifOption}}</td>
             </tr>
         </ng-template>
     </p-table>
