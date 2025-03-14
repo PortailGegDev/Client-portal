@@ -60,7 +60,6 @@ export class ContractService {
 
   getContractsByContractISUList(contractsISUList: string[]): Observable<ContractDetails[]> {
     let filter = `ContractISU eq '${contractsISUList[0]}'`;
-
     contractsISUList.forEach((element: string) => {
       if (contractsISUList.indexOf(element) === 0) {
         return;
