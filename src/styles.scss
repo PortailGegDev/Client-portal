@@ -123,12 +123,6 @@
   /* Transition de couleur de fond */
 }
 
-.invoice-status {
-  display: flex;
-  align-items: center;
-  margin-top: -20px;
-}
-
 .invoice-icon {
   width: 30px;
   height: 30px;
@@ -168,23 +162,21 @@
   display: flex;
   width: 100%;
   padding: 5px;
-  // justify-content: space-evenly;
   align-items: center;
-  border-radius: var(--Radius-Radius-CTA, 4px);
-  border: 1px solid var(--Grey-30, rgba(84, 78, 78, 0.30));
+  border-radius: 4px;
+  border: 1px solid rgba(84, 78, 78, 0.30);
 }
 
-.bb {
+.payment-button {
   display: flex;
-  height: var(--Dimensions-Padding-24, 24px);
-  padding: var(--Dimensions-Padding-8, 8px);
+  height: 30px;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
   border: none;
   color: white;
-  margin-left: 75px;
-  background: var(--Semantic-Danger, #FF6C00);
+  background: #FF6C00;
+  margin-left: auto;
 }
 
 .container {

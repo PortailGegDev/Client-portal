@@ -46,13 +46,6 @@
   grid-template-columns: 4fr 1fr; /* Trois colonnes : 3/6, 2/6, 1/6 */
 }
 
-/* Classes utilitaires pour le responsive */
-@media (min-width: 1200px) and (max-width: 1500px) {
-  .grid-3-1-1{
-    grid-template-columns: 3fr 1fr 1fr;
-  }
-}
-
 /* Styles pour les éléments de la grille */
 .grid-item {
   background-color: #f0f0f0;
@@ -79,6 +72,13 @@
 .grid-item img {
   max-width: 100%; /* Limite la largeur de l'image à celle de la colonne */
   height: auto; /* Garde le ratio de l'image */
+}
+
+/* Classes utilitaires pour le responsive */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .grid-3-1-1{
+    // grid-template-columns: 2fr 1fr 1fr;
+  }
 }
 
 @media (min-width: 700px) and (max-width: 1200px) {
