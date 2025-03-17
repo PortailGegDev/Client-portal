@@ -1,0 +1,129 @@
+.tittle {
+    color: var(--Black, #3A3A3A);
+    font-family: Figtree;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.22px;
+}
+
+.card {
+    padding: 20px;
+    gap: 24px;
+}
+
+.button-containerr {
+    color: #AAB614;
+    font-size: 16px;
+    font-family: Figtree;
+    font-weight: 600;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+
+.p-button-service {
+    display: flex;
+    background: #AAB614;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+.box-badge {
+    border-radius: 4px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: -90px;
+  }
+
+   
+  .box {
+    width: auto;
+    height:auto;
+    padding: 16px;
+    background-size: cover;
+    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    overflow: hidden;
+    align-items: normal !important;
+  }
+  
+  .box-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background-color: white;
+    width: 85px;
+  }
+  
+  .box-icon {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .box-icon-inner {
+    width: 12px;
+    height: 9.63px;
+    background: #1E1E1E;
+  }
+  
+  .box-status {
+    color: #3A3A3A;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.44px;
+    word-wrap: break-word;
+  }
+  
+  
+  .box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 92.5px;
+  }
+  
+  .box-price {
+    color: #E2F133;
+    font-size: 16px;
+    font-weight: 600;
+    word-wrap: break-word;
+  }
+  
+  .box-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 35px;
+  }
+  
+
+  .box-service {
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.44px;
+    word-wrap: break-word;
+  }
+  
+  .box-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21.60px;
+    word-wrap: break-word;
+  }
+  
+

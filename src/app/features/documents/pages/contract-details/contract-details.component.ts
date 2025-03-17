@@ -8,10 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { AppDocumentsContractDocumentComponent } from '../../components/contract-document/contract-document.component';
 import { AppDocumentsContractPaymentComponent } from '../../components/contract-payment/contract-payment.component';
 import { AppDocumentsContractInvoiceComponent } from '../../components/contract-invoice/contract-invoice.component';
+import { AppDocumentsContractServiceComponent } from '../../components/contract-service/contract-service.component';
+
+
 
 @Component({
   selector: 'app-contract-details',
-  imports: [CommonModule, FormsModule, AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent],
+  imports: [CommonModule, FormsModule,AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent,AppDocumentsContractServiceComponent],
   templateUrl: './contract-details.component.html',
   styleUrl: './contract-details.component.scss',
 })
@@ -45,5 +48,4 @@ export class AppDocumentContractDetailsComponent {
   RetourEnBack() {
     this.router.navigate(['documents']);
   }
-
 }

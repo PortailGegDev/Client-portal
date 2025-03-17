@@ -1,0 +1,35 @@
+
+
+<div class="card flex justify-center">
+    <div class="d-flex align-items-center gap-3">
+        <h1 class="tittle">Services souscrits</h1>
+        <span class="button-containerr">Découvrir d'autres services</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+    </div>
+      <div class="row g-3">
+        @for (box of boxData; track box.status){
+        <div class="col-12 col-md-6 col-lg-3 mb-3" >
+            <div class="box" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
+                <div class="box-header d-flex align-items-center">
+              <img class="box-icon" [src]="box.icon" alt="Icon">
+              <div class="box-status">{{ box.status }}</div>
+            </div>
+            <div class="box-content">
+              <div class="box-price">{{ box.price }}</div>
+              <div class="box-details">
+                <div class="box-service">{{ box.service }}</div>
+                <div class="box-title">{{ box.title }}</div>
+              </div>
+            </div>
+            <div class="box-badge">
+                <svg style="background: #D4E22C;" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                    <path d="M6 12.5H18M18 12.5L13 7.5M18 12.5L13 17.5" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+            </div>
+          </div>
+        </div>
+    }
+      </div>
+</div>

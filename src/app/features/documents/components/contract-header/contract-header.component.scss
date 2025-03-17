@@ -39,4 +39,11 @@
   line-height: 100%; /* 22px */
   letter-spacing: -0.22px;
   }
-  
+  .border-green {
+    border-left: 1px solid #D4E22C; /* Vert Bootstrap */
+}
+
+::ng-deep .bg-light {
+  --bs-bg-opacity: 1;
+  background-color:#fefde9 !important;
+}

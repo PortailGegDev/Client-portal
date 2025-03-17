@@ -1,15 +1,23 @@
-.tittle{
-    color: var(--Black, #3A3A3A);
-  /* Desktop/H3 */
+.tittle {
+  color: var(--Black, #3A3A3A);
   font-family: Figtree;
   font-size: 22px;
   font-style: normal;
   font-weight: 600;
-  line-height: 100%; /* 22px */
+  line-height: 100%;
   letter-spacing: -0.22px;
-  }
+}
 
-  .card{
-    padding: 20px;
-        gap: 24px;
-      }
+.card {
+  padding: 20px;
+  gap: 24px;
+}
+
+.button-containerr {
+  color: #AAB614;
+  font-size: 16px;
+  font-family: Figtree;
+  font-weight: 600;
+  word-wrap: break-word;
+  cursor: pointer;
+}
