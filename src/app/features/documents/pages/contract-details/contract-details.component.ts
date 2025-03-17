@@ -9,6 +9,7 @@ import { AppDocumentsContractDocumentComponent } from '../../components/contract
 import { AppDocumentsContractPaymentComponent } from '../../components/contract-payment/contract-payment.component';
 import { AppDocumentsContractInvoiceComponent } from '../../components/contract-invoice/contract-invoice.component';
 import { AppDocumentsContractServiceComponent } from '../../components/contract-service/contract-service.component';
+import { Contract } from '../../../../shared/models/contract.model';
 
 
 
@@ -20,9 +21,11 @@ import { AppDocumentsContractServiceComponent } from '../../components/contract-
 })
 export class AppDocumentContractDetailsComponent {
   contracts: ContractDetails[] = [];
+  contractsSignal: Contract[]=[];
   allContracts: ContractDetails[] = [];
   constructor(private router: Router,
     private contractService: ContractService, private activeRoute: ActivatedRoute) {
+      
     this.activeRoute.params.subscribe(params => {
       const contractIsu:string[]=[];
        contractIsu.push(params['contractIsu'])

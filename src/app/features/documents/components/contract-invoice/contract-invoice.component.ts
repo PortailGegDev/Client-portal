@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ContractDetails } from '../../../../shared/models/contract-details.model';
 import { PanelModule } from 'primeng/panel';
+import { Contract } from '../../../../shared/models/contract.model';
+import { ContractService } from '../../../../shared/services/contract.service';
 
 @Component({
   selector: 'app-documents-contract-invoice',
@@ -12,4 +14,9 @@ import { PanelModule } from 'primeng/panel';
 })
 export class AppDocumentsContractInvoiceComponent {
   @Input() contracts: ContractDetails[] = [];
+    // @Input() contracts: Signal<Contract[]>;
+
+    // constructor(private contractService: ContractService){
+    //   this.contracts = this.contractService.contracts;
+    // }
 }

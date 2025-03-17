@@ -14,21 +14,24 @@
         <p-button icon="pi pi-download" [text]="true" iconPos="right" severity="help" label="Télécharger"/>
     </div>
 
-
     <div class="row bg-light p-3 mt-3 rounded">
         <div class="col-md-3">
             <h6 class="text-muted label">TITULAIRE</h6>
-            <p class="mb-1"><strong>Eugénie Verret</strong></p>
-            <p class="mb-0"><strong>Valentin Verret</strong> (co-titulaire) <i class="pi pi-info-circle"></i></p>
+            <p class="mb-1"><strong>Nom et Prénom</strong></p>
+            <p class="mb-0"><strong>nom de co-titulaire</strong> (co-titulaire) <i class="pi pi-info-circle"></i></p>
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">LIEU DE CONSOMMATION</h6>
-            <p class="mb-0"><strong>16 rue Pierre Larousse, 75014 Paris</strong></p>
-            <p class="mb-0"><strong>PDL n° 123456</strong></p>
+            <p class="mb-0"><strong>{{contract.AddressCompteur}}</strong></p>
+            <p class="mb-0"><strong>PDL n° </strong></p>
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">PUISSANCE</h6>
-            <p class="mb-0"><i class="bi bi-lightning-fill text-success"></i> <strong>9kVA</strong></p>
+            <p class="mb-0">
+                <strong>{{contract.Power_BTINF}} kVA</strong>
+                <i class="pi pi-bolt"></i>
+            </p>
+
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">OPTION TARIFAIRE</h6>
