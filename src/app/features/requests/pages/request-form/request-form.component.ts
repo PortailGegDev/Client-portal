@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit, Signal, signal } from '@angular/core';
+import { Component, OnInit, Signal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,12 +15,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppRequestsRequestSendedComponent } from '../../components/request-sended/request-sended.component';
 import { Contract } from '../../../../shared/models/contract.model';
-import { map } from 'rxjs';
 import { AppRequestsHighlightComponent } from '../../components/highlight/highlight.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, InputNumberModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss'
 })
@@ -31,12 +31,11 @@ export class AppRequestsFormComponent implements OnInit {
   reclamationMotifs: any[] | undefined;
   form!: FormGroup;
   contractList: Contract[] = [];
-  currentUser = signal<User | undefined>(undefined);
   requestSended: boolean = false;
   shouldShowGasReading: boolean = false;
   shouldShowElectricityReading: boolean = false;
 
-  // Utilisez les signaux du ContractService
+  currentUser = signal<User | undefined>(undefined);
   contracts: Signal<Contract[]>;
 
   get lastNameForm(): any { return this.form.get('lastName'); }
@@ -66,7 +65,7 @@ export class AppRequestsFormComponent implements OnInit {
   get rescisionForm(): any { return this.form.get('rescision'); }
   get relocationadresseDeLogementForm(): any { return this.form.get('relocationadresseDeLogement'); }
   get relocationadresseFactureForm(): any { return this.form.get('relocationadresseFacture'); }
-  get relocationContratForm(): any { return this.form.get('relocationContrat'); }
+  get selectedContractForm(): any { return this.form.get('selectedContract'); }
   get relocationAdresseNouveauLogementForm(): any { return this.form.get('relocationAdresseNouveauLogement'); }
 
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
@@ -84,13 +83,6 @@ export class AppRequestsFormComponent implements OnInit {
 
     this.title = this.getPageTitle(this.requestType);
     this.contracts = this.contractService.contracts;
-
-    effect(() => {
-      //  this.contractList = this.contracts().map((contract: Contract) => ({
-      //     name :`${contract.BusinessSector ==='01'? 'Electricité' :'Gas'} - ${contract.HouseNumber} ${contract.StreetName} ${contract.PostalCode} ${contract.CityName}` ,
-      //     code: contract.ContractISU,
-      //   }));   
-    });
   }
 
   ngOnInit() {
@@ -133,7 +125,7 @@ export class AppRequestsFormComponent implements OnInit {
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      relocationContrat: [[]],
+      selectedContract: [[]],
       relocationAdresseNouveauLogement: ['']
     });
 
@@ -163,24 +155,23 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionInvoicePostalCode');
       this.setControlRequired('rescissionInvoiceCity');
       this.setControlRequired('rescissionDepartureDate');
-      this.setControlRequired('rescissionContract');
+      this.setControlRequired('selectedContract');
     }
 
     if (this.isRelocation) {
       this.setControlRequired('relocationadresseDeLogement');
       this.setControlRequired('relocationadresseFacture')
-      this.setControlRequired('relocationContrat');
+      this.setControlRequired('selectedContract');
       this.setControlRequired('rescissionDepartureDate');
     }
 
-    this.relocationContratForm?.valueChanges.subscribe((value: any) => {
+    this.selectedContractForm?.valueChanges.subscribe((value: any) => {
       if (value.length > 0) {
         this.shouldShowGasReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.GAZ);
         this.shouldShowElectricityReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.ELECTRICITY);
       }
     });
   }
-
 
   initForm() {
     const user = this.currentUser();
@@ -241,9 +232,8 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   getSelectedContractLabel(): string {
-    console.log(this.relocationContratForm)
-    if (this.relocationContratForm.value.length > 0) {
-      return this.getContractLabel(this.relocationContratForm.value[0]);
+    if (this.selectedContractForm.value.length > 0) {
+      return this.getContractLabel(this.selectedContractForm.value[0]);
     }
 
     return '';
