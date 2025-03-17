@@ -39,7 +39,6 @@ export class AppHomeComponent {
     private authService: AuthService) {
       this.selectedContract = this.contractService.selectedContract;
 
-    // Effet : Réagir aux changements de selectedContract
     effect(() => {
       if (this.selectedContract()) {
         this.loadConsumption(this.selectedContract()!.ContractISU);

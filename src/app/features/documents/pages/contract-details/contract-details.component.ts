@@ -24,7 +24,8 @@ export class AppDocumentContractDetailsComponent {
   constructor(private router: Router,
     private contractService: ContractService, private activeRoute: ActivatedRoute) {
     this.activeRoute.params.subscribe(params => {
-      const contractIsu = [...params['contractIsu']]
+      const contractIsu:string[]=[];
+       contractIsu.push(params['contractIsu'])
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
         next: (contracts: ContractDetails[]) => { this.contracts = contracts }
       })

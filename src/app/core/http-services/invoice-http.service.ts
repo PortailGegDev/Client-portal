@@ -35,8 +35,9 @@ export class InvoiceHTTPService extends BaseHttpService {
     let url = `${this.apiSP}/${invoiceNumber}`;
 
     return this.http.post<any>(url, {}).pipe(
-      map(response => response.value?.[0]?.["@microsoft.graph.downloadUrl"]), // Récupérer l'URL de téléchargement
+      map(response => response.value?.[0]?.["@microsoft.graph.downloadUrl"]),
       catchError(error => {
+
         console.error('Erreur lors de la récupération du lien de téléchargement', error);
         return throwError(() => new Error('Impossible de récupérer le fichier.'));
       })
