@@ -84,7 +84,7 @@ export class NavBarComponent {
           routerLink: ['/profile']
         },
         { separator: true },
-        { label: 'Me déconnecter' }
+        { label: 'Me déconnecter', command: () => this.logout() }
       ];
     });
   }
