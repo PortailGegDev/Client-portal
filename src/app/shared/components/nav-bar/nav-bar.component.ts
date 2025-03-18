@@ -95,6 +95,6 @@ export class NavBarComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/logout']);
+    this.router.navigate(['https://client-portal-002.cfapps.eu10-004.hana.ondemand.com/logout']);
   }
 }
