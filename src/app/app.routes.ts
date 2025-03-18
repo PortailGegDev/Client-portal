@@ -13,6 +13,7 @@ import { AppRequestsFaqComponent } from './features/requests/pages/faq/faq.compo
 import { AppProfileComponent } from './features/profile/pages/profile/profile.component';
 import { AppProfileLodgementDetailsComponent } from './features/profile/pages/lodgement-details/lodgement-details.component';
 import { AppRequestsFormComponent } from './features/requests/pages/request-form/request-form.component';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -32,5 +33,6 @@ export const routes: Routes = [
     { path: 'requests/power-modification', component: AppRequestsFormComponent },
     { path: 'profile', component: AppProfileComponent },
     { path: 'profile/lodgement-details', component: AppProfileLodgementDetailsComponent },
+    { path: 'logout', component: LogoutComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

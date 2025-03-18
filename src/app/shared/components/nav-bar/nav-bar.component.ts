@@ -84,17 +84,15 @@ export class NavBarComponent {
           routerLink: ['/profile']
         },
         { separator: true },
-        { label: 'Me déconnecter', command: () => this.logout() }
+        {
+          label: 'Me déconnecter',
+          routerLink: ['/logout']
+        }
       ];
     });
   }
 
   navigateHome() {
     this.router.navigate(['home']);
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('https://client-portal-002.cfapps.eu10-004.hana.ondemand.com/logout');
   }
 }

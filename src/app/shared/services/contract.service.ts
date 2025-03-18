@@ -97,11 +97,13 @@ export class ContractService {
     this.selectedContractSignal.set(contract);
   }
 
+  cleanContracts() {
+    this.contractsSignal.set([]);
+    this.selectedContractSignal.set(null);
+    this.isSelectedContractPartnerSignal.set(false);
+  }
+
   updateSelectedPartnerContract(isContractPartner: boolean) {
     this.isSelectedContractPartnerSignal.set(isContractPartner);
   }
-
-
-  
-  
 }
