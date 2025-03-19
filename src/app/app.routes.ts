@@ -14,11 +14,13 @@ import { AppProfileComponent } from './features/profile/pages/profile/profile.co
 import { AppProfileLodgementDetailsComponent } from './features/profile/pages/lodgement-details/lodgement-details.component';
 import { AppRequestsFormComponent } from './features/requests/pages/request-form/request-form.component';
 import { LogoutComponent } from './shared/components/logout/logout.component';
+import { AppInvoicesPaypageComponent } from './features/invoices/components/paypage/paypage.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
     { path: 'consumption', component: AppConsumptionComponent },
     { path: 'invoices', component: AppInvoicesComponent },
+    { path: 'invoices/paypage/orderId/:invoiceNumber/amount/:amount', component: AppInvoicesPaypageComponent },
     { path: 'documents', component: AppDocumentsComponent },
     { path: 'documents/contract-details/:contractIsu', component: AppDocumentContractDetailsComponent },
     { path: 'services', component: AppServicesComponent },

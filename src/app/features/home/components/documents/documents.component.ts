@@ -7,7 +7,7 @@ import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pi
 import { ButtonModule } from 'primeng/button';
 import { User } from '../../../../shared/models/user.model';
 import { DocGeneratorService } from '../../services/doc-generator.service';
-import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 

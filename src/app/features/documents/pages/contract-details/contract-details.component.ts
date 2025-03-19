@@ -15,20 +15,20 @@ import { Contract } from '../../../../shared/models/contract.model';
 
 @Component({
   selector: 'app-contract-details',
-  imports: [CommonModule, FormsModule,AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent,AppDocumentsContractServiceComponent],
+  imports: [CommonModule, FormsModule, AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent, AppDocumentsContractServiceComponent],
   templateUrl: './contract-details.component.html',
   styleUrl: './contract-details.component.scss',
 })
 export class AppDocumentContractDetailsComponent {
   contracts: ContractDetails[] = [];
-  contractsSignal: Contract[]=[];
+  contractsSignal: Contract[] = [];
   allContracts: ContractDetails[] = [];
   constructor(private router: Router,
-    private contractService: ContractService, private activeRoute: ActivatedRoute) {
-      
-    this.activeRoute.params.subscribe(params => {
-      const contractIsu:string[]=[];
-       contractIsu.push(params['contractIsu'])
+    private contractService: ContractService, private activatedRoute: ActivatedRoute) {
+
+    this.activatedRoute.params.subscribe(params => {
+      const contractIsu: string[] = [];
+      contractIsu.push(params['contractIsu']);
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
         next: (contracts: ContractDetails[]) => { this.contracts = contracts }
       })

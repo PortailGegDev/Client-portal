@@ -10,9 +10,10 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { Message } from 'primeng/message';
-import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { InvoicesService } from '../../services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoices-table',
@@ -29,7 +30,8 @@ export class AppInvoicesTableComponent implements OnChanges {
   selectedInvoices: Invoice[] = [];
 
   constructor(private invoiceService: InvoicesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   ngOnChanges(): void {
@@ -58,7 +60,12 @@ export class AppInvoicesTableComponent implements OnChanges {
     this.dt?.filterGlobal(inputValue, 'contains');
   }
 
-  payFacture(facture: Invoice) {
+  payInvoice(invoice: Invoice) {
+    if (invoice.StatusInvoicingDocument === 'Totalement Soldée') {
+      return;
+    }
+
+    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', Math.abs(invoice.TotalAmountHT)]);
   }
 
   deselectAllInvoices() {

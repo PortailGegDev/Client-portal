@@ -92,7 +92,7 @@
             (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
           }
           @if(invoice.StatusInvoicingDocument ==='Non Soldée'){
-          <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" />
+          <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" (click)="payInvoice(invoice)"/>
           }
         </div>
       </td>

@@ -13,7 +13,7 @@ import { AppHomeDocumentsComponent } from '../../components/documents/documents.
 import { AppHomeConsumptionComponent } from '../../components/consumption/consumption.component';
 import { ArticlesComponent } from '../../../../shared/components/articles/articles.component';
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
-import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { Contract } from '../../../../shared/models/contract.model';
 

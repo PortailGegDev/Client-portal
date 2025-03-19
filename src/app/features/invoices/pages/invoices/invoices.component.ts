@@ -7,7 +7,7 @@ import { ContractService } from '../../../../shared/services/contract.service';
 import { AppInvoicesFilterComponent } from '../../components/filter/filter.component';
 import { AppInvoicesTableComponent } from '../../components/table/table.component';
 import { Invoice } from '../../../../shared/models/invoice-model';
-import { InvoicesService } from '../../../../shared/services/invoices.service';
+import { InvoicesService } from '../../services/invoices.service';
 import { PanelModule } from 'primeng/panel';
 import { Contract } from '../../../../shared/models/contract.model';
 
