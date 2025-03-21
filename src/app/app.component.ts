@@ -10,7 +10,7 @@ import { Contract } from './shared/models/contract.model';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, NavBarComponent, FooterComponent, LoadingSpinnerComponent],
+  imports: [RouterOutlet, ButtonModule, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

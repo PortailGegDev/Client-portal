@@ -16,7 +16,7 @@ export class PaymentHttpService {
   initiatePayment(paymentData: PaymentData): Observable<PaymentRedirection | undefined> {
     return this.http.post<PaymentRedirection>(`${this.paymentUrl}/initiate-payment`, paymentData)
       .pipe(
-        map((response: PaymentRedirection) => response || []),
+        map((response: PaymentRedirection) => response || undefined),
         catchError(error => {
           console.error('erreur lors de la récupperation du lien de payement en ligne', error);
           return of(undefined);

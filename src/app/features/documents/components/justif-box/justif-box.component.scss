@@ -1,0 +1,38 @@
+::ng-deep .p-card-body {
+    padding: 10px !important;
+}
+
+.tittle {
+    color: #3A3A3A;
+    font-family: Figtree;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.22px;
+}
+
+.document-title {
+    align-self: stretch;
+    height: 21px;
+    color: #3A3A3A;
+    font-size: 16px;
+    font-family: Figtree;
+    font-weight: 500;
+    line-height: 19px;
+    word-wrap: break-word;
+}
+
+.document-date {
+    width: 114px;
+    color: #544E4E;
+    font-size: 12px;
+    font-family: Figtree;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.card {
+    padding: 20px;
+    gap: 24px;
+}
