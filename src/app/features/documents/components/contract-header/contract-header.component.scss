@@ -1,17 +1,4 @@
-::ng-deep .p-datatable thead tr th {
-    background-color: transparent !important;
-}
-::ng-deep .p-datatable-tbody  tr {
-    background-color: transparent !important;
-}
-::ng-deep .p-datatable-tbody > tr > td {
-    border-style: none !important;
-  }
-  
-::ng-deep .p-datatable-table {
-    background-color: #fefde9;
-  }
-  
+
 .label {
     color: #878686;
      font-size: 11px;
@@ -47,4 +34,11 @@
 ::ng-deep .bg-light {
   --bs-bg-opacity: 1;
   background-color:#fefde9 !important;
+}
+
+.pi.pi-bolt {
+  border-radius: 30px;
+  background: var(--Dataviz-01, #0DB58D) !important;
+  padding: 4px 5px;
+  align-items: center;
 }

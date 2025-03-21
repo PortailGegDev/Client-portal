@@ -9,7 +9,7 @@
                 stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         &nbsp;
-        <label class="tittle">Contrat n° {{contract.ContractISU}}</label>
+        <label class="tittle">Contrat n° {{contract?.ContractISU}}</label>
         &nbsp;
         <p-button icon="pi pi-download" [text]="true" iconPos="right" severity="help" label="Télécharger"/>
     </div>
@@ -17,26 +17,27 @@
     <div class="row bg-light p-3 mt-3 rounded">
         <div class="col-md-3">
             <h6 class="text-muted label">TITULAIRE</h6>
-            <p class="mb-1"><strong>Nom et Prénom</strong></p>
+            <p class="mb-1"><strong>{{contract?.PayerFullName}}</strong></p>
             <p class="mb-0"><strong>nom de co-titulaire</strong> (co-titulaire) <i class="pi pi-info-circle"></i></p>
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">LIEU DE CONSOMMATION</h6>
-            <p class="mb-0"><strong>{{contract.AddressCompteur}}</strong></p>
-            <p class="mb-0"><strong>PDL n° </strong></p>
+            <p class="mb-0"><strong>{{contractDetails?.AddressCompteur}}</strong></p>
+            <p class="mb-0"><strong>PDL n° {{contract?.Pod}} </strong></p>
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">PUISSANCE</h6>
             <p class="mb-0">
-                <strong>{{contract.Power_BTINF}} kVA</strong>
                 <i class="pi pi-bolt"></i>
+                <strong> {{contractDetails?.Power_BTINF}} kVA</strong>
+            
             </p>
 
         </div>
         <div class="col-md-3 border-green">
             <h6 class="text-muted label">OPTION TARIFAIRE</h6>
-            <p class="mb-0"><strong>Double tarif</strong></p>
-            <p class="mb-0"><strong>Heures creuses (6-8h, 14-16h, 22-23h)</strong></p>
+            <p class="mb-0"><strong>{{contractDetails?.ProductName}}</strong></p>
+            <p class="mb-0"><strong>{{contractDetails?.TarifOption}}</strong></p>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Signal } from '@angular/core';
 import { Contract } from '../../../../shared/models/contract.model';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
@@ -13,10 +13,12 @@ import { ContractDetails } from '../../../../shared/models/contract-details.mode
   styleUrl: './contract-header.component.scss'
 })
 export class AppDocumentsContractHeaderComponent {
-  @Input() contracts: ContractDetails[] = [];
+  @Input() contractDetails: ContractDetails | undefined;
+  @Input() contract: Contract | undefined;
+ 
 
 
-  get contract(): ContractDetails {
-    return this.contracts.length > 0 ? this.contracts[0] : { ContractISU: 'N/A' } as ContractDetails;
-  }
+  // get contract(): ContractDetails {
+  //   return this.contracts.length > 0 ? this.contracts[0] : { ContractISU: 'N/A' } as ContractDetails;
+  // }
 }

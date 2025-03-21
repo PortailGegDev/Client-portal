@@ -13,7 +13,7 @@ import { ContractService } from '../../../../shared/services/contract.service';
   styleUrl: './contract-invoice.component.scss'
 })
 export class AppDocumentsContractInvoiceComponent {
-  @Input() contracts: ContractDetails[] = [];
+  @Input() contract: Contract | undefined;
     // @Input() contracts: Signal<Contract[]>;
 
     // constructor(private contractService: ContractService){

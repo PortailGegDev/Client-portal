@@ -14,6 +14,7 @@ export class ContractService {
   private selectedContractSignal = signal<Contract | null>(null);
   private isSelectedContractPartnerSignal = signal<boolean>(false);
 
+
   contracts = computed(() => this.contractsSignal());
   selectedContract = computed(() => this.selectedContractSignal());
   isSelectedContractPartner = computed(() => this.isSelectedContractPartnerSignal());

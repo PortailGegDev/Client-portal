@@ -20,19 +20,28 @@ import { Contract } from '../../../../shared/models/contract.model';
   styleUrl: './contract-details.component.scss',
 })
 export class AppDocumentContractDetailsComponent {
-  contracts: ContractDetails[] = [];
-  contractsSignal: Contract[] = [];
+  contractDetails: ContractDetails | undefined;
   allContracts: ContractDetails[] = [];
+  contractsList: Signal<Contract[]>;
+  contract: Contract | undefined;
+
   constructor(private router: Router,
     private contractService: ContractService, private activatedRoute: ActivatedRoute) {
+      this.contractsList = this.contractService.contracts;
+
 
     this.activatedRoute.params.subscribe(params => {
       const contractIsu: string[] = [];
       contractIsu.push(params['contractIsu']);
+      
+      this.contract= this.contractsList().find(item => item.ContractISU === params['contractIsu']);
+
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
-        next: (contracts: ContractDetails[]) => { this.contracts = contracts }
+        next: (contracts: ContractDetails[]) => { this.contractDetails = contracts[0] }
       })
     });
+
+
   }
 
   private loadContract(contractsISUList: string[]) {
