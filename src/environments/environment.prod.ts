@@ -6,5 +6,5 @@ export const environment = {
     apiUrlContractList: '/sap/opu/odata/SAP/ZAPI_SAP_PORTAL_V2',
     apiAuthUser: '/scim',
     apiSP : '/DownloadFacture',
-    apiPayment : '/DF/PaiementEnLigne'
+    apiPayment : '/qf200/paiementenligne'
 };

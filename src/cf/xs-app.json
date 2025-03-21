@@ -15,7 +15,7 @@
             "csrfProtection": false
         },
         {
-            "source": "^/DF/PaiementEnLigne/(.*)$",
+            "source": "^/qf200/(.*)$",
             "destination": "geg_fournisseur_CPI",
             "authenticationType": "xsuaa",
             "csrfProtection": false

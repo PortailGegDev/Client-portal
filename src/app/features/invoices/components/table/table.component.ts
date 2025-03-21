@@ -61,11 +61,8 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   payInvoice(invoice: Invoice) {
-    if (invoice.StatusInvoicingDocument === 'Totalement Soldée') {
-      return;
-    }
-
-    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', Math.abs(invoice.TotalAmountHT)]);
+   
+    this.router.navigate(['invoices', 'paypage', 'orderId', 547534343436473, 'amount', 2000]);
   }
 
   deselectAllInvoices() {

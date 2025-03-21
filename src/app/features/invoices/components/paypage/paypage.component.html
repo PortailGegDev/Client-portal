@@ -1,7 +1,9 @@
 <h1>Paiement de la facture numéro {{ orderId }}</h1>
 <p>Redirection vers la page de payement ...</p>
 
-<!-- <form #paypageForm method="post" [action]="redirectionUrl" style="display: none;">
+@if(executePayment){
+<form #paypageForm method="post" [action]="redirectionUrl" style="display: none;">
     <input type="hidden" name="redirectionVersion" [value]="redirectionVersion">
     <input type="hidden" name="redirectionData" [value]="redirectionData">
-</form> -->
+</form>
+}

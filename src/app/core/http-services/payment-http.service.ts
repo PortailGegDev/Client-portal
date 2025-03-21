@@ -15,7 +15,6 @@ export class PaymentHttpService {
   constructor(private http: HttpClient) { 
     this.paymentUrl = environment.apiPayment;
   }
-
   initiatePayment(paymentData: PaymentData): Observable<PaymentRedirection | undefined> {
     return this.http.post<PaymentRedirection>(`${this.paymentUrl}`, paymentData)
       .pipe(
