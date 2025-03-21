@@ -19,7 +19,7 @@ import { Contract } from '../../../../shared/models/contract.model';
 
 @Component({
   selector: 'app-home',
-  imports: [AppHomeCarouselComponent, AppHomeDocumentsComponent, AppHomeConsumptionComponent, ActiveContractComponent, ArticlesComponent, HeadlineComponent, CommonModule, LoadingSpinnerComponent, LoadingSpinnerComponent],
+  imports: [AppHomeCarouselComponent, AppHomeDocumentsComponent, AppHomeConsumptionComponent, ActiveContractComponent, ArticlesComponent, HeadlineComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

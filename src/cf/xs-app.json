@@ -15,6 +15,12 @@
             "csrfProtection": false
         },
         {
+            "source": "^/DF/PaiementEnLigne/(.*)$",
+            "destination": "geg_fournisseur_CPI",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
+        {
             "source": "^/scim/(.*)$",
             "destination": "geg_fournisseur_CIS",
             "authenticationType": "xsuaa",
