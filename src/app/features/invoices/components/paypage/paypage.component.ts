@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentData } from '../../../../shared/models/payment-data.model';
 import { ActivatedRoute } from '@angular/router';
@@ -14,14 +13,13 @@ import { take } from 'rxjs';
 })
 export class AppInvoicesPaypageComponent implements OnInit {
 
-  @ViewChild('paypageForm') paypageForm: any;
   redirectionUrl: string = '';
   redirectionVersion: string = '';
   redirectionData: string = '';
 
   orderId: string = '';
   amount: number = 0;
-  executePayment: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private paymentService: PaymentService,
@@ -45,16 +43,10 @@ export class AppInvoicesPaypageComponent implements OnInit {
     }
 
     this.paymentService.initiatePayment(paymentData).subscribe({
-      next: (response: PaymentRedirection | undefined) => {
+      next: (paymentRedirectionData: PaymentRedirection | undefined) => {
 
-        if (response) {
-          //this.createAndSubmitForm(response);
-          this.redirectionUrl = response.redirectionUrl;
-          this.redirectionVersion = response.redirectionVersion;
-          this.redirectionData = response.redirectionData;
-          this.executePayment = true;
-
-          this.paypageForm.nativeElement.submit();
+        if (paymentRedirectionData) {
+          this.submitPaymentData(paymentRedirectionData);
         }
       },
       error: (error) => {
@@ -63,33 +55,25 @@ export class AppInvoicesPaypageComponent implements OnInit {
     });
   }
 
-  createAndSubmitForm(response: PaymentRedirection): void {
-    // Créer un formulaire dynamiquement
-    // const form = this.renderer.createElement('form');
-    // this.renderer.setAttribute(form, 'method', 'post');
-    // this.renderer.setAttribute(form, 'action', response.redirectionUrl);
-    // this.renderer.setStyle(form, 'display', 'none');
+  private submitPaymentData(paymentRedirectionData: PaymentRedirection): void {
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = paymentRedirectionData.redirectionUrl;
+    form.style.display = 'none';
 
-    // // Ajouter les champs cachés
-    // const versionInput = this.renderer.createElement('input');
-    // this.renderer.setAttribute(versionInput, 'type', 'hidden');
-    // this.renderer.setAttribute(versionInput, 'name', 'redirectionVersion');
-    // this.renderer.setProperty(versionInput, 'value', response.redirectionVersion);
-    // this.renderer.appendChild(form, versionInput);
+    const versionInput = document.createElement('input');
+    versionInput.type = 'hidden';
+    versionInput.name = 'redirectionVersion';
+    versionInput.value = paymentRedirectionData.redirectionVersion;
 
-    // const dataInput = this.renderer.createElement('input');
-    // this.renderer.setAttribute(dataInput, 'type', 'hidden');
-    // this.renderer.setAttribute(dataInput, 'name', 'redirectionData');
-    // this.renderer.setProperty(dataInput, 'value', response.redirectionData);
-    // this.renderer.appendChild(form, dataInput);
+    const dataInput = document.createElement('input');
+    dataInput.type = 'hidden';
+    dataInput.name = 'redirectionData';
+    dataInput.value = paymentRedirectionData.redirectionData;
 
-    // // Ajouter le formulaire au DOM
-    // this.renderer.appendChild(this.el.nativeElement, form);
-
-    // // Soumettre le formulaire
-    // form.submit();
-
-    // // Supprimer le formulaire après soumission
-    // this.renderer.removeChild(this.el.nativeElement, form);
+    form.appendChild(versionInput);
+    form.appendChild(dataInput);
+    document.body.appendChild(form);
+    form.submit();
   }
 }
