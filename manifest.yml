@@ -16,4 +16,4 @@ applications:
     services:
       - portail_client-connectivity
       - portail_client-destination
-      - portail_client-xsuaa2
+      - portail_client-xsuaa
