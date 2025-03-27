@@ -15,12 +15,14 @@ import { AppProfileLodgementDetailsComponent } from './features/profile/pages/lo
 import { AppRequestsFormComponent } from './features/requests/pages/request-form/request-form.component';
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { AppInvoicesPaypageComponent } from './features/invoices/components/paypage/paypage.component';
+import { AppInvoicesPaypageResultComponent } from './features/invoices/components/paypage-result/paypage-result.component'
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
     { path: 'consumption', component: AppConsumptionComponent },
     { path: 'invoices', component: AppInvoicesComponent },
     { path: 'invoices/paypage/orderId/:invoiceNumber/amount/:amount', component: AppInvoicesPaypageComponent },
+    { path: 'invoices/paypage-result/orderId/:invoiceNumber', component: AppInvoicesPaypageResultComponent },
     { path: 'documents', component: AppDocumentsComponent },
     { path: 'documents/contract-details/:contractIsu', component: AppDocumentContractDetailsComponent },
     { path: 'services', component: AppServicesComponent },
