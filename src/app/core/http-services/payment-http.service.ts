@@ -15,12 +15,24 @@ export class PaymentHttpService {
   constructor(private http: HttpClient) { 
     this.paymentUrl = environment.apiPayment;
   }
+
   initiatePayment(paymentData: PaymentData): Observable<PaymentRedirection | undefined> {
-    return this.http.post<PaymentRedirection>(`${this.paymentUrl}`, paymentData)
+    return this.http.post<PaymentRedirection>(`${this.paymentUrl}/initiate`, paymentData)
       .pipe(
         map((response: PaymentRedirection) => response || undefined),
         catchError(error => {
-          console.error('erreur lors de la récupperation du lien de payement en ligne', error);
+          console.error('erreur lors de la récupperation du lien de paiement en ligne', error);
+          return of(undefined);
+        })
+      );
+  }
+
+  checkPaymentResult(invoiceNumber:string): Observable<string | undefined> {
+    return this.http.get<string>(`${this.paymentUrl}/check-result`)
+      .pipe(
+        map((status: string) => status || undefined),
+        catchError(error => {
+          console.error('erreur lors de paiement en ligne', error);
           return of(undefined);
         })
       );

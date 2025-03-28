@@ -14,4 +14,8 @@ export class PaymentService {
   initiatePayment(paymentData: PaymentData): Observable<PaymentRedirection | undefined> {
     return this.paymentHttpService.initiatePayment(paymentData);
   }
+
+  checkPaymentResult(invoiceNumber: string): Observable<string | undefined> {
+    return this.paymentHttpService.checkPaymentResult(invoiceNumber);
+  }
 }
