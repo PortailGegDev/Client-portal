@@ -13,10 +13,11 @@ import { BankService } from '../../services/bank.service';
 import { MandateService } from '../../services/mandate.service';
 import { Bank } from '../../../../shared/models/bank.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
+import { AppDocumentsJustificatifsComponent } from '../../components/justificatifs/justificatifs.component';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule, TabsModule, AppDocumentsContractsComponent, AppDocumentsMandatsComponent],
+  imports: [CommonModule, TabsModule, AppDocumentsContractsComponent, AppDocumentsMandatsComponent, AppDocumentsJustificatifsComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })

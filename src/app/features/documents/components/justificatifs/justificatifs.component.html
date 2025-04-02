@@ -1,0 +1,29 @@
+@if(groupedContracts.length > 0) {
+
+@for (address of groupedContracts; track address.key) {
+<div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="16.5" cy="14" r="7.5" fill="#E2F133" />
+        <path
+            d="M3.82696 6.74844V12.6153C3.82696 14.1501 3.82696 14.9175 4.12565 15.5037C4.38838 16.0193 4.80762 16.4386 5.32326 16.7013C5.90947 17 6.67687 17 8.21166 17H12.231C13.7657 17 14.5331 17 15.1194 16.7013C15.635 16.4386 16.0542 16.0193 16.317 15.5037C16.6157 14.9175 16.6157 14.1501 16.6157 12.6153V2.38434M18.4426 8.77869L13.4795 3.26491C12.3507 2.01092 11.7863 1.38392 11.1217 1.15245C10.5379 0.949139 9.90249 0.949186 9.31873 1.15258C8.6541 1.38415 8.08981 2.01123 6.96123 3.26539L2 8.77869M12.0483 17V11.5191H8.39435V17"
+            stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    {{address.key}}
+
+    @for(contract of address.value; track contract.number){
+    <div class="row" style="width: 100%;">
+
+        <app-documents-justif-box
+            [title]="'Attestation de domicile, contrat ' + (contract?.BusinessSector === Constants.EnergyType.ELECTRICITY ? 'd\'électricité' : 'de gaz')"
+            [date]="currentDate" />
+    </div>
+    }
+</div>
+}
+
+} @else{
+<p-message severity="info" styleClass="h-full">
+    <i class="pi pi-info-circle" style="font-size: 1rem"></i>
+    Information : vous n’avez aucun contrat pour le moment.
+</p-message>
+}
