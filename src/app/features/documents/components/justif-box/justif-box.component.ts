@@ -3,7 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
-  selector: 'app-invoices-justif-box',
+  selector: 'app-documents-justif-box',
   imports: [CardModule, ButtonModule],
   templateUrl: './justif-box.component.html',
   styleUrl: './justif-box.component.scss'

@@ -46,26 +46,7 @@
                 </p-tabpanel>
 
                 <p-tabpanel value="3">
-                    <div class="consumption-container1">
-                        <div *ngFor="let titulaire of titulaires" class="box2">
-                            <div class="details">
-                                <img src="/images/Icons (2).png">
-                                <div class="detail-item">
-                                    <div class="label">Titulaire</div>
-                                    <div class="value">{{ titulaire.Titulaire }}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">IBAN</div>
-                                    <div class="value">{{ titulaire.IBAN }}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Signé le</div>
-                                    <div class="value">{{ titulaire.Signe }}</div>
-                                </div>
-                                <img src="/images/Icons (3).png" style="margin-left: auto;">
-                            </div>
-                        </div><br>
-                    </div>
+                  <app-documents-mandats [mandates]="mandates" [currentUser]="currentUser()"/>
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>

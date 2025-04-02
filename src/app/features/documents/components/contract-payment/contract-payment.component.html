@@ -35,8 +35,8 @@
     </div>
 </div>
 
-@if(MettreAJourLeRIB){
-    <p-dialog header="Mettre à jour le RIB" [(visible)]="MettreAJourLeRIB" [modal]="true"
+@if(updateRib){
+    <p-dialog header="Changement de RIB" [(visible)]="updateRib" [modal]="true"
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
       [resizable]="false">
       <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />

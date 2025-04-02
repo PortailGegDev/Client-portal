@@ -9,21 +9,18 @@ import { BaseHttpService } from './base-http.service';
 })
 export class MandateHttpService extends BaseHttpService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     super();
   }
 
-  fetchMandate(bpBank: string | null): Observable<Mandate | undefined> {
-    if (!bpBank) {
-      bpBank = '15200091280003'; // Valeur par défaut
-    }
+  fetchMandate(filter: string | null): Observable<Mandate[]> {
+    let url = `${this.apiUrl}/ZA_SEPAMandate?$format=json&$filter=${filter}`;
 
-    let url = `${this.apiUrl}/ZA_SEPAMandate?$format=json&$filter=BusinessPartnerBankId eq '${bpBank}'`;
     return this.http.get<{ mandate: Mandate | undefined }>(url)
-      .pipe(map((response: any) => response.d.results[0] || []),
+      .pipe(map((response: any) => response.d.results),
         catchError(error => {
           console.error('erreur lors de la récupperation de la facture', error);
-          return of(undefined);
+          return of([]);
         })
       );
   }

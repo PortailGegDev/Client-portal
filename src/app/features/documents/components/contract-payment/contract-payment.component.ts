@@ -8,15 +8,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule,FormsModule,InputNumberModule,DialogModule,CardModule,ButtonModule],
+  imports: [CommonModule, FormsModule, InputNumberModule, DialogModule, CardModule, ButtonModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
 export class AppDocumentsContractPaymentComponent {
-  MettreAJourLeRIB:boolean=false;
-  value1: number=1;
+  updateRib: boolean = false;
+  value1: number = 1;
+  
   showDialog() {
-    this.MettreAJourLeRIB  = true;
-}
+    this.updateRib = true;
+  }
 
 }

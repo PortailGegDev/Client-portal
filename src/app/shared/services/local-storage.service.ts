@@ -11,6 +11,10 @@ export class LocalStorageService {
     localStorage.setItem(storageKey, JSON.stringify(data));
   }
 
+  updateItem(storageKey: string, data: any) {
+    localStorage.setItem(storageKey, JSON.stringify(data));
+  }
+
   getItem(storageKey: string): any {
     const storedData = localStorage.getItem(storageKey);
     return storedData ? JSON.parse(storedData) : null;

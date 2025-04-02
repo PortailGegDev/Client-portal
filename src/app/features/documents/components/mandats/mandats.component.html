@@ -1,0 +1,38 @@
+<div class="row">
+    @for (mandate of mandates; track mandate.SEPAMandateSenderIBAN) {
+
+    <div class="col-md-12 mb-4">
+        <p-card class="mandat-card">
+            <div class="row">
+                <div class="col-1">
+                    <img src="/images/Icons (2).png">
+                </div>
+
+                <div class="col">
+                    <div class="label">
+                        Titulaire
+                    </div>
+                    <div class="value">Mohamed Ali MDALLA</div>
+
+                    <!-- <div class="value">{{ currentUser?.firstname }} {{ currentUser?.lastname }}</div> -->
+                </div>
+
+                <div class="col">
+                    <div class="label">IBAN</div>
+                    <div class="value">{{ mandate.SEPAMandateSenderIBAN | maskRIB:6:6 }}</div>
+                </div>
+
+                <div class="col">
+                    <div class="label">Signé le</div>
+                    <div class="value">{{ mandate.SEPASignatureDate | timeSpanToDate:'short' }}</div>
+                </div>
+
+                <div class="col" style="text-align: right;">
+                    <img src="/images/Icons (3).png" style="margin-left: auto;">
+                </div>
+            </div>
+        </p-card>
+    </div>
+    }
+
+</div>

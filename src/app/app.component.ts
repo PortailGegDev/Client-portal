@@ -4,13 +4,8 @@ import { ButtonModule } from 'primeng/button';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AuthService } from './core/http-services/auth.service';
-import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { ContractService } from './shared/services/contract.service';
-import { BankService } from './shared/services/bank.service';
-import { MandateService } from './shared/services/mandate.service';
 import { Contract } from './shared/models/contract.model';
-import { Bank } from './shared/models/bank.model';
-import { Mandate } from './shared/models/mandate.model';
 
 @Component({
   selector: 'app-root',
@@ -19,16 +14,15 @@ import { Mandate } from './shared/models/mandate.model';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  compteBancaire: any; 
-   mandate: any; 
-  bpBankId = '15200091280003';
+  compteBancaire: any;
+  mandate: any;
+  bpBankId: string[] = [];
 
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
 
-  constructor(private authService: AuthService,private bankService: BankService,
-    private mandateService: MandateService,
+  constructor(private authService: AuthService,
     private contractService: ContractService
   ) {
     this.authService.logTokenDetails();
@@ -38,41 +32,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loadContract();
-    this.chargerCompteBancaire();
-    this.chargerMandate();
-
   }
-
-
-//1er methode pour récupération compte bancaire
-chargerCompteBancaire(): void {
-  this.bankService.getCompteBancaire(this.bpBankId).subscribe({
-    next: (data: Bank | undefined) => { // Accepter undefined
-      if (data) { 
-        this.compteBancaire = data;
-        console.log('Compte bancaire chargé:', this.compteBancaire);
-      }
-    },
-    error: (error: any) => {
-      console.error('Erreur lors de la récupération du compte bancaire:', error);
-    }
-  });
-}  
-
-//2eme pour get Mandante
-chargerMandate(): void {
- 
-  this.mandateService.getMandate(this.bpBankId).subscribe({
-    next: (data: Mandate | undefined) => {
-      this.mandate = data || null;
-      console.log('Mandate chargé:', this.mandate);
-    },
-    error: (error) => {
-      console.error('Erreur lors de la récupération du mandate:', error);
-      alert('Impossible de charger le mandat.');
-    },
-  });
-}  
 
   loadContract() {
     let businessPartner = this.authService.getUserData()?.bp;
@@ -96,8 +56,4 @@ chargerMandate(): void {
       }
     });
   }
-
-
-
- 
 }

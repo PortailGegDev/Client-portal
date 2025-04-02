@@ -15,6 +15,7 @@ export class AuthService {
   private currentUserSignal = signal<User | null>(null);
   currentUSer = this.currentUserSignal.asReadonly();
   private apiAuthUser: string;
+  
   constructor(private http: HttpClient,
     private localStorageService: LocalStorageService
   ) { this.apiAuthUser = environment.apiAuthUser;}
@@ -33,6 +34,8 @@ export class AuthService {
             displayName: data.displayName
           };
 
+          this.localStorageService.setItem('user', this.user);
+
           // récupération de pb
           this.getUserBp(this.user.email).subscribe({
             next: (jsonUserDataResponse: any) => {
@@ -41,7 +44,7 @@ export class AuthService {
               this.user!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
               this.user!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
 
-              this.localStorageService.setItem('user', this.user);
+              this.localStorageService.updateItem('user', this.user);
               this.currentUserSignal.set(this.user ?? null);
             }
             , error: (error) => {
