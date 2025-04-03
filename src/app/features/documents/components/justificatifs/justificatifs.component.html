@@ -15,7 +15,9 @@
 
         <app-documents-justif-box
             [title]="'Attestation de domicile, contrat ' + (contract?.BusinessSector === Constants.EnergyType.ELECTRICITY ? 'd\'électricité' : 'de gaz')"
-            [date]="currentDate" />
+            [date]="currentDate"
+            [contractIsu]="contract.ContractISU"
+            (onClick)="downloadJustif($event)" />
     </div>
     }
 </div>

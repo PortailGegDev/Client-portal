@@ -17,14 +17,14 @@
                 </p-tabpanel>
 
                 <p-tabpanel value="1">
-                    <app-documents-justificatifs [contracts]="allContracts"/>
+                    <app-documents-justificatifs [allContracts]="allContracts" [currentUser]="currentUser()" [contracts]="contracts()" />
                 </p-tabpanel>
 
                 <p-tabpanel value="2">
                 </p-tabpanel>
 
                 <p-tabpanel value="3">
-                  <app-documents-mandats [mandates]="mandates" [currentUser]="currentUser()"/>
+                    <app-documents-mandats [mandates]="mandates" [currentUser]="currentUser()" />
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>

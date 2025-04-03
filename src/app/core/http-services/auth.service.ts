@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../../shared/models/user.model';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -13,12 +13,13 @@ export class AuthService {
 
   private user?: User;
   private currentUserSignal = signal<User | null>(null);
-  currentUSer = this.currentUserSignal.asReadonly();
+  currentUSer = computed(() => this.currentUserSignal());
+
   private apiAuthUser: string;
-  
+
   constructor(private http: HttpClient,
     private localStorageService: LocalStorageService
-  ) { this.apiAuthUser = environment.apiAuthUser;}
+  ) { this.apiAuthUser = environment.apiAuthUser; }
 
   logTokenDetails() {
     this.http.get<any>('/user-api/currentUser').subscribe({
@@ -35,6 +36,7 @@ export class AuthService {
           };
 
           this.localStorageService.setItem('user', this.user);
+          this.currentUserSignal.set(this.user ?? null);
 
           // récupération de pb
           this.getUserBp(this.user.email).subscribe({

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { ButtonModule } from 'primeng/button';
 import { User } from '../../../../shared/models/user.model';
-import { DocGeneratorService } from '../../services/doc-generator.service';
+import { DocGeneratorService } from '../../../../shared/services/doc-generator.service';
 import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';

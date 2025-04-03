@@ -15,5 +15,5 @@ import { CardModule } from 'primeng/card';
 })
 export class AppDocumentsMandatsComponent {
   @Input() mandates: Mandate[] = [];
-  @Input() currentUser: User | undefined;
+  @Input() currentUser: User | null = null;
 }

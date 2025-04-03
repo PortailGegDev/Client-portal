@@ -11,6 +11,7 @@ import { CardModule } from 'primeng/card';
 export class AppDocumentsJustifBoxComponent {
   @Input() title: string = '';
   @Input() date: string = '';
+  @Input() contractIsu: string = '';
 
-  @Output() onClick: EventEmitter<void> = new EventEmitter();
+  @Output() onClick: EventEmitter<string> = new EventEmitter<string>();
 }
