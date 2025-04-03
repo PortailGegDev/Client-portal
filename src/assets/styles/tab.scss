@@ -1,6 +1,6 @@
-// .p-tab {
-// color: rgba(84, 78, 78, 0.70) !important;
-// }
+.p-tab {
+    background-color: white !important;
+}
 
 .p-tablist-tab-list {
     margin-top: 20px !important;
@@ -18,5 +18,11 @@
 }
 
 .p-tablist-content {
-     flex-grow: 0 !important; 
+    flex-grow: 0 !important;
+}
+
+.p-tablist-nav-button {
+    top: 20px !important;
+    height: 57% !important;
+    box-shadow: none !important;
 }
