@@ -43,8 +43,12 @@ export class AuthService {
             next: (jsonUserDataResponse: any) => {
               const resource = jsonUserDataResponse.Resources[0];
 
-              this.user!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"].userUuid;
-              this.user!.organization = resource["urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"].organization;
+              this.user!.bp = resource["urn:ietf:params:scim:schemas:extension:sap:2.0:User"]?.userUuid;
+
+              if (this.user!.bp === null || this.user!.bp === undefined || this.user!.bp === '') {
+                console.error('Business partner introuvable !');
+                return;
+              }
 
               this.localStorageService.updateItem('user', this.user);
               this.currentUserSignal.set(this.user ?? null);

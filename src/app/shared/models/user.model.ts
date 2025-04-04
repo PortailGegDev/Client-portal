@@ -6,7 +6,6 @@ export class User {
     scopes!: string[];
     displayName!: string;
     bp?: string;
-    organization?: string;
 
     public constructor(init?: Partial<User>) {
         Object.assign(this, init);
