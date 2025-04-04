@@ -23,54 +23,12 @@
     </div>
 </div>
 
-<div class="grid-container grid-1-3">
+<div class="grid-container grid-2-4">
     <div class="grid-item">
         <app-headline [isConsumptionPage]="false" />
     </div>
 
     <div class="grid-item">
-        <app-articles />
+        <app-articles/>
     </div>
 </div>
-
-<!-- <div>
-    <h3>Bonjour {{ currentUser()?.firstname }},</h3>
-    <p>Bienvenue dans votre espace client</p>
-
-    <div class="row">
-        <div class="col-12 mb-3">
-            <app-active-contract />
-        </div>
-    </div>
-
-    @defer (when consumptions()?.length || lastInvoice();){
-
-    <div class="row">
-        <div class="col-md-7 mb-3">
-            <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <app-home-documents [lastInvoice]="lastInvoice()" />
-        </div>
-
-        <div class="col-md-2 mb-3">
-            <app-home-carousel />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <app-headline [isConsumptionPage]="false" />
-        </div>
-
-        <div class="col-md-9 mb-3">
-            <app-articles />
-        </div>
-    </div>
-}
-
-    @placeholder {
-    <app-loading-spinner [showSpinner]=true />
-    }
-</div> -->

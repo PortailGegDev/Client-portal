@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 import { VariousService } from '../../services/various.service';
 import { Article } from '../../models/article.model';
-import { CarouselModule } from 'primeng/carousel';
+import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -12,8 +12,11 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './articles.component.scss'
 })
 export class ArticlesComponent implements OnInit {
+  @Input() articleNumber = 3;
+  @Input() screen: string = 'home';
+
   articles: Article[] = [];
-  responsiveOptions: any[] | undefined;
+  responsiveOptions: CarouselResponsiveOptions[] | undefined;
 
   constructor(private variousService: VariousService) { }
 
@@ -23,8 +26,8 @@ export class ArticlesComponent implements OnInit {
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
-        numVisible: 2,
-        numScroll: 1
+        numVisible: this.articleNumber,
+        numScroll: 0
       },
       {
         breakpoint: '1199px',
@@ -47,7 +50,7 @@ export class ArticlesComponent implements OnInit {
   initArticles() {
     this.variousService.getArticlesData().subscribe({
       next: (data: Article[]) => {
-        this.articles = data;
+        this.articles = data.filter(item => item.screen = this.screen);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'articles :', error);

@@ -3,37 +3,44 @@
         {
             "title": "Production d’électricité",
             "description": "Comment GEG produit son électricité",
-            "img": "/images/Rectangle 1477 (8).png"
+            "img": "/images/Rectangle 1477 (8).png",
+            "screen":"home"
         },
         {
             "title": "Consommation cachée, même éteints, ils consomment",
             "description": "Découvrez les bons gestes à adopter",
-            "img": "/images/Rectangle 1477 (9).png"
+            "img": "/images/Rectangle 1477 (9).png",
+            "screen":"home"
         },
         {
             "title": "Voiture électrique",
             "description": "Tout comprendre sur les atouts et points faibles",
-            "img": "/images/Rectangle 1477 (10).png"
+            "img": "/images/Rectangle 1477 (10).png",
+            "screen":"home"
         },
         {
             "title": "Sobriété énergétique et sobriété numérique",
             "description": "Attention à vos appareils électriques ! Découvrez les bons gestes à adopter...",
-            "img": "/images/Rectangle 1477 (4).png"
+            "img": "/images/Rectangle 1477 (4).png",
+            "screen":"consumption"
         },
         {
             "title": "Sobriété énergétique et salle de bains",
             "description": "Découvrez les bons gestes à adopter...",
-            "img": "/images/Rectangle 1477 (5).png"
+            "img": "/images/Rectangle 1477 (5).png",
+            "screen":"consumption"
         },
         {
             "title": "Consommation cachée de vos appareils",
             "description": "Machine à laver, ballon d’eau chaude, chauffage...",
-            "img": "/images/Rectangle 1477 (6).png"
+            "img": "/images/Rectangle 1477 (6).png",
+            "screen":"consumption"
         },
         {
             "title": "Consommation d’énergie : les écogestes du printemps !",
             "description": "Les gestes les plus efficaces pour réduire votre consommation d’énergie au printemps ?",
-            "img": "/images/Rectangle 1477 (7).png"
+            "img": "/images/Rectangle 1477 (7).png",
+            "screen":"consumption"
         }
     ]
 }
