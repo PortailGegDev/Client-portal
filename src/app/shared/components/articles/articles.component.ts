@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 export class ArticlesComponent implements OnInit {
   @Input() articleNumber = 3;
   @Input() screen: string = 'home';
+  @Input() numScroll: number = 0;
 
   articles: Article[] = [];
   responsiveOptions: CarouselResponsiveOptions[] | undefined;
@@ -27,7 +28,7 @@ export class ArticlesComponent implements OnInit {
       {
         breakpoint: '1400px',
         numVisible: this.articleNumber,
-        numScroll: 0
+        numScroll: this.numScroll
       },
       {
         breakpoint: '1199px',
@@ -50,7 +51,8 @@ export class ArticlesComponent implements OnInit {
   initArticles() {
     this.variousService.getArticlesData().subscribe({
       next: (data: Article[]) => {
-        this.articles = data.filter(item => item.screen = this.screen);
+
+        this.articles = data.filter(item => item.screen === this.screen);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'articles :', error);
