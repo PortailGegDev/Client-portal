@@ -6,6 +6,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { AuthService } from './core/http-services/auth.service';
 import { ContractService } from './shared/services/contract.service';
 import { Contract } from './shared/models/contract.model';
+import { environment } from '../environments/environment';
+import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 
 @Component({
   selector: 'app-root',
@@ -23,11 +25,13 @@ export class AppComponent implements OnInit {
   haveContract: boolean | undefined = undefined;
 
   constructor(private authService: AuthService,
-    private contractService: ContractService
+    private contractService: ContractService,
+    private primeNgLocaleService: PrimeNgLocaleService
   ) {
     this.authService.logTokenDetails();
     this.contracts = this.contractService.contracts;
     this.selectedContract = this.contractService.selectedContract;
+    this.primeNgLocaleService.applyFrenchLocale();
   }
 
   ngOnInit() {
@@ -37,7 +41,7 @@ export class AppComponent implements OnInit {
   loadContract() {
     let businessPartner = this.authService.getUserData()?.bp;
 
-    if (!businessPartner) {
+    if (environment.local === true) {
       // pour tester en locale dans la DF1
       businessPartner = '1510136444';
       // businessPartner = '1510060117'; // bp consommation pour QF1
@@ -45,6 +49,12 @@ export class AppComponent implements OnInit {
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1
       // businessPartner='1510031862'; // bp liste de contrats pour partenaire
       // businessPartner='350000261'; //bp DF1
+      console.log("Vous êtes en locale : Votre Bp est '1510136444'");
+    }
+
+    if (!businessPartner) {
+      console.error('Erreur : Pas de business Partner lié à ce compte');
+      return
     }
 
     // Charger les contrats via le service

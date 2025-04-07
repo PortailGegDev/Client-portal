@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { AppInvoicesEstimateDialogComponent } from '../estimate-dialog/estimate-dialog.component';
 import { AppInvoicesEnergyCheckComponent } from '../energy-check/energy-check.component';
+import { PrimeNgLocaleService } from '../../../../shared/services/prime-ng-locale.service';
 
 @Component({
   selector: 'app-invoices-filter',
@@ -25,8 +26,11 @@ export class AppInvoicesFilterComponent {
   @Output() onDateRangeSelected: EventEmitter<Date[]> = new EventEmitter<Date[]>();
 
   rangeDates: Date[] | undefined;
-
-  constructor() { }
+  fr: any;
+  
+  constructor(private primenNgLocaleService: PrimeNgLocaleService) {
+    this.fr = this.primenNgLocaleService.getFrenchLocale(); // pour [locale]
+  }
 
   EstimateFacture: boolean = false;
   ChequeEnergie: boolean = false;
@@ -48,7 +52,7 @@ export class AppInvoicesFilterComponent {
     this.onDateRangeSelected.emit(this.rangeDates);
   }
 
-  onClearDateRange(){
+  onClearDateRange() {
     this.onDateRangeSelected.emit([]);
   }
 }

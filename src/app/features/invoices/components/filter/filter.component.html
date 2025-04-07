@@ -1,7 +1,9 @@
 <div class="row" style="margin-bottom: 20px;">
   <div class="col-md-3 mb-3">
     <p-datepicker [(ngModel)]="rangeDates" placeholder="01/01/2024-12/09/2025" [iconDisplay]="'input'" [showIcon]="true"
-      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" [showClear]="true" [style]="{width: '100%'}" (onSelect)="onSelectDateRange()" (onClear)="onClearDateRange()"/>
+      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="fr"
+      [style]="{'width':'100%'}" (onSelect)="onSelectDateRange()" (onClearClick)="onClearDateRange()"
+      [showButtonBar]="true" />
   </div>
 
   <div class="col-md-3 mb-3">
@@ -62,8 +64,8 @@
 
   @if(ChequeEnergie){
   <p-dialog header="Vous bénéficiez d’un chèque énérgie " [(visible)]="ChequeEnergie" [modal]="true"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '80vw !important' }" [draggable]="false"
-  [resizable]="false">
-  <app-invoices-energy-check [invoices]="invoices" />
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '80vw !important' }" [draggable]="false"
+    [resizable]="false">
+    <app-invoices-energy-check [invoices]="invoices" />
   </p-dialog>
-}
+  }
