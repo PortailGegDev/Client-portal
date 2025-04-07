@@ -1,14 +1,14 @@
 {
     "headlines": [
         {
-            "icon": "Relevez vos index",
-            "text": "Il est temps de faire votre auto-relève",
+            "icon": "Service",
+            "text": "Esprit tranquille avec le contrat.<br> Assistanse Dépannage",
             "img": "/images/service_contrat.jpg"
         },
         {
-            "icon": "Chèque énergie",
-            "text": "Ce mois-ci saisissez votre chèque énergie",
-            "img": "/images/eco-geste copy.jpg"
+            "icon": "Eco-geste",
+            "text": "Guide de maîtrise d'énergie ! <br> Chaque geste compte !",
+            "img": "/images/eco-geste-2.jpg"
         }
     ]
 }

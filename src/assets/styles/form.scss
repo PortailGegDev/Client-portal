@@ -22,7 +22,7 @@
     border-bottom: 1px solid #D4E22C;
 }
 
-.p-select-option-selected{
+.p-select-option-selected {
     background: #FAFAD1 !important;
 }
 
@@ -33,4 +33,20 @@
 
 .error {
     color: red;
+}
+
+.p-inputtext:focus {
+    border-color: #AAB614 !important;
+}
+
+.p-datepicker-today>.p-datepicker-day-selected {
+    background: #AAB614 !important;
+}
+
+.p-datepicker-day-selected {
+    background: #AAB614 !important;
+}
+
+.p-datepicker-day-selected-range {
+    background: #FAFAD1 !important;
 }

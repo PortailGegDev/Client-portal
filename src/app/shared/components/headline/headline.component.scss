@@ -1,9 +1,6 @@
 .icon-service {
     position: relative;
-    bottom: 20px;
-    left: 20px;
     display: flex;
-    padding-bottom: 4px;
     flex-direction: column;
     gap: 10px;
 }
@@ -12,16 +9,12 @@
     position: absolute;
     left: 20px;
     top: -125px;
-    width: auto;
-    height: auto;
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 4px;
     padding-bottom: 4px;
     background: #FF6C00;
-    display: inline-flex;
     justify-content: flex-start;
-    align-items: flex-start;
     color: white;
     font-size: 11px;
     font-family: Figtree, sans-serif;

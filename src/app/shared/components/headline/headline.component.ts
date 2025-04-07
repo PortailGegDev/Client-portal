@@ -1,4 +1,4 @@
-import { Component, input, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PanelModule } from 'primeng/panel';
 import { Headline } from '../../models/headline.model';
@@ -55,12 +55,13 @@ export class HeadlineComponent implements OnInit, OnChanges {
   initHeadlines() {
     this.variousService.getHeadlineData().subscribe({
       next: (data: Headline[]) => {
-        if(this.isConsumptionPage){
-        this.headlines = data.filter(item=>item.icon==='Relevez vos index');
-        }else {
-        this.headlines = data.filter(item=>item.icon==='Chèque énergie');
 
+        if (this.isConsumptionPage) {
+          this.headlines = data.filter(item => item.icon === 'Eco-geste');
+        } else {
+          this.headlines = data.filter(item => item.icon === 'Service');
         }
+
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'à la une :', error);
