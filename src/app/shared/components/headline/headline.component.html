@@ -5,8 +5,10 @@
         </div>
     </ng-template>
 
-    <div class="panel-background" [ngStyle]="{
-        'background-image': 'url(' + headlines[0].img + ')',
+    @if (this.isConsumptionPage) {
+
+    <!-- <div class="panel-background" [ngStyle]="{
+        'background-image': 'url(' + headlines?.img + ')',
         'background-size': 'cover',
         'background-position': 'center',
         'background-repeat': 'no-repeat',
@@ -17,8 +19,31 @@
         'align-items': 'flex-end',
       }">
         <div class="icon-service">
-            <div class="icon-frame">{{ headlines[0].icon }}</div>
-            <div class="text-frame" [innerHTML]="headlines[0].text"></div>
+            <div class="icon-frame">{{ headlines?.icon }}</div>
+            <div class="text-frame" [innerHTML]="headlines?.text"></div>
+            <div class="iconn" (click)="navigateToService()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="panel-background" [ngStyle]="{
+        'background-image': 'url(/images/service_contrat.jpg)',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'background-repeat': 'no-repeat',
+        'border-radius': '4px',
+        'width': '100%',
+        'height': '300px',
+        'display': 'flex',
+        'align-items': 'flex-end',
+      }">
+        <div class="icon-service">
+            <div class="icon-frame">Service</div>
+            <div class="text-frame" >Esprit tranquille avec le contrat.<br> Assistanse Dépannage</div>
             <div class="iconn" (click)="navigateToService()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
@@ -27,4 +52,29 @@
             </div>
         </div>
     </div>
+    }
+    @else{
+    <div class="panel-background" [ngStyle]="{
+            'background-image': 'url(/images/eco-geste-2.jpg)',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'background-repeat': 'no-repeat',
+            'border-radius': '4px',
+            'width': '100%',
+            'height': '300px',
+            'display': 'flex',
+            'align-items': 'flex-end',
+          }">
+        <div class="icon-service">
+            <div class="icon-frame">Eco-geste</div>
+            <div class="text-frame" >Guide de maîtrise d'énergie ! <br> Chaque geste compte !</div>
+            <div class="iconn" (click)="navigateToService()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    }
 </p-panel>
