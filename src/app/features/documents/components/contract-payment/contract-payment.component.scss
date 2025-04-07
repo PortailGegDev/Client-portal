@@ -23,5 +23,27 @@
   }
   .card{
     padding: 20px;
-    gap: 24px;
+    gap: 10px;
       }
+      /* Style pour "Mandat SEPA" */
+.mandat-sepa {
+  color: var(--Black, #3A3A3A);
+  font-family: Figtree;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 21.6px */
+  letter-spacing: -0.18px;
+  margin-right: 10px; /* Ajoute de l'espace à droite */
+  margin-right: 8px; 
+}
+
+/* Style pour "Signé le" */
+.signature-date {
+  color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
+  font-family: Figtree;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 19.5px */
+}
