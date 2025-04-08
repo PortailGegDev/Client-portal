@@ -22,7 +22,8 @@
                                     stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            {{ selectedOption?.HouseNumber }} {{ selectedOption?.StreetName }} {{ selectedOption?.PostalCode }} {{ selectedOption?.CityName }}
+                            {{ selectedOption?.HouseNumber }} {{ selectedOption?.StreetName }} {{
+                            selectedOption?.PostalCode }} {{ selectedOption?.CityName }}
                         </div>
 
                         <div class="grid-item-transparent" style="display: flex;">
@@ -65,7 +66,8 @@
                                     stroke="#544E4E" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            {{ contract?.HouseNumber }} {{ contract?.StreetName }} {{ contract?.PostalCode }} {{ contract?.CityName }}
+                            {{ contract?.HouseNumber }} {{ contract?.StreetName }} {{ contract?.PostalCode }} {{
+                            contract?.CityName }}
                         </div>
                         <div class="grid-item-transparent" style="display: flex;">
                             @if(contract?.BusinessSector === Constants.EnergyType.ELECTRICITY) {
@@ -108,12 +110,12 @@
             @if(!haveSameTypeOfContracts){
             <label class="mb-2">Filtrer les contrats par :</label>
             <br>
-            <p-selectbutton [(ngModel)]="gazElecValue" [options]="typeGazElecOptions"
-                (onOptionClick)="filterContracts()" />
-            }
+            <p-selectbutton [ngModel]="gazElecValue()" (ngModelChange)="gazElecValue.set($event); filterContracts()"
+                [options]="typeGazElecOptions" /> }
 
             @if(!haveSameStatusOfContracts){
-            <p-selectbutton [(ngModel)]="actifCesse" [options]="statusOptions" (onOptionClick)="filterContracts()" />
+            <p-selectbutton [ngModel]="actifCesse()" (ngModelChange)="actifCesse.set($event); filterContracts()"
+                [options]="statusOptions" />
             }
         </div>
 

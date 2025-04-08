@@ -1,4 +1,4 @@
-import { Component, computed, effect, Signal } from '@angular/core';
+import { Component, computed, effect, signal, Signal } from '@angular/core';
 import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { Contract } from '../../models/contract.model';
@@ -20,9 +20,9 @@ export class ActiveContractComponent  {
 
   Constants = Constants;
   theme: string = '';
-  gazElecValue: string = '';
-  actifCesse: string = '';
-
+  gazElecValue = signal<string>('');
+  actifCesse = signal<string>('');
+  
   typeGazElecOptions = [
     { label: Constants.EnergyType.ELECTRICITY_LABEL, value: Constants.EnergyType.ELECTRICITY},
     { label: Constants.EnergyType.GAZ_LABEL, value: Constants.EnergyType.GAZ },
@@ -38,18 +38,17 @@ export class ActiveContractComponent  {
   selectedContract: Signal<Contract | null>;
   selectedContractValue?: Contract | null;
 
-  // Filtrage des contrats
   filteredContracts = computed(() => {
     let filtered = this.contracts();
-
-    if (this.gazElecValue) {
-      filtered = filtered.filter((contract) => contract.BusinessSector === this.gazElecValue);
+  
+    if (this.gazElecValue()) {
+      filtered = filtered.filter(c => c.BusinessSector === this.gazElecValue());
     }
-
-    if (this.actifCesse) {
-      filtered = filtered.filter((contract) => contract.ContractStatus === this.actifCesse);
+  
+    if (this.actifCesse()) {
+      filtered = filtered.filter(c => c.ContractStatus === this.actifCesse());
     }
-
+  
     return filtered;
   });
 
@@ -80,7 +79,7 @@ export class ActiveContractComponent  {
   }
 
   filterContracts() {
-    // Le filtrage est géré par le computed `filteredContracts`
+
     if (this.filteredContracts().length > 0) {
       this.contractService.changeContract(this.filteredContracts()[0]);
     } else {
