@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Bank } from '../../shared/models/bank.model';
 import { BaseHttpService } from './base-http.service';
+import { UpdateRib } from '../../shared/models/update-rib';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,11 @@ export class BankHttpService extends BaseHttpService {
       );
   }
 
-  createCompteBancaire(body: any): Observable<any> {
+  createCompteBancaire(updateRib: UpdateRib): Observable<any> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   
-    return this.http.post(url, body, { headers }).pipe(
+    return this.http.post(url, updateRib, { headers }).pipe(
       catchError(error => {
         console.error('Erreur lors de la création du compte bancaire', error);
         return throwError(() => error);

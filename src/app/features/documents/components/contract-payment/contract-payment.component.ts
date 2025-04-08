@@ -17,17 +17,17 @@ import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pi
 })
 export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
-  @Output() ribUpdated = new EventEmitter<string>(); 
+  @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   updateRib: boolean = false;
   value1: number = 1;
   newRib: any = '';  // Variable pour stocker le nouveau RIB
-  
+
   // Méthode pour afficher le dialog de modification
   showDialog() {
     this.updateRib = true;
   }
-  
+
   // Méthode pour valider et émettre l'événement de mise à jour du RIB
   submitNewRib(): void {
     if (this.newRib && this.newRib.trim() !== '') {

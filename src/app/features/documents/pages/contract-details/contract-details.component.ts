@@ -16,6 +16,7 @@ import { MandateService } from '../../services/mandate.service';
 import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
+import { UpdateRib } from '../../../../shared/models/update-rib';
 
 
 
@@ -37,18 +38,18 @@ export class AppDocumentContractDetailsComponent {
 
   constructor(private router: Router,
     private contractService: ContractService, private activatedRoute: ActivatedRoute, private authService: AuthService,
-        private bankService: BankService,
-        private mandateService: MandateService) {
-      this.contractsList = this.contractService.contracts;
-      this.currentUser = this.authService.currentUSer;
+    private bankService: BankService,
+    private mandateService: MandateService) {
+    this.contractsList = this.contractService.contracts;
+    this.currentUser = this.authService.currentUSer;
 
 
 
     this.activatedRoute.params.subscribe(params => {
       const contractIsu: string[] = [];
       contractIsu.push(params['contractIsu']);
-      
-      this.contract= this.contractsList().find(item => item.ContractISU === params['contractIsu']);
+
+      this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
 
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
         next: (contracts: ContractDetails[]) => { this.contractDetails = contracts[0] }
@@ -77,8 +78,8 @@ export class AppDocumentContractDetailsComponent {
     this.router.navigate(['documents']);
   }
 
- 
-    private loadBankAccount(): void {
+
+  private loadBankAccount(): void {
     let businessPartner = this.authService.getUserData()?.bp;
 
     if (!businessPartner) {
@@ -122,24 +123,24 @@ export class AppDocumentContractDetailsComponent {
   submitBankChange(newRib: string): void {
     const businessPartnerBankId = newRib?.trim();  // Utilise bien le paramètre reçu
     const contractISU = this.contract?.ContractISU;
-  
+
     if (!contractISU) {
       console.error("ContractISU introuvable.");
       return;
     }
-  
+
     if (!businessPartnerBankId) {
       console.error("Veuillez entrer un identifiant bancaire.");
       return;
     }
-  
-    const body = {
-      ContractISU: contractISU,
-      BusinessPartnerBankId: businessPartnerBankId,
-      Action: "CHANGE_BANK"
+
+    const updateRib: UpdateRib = {
+      contractISU: contractISU,
+      businessPartnerBankId: businessPartnerBankId,
+      action: "CHANGE_BANK"
     };
-  
-    this.bankService.createCompteBancaire(body).subscribe({
+
+    this.bankService.createCompteBancaire(updateRib).subscribe({
       next: (response) => {
         console.log("Compte bancaire modifié avec succès :", response);
         alert("Changement de compte bancaire effectué avec succès !");
@@ -150,6 +151,6 @@ export class AppDocumentContractDetailsComponent {
       }
     });
   }
-  
+
 
 }
