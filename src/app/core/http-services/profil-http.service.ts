@@ -18,7 +18,7 @@ export class ProfilHttpService extends BaseHttpService {
       bp = '1510060117'; // Valeur par défaut
     }
 
-    let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=BusinessPartnerID eq '${bp}'`;
+    let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=BusinessPartnerId eq '${bp}'`;
 
     return this.http.get<{ profil: Profil | undefined }>(url)
       .pipe(map((response: any) => response.d.results[0] || []),
