@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeadlineComponent implements OnInit, OnChanges {
   @Input() isConsumptionPage: boolean = false;
-  headlines: Headline[] = [];
+  headlines: Headline | undefined;
   responsiveOptions: any[] | undefined;
 
   constructor(private variousService: VariousService,
@@ -57,11 +57,14 @@ export class HeadlineComponent implements OnInit, OnChanges {
       next: (data: Headline[]) => {
 
         if (this.isConsumptionPage) {
-          this.headlines = data.filter(item => item.icon === 'Eco-geste');
-        } else {
-          this.headlines = data.filter(item => item.icon === 'Service');
-        }
+          this.headlines = data[0];
+          // this.headlines = data.find(item => item.icon === 'Eco-geste');
 
+        } else {
+          this.headlines = data[1];
+          // this.headlines = data.find(item => item.icon === 'Service');
+        }
+        console.log(this.headlines);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'à la une :', error);

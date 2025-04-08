@@ -52,11 +52,18 @@ export class ArticlesComponent implements OnInit {
     this.variousService.getArticlesData().subscribe({
       next: (data: Article[]) => {
 
-        this.articles = data.filter(item => item.screen === this.screen);
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des données d\'articles :', error);
-      },
+        if (this.screen === 'home') {
+          const sortedIndexesHome = [0, 1, 2];
+          this.articles = sortedIndexesHome.map(index => data[index]);
+        } else {
+          const sortedIndexesConsumption = [3, 4, 5, 6];
+          this.articles = sortedIndexesConsumption.map(index => data[index]);
+  }
+        console.log(this.articles)
+},
+error: (error) => {
+  console.error('Erreur lors du chargement des données d\'articles :', error);
+},
     });
   }
 }

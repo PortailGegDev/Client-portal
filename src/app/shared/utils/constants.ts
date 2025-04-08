@@ -24,10 +24,15 @@ export class Constants {
         { name: 'Autres demandes', code: 'AUTRE_DEMANDES' },
     ];
 
-    public static EnergyType = {
-        ELECTRICITY: '01',
-        GAZ: '02',
-        ELECTRICITY_LABEL: 'Electricité',
-        GAZ_LABEL: 'Gaz'
-    };
+    public static readonly EnergyType: {
+        ELECTRICITY: string;
+        GAZ: string;
+        ELECTRICITY_LABEL: string;
+        GAZ_LABEL: string;
+    } = {
+            ELECTRICITY: '01',
+            GAZ: '02',
+            ELECTRICITY_LABEL: 'Electricité',
+            GAZ_LABEL: 'Gaz'
+        };
 }
