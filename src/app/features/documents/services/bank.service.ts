@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Bank } from '../../../shared/models/bank.model';
 import { BankHttpService } from '../../../core/http-services/bank-http.service';
+import { UpdateRib } from '../../../shared/models/update-rib';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class BankService {
     return this.bankhttpService.fetchCompteBancaire(businessPartner);
   }
 
-  createCompteBancaire(data: any): Observable<any> {
-    return this.bankhttpService.createCompteBancaire(data);
+  createCompteBancaire(updateRib: UpdateRib): Observable<any> {
+    return this.bankhttpService.createCompteBancaire(updateRib);
   }
 }
