@@ -8,10 +8,12 @@ import { ContractService } from './shared/services/contract.service';
 import { Contract } from './shared/models/contract.model';
 import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
+import { BankService } from './features/documents/services/bank.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, NavBarComponent, FooterComponent],
+  imports: [RouterOutlet,FormsModule, ButtonModule, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -25,7 +27,7 @@ export class AppComponent implements OnInit {
   haveContract: boolean | undefined = undefined;
 
   constructor(private authService: AuthService,
-    private contractService: ContractService,
+    private contractService: ContractService,private bankService: BankService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
     this.authService.logTokenDetails();
@@ -66,4 +68,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+
 }

@@ -14,4 +14,8 @@ export class BankService {
   getCompteBancaire(businessPartner: string | null): Observable<Bank[]> {
     return this.bankhttpService.fetchCompteBancaire(businessPartner);
   }
+
+  createCompteBancaire(data: any): Observable<any> {
+    return this.bankhttpService.createCompteBancaire(data);
+  }
 }

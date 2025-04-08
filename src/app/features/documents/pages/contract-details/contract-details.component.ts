@@ -15,6 +15,7 @@ import { Mandate } from '../../../../shared/models/mandate.model';
 import { MandateService } from '../../services/mandate.service';
 import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
+import { User } from '../../../../shared/models/user.model';
 
 
 
@@ -29,13 +30,18 @@ export class AppDocumentContractDetailsComponent {
   allContracts: ContractDetails[] = [];
   contractsList: Signal<Contract[]>;
   contract: Contract | undefined;
-  mandates: Mandate[] = []
+  currentUser: Signal<User | null>;
+  mandates: Mandate[] = [];
+  bankIdInput: string = '';
+
 
   constructor(private router: Router,
     private contractService: ContractService, private activatedRoute: ActivatedRoute, private authService: AuthService,
         private bankService: BankService,
         private mandateService: MandateService) {
       this.contractsList = this.contractService.contracts;
+      this.currentUser = this.authService.currentUSer;
+
 
 
     this.activatedRoute.params.subscribe(params => {
@@ -71,7 +77,7 @@ export class AppDocumentContractDetailsComponent {
     this.router.navigate(['documents']);
   }
 
-
+ 
     private loadBankAccount(): void {
     let businessPartner = this.authService.getUserData()?.bp;
 
@@ -112,4 +118,38 @@ export class AppDocumentContractDetailsComponent {
       },
     });
   }
+
+  submitBankChange(newRib: string): void {
+    const businessPartnerBankId = newRib?.trim();  // Utilise bien le paramètre reçu
+    const contractISU = this.contract?.ContractISU;
+  
+    if (!contractISU) {
+      console.error("ContractISU introuvable.");
+      return;
+    }
+  
+    if (!businessPartnerBankId) {
+      console.error("Veuillez entrer un identifiant bancaire.");
+      return;
+    }
+  
+    const body = {
+      ContractISU: contractISU,
+      BusinessPartnerBankId: businessPartnerBankId,
+      Action: "CHANGE_BANK"
+    };
+  
+    this.bankService.createCompteBancaire(body).subscribe({
+      next: (response) => {
+        console.log("Compte bancaire modifié avec succès :", response);
+        alert("Changement de compte bancaire effectué avec succès !");
+      },
+      error: (error) => {
+        console.error("Erreur lors de la modification du compte bancaire :", error);
+        alert("Échec du changement de compte bancaire.");
+      }
+    });
+  }
+  
+
 }
