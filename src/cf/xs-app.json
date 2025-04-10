@@ -26,6 +26,13 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
+       
+        {
+            "source": "^/sobjects/(.*)$",
+            "destination": "geg_fournisseur_salesforce",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
         {
             "source": "^/user-api/currentUser$",
             "target": "/currentUser",

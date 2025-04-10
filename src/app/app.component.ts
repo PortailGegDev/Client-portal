@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { BankService } from './features/documents/services/bank.service';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -18,26 +19,39 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  compteBancaire: any;
-  mandate: any;
-  bpBankId: string[] = [];
-
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
 
-  constructor(private authService: AuthService,
-    private contractService: ContractService,private bankService: BankService,
+  constructor(private authService: AuthService,private httpClient: HttpClient,
+    private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
     this.authService.logTokenDetails();
     this.contracts = this.contractService.contracts;
     this.selectedContract = this.contractService.selectedContract;
     this.primeNgLocaleService.applyFrenchLocale();
+
   }
 
   ngOnInit() {
     this.loadContract();
+    this.testSalesforceAPI();
+
+  }
+
+  testSalesforceAPI(): void {
+    let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
+
+    this.httpClient.get(url) 
+      .subscribe({
+        next: (data) => {
+          console.log('Réponse Salesforce :', data);
+        },
+        error: (error) => {
+          console.error('Erreur appel API Salesforce :', error);
+        }
+      });
   }
 
   loadContract() {
