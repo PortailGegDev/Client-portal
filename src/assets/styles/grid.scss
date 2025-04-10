@@ -3,7 +3,6 @@
   display: grid;
   width: 100%;
   gap: 16px;
-  /* Espacement par défaut */
 }
 
 /* Classes utilitaires pour les colonnes */
@@ -15,6 +14,10 @@
 .grid-2 {
   grid-template-columns: repeat(2, 1fr);
   /* Deux colonnes égales */
+}
+
+.grid-2-home {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .grid-3 {
@@ -52,9 +55,9 @@
   /* Deux colonnes : 1/5 et 4/5 */
 }
 
-.grid-5-2-2 {
-  grid-template-columns: 5fr 2fr 2fr;
-  /* Trois colonnes : 5/9, 2/9, 2/9 */
+.grid-5-4 {
+  grid-template-columns: 5fr 4fr;
+  /* Trois colonnes : 5/9, 4/9*/
 }
 
 .grid-4-1 {
@@ -96,44 +99,16 @@
 }
 
 @media (min-width: 700px) and (max-width: 1200px) {
-  .grid-5-2-2 {
-    grid-template-columns: 1fr;
-    /* Une seule colonne pour la première ligne */
-  }
-
-  .grid-5-2-2> :first-child {
-    grid-column: 1 / -1;
-    /* Occupe toute la première ligne */
-  }
-
-  .grid-5-2-2 {
-    grid-template-columns: repeat(2, 2fr 1fr);
-    /* Deux colonnes pour la deuxième ligne */
-  }
-
-  .grid-5-2-2> :nth-child(2),
-  .grid-5-2-2> :nth-child(3) {
-    grid-column: auto;
-    /* Permet aux éléments de s'aligner sur les colonnes */
-  }
-
-  .grid-5-2-2> :nth-child(2) {
-    justify-self: start;
-    /* Alignement optionnel */
-  }
-
-  .grid-5-2-2> :nth-child(3) {
-    justify-self: end;
-    /* Alignement optionnel */
-  }
-
   .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-5-4 {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1000px) {
-
   .grid-2,
   .grid-3,
   .grid-4,
@@ -147,8 +122,12 @@
 }
 
 @media (max-width: 700px) {
-  .grid-5-2-2 {
+  .grid-5-4 {
     grid-template-columns: 1fr;
     /* Une seule colonne sur tablette et mobile */
+  }
+
+  .grid-2-home {
+    grid-template-columns: 1fr;
   }
 }
