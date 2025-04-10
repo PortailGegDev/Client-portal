@@ -20,13 +20,7 @@ export class AppDocumentsContractPaymentComponent {
   @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   updateRib: boolean = false;
-  value1: number = 1;
   newRib: any = '';  // Variable pour stocker le nouveau RIB
-
-  // Méthode pour afficher le dialog de modification
-  showDialog() {
-    this.updateRib = true;
-  }
 
   // Méthode pour valider et émettre l'événement de mise à jour du RIB
   submitNewRib(): void {
