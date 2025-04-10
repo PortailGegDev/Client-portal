@@ -9,17 +9,22 @@
     </div>
 </div>
 
-<div class="grid-container grid-3-1-1 mb-3">
+<div class="grid-container grid-5-4 mb-3">
     <div class="grid-item">
         <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
     </div>
-    <div class="grid-item">
-        <app-home-documents [lastInvoice]="lastInvoice()" [selectedContract]="selectedContract()"
-            [currentUser]="currentUser()" />
-    </div>
 
     <div class="grid-item">
-        <app-home-carousel />
+        <div class="grid-container grid-2-home mb-3" style="height: 100%; width: 100%;">
+            <div class="grid-item">
+                <app-home-documents [lastInvoice]="lastInvoice()" [selectedContract]="selectedContract()"
+                    [currentUser]="currentUser()" />
+            </div>
+
+            <div class="grid-item">
+                <app-home-carousel />
+            </div>
+        </div>
     </div>
 </div>
 
@@ -29,6 +34,6 @@
     </div>
 
     <div class="grid-item">
-        <app-articles/>
+        <app-articles />
     </div>
 </div>
