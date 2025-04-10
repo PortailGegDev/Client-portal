@@ -10,11 +10,12 @@ import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
 import { AppMesLogementsComponent } from '../../components/mes-logements/mes-logements.component';
 import { AppMesPreferencesComponent } from '../../components/mes-preferences/mes-preferences.component';
+import { AuthService } from '../../../../core/http-services/auth.service';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent,AppMesLogementsComponent,AppMesPreferencesComponent],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent, AppMesLogementsComponent, AppMesPreferencesComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -33,15 +34,17 @@ export class AppProfileComponent {
 
 
   constructor(
-    private router: Router, 
-    private renderer: Renderer2, 
-    private elRef: ElementRef, 
+    private authService: AuthService,
+    private router: Router,
+    private renderer: Renderer2,
+    private elRef: ElementRef,
     private profileService: ProfilService
   ) { }
 
   ngOnInit() {
-    const bp = '1510060117';  // ID de test, remplace par une variable dynamique si nécessaire
-    this.loadProfil(bp);
+    let businessPartner = this.authService.getUserData()?.bp;
+
+    this.loadProfil(businessPartner!);
     // Récupérer le contrat sélectionné depuis le localStorage
     const savedContract = localStorage.getItem('selectedContract');
     if (savedContract) {

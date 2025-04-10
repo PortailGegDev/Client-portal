@@ -14,10 +14,6 @@ export class ProfilHttpService extends BaseHttpService {
   }
 
   fetchPerson(bp: string | null): Observable<Profil | undefined> {
-    if (!bp) {
-      bp = '1510060117'; // Valeur par défaut
-    }
-
     let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=BusinessPartnerId eq '${bp}'`;
 
     return this.http.get<{ profil: Profil | undefined }>(url)
