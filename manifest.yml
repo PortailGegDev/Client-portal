@@ -9,11 +9,10 @@ applications:
       - nodejs_buildpack
     instances: 1
     routes:
-      - route: client-portal-001.cfapps.eu10-004.hana.ondemand.com
+      - route: client-portal-002.cfapps.eu10-004.hana.ondemand.com
     env:
-      SESSION_TIMEOUT: 960
-      
+      SESSION_TIMEOUT: 960 
     services:
       - portail_client-connectivity
       - portail_client-destination
-      - portail_client-xsuaa
+      - portail_client-xsuaa2

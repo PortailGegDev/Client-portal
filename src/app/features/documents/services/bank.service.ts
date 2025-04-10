@@ -12,7 +12,7 @@ export class BankService {
 
   constructor(private bankhttpService: BankHttpService) { }
 
-  getCompteBancaire(businessPartner: string | null): Observable<Bank[]> {
+  getCompteBancaire(businessPartner: string | null): Observable<{ banks: Bank[], csrfToken: string }> {
     return this.bankhttpService.fetchCompteBancaire(businessPartner);
   }
 

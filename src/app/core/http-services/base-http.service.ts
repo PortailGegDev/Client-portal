@@ -13,4 +13,10 @@ export abstract class BaseHttpService {
     this.apiUrl = environment.apiUrl;
     this.apiUrlContractList = environment.apiUrlContractList;
   }
+
+  getGetHeader(): any {
+    return {
+      headers: { 'x-csrf-token': 'fetch' }
+    };
+  }
 }

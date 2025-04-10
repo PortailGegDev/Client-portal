@@ -17,12 +17,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(
-      withXsrfConfiguration({
-        cookieName: 'XSRF-TOKEN',
-        headerName: 'X-XSRF-TOKEN'
-      })
-    ),
+    provideHttpClient(),
     {//utiliser pour resoudre le pb de perte de l'application lors d'actualisation de la page
       provide: LocationStrategy,
       useClass: HashLocationStrategy

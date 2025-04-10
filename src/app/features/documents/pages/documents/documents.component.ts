@@ -79,9 +79,11 @@ export class AppDocumentsComponent {
 
 
     this.bankService.getCompteBancaire(businessPartner).subscribe({
-      next: (data: Bank[]) => {
+      next: (data: { banks: Bank[], csrfToken: string }) => {
         if (data) {
-          let partnerBankIds = data.map(item => item.BusinessPartnerBankId);
+          let partnerBankIds = data.banks.map(item => item.BusinessPartnerBankId);
+          let csrfToken = data.csrfToken;
+
           this.loadMandate(partnerBankIds);;
         }
       },

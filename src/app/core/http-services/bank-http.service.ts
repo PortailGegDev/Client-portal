@@ -14,22 +14,28 @@ export class BankHttpService extends BaseHttpService {
     super();
   }
 
-  fetchCompteBancaire(businessPartner: string | null): Observable<Bank[]> {
+  fetchCompteBancaire(businessPartner: string | null): Observable<{ banks: Bank[], csrfToken: string }> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank?$format=json&$filter=BusinessPartnerId eq '${businessPartner}'`;
 
-    return this.http.get<{ bank: Bank[] | undefined }>(url)
-      .pipe(map((response: any) => response.d.results || []),
+    return this.http.get(url, { headers: { 'x-csrf-token': 'fetch' }, observe: 'response' })  // On observe la réponse complète
+      .pipe(
+        map((response: any) => {
+          const banks = response.body?.d.results || [];  // Extraction des données bancaires
+          const csrfToken = response.headers.get('X-CSRF-TOKEN') || '';  // Extraction du CSRF token
+debugger
+          return { banks, csrfToken };  // Retourner les banques et le CSRF token
+        }),
         catchError(error => {
-          console.error('erreur lors de la récupération des comptes bancaire', error);
-          return of([]);
+          console.error('Erreur lors de la récupération des comptes bancaires', error);
+          return of({ banks: [], csrfToken: '' });
         })
       );
   }
 
   createCompteBancaire(updateRib: UpdateRib): Observable<any> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'X-Csrf-Token': 'None' });
+
     return this.http.post(url, updateRib, { headers }).pipe(
       catchError(error => {
         console.error('Erreur lors de la création du compte bancaire', error);
@@ -37,5 +43,5 @@ export class BankHttpService extends BaseHttpService {
       })
     );
   }
-  
+
 }

@@ -35,16 +35,13 @@ export class AppDocumentContractDetailsComponent {
   mandates: Mandate[] = [];
   bankIdInput: string = '';
 
-
   constructor(private router: Router,
     private contractService: ContractService, private activatedRoute: ActivatedRoute, private authService: AuthService,
     private bankService: BankService,
     private mandateService: MandateService) {
     this.contractsList = this.contractService.contracts;
     this.currentUser = this.authService.currentUSer;
-
-
-
+    
     this.activatedRoute.params.subscribe(params => {
       const contractIsu: string[] = [];
       contractIsu.push(params['contractIsu']);
@@ -94,9 +91,11 @@ export class AppDocumentContractDetailsComponent {
 
 
     this.bankService.getCompteBancaire(businessPartner).subscribe({
-      next: (data: Bank[]) => {
+      next: (data: { banks: Bank[], csrfToken: string }) => {
         if (data) {
-          let partnerBankIds = data.map(item => item.BusinessPartnerBankId);
+          let partnerBankIds = data.banks.map(item => item.BusinessPartnerBankId);
+          let csrfToken = data.csrfToken;
+
           this.loadMandate(partnerBankIds);;
         }
       },

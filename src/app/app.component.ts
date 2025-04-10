@@ -68,10 +68,10 @@ export class AppComponent implements OnInit {
       console.log("Vous êtes en locale : Votre Bp est '1510136444'");
     }
 
-    if (!businessPartner) {
-      console.error('Erreur : Pas de business Partner lié à ce compte');
-      return
-    }
+    // if (!businessPartner) {
+    //   console.error('Erreur : Pas de business Partner lié à ce compte');
+    //   return
+    // }
 
     // Charger les contrats via le service
     this.contractService.getContractByBusinessPartner(businessPartner!).subscribe({
