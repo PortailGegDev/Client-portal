@@ -9,10 +9,11 @@
     </div>
 </div>
 
-<div class="grid-container grid-3-1-1 mb-3">
+<div class="grid-container grid-5-2-2 mb-3">
     <div class="grid-item">
         <app-home-consumption [consumptions]="consumptions()" [lastInvoice]="lastInvoice()" />
     </div>
+    
     <div class="grid-item">
         <app-home-documents [lastInvoice]="lastInvoice()" [selectedContract]="selectedContract()"
             [currentUser]="currentUser()" />

@@ -3,10 +3,12 @@ import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { VariousService } from '../../../../shared/services/various.service';
 import { Carousel } from '../../../../shared/models/carousel.model';
+import { PanelModule } from 'primeng/panel';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-home-carousel',
-  imports: [CarouselModule, ButtonModule],
+  imports: [PanelModule, CardModule,CarouselModule, ButtonModule],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })

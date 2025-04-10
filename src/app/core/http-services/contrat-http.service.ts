@@ -22,38 +22,40 @@ export class ContractHttpService extends BaseHttpService {
   }
 
   fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
+
     const url = `${this.apiUrlContractList}/ZA_ContractList?$format=json&$filter=PartnerId eq '${businessPartner}'`;
-    
-    return this.httpClient.get(url).pipe(
-      map((response: any) => response?.d?.results ?? []),
-      catchError(error => {
-        console.error('errreur lors de la récup', error);
-        return of([]);
-      })
-    );
-  }
-
-  fetchContractISU(filter: string | null): Observable<ContractDetails[]> {
-    const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
-    
-    return this.httpClient.get(url).pipe(
-      map((response: any) => response?.d?.results ?? []),
-      catchError(error => {
-        console.error('errreur lors de la récup', error);
-        return of([]);
-      })
-    );
-  }
-
-  fetchContractPartner(businessPartner: string | null): Observable<any[]> {
-    const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
+  
 
     return this.httpClient.get(url).pipe(
-      map((response: any) => response?.d?.results ?? []),
-      catchError(error => {
-        console.error('errreur lors de la récup', error);
-        return of([]);
-      })
-    );
+    map((response: any) => response?.d?.results ?? []),
+    catchError(error => {
+      console.error('errreur lors de la récup', error);
+      return of([]);
+    })
+  );
   }
+
+fetchContractISU(filter: string | null): Observable < ContractDetails[] > {
+  const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
+
+  return this.httpClient.get(url).pipe(
+    map((response: any) => response?.d?.results ?? []),
+    catchError(error => {
+      console.error('errreur lors de la récup', error);
+      return of([]);
+    })
+  );
+}
+
+fetchContractPartner(businessPartner: string | null): Observable < any[] > {
+  const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
+
+  return this.httpClient.get(url).pipe(
+    map((response: any) => response?.d?.results ?? []),
+    catchError(error => {
+      console.error('errreur lors de la récup', error);
+      return of([]);
+    })
+  );
+}
 }
