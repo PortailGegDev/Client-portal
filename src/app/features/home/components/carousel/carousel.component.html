@@ -10,7 +10,18 @@
             </div>
 
             <div class="carousel-text-content">
-                <div class="carousel-icon-container carousel-icon"></div>
+                @if(carousel.title === "Relevez vos index"){
+                <div class="carousel-icon-container carousel-icon-relevez-vos-index"> </div>
+                }
+
+                @if(carousel.title === "Chèque énergie"){
+                <div class="carousel-icon-container carousel-icon-cheque-energie"> </div>
+                }
+
+                @if(carousel.title === "Un projet d'économies d'énergie ?"){
+                <div class="carousel-icon-container carousel-icon-projet-economies-energie"> </div>
+                }
+
                 <div class="carousel-text-title">{{ carousel.title }}</div>
                 <div class="carousel-text-subtitle">
                     <div>{{ carousel.subtitle }}</div>
