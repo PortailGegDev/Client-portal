@@ -4,39 +4,44 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Bank } from '../../shared/models/bank.model';
 import { BaseHttpService } from './base-http.service';
 import { UpdateRib } from '../../shared/models/update-rib';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BankHttpService extends BaseHttpService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {
     super();
   }
 
-  fetchCompteBancaire(businessPartner: string | null): Observable<{ banks: Bank[], csrfToken: string }> {
+  fetchCompteBancaire(businessPartner: string | null): Observable<Bank[]> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank?$format=json&$filter=BusinessPartnerId eq '${businessPartner}'`;
 
-    return this.http.get(url, { headers: { 'x-csrf-token': 'fetch' }, observe: 'response' })  // On observe la réponse complète
+    return this.http.get(url, { headers: { 'x-csrf-token': 'fetch' }, observe: 'response' })
       .pipe(
         map((response: any) => {
-          const banks = response.body?.d.results || [];  // Extraction des données bancaires
-          const csrfToken = response.headers.get('X-CSRF-TOKEN') || '';  // Extraction du CSRF token
-debugger
-          return { banks, csrfToken };  // Retourner les banques et le CSRF token
+          const banks = response.body?.d.results || [];
+          const csrfToken = response.headers.get('X-CSRF-TOKEN') || '';
+          this.localStorageService.setItem('csrfToken', csrfToken);
+
+          return banks as Bank[];
         }),
         catchError(error => {
           console.error('Erreur lors de la récupération des comptes bancaires', error);
-          return of({ banks: [], csrfToken: '' });
+          return of([]);
         })
       );
   }
 
   createCompteBancaire(updateRib: UpdateRib): Observable<any> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'X-Csrf-Token': 'None' });
 
-    return this.http.post(url, updateRib, { headers }).pipe(
+    const csrfToken = this.localStorageService.getItem('csrfToken');
+    debugger
+    return this.http.post(url, updateRib, { headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken }) }).pipe(
       catchError(error => {
         console.error('Erreur lors de la création du compte bancaire', error);
         return throwError(() => error);
