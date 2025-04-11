@@ -39,7 +39,7 @@
                 }
 
                 @case ('Totalement Soldée') {
-                <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger"
+                <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
                     (click)="downloadPDF(lastInvoice)">
                 }
                 }
@@ -67,7 +67,7 @@
                 </svg>
                 &nbsp; &nbsp;
                 <p style="font-size: 12px;">Justificatif de domicile<br>{{ formattedDate }}</p>
-                <img class="invoice-icon" src="/images/Icons (1).svg" alt="Télécharger" (click)="downloadJustifPDF()">
+                <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger" (click)="downloadJustifPDF()">
 
             </div>
         </div>
