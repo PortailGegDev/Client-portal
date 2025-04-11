@@ -135,7 +135,7 @@ export class AppDocumentContractDetailsComponent {
     }
 
     const updateRib: UpdateRib = {
-      BusinessPartner: businessPartner,
+      BusinessPartnerId: businessPartner,
       IBAN: iban,
       BankAccountHolderName: "Alain Dupre"
     };

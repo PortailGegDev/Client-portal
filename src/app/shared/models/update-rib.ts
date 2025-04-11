@@ -1,5 +1,5 @@
 export class UpdateRib {
-    BusinessPartner!: string;
+    BusinessPartnerId!: string;
     IBAN!: string;
     BankAccountHolderName!: string;
 
