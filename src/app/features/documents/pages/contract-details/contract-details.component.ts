@@ -121,23 +121,23 @@ export class AppDocumentContractDetailsComponent {
   }
 
   submitBankChange(newRib: string): void {
-    const businessPartnerBankId = newRib?.trim();  // Utilise bien le paramètre reçu
-    const contractISU = this.contract?.ContractISU;
+  let businessPartner = this.authService.getUserData()?.bp;
 
-    if (!contractISU) {
-      console.error("ContractISU introuvable.");
-      return;
+    const iban = newRib?.trim();  // Utilise bien le paramètre reçu
+    if (!businessPartner) {
+      businessPartner = '1510136444';
+      console.warn("BusinessPartner introuvable, valeur par défaut utilisée.");
     }
 
-    if (!businessPartnerBankId) {
+    if (!iban) {
       console.error("Veuillez entrer un identifiant bancaire.");
       return;
     }
 
     const updateRib: UpdateRib = {
-      contractISU: contractISU,
-      businessPartnerBankId: businessPartnerBankId,
-      action: "CHANGE_BANK"
+      BusinessPartner: businessPartner,
+      IBAN: iban,
+      BankAccountHolderName: "Alain Dupre"
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
