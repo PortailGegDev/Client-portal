@@ -17,6 +17,7 @@ import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { UpdateRib } from '../../../../shared/models/update-rib';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 
 
@@ -36,7 +37,9 @@ export class AppDocumentContractDetailsComponent {
   bankIdInput: string = '';
 
   constructor(private router: Router,
-    private contractService: ContractService, private activatedRoute: ActivatedRoute, private authService: AuthService,
+    private contractService: ContractService, 
+    private activatedRoute: ActivatedRoute, 
+    private authService: AuthService,
     private bankService: BankService,
     private mandateService: MandateService) {
     this.contractsList = this.contractService.contracts;
@@ -91,11 +94,9 @@ export class AppDocumentContractDetailsComponent {
 
 
     this.bankService.getCompteBancaire(businessPartner).subscribe({
-      next: (data: { banks: Bank[], csrfToken: string }) => {
-        if (data) {
-          let partnerBankIds = data.banks.map(item => item.BusinessPartnerBankId);
-          let csrfToken = data.csrfToken;
-
+      next: (banks: Bank[]) => {
+        if (banks) {
+          let partnerBankIds = banks.map(item => item.BusinessPartnerBankId);
           this.loadMandate(partnerBankIds);;
         }
       },
