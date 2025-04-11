@@ -8,6 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MaskRIBPipe } from '../../../../shared/pipe/mask-rib.pipe';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { ContractDetails } from '../../../../shared/models/contract-details.model';
 
 @Component({
   selector: 'app-documents-contract-payment',
@@ -17,6 +18,7 @@ import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pi
 })
 export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
+  @Input() ContractDetails: ContractDetails | undefined;
   @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   updateRib: boolean = false;
