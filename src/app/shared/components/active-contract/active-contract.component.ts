@@ -30,7 +30,7 @@ export class ActiveContractComponent  {
 
   statusOptions = [
     { label: 'Actif', value: 'ACTIF' },
-    { label: 'Cessé', value: 'CESSÉ' },
+    { label: 'Cessé', value: 'RESIL' },
   ];
 
   // Utilisez les signaux du ContractService
