@@ -1,4 +1,4 @@
-<p-card>
+<p-card class="download">
     <div class="d-flex flex-wrap align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="me-2">
             <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
@@ -12,6 +12,6 @@
             <div class="document-date">{{ date }}</div>
         </div>
         
-        <p-button icon="pi pi-download" iconPos="right" class="ms-2" (onClick)="onClick.emit(contractIsu)" />
+        <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2" (onClick)="onClick.emit(contractIsu)" />
     </div>
 </p-card>

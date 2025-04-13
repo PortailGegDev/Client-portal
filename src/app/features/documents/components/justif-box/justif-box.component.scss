@@ -36,3 +36,18 @@
     padding: 20px;
     gap: 24px;
 }
+
+::ng-deep .download:hover .p-card {
+    border: 1px solid #D4E22C !important;
+}
+
+
+::ng-deep .download:hover .p-card .pi {
+    background-color: #D4E22C !important;
+    border-radius: 4px !important;
+    color: #3A3A3A;
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    margin-left: auto;
+}
