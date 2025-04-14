@@ -25,12 +25,21 @@ export class MandateService {
   }
 
 
-   createMandat(createMandat: CreateMandat): Observable<any> {
-      return this.mandatehttpService.createMandat(createMandat);
-    }
+  createMandat(createMandat: CreateMandat): Observable<any> {
+    return this.mandatehttpService.createMandat(createMandat);
+  }
 
-    generateSEPAMandate(contractISU:string, businessPartner:string):string{
-      return `RUM${contractISU}${businessPartner}`;
+  generateSEPAMandate(contractISU: string, businessPartner: string): string {
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, '0');
 
-    }
+    const formatted =
+      pad(now.getDate()) +
+      pad(now.getMonth() + 1) +
+      now.getFullYear() +
+      pad(now.getHours()) +
+      pad(now.getMinutes());
+
+    return `RUM${contractISU}${businessPartner}${formatted}`;
+  }
 }
