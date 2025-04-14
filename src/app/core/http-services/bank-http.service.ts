@@ -25,7 +25,6 @@ export class BankHttpService extends BaseHttpService {
           const banks = response.body?.d.results || [];
           const csrfToken = response.headers.get('X-CSRF-TOKEN') || '';
           this.localStorageService.setItem('csrfToken', csrfToken);
-
           return banks as Bank[];
         }),
         catchError(error => {

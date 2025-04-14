@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Mandate } from '../../../shared/models/mandate.model';
 import { MandateHttpService } from '../../../core/http-services/mandate-http.service';
+import { CreateMandat } from '../../../shared/models/create-mandat';
 
 
 @Injectable({
@@ -18,10 +19,13 @@ export class MandateService {
       if (bpBank.indexOf(element) === 0) {
         return;
       }
-
       filter = filter + ` or BusinessPartnerBankId eq '${element}'`;
     });
-
     return this.mandatehttpService.fetchMandate(filter);
   }
+
+
+   createMandat(createMandat: CreateMandat): Observable<any> {
+      return this.mandatehttpService.createMandat(createMandat);
+    }
 }

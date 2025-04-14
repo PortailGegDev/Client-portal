@@ -115,7 +115,7 @@ export class AppDocumentContractDetailsComponent {
   submitBankChange(newRib: string): void {
     let businessPartner = this.authService.businessPartner();
 
-    const iban = newRib?.trim();  // Utilise bien le paramètre reçu
+    const iban = newRib?.trim();  
     if (!businessPartner) {
       console.warn("BusinessPartner introuvable, valeur par défaut utilisée.");
     }
@@ -128,7 +128,7 @@ export class AppDocumentContractDetailsComponent {
     const updateRib: UpdateRib = {
       BusinessPartnerId: businessPartner!,
       IBAN: iban,
-      BankAccountHolderName: "Alain Dupre"
+      BankAccountHolderName: this.contract!.PayerFullName,
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
