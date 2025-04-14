@@ -128,7 +128,7 @@ export class AppDocumentContractDetailsComponent {
     }
 
     const updateRib: UpdateRib = {
-      BusinessPartnerId: businessPartner!,
+      BusinessPartnerId: this.contract!.PayerPartnerId,
       IBAN: iban,
       BankAccountHolderName: this.contract!.PayerFullName,
     };
