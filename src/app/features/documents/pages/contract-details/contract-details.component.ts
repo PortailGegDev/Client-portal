@@ -17,7 +17,6 @@ import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { UpdateRib } from '../../../../shared/models/update-rib';
-import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 
 
@@ -37,14 +36,14 @@ export class AppDocumentContractDetailsComponent {
   bankIdInput: string = '';
 
   constructor(private router: Router,
-    private contractService: ContractService, 
-    private activatedRoute: ActivatedRoute, 
+    private contractService: ContractService,
+    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private bankService: BankService,
     private mandateService: MandateService) {
     this.contractsList = this.contractService.contracts;
     this.currentUser = this.authService.currentUSer;
-    
+
     this.activatedRoute.params.subscribe(params => {
       const contractIsu: string[] = [];
       contractIsu.push(params['contractIsu']);
@@ -56,8 +55,14 @@ export class AppDocumentContractDetailsComponent {
       })
     });
 
-    this.loadBankAccount();
+    
+    effect(() => {
+      const bp = this.authService.businessPartner();
 
+      if (bp) {
+        this.loadBankAccount(bp);
+      }
+    });
   }
 
   private loadContract(contractsISUList: string[]) {
@@ -79,20 +84,7 @@ export class AppDocumentContractDetailsComponent {
   }
 
 
-  private loadBankAccount(): void {
-    let businessPartner = this.authService.getUserData()?.bp;
-
-    if (!businessPartner) {
-      // pour tester en locale dans la DF1
-      businessPartner = '1510136444';
-      // businessPartner = '1510060117'; // bp consommation pour QF1
-      // businessPartner = '1510023652'; // bp liste de contrats pour DF1
-      // businessPartner = '1510063413'; // bp liste de contrats pour QF1
-      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
-      // businessPartner='350000261'; //bp DF1
-    }
-
-
+  private loadBankAccount(businessPartner: string): void {
     this.bankService.getCompteBancaire(businessPartner).subscribe({
       next: (banks: Bank[]) => {
         if (banks) {
@@ -121,11 +113,10 @@ export class AppDocumentContractDetailsComponent {
   }
 
   submitBankChange(newRib: string): void {
-  let businessPartner = this.authService.getUserData()?.bp;
+    let businessPartner = this.authService.businessPartner();
 
     const iban = newRib?.trim();  // Utilise bien le paramètre reçu
     if (!businessPartner) {
-      businessPartner = '1510136444';
       console.warn("BusinessPartner introuvable, valeur par défaut utilisée.");
     }
 
@@ -135,7 +126,7 @@ export class AppDocumentContractDetailsComponent {
     }
 
     const updateRib: UpdateRib = {
-      BusinessPartnerId: businessPartner,
+      BusinessPartnerId: businessPartner!,
       IBAN: iban,
       BankAccountHolderName: "Alain Dupre"
     };
@@ -143,14 +134,10 @@ export class AppDocumentContractDetailsComponent {
     this.bankService.createCompteBancaire(updateRib).subscribe({
       next: (response) => {
         console.log("Compte bancaire modifié avec succès :", response);
-        alert("Changement de compte bancaire effectué avec succès !");
       },
       error: (error) => {
         console.error("Erreur lors de la modification du compte bancaire :", error);
-        alert("Échec du changement de compte bancaire.");
       }
     });
   }
-
-
 }

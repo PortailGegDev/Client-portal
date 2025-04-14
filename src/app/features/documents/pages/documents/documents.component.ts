@@ -42,16 +42,17 @@ export class AppDocumentsComponent {
     this.currentUser = this.authService.currentUSer;
 
     effect(() => {
-
       if (this.contracts()) {
         const contractsISUList = this.contracts().map(item => item.ContractISU);
-
         this.loadContract(contractsISUList);
+      }
 
+      const bp = this.authService.businessPartner();
+
+      if (bp) {
+        this.loadBankAccount(bp);
       }
     });
-
-    this.loadBankAccount();
   }
 
   private loadContract(contractsISUList: string[]) {
@@ -64,20 +65,7 @@ export class AppDocumentsComponent {
     });
   }
 
-  private loadBankAccount(): void {
-    let businessPartner = this.authService.getUserData()?.bp;
-
-    if (!businessPartner) {
-      // pour tester en locale dans la DF1
-      businessPartner = '1510136444';
-      // businessPartner = '1510060117'; // bp consommation pour QF1
-      // businessPartner = '1510023652'; // bp liste de contrats pour DF1
-      // businessPartner = '1510063413'; // bp liste de contrats pour QF1
-      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
-      // businessPartner='350000261'; //bp DF1
-    }
-
-
+  private loadBankAccount(businessPartner: string): void {
     this.bankService.getCompteBancaire(businessPartner).subscribe({
       next: (banks: Bank[]) => {
         if (banks) {

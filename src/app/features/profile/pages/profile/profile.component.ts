@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, effect, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -39,12 +39,17 @@ export class AppProfileComponent {
     private renderer: Renderer2,
     private elRef: ElementRef,
     private profileService: ProfilService
-  ) { }
+  ) {
+    effect(() => {
+      const bp = this.authService.businessPartner();
+
+      if (bp) {
+        this.loadProfil(bp);
+      }
+    });
+  }
 
   ngOnInit() {
-    let businessPartner = this.authService.getUserData()?.bp;
-
-    this.loadProfil(businessPartner!);
     // Récupérer le contrat sélectionné depuis le localStorage
     const savedContract = localStorage.getItem('selectedContract');
     if (savedContract) {

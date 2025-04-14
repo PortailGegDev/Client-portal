@@ -58,12 +58,11 @@ export class ArticlesComponent implements OnInit {
         } else {
           const sortedIndexesConsumption = [3, 4, 5, 6];
           this.articles = sortedIndexesConsumption.map(index => data[index]);
-  }
-        console.log(this.articles)
-},
-error: (error) => {
-  console.error('Erreur lors du chargement des données d\'articles :', error);
-},
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des données d\'articles :', error);
+      },
     });
   }
 }

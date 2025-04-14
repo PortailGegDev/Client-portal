@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, effect, OnInit, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,FormsModule, ButtonModule, NavBarComponent, FooterComponent],
+  imports: [RouterOutlet, FormsModule, ButtonModule, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
 
-  constructor(private authService: AuthService,private httpClient: HttpClient,
+  constructor(private authService: AuthService,
     private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
@@ -32,30 +32,31 @@ export class AppComponent implements OnInit {
     this.selectedContract = this.contractService.selectedContract;
     this.primeNgLocaleService.applyFrenchLocale();
 
+    effect(() => {
+      this.loadContract();
+    });
   }
 
   ngOnInit() {
-    this.loadContract();
-    this.testSalesforceAPI();
-
+    // this.testSalesforceAPI();
   }
 
-  testSalesforceAPI(): void {
-    let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
+  // testSalesforceAPI(): void {
+  //   let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
 
-    this.httpClient.get(url) 
-      .subscribe({
-        next: (data) => {
-          console.log('Réponse Salesforce :', data);
-        },
-        error: (error) => {
-          console.error('Erreur appel API Salesforce :', error);
-        }
-      });
-  }
+  //   this.httpClient.get(url)
+  //     .subscribe({
+  //       next: (data) => {
+  //         console.log('Réponse Salesforce :', data);
+  //       },
+  //       error: (error) => {
+  //         console.error('Erreur appel API Salesforce :', error);
+  //       }
+  //     });
+  // }
 
   loadContract() {
-    let businessPartner = this.authService.getUserData()?.bp;
+    let businessPartner = this.authService.businessPartner();
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
@@ -65,13 +66,14 @@ export class AppComponent implements OnInit {
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1
       // businessPartner='1510031862'; // bp liste de contrats pour partenaire
       // businessPartner='350000261'; //bp DF1
+      this.authService.businessPartner.set(businessPartner);
       console.log("Vous êtes en locale : Votre Bp est '1510136444'");
     }
 
-    // if (!businessPartner) {
-    //   console.error('Erreur : Pas de business Partner lié à ce compte');
-    //   return
-    // }
+    if (!businessPartner) {
+      console.error('Erreur : Pas de business Partner lié à ce compte');
+      return
+    }
 
     // Charger les contrats via le service
     this.contractService.getContractByBusinessPartner(businessPartner!).subscribe({
@@ -82,6 +84,4 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
-
 }

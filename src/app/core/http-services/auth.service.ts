@@ -14,6 +14,7 @@ export class AuthService {
   private user?: User;
   private currentUserSignal = signal<User | null>(null);
   currentUSer = computed(() => this.currentUserSignal());
+  businessPartner = signal<string | null>(null);
 
   private apiAuthUser: string;
 
@@ -52,6 +53,8 @@ export class AuthService {
 
               this.localStorageService.updateItem('user', this.user);
               this.currentUserSignal.set(this.user ?? null);
+              this.businessPartner.set(this.user!.bp ?? null);
+
             }
             , error: (error) => {
               console.error('Failed to fetch token:', error);

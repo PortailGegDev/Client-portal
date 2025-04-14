@@ -64,7 +64,6 @@ export class HeadlineComponent implements OnInit, OnChanges {
           this.headlines = data[1];
           // this.headlines = data.find(item => item.icon === 'Service');
         }
-        console.log(this.headlines);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données d\'à la une :', error);

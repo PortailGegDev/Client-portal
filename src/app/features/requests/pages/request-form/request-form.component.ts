@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Signal, signal } from '@angular/core';
+import { Component, effect, OnInit, Signal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from '../../../../shared/utils/constants';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -86,9 +86,6 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const bp = this.authService.getUserData()?.bp;
-    console.log('bp', bp);
-
     this.reclamationMotifs = Constants.ReclamationMotif;
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());

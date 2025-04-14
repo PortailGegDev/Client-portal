@@ -12,8 +12,7 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 export class BankHttpService extends BaseHttpService {
 
   constructor(private http: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {
+    private localStorageService: LocalStorageService) {
     super();
   }
 
@@ -41,15 +40,15 @@ export class BankHttpService extends BaseHttpService {
 
     const csrfToken = this.localStorageService.getItem('csrfToken');
     console.log('Contenu du body envoyé :', updateRib);
-    return this.http.post(url, updateRib, { headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
+    return this.http.post(url, updateRib, {
+      headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
     }).pipe(
-      
+
       catchError(error => {
         console.error('Erreur lors de la création du compte bancaire', error);
         return throwError(() => error);
-        
+
       })
     );
   }
-
 }
