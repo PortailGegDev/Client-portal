@@ -43,7 +43,7 @@ export class BankHttpService extends BaseHttpService {
       headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
     }).pipe(
       map((response: any) => {
-        const banks = response.body?.d || null;
+        const banks = response?.d || null;
         return banks as Bank;
       }),
 
