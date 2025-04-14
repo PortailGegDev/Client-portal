@@ -9,10 +9,11 @@ import { Mandate } from '../../../../shared/models/mandate.model';
 import { MaskRIBPipe } from '../../../../shared/pipe/mask-rib.pipe';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule, FormsModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe,],
+  imports: [CommonModule, FormsModule, InputTextModule,InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe,],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })

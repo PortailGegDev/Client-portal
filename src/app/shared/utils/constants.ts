@@ -35,4 +35,15 @@ export class Constants {
             ELECTRICITY_LABEL: 'Electricité',
             GAZ_LABEL: 'Gaz'
         };
+
+    public static InvoiceStatus = {
+        PARTIELLEMENT_SOLDEE: 'Partiellement soldée',
+        NON_SOLDEE: 'Non Soldée',
+        SOLDEE: 'Totalement Soldée'
+    }
+
+    public static PaymentMethod = {
+        P : "P",
+        S : "S",
+    }
 }

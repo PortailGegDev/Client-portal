@@ -135,9 +135,11 @@ export class AppDocumentContractDetailsComponent {
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
       next: (response:Bank | null) => {
+        
         if (!response){
           return;
         }
+
         const createMandat:CreateMandat= {
           SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU,this.contract!.PartnerId), 
           BusinessPartnerBankId: response.BusinessPartnerBankId,
@@ -146,6 +148,7 @@ export class AppDocumentContractDetailsComponent {
           SEPAMandateStatus: "1",
           SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
         };
+
         this.mandateService.createMandat(createMandat).subscribe({
           next:(response:any)=> {
             console.log("le mandat a crée avec succées")

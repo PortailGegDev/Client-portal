@@ -71,26 +71,30 @@
 
       <td>
         <span>
-          @if(invoice.StatusInvoicingDocument==='Partiellement soldée'){
-          <p-tag severity="info" [value]="invoice.StatusInvoicingDocument" />
+          @if(isAvenir(invoice)){
+          <p-tag severity="info" [value]="getInvoiceStatus(invoice)" />
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           }
-          @else if(invoice.StatusInvoicingDocument ==='Non Soldée'){
-          <p-tag severity="warn" [value]="invoice.StatusInvoicingDocument" />
+
+          @if(isNonSoldee(invoice)){
+          <p-tag severity="warn" [value]="getInvoiceStatus(invoice)" />
           {{ invoice.TotalUnpaidHT}}€ Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
           }
-          @else {
-          <p-tag severity="secondary" [value]="invoice.StatusInvoicingDocument" />
+
+          @if(isTotalementSoldee(invoice)) {
+          <p-tag severity="secondary" [value]="getInvoiceStatus(invoice)" />
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           }
         </span>
       </td>
       <td>
         <div style="text-align: right;">
-          @if(invoice.StatusInvoicingDocument ==='Totalement Soldée'){
+          @if(isTotalementSoldee(invoice)){
           <p-button icon="pi pi-download" [rounded]="true" [text]="true"
             (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
-          } @else {
+          }
+
+          @if(isNonSoldee(invoice)) {
           <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" (click)="payInvoice(invoice)" />
           }
         </div>

@@ -14,6 +14,8 @@ import { InvoicesService } from '../../services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
+import { convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-invoices-table',
@@ -62,10 +64,10 @@ export class AppInvoicesTableComponent implements OnChanges {
 
   payInvoice(invoice: Invoice) {
 
-    if (invoice.StatusInvoicingDocument === 'Totalement Soldée') {
+    if (invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE) {
       return;
     }
-    
+
     this.router.navigate(['invoices', 'paypage', 'orderId', 27032025000001, 'amount', 1500000]);
   }
 
@@ -92,5 +94,41 @@ export class AppInvoicesTableComponent implements OnChanges {
         this.messageService.add({ severity: 'error', summary: 'Oups !', detail: err });
       }
     });
+  }
+
+  getInvoiceStatus(invoice: Invoice): string {
+    if (this.isAvenir(invoice)) {
+      return 'A venir'
+    }
+
+    if (this.isPartiellementSoldee(invoice) || this.isNonSoldee(invoice)) {
+      return 'A régler';
+    }
+
+    if (this.isTotalementSoldee(invoice)) {
+      return 'Réglée';
+    }
+
+    return '';
+  }
+
+  isPartiellementSoldee(invoice: Invoice): boolean {
+    return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.PARTIELLEMENT_SOLDEE
+  }
+
+  isTotalementSoldee(invoice: Invoice): boolean {
+    return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE
+  }
+
+  isNonSoldee(invoice: Invoice): boolean {
+    return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.NON_SOLDEE
+  }
+
+  isAvenir(invoice: Invoice): boolean {
+    if (invoice.NetDueDate && invoice.PaymentMethod === Constants.PaymentMethod.P) {
+      return convertSAPDateToTsDate(invoice.NetDueDate)! > new Date();
+    }
+
+    return false;
   }
 }
