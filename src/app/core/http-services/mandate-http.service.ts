@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { Mandate } from '../../shared/models/mandate.model';
 import { BaseHttpService } from './base-http.service';
-import { CreateMandat } from '../../shared/models/create-mandat';
+import { CreateMandat } from '../../shared/models/create-mandat.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({

@@ -17,6 +17,7 @@ import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { UpdateRib } from '../../../../shared/models/update-rib';
+import { CreateMandat } from '../../../../shared/models/create-mandat.model';
 
 
 
@@ -51,7 +52,8 @@ export class AppDocumentContractDetailsComponent {
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
 
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
-        next: (contracts: ContractDetails[]) => { this.contractDetails = contracts[0] }
+        next: (contracts: ContractDetails[]) => { 
+          this.contractDetails = contracts[0] }
       })
     });
 
@@ -132,12 +134,26 @@ export class AppDocumentContractDetailsComponent {
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
-      next: (response) => {
-        console.log("Compte bancaire modifié avec succès :", response);
+      next: (response:Bank) => {
+        const createMandat:CreateMandat= {
+          SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU,this.contract!.PartnerId), 
+          BusinessPartnerBankId: response.BusinessPartnerBankId,
+          SEPASignatureCityName: "GRENOBLE",
+          SEPASignatureDate: new Date().toISOString().slice(0, 19),
+          SEPAMandateStatus: "1",
+          SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
+        };
+        this.mandateService.createMandat(createMandat).subscribe({
+          next:(response:any)=> {
+            console.log("le mandat a crée avec succées")
+          }
+        });
       },
       error: (error) => {
         console.error("Erreur lors de la modification du compte bancaire :", error);
       }
     });
   }
+
+
 }

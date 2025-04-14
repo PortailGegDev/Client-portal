@@ -29,6 +29,7 @@ export class ContractDetails {
     Siret?: string;
     MeterReadingUnit!: string;
     AddressCompteur!: string;
+    ProductSupplier!:string;
     ProductBrand!: string;
     ProductType!: string;
     BaremeDate?: string;

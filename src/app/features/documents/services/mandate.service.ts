@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Mandate } from '../../../shared/models/mandate.model';
 import { MandateHttpService } from '../../../core/http-services/mandate-http.service';
-import { CreateMandat } from '../../../shared/models/create-mandat';
+import { CreateMandat } from '../../../shared/models/create-mandat.model';
 
 
 @Injectable({
@@ -27,5 +27,10 @@ export class MandateService {
 
    createMandat(createMandat: CreateMandat): Observable<any> {
       return this.mandatehttpService.createMandat(createMandat);
+    }
+
+    generateSEPAMandate(contractISU:string, businessPartner:string):string{
+      return `RUM${contractISU}${businessPartner}`;
+
     }
 }
