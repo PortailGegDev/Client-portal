@@ -134,7 +134,10 @@ export class AppDocumentContractDetailsComponent {
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
-      next: (response:Bank) => {
+      next: (response:Bank | null) => {
+        if (!response){
+          return;
+        }
         const createMandat:CreateMandat= {
           SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU,this.contract!.PartnerId), 
           BusinessPartnerBankId: response.BusinessPartnerBankId,

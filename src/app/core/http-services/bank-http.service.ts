@@ -34,7 +34,7 @@ export class BankHttpService extends BaseHttpService {
       );
   }
 
-  createCompteBancaire(updateRib: UpdateRib): Observable<any> {
+  createCompteBancaire(updateRib: UpdateRib): Observable<Bank | null> {
     let url = `${this.apiUrl}/ZA_BusinessPartnerBank`;
 
     const csrfToken = this.localStorageService.getItem('csrfToken');
@@ -42,10 +42,14 @@ export class BankHttpService extends BaseHttpService {
     return this.http.post(url, updateRib, {
       headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
     }).pipe(
+      map((response: any) => {
+        const banks = response.body?.d || null;
+        return banks as Bank;
+      }),
 
       catchError(error => {
         console.error('Erreur lors de la création du compte bancaire', error);
-        return throwError(() => error);
+        return of(null);
 
       })
     );
