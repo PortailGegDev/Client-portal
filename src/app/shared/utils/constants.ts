@@ -49,4 +49,10 @@ export class Constants {
         P : "P",
         S : "S",
     }
+
+    public static PaymentProcedure = {
+        BIM : "BIM",
+        MEN : "MEN",
+        ECH : "ECH",
+    }
 }

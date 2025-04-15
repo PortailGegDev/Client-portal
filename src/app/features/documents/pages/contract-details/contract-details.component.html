@@ -4,28 +4,22 @@
 
 <h1>Détails contrat</h1>
 <div>
-    <app-documents-contract-header  [contractDetails]="contractDetails" [contract]="contract"  />
+    <app-documents-contract-header [contractDetails]="contractDetails" [contract]="contract" />
 </div>
 
 <div>
-    <app-documents-contract-payment [mandates]="mandates"  (ribUpdated)="submitBankChange($event)"/>
+    <app-documents-contract-payment [contractDetails]="contractDetails" [mandates]="mandates"
+        (ribUpdated)="submitBankChange($event)" />
 </div>
 &nbsp;
 <div>
-    <app-documents-contract-invoice  [contract]="contract"/>
+    <app-documents-contract-invoice [contract]="contract" />
 </div>
 &nbsp;
 <div>
-    <app-documents-contract-document/>
+    <app-documents-contract-document />
 </div>
 &nbsp;
 <div>
-    <app-documents-contract-service/>
+    <app-documents-contract-service />
 </div>
-
-
-
-
-
-
-

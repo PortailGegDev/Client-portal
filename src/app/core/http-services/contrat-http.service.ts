@@ -8,65 +8,60 @@ import { ContractDetails } from '../../shared/models/contract-details.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { ContractUpdate } from '../../shared/models/contract-update.model';
 
-
-const headers = new HttpHeaders({
-  'Authorization': 'Basic ' + btoa('WKHARRAT:sapbtpQF1_Qf144'), // Remplacez par vos informations d'authentification
-  'Content-Type': 'application/json'
-});
-
 @Injectable({
   providedIn: 'root'
 })
 export class ContractHttpService extends BaseHttpService {
 
-  constructor(private httpClient: HttpClient,private localStorageService: LocalStorageService,private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private localStorageService: LocalStorageService) {
     super();
   }
 
   fetchContractByBusinessPartner(businessPartner: string): Observable<Contract[]> {
 
     const url = `${this.apiUrlContractList}/ZA_ContractList?$format=json&$filter=PartnerId eq '${businessPartner}'`;
-  
 
-    return this.httpClient.get(url).pipe(
-    map((response: any) => response?.d?.results ?? []),
-    catchError(error => {
-      console.error('errreur lors de la récup', error);
-      return of([]);
-    })
-  );
+    return this.http.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
   }
 
-fetchContractISU(filter: string | null): Observable < ContractDetails[] > {
-  const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
+  fetchContractISU(filter: string | null): Observable<ContractDetails[]> {
+    const url = `${this.apiUrl}/ZA_Contract?$format=json&$filter=${filter}`;
 
-  return this.httpClient.get(url).pipe(
-    map((response: any) => response?.d?.results ?? []),
-    catchError(error => {
-      console.error('errreur lors de la récup', error);
-      return of([]);
-    })
-  );
-}
+    return this.http.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
+  }
 
-fetchContractPartner(businessPartner: string | null): Observable < any[] > {
-  const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
+  fetchContractPartner(businessPartner: string | null): Observable<any[]> {
+    const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
 
-  return this.httpClient.get(url).pipe(
-    map((response: any) => response?.d?.results ?? []),
-    catchError(error => {
-      console.error('errreur lors de la récup', error);
-      return of([]);
-    })
-  );
-}
+    return this.http.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
+  }
 
-updateContractDetails(contractUpdate:ContractUpdate):Observable<any> {
-  
-  const url= `${this.apiUrl}/ZA_Contract('${contractUpdate.ContractISU}')?$format=json`;
+  updateContractDetails(contractUpdate: ContractUpdate): Observable<any> {
+
+    const url = `${this.apiUrl}/ZA_Contract('${contractUpdate.ContractISU}')`;
     const csrfToken = this.localStorageService.getItem('csrfToken');
     console.log('Contenu du body envoyé :', contractUpdate);
-    return this.http.put(url, contractUpdate,{
+
+    return this.http.put(url, contractUpdate, {
       headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
     }).pipe(
       map((response: any) => {

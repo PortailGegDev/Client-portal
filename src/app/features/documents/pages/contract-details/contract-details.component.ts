@@ -19,8 +19,7 @@ import { User } from '../../../../shared/models/user.model';
 import { UpdateRib } from '../../../../shared/models/update-rib';
 import { CreateMandat } from '../../../../shared/models/create-mandat.model';
 import { ContractUpdate } from '../../../../shared/models/contract-update.model';
-
-
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-contract-details',
@@ -53,12 +52,12 @@ export class AppDocumentContractDetailsComponent {
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
 
       this.contractService.getContractsByContractISUList(contractIsu).subscribe({
-        next: (contracts: ContractDetails[]) => { 
-          this.contractDetails = contracts[0] }
+        next: (contracts: ContractDetails[]) => {
+          this.contractDetails = contracts[0]
+        }
       })
     });
 
-    
     effect(() => {
       const bp = this.authService.businessPartner();
 
@@ -85,7 +84,6 @@ export class AppDocumentContractDetailsComponent {
   RetourEnBack() {
     this.router.navigate(['documents']);
   }
-
 
   private loadBankAccount(businessPartner: string): void {
     this.bankService.getCompteBancaire(businessPartner).subscribe({
@@ -116,11 +114,16 @@ export class AppDocumentContractDetailsComponent {
   }
 
   submitBankChange(newRib: string): void {
-    let businessPartner = this.authService.businessPartner();
+    const iban = newRib?.trim();
 
-    const iban = newRib?.trim();  
-    if (!businessPartner) {
-      console.warn("BusinessPartner introuvable, valeur par défaut utilisée.");
+    if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
+      console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
+      return;
+    }
+
+    if (!this.contract?.PayerPartnerId) {
+      console.error("Le BusinessPartner du payeur est introuvable introuvable.");
+      return;
     }
 
     if (!iban) {
@@ -135,41 +138,41 @@ export class AppDocumentContractDetailsComponent {
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
-      next: (response:Bank | null) => {
-        
-        if (!response){
+      next: (response: Bank | null) => {
+
+        if (!response) {
           return;
         }
 
-        const createMandat:CreateMandat= {
-          SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU,this.contract!.PartnerId), 
+        const createMandat: CreateMandat = {
+          SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
           BusinessPartnerBankId: response.BusinessPartnerBankId,
           SEPASignatureCityName: "GRENOBLE",
           SEPASignatureDate: new Date().toISOString().slice(0, 19),
           SEPAMandateStatus: "1",
           SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
         };
-        
+
         this.mandateService.createMandat(createMandat).subscribe({
-          next:(response:any)=> {
+          next: (response: any) => {
             console.log("le mandat a crée avec succées")
-            const contractUpdate: ContractUpdate= {
+            const contractUpdate: ContractUpdate = {
               ContractISU: this.contract!.ContractISU,
               BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
               Action: "CHANGE_BANK",
             };
-        
+
             this.contractService.updateContractDetails(contractUpdate).subscribe({
-              next: (response:any) => {
+              next: (response: any) => {
                 console.log("Changement de banque effectué avec succès");
               },
-          },)
-          }         
+            },)
+          }
         });
-    },
-    error: (error) => {
-      console.error("Erreur lors de la modification du compte bancaire :", error);
-    },
-  },)
+      },
+      error: (error) => {
+        console.error("Erreur lors de la modification du compte bancaire :", error);
+      },
+    },)
   }
 }
