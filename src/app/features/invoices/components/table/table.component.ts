@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
+import { AbsolutePipe } from '../../../../shared/pipe/absolute.pipe';
 import { Message } from 'primeng/message';
 import { InvoicesService } from '../../services/invoices.service';
 import { MessageService } from 'primeng/api';
@@ -19,7 +20,7 @@ import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule, ToastModule],
+  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule, ToastModule, AbsolutePipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   providers: [MessageService]
@@ -98,15 +99,15 @@ export class AppInvoicesTableComponent implements OnChanges {
 
   getInvoiceStatus(invoice: Invoice): string {
     if (this.isAvenir(invoice)) {
-      return 'A venir'
+      return Constants.InvoiceStatus.A_VENIR;
     }
 
     if (this.isPartiellementSoldee(invoice) || this.isNonSoldee(invoice)) {
-      return 'A régler';
+      return Constants.InvoiceStatus.A_REGLER;
     }
 
     if (this.isTotalementSoldee(invoice)) {
-      return 'Réglée';
+      return Constants.InvoiceStatus.REGLEE;
     }
 
     return '';

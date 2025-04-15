@@ -39,7 +39,10 @@ export class Constants {
     public static InvoiceStatus = {
         PARTIELLEMENT_SOLDEE: 'Partiellement soldée',
         NON_SOLDEE: 'Non Soldée',
-        SOLDEE: 'Totalement Soldée'
+        SOLDEE: 'Totalement Soldée',
+        A_VENIR: 'A venir',
+        A_REGLER: 'A régler',
+        REGLEE: 'Réglée'
     }
 
     public static PaymentMethod = {
