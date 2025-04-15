@@ -24,10 +24,10 @@ export class AppDocumentsContractPaymentComponent {
   @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   updateRib: boolean = false;
-  newRib: any = '';  // Variable pour stocker le nouveau RIB
+  newRib: any = '';
+  currentDate: string = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
 
   get paymentProcess(): string {
-    debugger
     if (!this.contractDetails) {
       return '';
     }
