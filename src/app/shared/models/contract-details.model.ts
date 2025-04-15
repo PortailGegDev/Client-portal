@@ -57,6 +57,8 @@ export class ContractDetails {
     SrvArrondiSol!: boolean;
     SrvEuroSol!: boolean;
     SrvYeliGrCoeur!: boolean;
+    BusinessPartnerBankId!:string;
+    Action!:string;
 
     public constructor(init?: Partial<ContractDetails>) {
         Object.assign(this, init);

@@ -4,6 +4,7 @@ import { ContractHttpService } from '../../core/http-services/contrat-http.servi
 import { ContractPartner } from '../models/contract-partner.model';
 import { Contract } from '../models/contract.model';
 import { ContractDetails } from '../models/contract-details.model';
+import { ContractUpdate } from '../models/contract-update.model';
 
 @Injectable({
   providedIn: 'root'
@@ -107,4 +108,10 @@ export class ContractService {
   updateSelectedPartnerContract(isContractPartner: boolean) {
     this.isSelectedContractPartnerSignal.set(isContractPartner);
   }
+
+
+  updateContractDetails(contractUpdate: ContractUpdate): Observable<any> {
+    return this.contractHttpService.updateContractDetails(contractUpdate);
+  }
+  
 }

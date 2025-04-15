@@ -18,6 +18,7 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { UpdateRib } from '../../../../shared/models/update-rib';
 import { CreateMandat } from '../../../../shared/models/create-mandat.model';
+import { ContractUpdate } from '../../../../shared/models/contract-update.model';
 
 
 
@@ -148,18 +149,27 @@ export class AppDocumentContractDetailsComponent {
           SEPAMandateStatus: "1",
           SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
         };
-
+        
         this.mandateService.createMandat(createMandat).subscribe({
           next:(response:any)=> {
             console.log("le mandat a crée avec succées")
-          }
+            const contractUpdate: ContractUpdate= {
+              ContractISU: this.contract!.ContractISU,
+              BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
+              Action: "CHANGE_BANK",
+            };
+        
+            this.contractService.updateContractDetails(contractUpdate).subscribe({
+              next: (response:any) => {
+                console.log("Changement de banque effectué avec succès");
+              },
+          },)
+          }         
         });
-      },
-      error: (error) => {
-        console.error("Erreur lors de la modification du compte bancaire :", error);
-      }
-    });
+    },
+    error: (error) => {
+      console.error("Erreur lors de la modification du compte bancaire :", error);
+    },
+  },)
   }
-
-
 }
