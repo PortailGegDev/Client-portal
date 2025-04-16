@@ -10,6 +10,7 @@ import { Invoice } from '../../../../shared/models/invoice-model';
 import { InvoicesService } from '../../services/invoices.service';
 import { PanelModule } from 'primeng/panel';
 import { Contract } from '../../../../shared/models/contract/contract.model';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-invoices',
@@ -50,27 +51,31 @@ export class AppInvoicesComponent {
       next: (factures: Invoice[]) => {
         this.invoices = factures;
         console.log(this.invoices);
-        this.invoices.push({
-          PostingDate: '/Date(1741478400000)/',
-          PeriodEndDate: '/Date(1714003200000)',
-          PeriodStartDate: '/Date(1721779200000)/',
-          NetDueDate: '/Date(1741478400000)/',
-          NetDueYear: 2025,
-          UtilitiesInvoicingDocument: '2025032500002',
-          TotalAmount: 2000.00,
-          TotalAmountHT: 1900.00,
-          TotalCurrency: 'EUR',
-          TotalPaidTTC: 0.00,
-          TotalUnpaidTTC: 2000.00,
-          StatusInvoicingDocument: 'Non Soldée',
-          TotalUnpaidHT: 0.00,
-          Canceled: '0',
-          Energy: '01',
-          FactureType: 'Souscription ou ajustement manuelle',
-          ISUContract: '0350153099',
-          PaymentMethod: '',
-          Quantity: 0,
-        });
+
+        // TODO : à supprimer après la finalisation de paiement en ligne
+        if (environment.local) {
+          this.invoices.push({
+            PostingDate: '/Date(1741478400000)/',
+            PeriodEndDate: '/Date(1714003200000)',
+            PeriodStartDate: '/Date(1721779200000)/',
+            NetDueDate: '/Date(1741478400000)/',
+            NetDueYear: 2025,
+            UtilitiesInvoicingDocument: '2025032500002',
+            TotalAmount: 2000.00,
+            TotalAmountHT: 1900.00,
+            TotalCurrency: 'EUR',
+            TotalPaidTTC: 0.00,
+            TotalUnpaidTTC: 2000.00,
+            StatusInvoicingDocument: 'Non Soldée',
+            TotalUnpaidHT: 0.00,
+            Canceled: '0',
+            Energy: '01',
+            FactureType: 'Souscription ou ajustement manuelle',
+            ISUContract: '0350153099',
+            PaymentMethod: '',
+            Quantity: 0,
+          });
+        }
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème

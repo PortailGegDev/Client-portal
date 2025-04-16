@@ -14,10 +14,12 @@ import { MandateService } from '../../services/mandate.service';
 import { Bank } from '../../../../shared/models/bank.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { AppDocumentsJustificatifsComponent } from '../../components/justificatifs/justificatifs.component';
+import { ButtonModule } from 'primeng/button';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule, TabsModule, AppDocumentsContractsComponent, AppDocumentsMandatsComponent, AppDocumentsJustificatifsComponent],
+  imports: [CommonModule, TabsModule, AppDocumentsContractsComponent, AppDocumentsMandatsComponent, AppDocumentsJustificatifsComponent, ButtonModule],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })
@@ -102,4 +104,8 @@ export class AppDocumentsComponent {
   }
 
   backToList() { }
+
+  navigateToContractCreationLink() {
+    window.open(Constants.ContractCreationLink, '_blank');
+  }
 }

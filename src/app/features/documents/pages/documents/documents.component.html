@@ -1,15 +1,23 @@
 <h1>Documents</h1>
 
-<div class="row">
-    <div class="col-md-12 mb-3">
+<div class="grid-container gri-1">
+    <div class="grid-item mb-3">
         <p-tabs value="0" [scrollable]="true">
+            <div class="grid-container grid-2">
+                <div class="grid-item">
+                    <p-tablist>
+                        <p-tab value="0">Contrats</p-tab>
+                        <p-tab value="1">Justificatifs</p-tab>
+                        <p-tab value="2">Certificats</p-tab>
+                        <p-tab value="3">Mandats</p-tab>
+                    </p-tablist>
+                </div>
 
-            <p-tablist>
-                <p-tab value="0">Contrats</p-tab>
-                <p-tab value="1">Justificatifs</p-tab>
-                <p-tab value="2">Certificats</p-tab>
-                <p-tab value="3">Mandats</p-tab>
-            </p-tablist>
+                <div class="grid-item right-button-container">
+                    <p-button label="Nouveau contrat" icon="pi pi-plus" iconPos="right"
+                        (onClick)="navigateToContractCreationLink()" />
+                </div>
+            </div>
 
             <p-tabpanels>
                 <p-tabpanel value="0">
@@ -17,7 +25,8 @@
                 </p-tabpanel>
 
                 <p-tabpanel value="1">
-                    <app-documents-justificatifs [allContracts]="allContracts" [currentUser]="currentUser()" [contracts]="contracts()" />
+                    <app-documents-justificatifs [allContracts]="allContracts" [currentUser]="currentUser()"
+                        [contracts]="contracts()" />
                 </p-tabpanel>
 
                 <p-tabpanel value="2">

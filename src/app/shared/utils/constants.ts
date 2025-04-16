@@ -62,4 +62,6 @@ export class Constants {
         GARANTIE_ORIGINE: "GARANTIE_ORIGINE",
         CGV: "CGV"
     }
+
+    public static ContractCreationLink = 'https://www.geg.fr/souscription/part/';
 }
