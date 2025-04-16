@@ -32,6 +32,7 @@ export class AppDocumentsContractDocumentComponent {
   }
 
   downloadJustificatif(contractJustificatifType: string) {
+    debugger
     switch (contractJustificatifType) {
       case Constants.ContractSupportingDoc.DOMICILE:
         if (!this.currentUser || !this.contract) {
