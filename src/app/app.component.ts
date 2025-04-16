@@ -8,9 +8,7 @@ import { ContractService } from './shared/services/contract.service';
 import { Contract } from './shared/models/contract/contract.model';
 import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
-import { BankService } from './features/documents/services/bank.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

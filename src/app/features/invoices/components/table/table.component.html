@@ -16,7 +16,7 @@
 }
 
 <p-table #dt [value]="invoices" [rows]="5" [paginator]="true" responsiveLayout="stack"
-  [globalFilterFields]="['PostingDate', 'UtilitiesInvoicingDocument', 'TotalAmountHT', 'StatusInvoicingDocument']"
+  [globalFilterFields]="['PostingDate', 'UtilitiesInvoicingDocument', 'TotalAmount', 'StatusInvoicingDocument']"
   [(selection)]="selectedInvoices" [rowHover]="true" dataKey="UtilitiesInvoicingDocument" [showCurrentPageReport]=""
   showFirstLastIcon="false" emptymessage="Pas de factures ou facture introuvable.">
 
@@ -33,9 +33,9 @@
       <th pSortableColumn="UtilitiesInvoicingDocument" style="min-width:12rem">FACTURE N
         <p-sortIcon field="UtilitiesInvoicingDocument" />
       </th>
-      <th pSortableColumn="TotalAmountHT" style="min-width: 8rem">
+      <th pSortableColumn="TotalAmount" style="min-width: 8rem">
         MONTANT
-        <p-sortIcon field="TotalAmountHT" />
+        <p-sortIcon field="TotalAmount" />
       </th>
       <th pSortableColumn="StatusInvoicingDocument">
         STATUT
@@ -66,7 +66,7 @@
       </td>
 
       <td>
-        <strong>{{ invoice.TotalAmountHT | absolute }} € </strong>
+        <strong>{{ invoice.TotalAmount | absolute }} € </strong>
       </td>
 
       <td>
