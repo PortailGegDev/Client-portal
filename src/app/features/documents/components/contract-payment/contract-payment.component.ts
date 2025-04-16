@@ -52,6 +52,10 @@ export class AppDocumentsContractPaymentComponent {
     return this.contractDetails?.PaymentProcedure === Constants.PaymentProcedure.ECH;
   }
 
+  get hasPaymentMethodP(): boolean {
+    return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P;
+  }
+
   submitNewRib(): void {
     if (this.newRib && this.newRib.trim() !== '') {
       this.ribUpdated.emit(this.newRib);

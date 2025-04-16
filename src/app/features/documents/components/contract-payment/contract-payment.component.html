@@ -27,9 +27,14 @@
         <span class="signature-date">
           Signé le {{ mandate.SEPASignatureDate | timeSpanToDate:'short' }}
         </span>
+
+        <span style="text-align: right;">
+          <img src="/images/Icons (3).png" style="margin-left: auto;">
+        </span>
       </p-card>
       }
 
+      @if(hasPaymentMethodP){
       <div class="button-containerr">
         <div class="col-md-12">
           <span (click)="updateRib = true">Mettre à jour le RIB</span>
@@ -41,6 +46,7 @@
           </svg>
         </div>
       </div>
+      }
 
       @if(hasPaymentProcedureEch){
       <div class="button-containerr">
@@ -70,8 +76,8 @@
             fill="#8E9D25" />
         </svg>
       </div>
-      
-      <div class="detail-label">  </div>
+
+      <div class="detail-label">Echéancier de paiement </div>
 
       <p-card>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -79,11 +85,12 @@
             d="M11.3333 8.5655H14V12.5655C14 13.3019 13.403 13.8988 12.6667 13.8988M11.3333 8.5655V12.5655C11.3333 13.3019 11.9303 13.8988 12.6667 13.8988M11.3333 8.5655V3.73689C11.3333 3.1333 11.3333 2.8315 11.2065 2.65648C11.0959 2.50381 10.9258 2.40512 10.7384 2.38482C10.5236 2.36156 10.2615 2.5113 9.73745 2.81077L9.52922 2.92976C9.33632 3.03998 9.23987 3.0951 9.13745 3.11668C9.04681 3.13577 8.95319 3.13577 8.86255 3.11668C8.76013 3.0951 8.66367 3.03998 8.47079 2.92976L7.19588 2.20124C7.00299 2.09102 6.90654 2.0359 6.80411 2.01432C6.71348 1.99523 6.61986 1.99523 6.52922 2.01432C6.42679 2.0359 6.33035 2.09102 6.13745 2.20124L4.86255 2.92976C4.66965 3.03998 4.57321 3.0951 4.47078 3.11668C4.38014 3.13577 4.28652 3.13577 4.19589 3.11668C4.09346 3.0951 3.99701 3.03998 3.80412 2.92976L3.59588 2.81076C3.07181 2.5113 2.80978 2.36156 2.59491 2.38482C2.40748 2.40512 2.23741 2.50381 2.1268 2.65648C2 2.8315 2 3.1333 2 3.73689V10.6988C2 11.8189 2 12.379 2.21799 12.8068C2.40973 13.1831 2.71569 13.4891 3.09202 13.6808C3.51984 13.8988 4.0799 13.8988 5.2 13.8988H12.6667M4.66667 8.5655H7.33333M4.66667 5.89883H6.66667H8.66667"
             stroke="#544E4E" stroke-opacity="0.6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <span class="mandat-sepa">
-          {{ currentDate }}
-        </span>
-        <span class="signature-date">
-          Calendrier de paiement
+        <span class="mandat-sepa"> {{ currentDate }} </span>
+
+        <span class="signature-date"> Calendrier de paiement </span>
+
+        <span style="text-align: right;">
+          <img src="/images/Icons (3).png" style="margin-left: auto;">
         </span>
       </p-card>
 

@@ -66,7 +66,7 @@
       </td>
 
       <td>
-        <strong>{{ invoice.TotalAmountHT | absolute }}€ </strong>
+        <strong>{{ invoice.TotalAmountHT | absolute }} € </strong>
       </td>
 
       <td>
@@ -76,14 +76,19 @@
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           }
 
-          @if(isNonSoldee(invoice)){
+          @if(isNonSoldee(invoice) || isPartiellementSoldee(invoice)){
           <p-tag severity="warn" [value]="getInvoiceStatus(invoice)" />
-          {{ invoice.TotalUnpaidHT}}€ Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
+          {{ invoice.TotalUnpaidHT }} € Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
           }
 
           @if(isTotalementSoldee(invoice)) {
           <p-tag severity="secondary" [value]="getInvoiceStatus(invoice)" />
+
+          @if(isPaymentMethodP(invoice)){
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+          } @else {
+          Par CB le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
+          }
           }
         </span>
       </td>
@@ -94,7 +99,7 @@
             (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
           }
 
-          @if(isNonSoldee(invoice)) {
+          @if(showPaymentButton(invoice)) {
           <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" (click)="payInvoice(invoice)" />
           }
         </div>

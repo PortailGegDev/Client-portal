@@ -118,18 +118,33 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   isTotalementSoldee(invoice: Invoice): boolean {
-    return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE
+    return !this.isPaymentMethodP(invoice) && invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE
   }
 
   isNonSoldee(invoice: Invoice): boolean {
     return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.NON_SOLDEE
   }
 
+  isPaymentMethodP(invoice: Invoice): boolean {
+    return invoice.PaymentMethod === Constants.PaymentMethod.P;
+  }
+
   isAvenir(invoice: Invoice): boolean {
-    if (invoice.NetDueDate && invoice.PaymentMethod === Constants.PaymentMethod.P) {
+    if (this.isNonSoldee(invoice) && invoice.NetDueDate && this.isPaymentMethodP(invoice)) {
       return convertSAPDateToTsDate(invoice.NetDueDate)! > new Date();
     }
 
+    return false;
+  }
+
+  showPaymentButton(invoice: Invoice): boolean {
+    if (invoice.PaymentMethod === Constants.PaymentMethod.P) {
+      return false;
+    }
+
+    if (this.isNonSoldee(invoice) || this.isPartiellementSoldee(invoice)) {
+      return true;
+    }
     return false;
   }
 }
