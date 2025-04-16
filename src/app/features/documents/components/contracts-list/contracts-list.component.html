@@ -73,7 +73,7 @@
                     <label> - {{ contract.TarifOption }} </label>
                     }
 
-                    @if(contract.Power_BTINF){
+                    @if(contract.Power_BTINF && contract.BusinessSectorText === 'Electricité'){
                     <label> - {{ contract.Power_BTINF | number:'1.0-0' }} kVA</label>
                     }
 
