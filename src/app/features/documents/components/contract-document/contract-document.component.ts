@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Signal } from '@angular/core';
+import { Component, effect, Input, Signal } from '@angular/core';
 import { AppDocumentsJustifBoxComponent } from '../justif-box/justif-box.component';
 import { formatDateFr } from '../../../../shared/utils/date-utilities';
 import { Constants } from '../../../../shared/utils/constants';
@@ -17,7 +17,7 @@ import { User } from '../../../../shared/models/user.model';
 export class AppDocumentsContractDocumentComponent {
 
   @Input() contract: Contract | undefined = undefined;
-  currentUser: Signal<User | null>;
+  currentUser: User | null = null;
 
   documents = [
     { title: 'Justificatif de domicile', type: Constants.ContractSupportingDoc.DOMICILE, date: formatDateFr(new Date()) },
@@ -28,7 +28,9 @@ export class AppDocumentsContractDocumentComponent {
 
   constructor(private authService: AuthService,
     private docGeneratorService: DocGeneratorService) {
-    this.currentUser = this.authService.currentUSer;
+    effect(() => {
+      this.currentUser = this.authService.currentUSer();
+    });
   }
 
   downloadJustificatif(contractJustificatifType: string) {
@@ -39,7 +41,7 @@ export class AppDocumentsContractDocumentComponent {
           return;
         }
 
-        this.docGeneratorService.downloadJustifDomicilePDF(this.currentUser()!, this.contract);
+        this.docGeneratorService.downloadJustifDomicilePDF(this.currentUser!, this.contract);
 
         break;
     }
