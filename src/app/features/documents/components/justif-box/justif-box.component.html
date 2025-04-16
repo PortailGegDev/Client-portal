@@ -11,7 +11,13 @@
             <div class="document-title">{{ title }}</div>
             <div class="document-date">{{ date }}</div>
         </div>
-        
-        <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2" (onClick)="onClick.emit(contractJustificatifType)" />
+
+        @if(justifDomicileByContractIsu){
+        <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2"
+            (onClick)="onClick.emit(contractIsu)" />
+        }@else{
+        <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2"
+            (onClick)="onClick.emit(contractJustificatifType)" />
+        }
     </div>
 </p-card>

@@ -17,6 +17,7 @@
             [title]="'Attestation de domicile, contrat ' + (contract?.BusinessSector === Constants.EnergyType.ELECTRICITY ? 'd\'électricité' : 'de gaz')"
             [date]="currentDate"
             [contractIsu]="contract.ContractISU"
+            [justifDomicileByContractIsu]="true"
             (onClick)="downloadJustif($event)" />
     </div>
     }

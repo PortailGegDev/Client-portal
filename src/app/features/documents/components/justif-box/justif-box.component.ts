@@ -11,6 +11,7 @@ import { CardModule } from 'primeng/card';
 export class AppDocumentsJustifBoxComponent {
   @Input() title: string = '';
   @Input() date: string = '';
+  @Input() justifDomicileByContractIsu:boolean = false;
   @Input() contractIsu: string = '';
   @Input() contractJustificatifType: string = '';
 
