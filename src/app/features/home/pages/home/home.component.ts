@@ -15,7 +15,7 @@ import { ArticlesComponent } from '../../../../shared/components/articles/articl
 import { HeadlineComponent } from '../../../../shared/components/headline/headline.component';
 import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 
 @Component({
   selector: 'app-home',

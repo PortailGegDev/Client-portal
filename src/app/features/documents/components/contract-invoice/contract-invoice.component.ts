@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { PanelModule } from 'primeng/panel';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 import { ContractService } from '../../../../shared/services/contract.service';
 
 @Component({

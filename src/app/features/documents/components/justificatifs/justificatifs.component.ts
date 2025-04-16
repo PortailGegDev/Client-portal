@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Constants } from '../../../../shared/utils/constants';
 import { DocGeneratorService } from '../../../../shared/services/doc-generator.service';
 import { User } from '../../../../shared/models/user.model';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 
 @Component({
   selector: 'app-documents-justificatifs',

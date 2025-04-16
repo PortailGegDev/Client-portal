@@ -12,6 +12,7 @@ export class AppDocumentsJustifBoxComponent {
   @Input() title: string = '';
   @Input() date: string = '';
   @Input() contractIsu: string = '';
+  @Input() contractJustificatifType: string = '';
 
   @Output() onClick: EventEmitter<string> = new EventEmitter<string>();
 }

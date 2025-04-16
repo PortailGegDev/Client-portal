@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Bank } from '../../shared/models/bank.model';
 import { BaseHttpService } from './base-http.service';
-import { UpdateRib } from '../../shared/models/update-rib';
+import { UpdateRib } from '../../shared/models/update-rib.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({

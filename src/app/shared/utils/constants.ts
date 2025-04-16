@@ -46,13 +46,20 @@ export class Constants {
     }
 
     public static PaymentMethod = {
-        P : "P",
-        S : "S",
+        P: "P",
+        S: "S",
     }
 
     public static PaymentProcedure = {
-        BIM : "BIM",
-        MEN : "MEN",
-        ECH : "ECH",
+        BIM: "BIM",
+        MEN: "MEN",
+        ECH: "ECH",
+    }
+
+    public static ContractSupportingDoc = {
+        DOMICILE: "DOMICILE",
+        GRILLE_TARIFAIRE_TARIF_BASE: "GRILLE_TARIFAIRE_TARIF_BASE",
+        GARANTIE_ORIGINE: "GARANTIE_ORIGINE",
+        CGV: "CGV"
     }
 }

@@ -63,3 +63,11 @@ export function getMonthNameByMonthNumber(monthNumber: number): string {
   // Retourner le mois correspondant (l'index est monthNumber - 1)
   return shortFrenchMonth[monthNumber - 1];
 }
+
+export function formatDateFr(date: Date): string {
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+}

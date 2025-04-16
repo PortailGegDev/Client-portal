@@ -1,7 +1,7 @@
 import { Component, computed, effect, signal, Signal } from '@angular/core';
 import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
-import { Contract } from '../../models/contract.model';
+import { Contract } from '../../models/contract/contract.model';
 import { CommonModule } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { FormsModule } from '@angular/forms';

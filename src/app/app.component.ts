@@ -5,7 +5,7 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AuthService } from './core/http-services/auth.service';
 import { ContractService } from './shared/services/contract.service';
-import { Contract } from './shared/models/contract.model';
+import { Contract } from './shared/models/contract/contract.model';
 import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { BankService } from './features/documents/services/bank.service';

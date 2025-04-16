@@ -1,10 +1,10 @@
 import { Component, Input, Signal } from '@angular/core';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { Button } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
-import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 
 @Component({
   selector: 'app-documents-contract-header',

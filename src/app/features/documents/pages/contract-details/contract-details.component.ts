@@ -2,23 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../../../shared/services/contract.service';
-import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { AppDocumentsContractHeaderComponent } from '../../components/contract-header/contract-header.component';
 import { FormsModule } from '@angular/forms';
 import { AppDocumentsContractDocumentComponent } from '../../components/contract-document/contract-document.component';
 import { AppDocumentsContractPaymentComponent } from '../../components/contract-payment/contract-payment.component';
 import { AppDocumentsContractInvoiceComponent } from '../../components/contract-invoice/contract-invoice.component';
 import { AppDocumentsContractServiceComponent } from '../../components/contract-service/contract-service.component';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 import { Bank } from '../../../../shared/models/bank.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MandateService } from '../../services/mandate.service';
 import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
-import { UpdateRib } from '../../../../shared/models/update-rib';
+import { UpdateRib } from '../../../../shared/models/update-rib.model';
 import { CreateMandat } from '../../../../shared/models/create-mandat.model';
-import { ContractUpdate } from '../../../../shared/models/contract-update.model';
+import { ContractUpdate } from '../../../../shared/models/contract/contract-update.model';
 import { Constants } from '../../../../shared/utils/constants';
 
 @Component({

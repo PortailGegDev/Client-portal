@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Bank } from '../../../shared/models/bank.model';
 import { BankHttpService } from '../../../core/http-services/bank-http.service';
-import { UpdateRib } from '../../../shared/models/update-rib';
+import { UpdateRib } from '../../../shared/models/update-rib.model';
 
 
 @Injectable({

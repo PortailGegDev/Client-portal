@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BaseHttpService } from './base-http.service';
-import { Contract } from '../../shared/models/contract.model';
-import { ContractDetails } from '../../shared/models/contract-details.model';
+import { Contract } from '../../shared/models/contract/contract.model';
+import { ContractDetails } from '../../shared/models/contract/contract-details.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
-import { ContractUpdate } from '../../shared/models/contract-update.model';
+import { ContractUpdate } from '../../shared/models/contract/contract-update.model';
 
 @Injectable({
   providedIn: 'root'

@@ -9,7 +9,7 @@ import { AppInvoicesTableComponent } from '../../components/table/table.componen
 import { Invoice } from '../../../../shared/models/invoice-model';
 import { InvoicesService } from '../../services/invoices.service';
 import { PanelModule } from 'primeng/panel';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 
 @Component({
   selector: 'app-invoices',

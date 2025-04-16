@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import { User } from '../models/user.model';
-import { Contract } from '../models/contract.model';
+import { Contract } from '../models/contract/contract.model';
 import { convertSAPDate } from '../utils/date-utilities';
 
 @Injectable({

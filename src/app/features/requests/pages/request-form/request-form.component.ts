@@ -14,7 +14,7 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { AppRequestsRequestSendedComponent } from '../../components/request-sended/request-sended.component';
-import { Contract } from '../../../../shared/models/contract.model';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 import { AppRequestsHighlightComponent } from '../../components/highlight/highlight.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 

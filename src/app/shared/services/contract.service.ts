@@ -1,10 +1,10 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { ContractHttpService } from '../../core/http-services/contrat-http.service';
-import { ContractPartner } from '../models/contract-partner.model';
-import { Contract } from '../models/contract.model';
-import { ContractDetails } from '../models/contract-details.model';
-import { ContractUpdate } from '../models/contract-update.model';
+import { ContractPartner } from '../models/contract/contract-partner.model';
+import { Contract } from '../models/contract/contract.model';
+import { ContractDetails } from '../models/contract/contract-details.model';
+import { ContractUpdate } from '../models/contract/contract-update.model';
 
 @Injectable({
   providedIn: 'root'

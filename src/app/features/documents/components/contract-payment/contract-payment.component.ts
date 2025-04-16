@@ -8,9 +8,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MaskRIBPipe } from '../../../../shared/pipe/mask-rib.pipe';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
-import { ContractDetails } from '../../../../shared/models/contract-details.model';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { Constants } from '../../../../shared/utils/constants';
+import { formatDateFr } from '../../../../shared/utils/date-utilities';
 
 @Component({
   selector: 'app-documents-contract-payment',
@@ -25,7 +26,7 @@ export class AppDocumentsContractPaymentComponent {
 
   updateRib: boolean = false;
   newRib: any = '';
-  currentDate: string = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+  currentDate: string = formatDateFr(new Date());
 
   get paymentProcess(): string {
     if (!this.contractDetails) {
