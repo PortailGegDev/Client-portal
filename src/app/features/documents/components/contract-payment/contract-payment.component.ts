@@ -22,7 +22,7 @@ import { formatDateFr } from '../../../../shared/utils/date-utilities';
 export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
   @Input() contractDetails: ContractDetails | undefined;
-  @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
+  @Output() ribUpdated = new EventEmitter<{ iban: string, AccountpayerName: string }>();
 
   updateRib: boolean = false;
   updateDate: boolean=false;
@@ -59,14 +59,18 @@ export class AppDocumentsContractPaymentComponent {
     return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P;
   }
 
-  submitNewRib(): void {
-    if (this.newRib && this.newRib.trim() !== '' &&  this.payerName && this.payerName.trim() !== ''
-  ) {
-      this.ribUpdated.emit(this.newRib);
-    } else {
-      alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
-    }
+// enfant.component.ts
+submitNewRib(): void {
+  if (this.newRib?.trim() && this.payerName?.trim()) {
+    this.ribUpdated.emit({
+      iban: this.newRib.trim(),
+      AccountpayerName: this.payerName.trim()
+    });
+  } else {
+    alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
   }
+}
+
 
   submitJourDePrelevement(){
   }

@@ -113,9 +113,9 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
-  submitBankChange(newRib: string): void {
-    const iban = newRib?.trim();
-    const payerName = newRib?.trim();
+  submitBankChange(rib: { iban: string; AccountpayerName: string }): void {
+    const iban = rib.iban?.trim();
+    const AccountpayerName = rib.AccountpayerName?.trim();
 
     if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
       console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
@@ -132,7 +132,7 @@ export class AppDocumentContractDetailsComponent {
       return;
     }
 
-    if (!payerName) {
+    if (!AccountpayerName) {
       console.error("Veuillez entrer le nom de payeur .");
       return;
     }
@@ -141,7 +141,7 @@ export class AppDocumentContractDetailsComponent {
       BusinessPartner: this.contractDetails!.BusinessPartner,
       BusinessPartnerB2B:  this.contractDetails!.BusinessPartnerB2B,
       IBAN: iban,
-      BankAccountHolderName: payerName,
+      BankAccountHolderName: AccountpayerName,
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
