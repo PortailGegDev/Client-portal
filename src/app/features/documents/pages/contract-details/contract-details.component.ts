@@ -154,7 +154,7 @@ export class AppDocumentContractDetailsComponent {
         const createMandat: CreateMandat = {
           SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
           BusinessPartnerBankId: response.BusinessPartnerBankId,
-          SEPASignatureCityName: "GRENOBLE",
+          SEPASignatureCityName: this.contract!.CityName,
           SEPASignatureDate: new Date().toISOString().slice(0, 19),
           SEPAMandateStatus: "1",
           SEPAMandateRecipient: this.contractDetails!.ProductSupplier,

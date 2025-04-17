@@ -12,10 +12,11 @@ import { ContractDetails } from '../../../../shared/models/contract/contract-det
 import { InputTextModule } from 'primeng/inputtext';
 import { Constants } from '../../../../shared/utils/constants';
 import { formatDateFr } from '../../../../shared/utils/date-utilities';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe],
+  imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe,DropdownModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -71,7 +72,16 @@ submitNewRib(): void {
   }
 }
 
+datesDisponibles = [
+  { label: '05', value: 5 },
+  { label: '10', value: 10 },
+  { label: '15', value: 15 },
+  { label: '20', value: 20 }
+];
 
-  submitJourDePrelevement(){
+submitJourDePrelevement() {
+  if (!this.datesDisponibles.includes(this.newDate)) {
+    return; 
   }
+}
 }
