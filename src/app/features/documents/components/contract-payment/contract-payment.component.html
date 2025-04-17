@@ -51,7 +51,7 @@
       @if(hasPaymentProcedureEch){
       <div class="button-containerr">
         <div class="col-md-12">
-          <span>Modifier la date de prélèvement</span>
+          <span (click)="updateDate = true">Modifier la date de prélèvement</span>
           &nbsp;
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -100,8 +100,8 @@
 </div>
 
 @if(updateRib){
-<p-dialog header="Changement de RIB" [(visible)]="updateRib" [modal]="true"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }">
+<p-dialog header="Changement de RIB" [modal]="true" [(visible)]="updateRib" [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
 
   <div class="p-fluid">
     <label for="rib">Nouveau RIB</label>
@@ -111,9 +111,26 @@
     <input id="bankAccountHolder" type="text" pInputText style="width: 100%;">
   </div>
 
-  <div class="p-fluid">
-    <button pButton label="Annuler" severity="help" class="p-button-text" (click)="updateRib = false"></button>
-    <button pButton label="Valider" class="p-button-primary" (click)="submitNewRib()"></button>
+  <div class="col-12 mb-3">
+    <p-button label="Annuler" severity="help"  (click)="updateRib = false"></p-button>
+    <p-button label="Valider" class="p-button-primary" (click)="submitNewRib()"></p-button>
   </div>
 </p-dialog>
 }
+
+
+@if(updateDate){
+  <p-dialog header="Modifier la date de prélèvement" [modal]="true" [(visible)]="updateDate" [style]="{ width: '50rem' }"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+  
+    <div class="p-fluid">
+      <label for="date">Nouveau jour</label>
+      <input id="date" type="text" pInputText [(ngModel)]="newDate" style="width: 100%;">
+    </div>
+  
+    <div class="col-12 mb-3">
+      <p-button label="Annuler" severity="help"  (click)="updateDate = false"></p-button>
+      <p-button label="Valider" class="p-button-primary" (click)="submitJourDePrelevement()"></p-button>
+    </div>
+  </p-dialog>
+  }

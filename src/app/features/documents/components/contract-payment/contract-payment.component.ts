@@ -25,7 +25,10 @@ export class AppDocumentsContractPaymentComponent {
   @Output() ribUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   updateRib: boolean = false;
+  updateDate: boolean=false;
   newRib: any = '';
+  payerName: any='';
+  newDate:any='';
   currentDate: string = formatDateFr(new Date());
 
   get paymentProcess(): string {
@@ -57,10 +60,14 @@ export class AppDocumentsContractPaymentComponent {
   }
 
   submitNewRib(): void {
-    if (this.newRib && this.newRib.trim() !== '') {
+    if (this.newRib && this.newRib.trim() !== '' &&  this.payerName && this.payerName.trim() !== ''
+  ) {
       this.ribUpdated.emit(this.newRib);
     } else {
-      alert("Le RIB ne peut pas être vide.");
+      alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
     }
+  }
+
+  submitJourDePrelevement(){
   }
 }

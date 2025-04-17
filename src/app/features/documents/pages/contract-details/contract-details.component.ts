@@ -115,6 +115,7 @@ export class AppDocumentContractDetailsComponent {
 
   submitBankChange(newRib: string): void {
     const iban = newRib?.trim();
+    const payerName = newRib?.trim();
 
     if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
       console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
@@ -131,10 +132,16 @@ export class AppDocumentContractDetailsComponent {
       return;
     }
 
+    if (!payerName) {
+      console.error("Veuillez entrer le nom de payeur .");
+      return;
+    }
+
     const updateRib: UpdateRib = {
-      BusinessPartnerId: this.contract!.PayerPartnerId,
+      BusinessPartner: this.contractDetails!.BusinessPartner,
+      BusinessPartnerB2B:  this.contractDetails!.BusinessPartnerB2B,
       IBAN: iban,
-      BankAccountHolderName: this.contract!.PayerFullName,
+      BankAccountHolderName: payerName,
     };
 
     this.bankService.createCompteBancaire(updateRib).subscribe({
