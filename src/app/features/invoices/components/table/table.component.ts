@@ -69,7 +69,7 @@ export class AppInvoicesTableComponent implements OnChanges {
       return;
     }
 
-    this.router.navigate(['invoices', 'paypage', 'orderId', 27032025000001, 'amount', 1500000]);
+    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC]);
   }
 
   deselectAllInvoices() {

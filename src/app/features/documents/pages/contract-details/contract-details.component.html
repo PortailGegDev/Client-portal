@@ -1,3 +1,5 @@
+<p-toast />
+
 <div class="custom-container">
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
@@ -9,7 +11,7 @@
 
 <div>
     <app-documents-contract-payment [contractDetails]="contractDetails" [mandates]="mandates"
-        (ribUpdated)="submitBankChange($event)" />
+        (ribUpdated)="submitBankChange($event)" (billingDayChanged)="updateBillingDay($event)" />
 </div>
 &nbsp;
 <div>

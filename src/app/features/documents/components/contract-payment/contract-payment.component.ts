@@ -13,10 +13,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Constants } from '../../../../shared/utils/constants';
 import { formatDateFr } from '../../../../shared/utils/date-utilities';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe,DropdownModule],
+  imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -24,13 +25,22 @@ export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
   @Input() contractDetails: ContractDetails | undefined;
   @Output() ribUpdated = new EventEmitter<{ iban: string, AccountpayerName: string }>();
+  @Output() billingDayChanged = new EventEmitter<string>();
 
   updateRib: boolean = false;
-  updateDate: boolean=false;
+  updateDate: boolean = false;
   newRib: any = '';
-  payerName: any='';
-  newDate:any='';
+  payerName: string = '';
+  newDate: any = '';
   currentDate: string = formatDateFr(new Date());
+  paiements = [
+    { date: '', montant: '' },
+    { date: '', montant: '' },
+    { date: '', montant: '' },
+    { date: '', montant: '' },
+    { date: '', montant: '' },
+    { date: '', montant: '' }
+  ];
 
   get paymentProcess(): string {
     if (!this.contractDetails) {
@@ -60,28 +70,41 @@ export class AppDocumentsContractPaymentComponent {
     return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P;
   }
 
-// enfant.component.ts
-submitNewRib(): void {
-  if (this.newRib?.trim() && this.payerName?.trim()) {
-    this.ribUpdated.emit({
-      iban: this.newRib.trim(),
-      AccountpayerName: this.payerName.trim()
-    });
-  } else {
-    alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
-  }
-}
 
-datesDisponibles = [
-  { label: '05', value: 5 },
-  { label: '10', value: 10 },
-  { label: '15', value: 15 },
-  { label: '20', value: 20 }
-];
+  submitNewRib(): void {
+    if (this.newRib?.trim() && this.payerName?.trim()) {
+      this.ribUpdated.emit({
+        iban: this.newRib.trim(),
+        AccountpayerName: this.payerName.trim()
+      });
 
-submitJourDePrelevement() {
-  if (!this.datesDisponibles.includes(this.newDate)) {
-    return; 
+      this.updateRib = false;
+    } else {
+      alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
+    }
   }
-}
+
+  datesDisponibles = [
+    { label: '05', value: '05' },
+    { label: '10', value: '10' },
+    { label: '15', value: '15' },
+    { label: '20', value: '20' }
+  ];
+
+  submitJourDePrelevement(): void {
+    debugger
+    if (!this.newDate || !this.datesDisponibles.some(date => date.value === this.newDate.value)) {
+      console.error("Date de prélèvement invalide.");
+      return;
+    }
+    this.billingDayChanged.emit(this.newDate.value);
+    this.updateDate = false;
+    this.newDate = {};
+  }
+
+  tableVisible: boolean = false;
+  openTable() {
+    this.tableVisible = true;
+  }
+
 }

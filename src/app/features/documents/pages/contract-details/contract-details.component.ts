@@ -20,12 +20,15 @@ import { UpdateRib } from '../../../../shared/models/update-rib.model';
 import { CreateMandat } from '../../../../shared/models/create-mandat.model';
 import { ContractUpdate } from '../../../../shared/models/contract/contract-update.model';
 import { Constants } from '../../../../shared/utils/constants';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-contract-details',
-  imports: [CommonModule, FormsModule, AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent, AppDocumentsContractServiceComponent],
+  imports: [CommonModule, FormsModule, ToastModule, AppDocumentsContractHeaderComponent, AppDocumentsContractDocumentComponent, AppDocumentsContractPaymentComponent, AppDocumentsContractInvoiceComponent, AppDocumentsContractServiceComponent],
   templateUrl: './contract-details.component.html',
   styleUrl: './contract-details.component.scss',
+  providers: [MessageService]
 })
 export class AppDocumentContractDetailsComponent {
   contractDetails: ContractDetails | undefined;
@@ -35,46 +38,47 @@ export class AppDocumentContractDetailsComponent {
   currentUser: Signal<User | null>;
   mandates: Mandate[] = [];
   bankIdInput: string = '';
+  businessPartnerBankId: string = '';
+  contractIsu: string[] = [];
+
 
   constructor(private router: Router,
     private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private bankService: BankService,
+    private messageService: MessageService,
     private mandateService: MandateService) {
     this.contractsList = this.contractService.contracts;
     this.currentUser = this.authService.currentUSer;
 
+
     this.activatedRoute.params.subscribe(params => {
-      const contractIsu: string[] = [];
-      contractIsu.push(params['contractIsu']);
+      this.contractIsu.push(params['contractIsu']);
 
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
+      this.loadContract(this.contractIsu);
 
-      this.contractService.getContractsByContractISUList(contractIsu).subscribe({
-        next: (contracts: ContractDetails[]) => {
-          this.contractDetails = contracts[0]
-        }
-      })
+
     });
 
     effect(() => {
       const bp = this.authService.businessPartner();
 
-      if (bp) {
-        this.loadBankAccount(bp);
-      }
+      // if (bp) {
+      //   this.loadBankAccount(bp);
+      // }
     });
   }
 
-  private loadContract(contractsISUList: string[]) {
-    this.contractService.getContractsByContractISUList(contractsISUList).subscribe({
-
+  private loadContract(contractIsu: string[]) {
+    this.contractService.getContractsByContractISUList(contractIsu).subscribe({
       next: (contracts: ContractDetails[]) => {
-        this.allContracts = contracts;
-        console.log(contracts);
+        this.contractDetails = contracts[0];
+        this.businessPartnerBankId = this.contractDetails.BusinessPartnerBankId;
+        this.loadMandate([this.businessPartnerBankId]);
       }
-    });
+    })
   }
 
   navigateToService() {
@@ -85,22 +89,21 @@ export class AppDocumentContractDetailsComponent {
     this.router.navigate(['documents']);
   }
 
-  private loadBankAccount(businessPartner: string): void {
-    this.bankService.getCompteBancaire(businessPartner).subscribe({
-      next: (banks: Bank[]) => {
-        if (banks) {
-          let partnerBankIds = banks.map(item => item.BusinessPartnerBankId);
-          this.loadMandate(partnerBankIds);;
-        }
-      },
-      error: (error: any) => {
-        console.error('Erreur lors de la récupération du compte bancaire:', error);
-      }
-    });
-  }
+  // private loadBankAccount(businessPartner: string): void {
+  //   this.bankService.getCompteBancaire(businessPartner).subscribe({
+  //     next: (banks: Bank[]) => {
+  //       if (banks) {
+  //         let partnerBankIds = banks.map(item => item.BusinessPartnerBankId);
+  //         this.loadMandate(partnerBankIds);;
+  //       }
+  //     },
+  //     error: (error: any) => {
+  //       console.error('Erreur lors de la récupération du compte bancaire:', error);
+  //     }
+  //   });
+  // }
 
   private loadMandate(partnerBankIds: string[]): void {
-
     this.mandateService.getMandate(partnerBankIds).subscribe({
       next: (data: Mandate[]) => {
         this.mandates = data;
@@ -139,7 +142,7 @@ export class AppDocumentContractDetailsComponent {
 
     const updateRib: UpdateRib = {
       BusinessPartner: this.contractDetails!.BusinessPartner,
-      BusinessPartnerB2B:  this.contractDetails!.BusinessPartnerB2B,
+      BusinessPartnerB2B: this.contractDetails!.BusinessPartnerB2B,
       IBAN: iban,
       BankAccountHolderName: AccountpayerName,
     };
@@ -171,7 +174,8 @@ export class AppDocumentContractDetailsComponent {
 
             this.contractService.updateContractDetails(contractUpdate).subscribe({
               next: (response: any) => {
-                console.log("Changement de banque effectué avec succès");
+                this.loadContract(this.contractIsu);
+                this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
               },
             },)
           }
@@ -179,7 +183,41 @@ export class AppDocumentContractDetailsComponent {
       },
       error: (error) => {
         console.error("Erreur lors de la modification du compte bancaire :", error);
+        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
       },
-    },)
+    });
   }
+
+  validBillingDays: string[] = ["05", "10", "15", "20"];
+
+  updateBillingDay(day: string): void {
+    if (!this.contractDetails || !this.contractDetails.BusinessPartnerBankId) {
+      console.error("BusinessPartnerBankId non trouvé dans les détails du contrat.");
+      return;
+    }
+
+    if (!this.validBillingDays.includes(day)) {
+      console.error("Jour de prélèvement invalide. Choisissez parmi 05, 10, 15 ou 20.");
+      return;
+    }
+
+    const contractUpdateDay: ContractUpdate = {
+      ContractISU: this.contractDetails.ContractISU,
+      BusinessPartnerBankId: this.contractDetails.BusinessPartnerBankId,
+      BillingDay: day,
+      Action: "CHANGE_BANK",
+    };
+
+    this.contractService.updateContractDetails(contractUpdateDay).subscribe({
+      next: () => {
+        this.loadContract(this.contractIsu);
+        this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de date de prélèvement réussi !` });
+      },
+      error: (error) => {
+        console.error("Erreur lors de la mise à jour :", error);
+        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
+      }
+    });
+  }
+
 }

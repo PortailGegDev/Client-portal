@@ -8,5 +8,5 @@ export const environment = {
     apiAuthUser: '/scim',
     apiSP: '/DownloadFacture',
     apiPayment: '/qf200/payment',
-    apiSalsforce:'/sobjects'
+    apiSalsforce:'/Contact'
 };

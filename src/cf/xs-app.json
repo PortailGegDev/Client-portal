@@ -28,7 +28,7 @@
         },
        
         {
-            "source": "^/sobjects/(.*)$",
+            "source": "^/Contact/(.*)$",
             "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false

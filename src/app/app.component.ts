@@ -9,6 +9,7 @@ import { Contract } from './shared/models/contract/contract.model';
 import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
 
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthService,private httpClient:HttpClient,
     private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
@@ -36,22 +37,22 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.testSalesforceAPI();
+    this.testSalesforceAPI();
   }
 
-  // testSalesforceAPI(): void {
-  //   let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
+  testSalesforceAPI(): void {
+    let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
 
-  //   this.httpClient.get(url)
-  //     .subscribe({
-  //       next: (data) => {
-  //         console.log('Réponse Salesforce :', data);
-  //       },
-  //       error: (error) => {
-  //         console.error('Erreur appel API Salesforce :', error);
-  //       }
-  //     });
-  // }
+    this.httpClient.get(url)
+      .subscribe({
+        next: (data) => {
+          console.log('Réponse Salesforce :', data);
+        },
+        error: (error) => {
+          console.error('Erreur appel API Salesforce :', error);
+        }
+      });
+  }
 
   loadContract() {
     let businessPartner = this.authService.businessPartner();
