@@ -35,20 +35,20 @@ export class MandateHttpService extends BaseHttpService {
       );
   }
 
-  createMandat(createMandat: CreateMandat): Observable<any> {
+  createMandat(createMandat: CreateMandat): Observable<Mandate | null> {
     let url = `${this.apiUrl}/ZA_SEPAMandate`;
 
     const csrfToken = this.localStorageService.getItem('csrfToken');
     console.log('Contenu du body envoyé :', createMandat);
-    return this.http.post(url, createMandat, {
+    return this.http.post<Mandate>(url, createMandat, {
       headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
-    }).pipe(
-
-      catchError(error => {
-        console.error('Erreur lors de la création du compte bancaire', error);
-        return throwError(() => error);
-      })
-    );
+    })
+      .pipe(
+        catchError(error => {
+          console.error('Erreur lors de la création du compte bancaire', error);
+          return of(null);
+        })
+      );
   }
 
 

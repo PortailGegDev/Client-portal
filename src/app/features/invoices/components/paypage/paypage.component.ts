@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentData } from '../../../../shared/models/payment-data.model';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentRedirection } from '../../../../shared/models/payment-redirection.model';
 import { take } from 'rxjs';
+import { AuthService } from '../../../../core/http-services/auth.service';
+import { User } from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'app-invoices-paypage',
@@ -16,7 +18,8 @@ export class AppInvoicesPaypageComponent implements OnInit {
   redirectionUrl: string = '';
   redirectionVersion: string = '';
   redirectionData: string = '';
-
+  currentUser: Signal<User | null>;
+  currentUserEmail: string | undefined = '';
   orderId: string = '';
   amount: number = 0;
   isLoading: boolean = false;
@@ -24,23 +27,33 @@ export class AppInvoicesPaypageComponent implements OnInit {
   constructor(
     private paymentService: PaymentService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+    private authService: AuthService
+  ) {
+    this.currentUser = this.authService.currentUSer;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
       this.orderId = params['invoiceNumber'];
       this.amount = params['amount'];
+      this.currentUserEmail = this.currentUser()?.email;
 
-      this.initiatePayment(this.orderId, this.amount);
+      if (!this.currentUserEmail) {
+        console.error(`Utilisateur invalide!`);
+        return;
+      }
+
+      this.initiatePayment(this.orderId, this.amount, this.currentUserEmail);
     });
   }
 
-  initiatePayment(orderId: string, amount: number): void {
+  initiatePayment(orderId: string, amount: number, currentUserEmail: string): void {
 
     const paymentData: PaymentData = {
       orderId: orderId,
-      amount: amount
-    }
+      amount: amount,
+      userEmail: currentUserEmail
+    };
 
     this.paymentService.initiatePayment(paymentData).subscribe({
       next: (paymentRedirectionData: PaymentRedirection | undefined) => {

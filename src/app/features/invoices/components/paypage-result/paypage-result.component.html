@@ -1,2 +1,66 @@
-<h1>Paiement de la facture numéro {{ orderId }}</h1>
-<h1 style="color: red;">{{ status }}</h1>
+<h1>Réglement</h1>
+
+<p-panel header="{{title}}">
+    <div class="grid-container grid-1">
+        <div class="info-box-center">
+            <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">
+                <div class="info-consumption-icon">
+                    <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="92" height="100" viewBox="0 0 92 100" fill="none">
+                        <g filter="url(#filter0_ddd_5563_20632)">
+                          <rect x="12" y="16" width="60" height="60" rx="30" fill="white"/>
+                          <circle cx="50" cy="54" r="10" fill="#E2F133" style="mix-blend-mode:multiply"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M26 37H58V54H26V37ZM24 37C24 35.8954 24.8954 35 26 35H58C59.1046 35 60 35.8954 60 37V54C60 55.1046 59.1046 56 58 56H26C24.8954 56 24 55.1046 24 54V37ZM30.6152 41.7727H40.4614L40.4614 44.4545L30.6152 44.4545L30.6152 41.7727ZM28.6152 41.7727C28.6152 40.6682 29.5107 39.7727 30.6152 39.7727H40.4614C41.566 39.7727 42.4614 40.6682 42.4614 41.7727V44.4545C42.4614 45.5591 41.566 46.4545 40.4614 46.4545H30.6152C29.5107 46.4545 28.6152 45.5591 28.6152 44.4545V41.7727ZM45.1538 40.7273C45.1538 40.175 45.6015 39.7273 46.1538 39.7273H54.4615C55.0138 39.7273 55.4615 40.175 55.4615 40.7273C55.4615 41.2796 55.0138 41.7273 54.4615 41.7273H46.1538C45.6015 41.7273 45.1538 41.2796 45.1538 40.7273ZM46.1538 45.3635C45.6015 45.3635 45.1538 45.8112 45.1538 46.3635C45.1538 46.9158 45.6015 47.3635 46.1538 47.3635H54.4615C55.0138 47.3635 55.4615 46.9158 55.4615 46.3635C55.4615 45.8112 55.0138 45.3635 54.4615 45.3635H46.1538Z" fill="#1E1E1E"/>
+                        </g>
+                        <defs>
+                          <filter id="filter0_ddd_5563_20632" x="0" y="0" width="92" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feMorphology radius="2" operator="erode" in="SourceAlpha" result="effect1_dropShadow_5563_20632"/>
+                            <feOffset dx="-4" dy="-4"/>
+                            <feGaussianBlur stdDeviation="3"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.02 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5563_20632"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feMorphology radius="4" operator="erode" in="SourceAlpha" result="effect2_dropShadow_5563_20632"/>
+                            <feOffset dy="12"/>
+                            <feGaussianBlur stdDeviation="8"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.05 0"/>
+                            <feBlend mode="normal" in2="effect1_dropShadow_5563_20632" result="effect2_dropShadow_5563_20632"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset dx="4"/>
+                            <feGaussianBlur stdDeviation="8"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"/>
+                            <feBlend mode="normal" in2="effect2_dropShadow_5563_20632" result="effect3_dropShadow_5563_20632"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_5563_20632" result="shape"/>
+                          </filter>
+                        </defs>
+                      </svg>
+<!--                       
+                    <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                        viewBox="0 0 26 26" fill="none">
+                        <circle class="circle" cx="15.5" cy="16.5" r="7.5" />
+
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M1 0C1.55229 0 2 0.447715 2 1V18.6C2 19.7366 2.00078 20.5289 2.05118 21.1458C2.10062 21.7509 2.19279 22.0986 2.32698 22.362C2.6146 22.9265 3.07354 23.3854 3.63803 23.673C3.90138 23.8072 4.24907 23.8994 4.85424 23.9488C5.47108 23.9992 6.26339 24 7.4 24H25C25.5523 24 26 24.4477 26 25C26 25.5523 25.5523 26 25 26H7.35717C6.2734 26 5.39925 26 4.69138 25.9422C3.96253 25.8826 3.32234 25.7568 2.73005 25.455C1.78924 24.9757 1.02434 24.2108 0.544968 23.27C0.243181 22.6777 0.117368 22.0375 0.0578184 21.3086C-1.77398e-05 20.6007 -9.75112e-06 19.7266 2.62457e-07 18.6428L5.00876e-07 1C5.00876e-07 0.447715 0.447716 0 1 0ZM5.33333 6.33333C5.33333 5.78105 5.78105 5.33333 6.33333 5.33333H21C21.5523 5.33333 22 5.78105 22 6.33333C22 6.88562 21.5523 7.33333 21 7.33333H6.33333C5.78105 7.33333 5.33333 6.88562 5.33333 6.33333ZM5.33333 11.6667C5.33333 11.1144 5.78105 10.6667 6.33333 10.6667H17C17.5523 10.6667 18 11.1144 18 11.6667C18 12.219 17.5523 12.6667 17 12.6667H6.33333C5.78105 12.6667 5.33333 12.219 5.33333 11.6667ZM5.33333 17C5.33333 16.4477 5.78105 16 6.33333 16H22.3333C22.8856 16 23.3333 16.4477 23.3333 17C23.3333 17.5523 22.8856 18 22.3333 18H6.33333C5.78105 18 5.33333 17.5523 5.33333 17Z"
+                            fill="#1E1E1E" />
+                    </svg> -->
+                </div>
+            </div>
+
+            <p>Votre paiement est en cours de traitement !</p>
+
+            <p style="font-size: 14px;">
+                Lors de la validation de votre paiement, vous receverez une confirmation sur l'adeesse {{
+                currentUser()?.email}}
+            </p>
+
+            <p-button label="Rediriger vers la page de facture" iconPos="right" icon="pi pi-arrow-right"
+                (click)="navigateToFacturePage()" />
+            <br>
+            <br>
+            <br>
+
+        </div>
+    </div>
+</p-panel>

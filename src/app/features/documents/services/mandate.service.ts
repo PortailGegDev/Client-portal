@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Mandate } from '../../../shared/models/mandate.model';
@@ -25,7 +24,7 @@ export class MandateService {
   }
 
 
-  createMandat(createMandat: CreateMandat): Observable<any> {
+  createMandat(createMandat: CreateMandat): Observable<Mandate | null> {
     return this.mandatehttpService.createMandat(createMandat);
   }
 

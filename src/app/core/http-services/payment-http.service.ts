@@ -28,7 +28,7 @@ export class PaymentHttpService {
   }
 
   checkPaymentResult(invoiceNumber:string): Observable<string | undefined> {
-    return this.http.get<string>(`${this.paymentUrl}/check-result`)
+    return this.http.get<string>(`${this.paymentUrl}/check-result/$filter=UtilitiesInvoicingDocument eq '${invoiceNumber}'`)
       .pipe(
         map((status: string) => status || undefined),
         catchError(error => {
