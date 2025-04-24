@@ -6,6 +6,9 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
+import { InvoicesService } from '../../services/invoices.service';
+import { Invoice } from '../../../../shared/models/invoice-model';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-invoices-paypage-result',
@@ -17,11 +20,24 @@ export class AppInvoicesPaypageResultComponent implements OnInit {
 
   orderId: string = '';
   status: string | undefined = '';
-  title: string = 'Paiement de facture N° ';
   currentUser: Signal<User | null>;
+  invoice: Invoice | undefined;
+
+  get getTypeText(): string {
+    if (!this.invoice) {
+      return '';
+    }
+
+    if(this.invoice.Energy === Constants.EnergyType.ELECTRICITY){
+      return `d'électricité `;
+    } else{
+      return 'de gaz '
+    }
+  }
 
   constructor(
     private authService: AuthService,
+    private invoicesService: InvoicesService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
@@ -31,13 +47,22 @@ export class AppInvoicesPaypageResultComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.pipe().subscribe(params => {
       this.orderId = params['invoiceNumber'];
-      this.title += this.orderId;
+      this.loadInvoices(this.orderId);
+    });
+  }
+
+  private loadInvoices(utilitiesInvoicingDocument: string) {
+    this.invoicesService.getInvoiceByUtilitiesInvoicingDocument(utilitiesInvoicingDocument).subscribe({
+      next: (invoice: Invoice[]) => {
+        this.invoice = invoice[0];
+      }
     });
   }
 
   navigateToFacturePage() {
     this.router.navigate(['invoices']);
   }
+
   // private async checkPaymentResult(invoicesNumber: string) {
   //   this.paymentService.checkPaymentResult(invoicesNumber).pipe(delay(3000)).subscribe({
   //     next: (status: any | undefined) => {

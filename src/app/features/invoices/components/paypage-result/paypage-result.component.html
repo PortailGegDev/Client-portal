@@ -1,9 +1,17 @@
-<h1>Réglement</h1>
+<h3>Réglement</h3>
 
-<p-panel header="{{title}}">
+
+<p-panel>
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <h5>Paiement de facture N° {{ orderId }}</h5>
+        </div>
+    </ng-template>
+
+    @if(this.invoice){
     <div class="grid-container grid-1">
-        <div class="info-box-center">
-            <div style="align-items: center; gap: 16px; padding-top: 30px; padding-bottom: 30px;">
+        <div class="info-box-center" style="margin-top: 0;">
+            <div style="align-items: center; padding-top: 30px; padding-bottom: 30px;">
                 <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="92" height="100"
                     viewBox="0 0 92 100" fill="none">
                     <g filter="url(#filter0_ddd_5563_20632)">
@@ -51,7 +59,8 @@
                 </svg>
             </div>
 
-            <p>Votre paiement est en cours de traitement !</p>
+            <p>Votre paiement lié à votre contrat {{ getTypeText }} numéro {{ invoice?.ISUContract }} est en cours de
+                traitement !</p>
 
             <p style="font-size: 14px;">
                 Lors de la validation de votre paiement, vous receverez une confirmation sur l'adeesse {{
@@ -62,8 +71,8 @@
                 (click)="navigateToFacturePage()" />
             <br>
             <br>
-            <br>
-
         </div>
     </div>
+    }
+
 </p-panel>
