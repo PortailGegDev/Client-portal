@@ -16,10 +16,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AppDocumentsContractBillingDateDialogComponent } from '../billing-date-dialog/billing-date-dialog.component';
+import { AppDocumentsContractRibDialogComponent } from '../rib-dialog/rib-dialog.component';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
+  imports: [AppDocumentsContractRibDialogComponent, AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -33,8 +34,6 @@ export class AppDocumentsContractPaymentComponent {
   showUpdateDateDialog: boolean = false;
   showEchtable: boolean = false;
 
-  newRib: any = '';
-  payerName: string = '';
   currentDate: string = formatDateFr(new Date());
   paiements = [
     { date: '', montant: '' },
@@ -73,19 +72,6 @@ export class AppDocumentsContractPaymentComponent {
     return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P;
   }
 
-
-  submitNewRib(): void {
-    if (this.newRib?.trim() && this.payerName?.trim()) {
-      this.ribUpdated.emit({
-        iban: this.newRib.trim(),
-        AccountpayerName: this.payerName.trim()
-      });
-
-      this.showUpdateRibDialog = false;
-    } else {
-      alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
-    }
-  }
 
   onBillingDayChanged(billingDateChanged: boolean): void {
     this.billingDayChanged.emit(billingDateChanged);

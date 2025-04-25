@@ -96,32 +96,18 @@
 </div>
 
 @if(showUpdateRibDialog){
-<div class="row">
-  <p-dialog header="Changement de RIB" [modal]="true" [(visible)]="showUpdateRibDialog" [style]="{ width: '50rem' }"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-
-    <div class="col-12 mb-3">
-      <label for="rib">Nouveau RIB</label>
-      <input class="mb-3" id="rib" type="text" pInputText [(ngModel)]="newRib" style="width: 100%;">
-      <br>
-      <label for="bankAccountHolder">Titulaire du compte bancaire</label>
-      <input id="bankAccountHolder" type="text" pInputText [(ngModel)]="payerName" style="width: 100%;">
-    </div>
-    <div class="col-12 mb-3" style="text-align: center;">
-      <p-button label="Annuler" severity="help" (click)="showUpdateRibDialog = false"></p-button>
-      &nbsp;
-      <p-button label="Valider" class="p-button-primary" (click)="submitNewRib()"></p-button>
-    </div>
-  </p-dialog>
-</div>
+<p-dialog header="Mettre à jour le RIB" [modal]="true" [(visible)]="showUpdateRibDialog" [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+  <app-documents-contract-rib-dialog />
+</p-dialog>
 }
 
 
 @if(showUpdateDateDialog){
-<p-dialog header="Modifier la date de prélèvement" [modal]="true" [(visible)]="showUpdateDateDialog" [style]="{ width: '50rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-  <app-documents-contract-billing-date-dialog [contractDetails]="contractDetails" (billingDayChanged)="onBillingDayChanged($event)"
-    (onCancelClick)="showUpdateDateDialog=false" />
+<p-dialog header="Modifier la date de prélèvement" [modal]="true" [(visible)]="showUpdateDateDialog"
+  [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+  <app-documents-contract-billing-date-dialog [contractDetails]="contractDetails"
+    (billingDayChanged)="onBillingDayChanged($event)" (onCancelClick)="showUpdateDateDialog=false" />
 </p-dialog>
 }
 

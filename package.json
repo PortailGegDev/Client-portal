@@ -25,6 +25,7 @@
     "@primeng/themes": "^19.0.5",
     "@sap/approuter": "^14.2.0",
     "@sap/xssec": "^4.2.7",
+    "angular-iban": "^19.0.0",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
