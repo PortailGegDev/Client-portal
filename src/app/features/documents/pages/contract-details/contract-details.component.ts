@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, Signal } from '@angular/core';
+import { Component, effect, numberAttribute, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
@@ -151,7 +151,13 @@ export class AppDocumentContractDetailsComponent {
       next: (response: Bank | null) => {
 
         if (!response) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur',
+            detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
+          });
           return;
+        
         }
 
         const createMandat: CreateMandat = {
@@ -189,7 +195,6 @@ export class AppDocumentContractDetailsComponent {
   }
 
   validBillingDays: string[] = ["05", "10", "15", "20"];
-
   updateBillingDay(day: string): void {
     if (!this.contractDetails || !this.contractDetails.BusinessPartnerBankId) {
       console.error("BusinessPartnerBankId non trouvé dans les détails du contrat.");
@@ -220,4 +225,22 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
+
+
+  onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
+    const contractUpdateAddress: ContractUpdate = {
+      ContractISU: this.contractDetails!.ContractISU,
+      HouseNumber: event.number,
+      StreetName: event.street,
+      PostalCode: event.postalCode,
+      CityName: event.city,
+      Action: "CHANGE_BANK",
+    };
+    this.contractService.updateContractDetails(contractUpdateAddress).subscribe({
+      next:()=> {
+        this.loadContract(this.contractIsu);
+      }
+    })
+  }
+  
 }

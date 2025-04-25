@@ -120,9 +120,15 @@
 @if(updateDate){
   <p-dialog header="Modifier la date de prélèvement" [modal]="true" [(visible)]="updateDate" [style]="{ width: '50rem' }"
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-  
         <label for="date">Nouveau jour de prélèvement</label>
-        <p-dropdown
+        &nbsp;
+        <p-selectButton id="date" [options]="datesDisponibles"
+        [(ngModel)]="newDate"
+        optionLabel="label"
+        optionValue="value"
+        [unselectable]="false">
+        </p-selectButton>
+        <!-- <p-dropdown
         id="date"
         [options]="datesDisponibles"
         [(ngModel)]="newDate"
@@ -130,7 +136,7 @@
         placeholder="Choisir une date"
         [appendTo]="'body'"
         class="custom-dropdown"
-      ></p-dropdown>
+      ></p-dropdown> -->
     <div class="col-12 mb-3" style="text-align: center;">
       <p-button label="Annuler" severity="help"  (click)="updateDate = false"></p-button>
       &nbsp;

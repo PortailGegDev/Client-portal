@@ -14,10 +14,11 @@ import { Constants } from '../../../../shared/utils/constants';
 import { formatDateFr } from '../../../../shared/utils/date-utilities';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
+  imports: [CommonModule, FormsModule, SelectButtonModule,InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -84,6 +85,7 @@ export class AppDocumentsContractPaymentComponent {
     }
   }
 
+  value: string = '';
   datesDisponibles = [
     { label: '05', value: '05' },
     { label: '10', value: '10' },
@@ -92,7 +94,6 @@ export class AppDocumentsContractPaymentComponent {
   ];
 
   submitJourDePrelevement(): void {
-    debugger
     if (!this.newDate || !this.datesDisponibles.some(date => date.value === this.newDate.value)) {
       console.error("Date de prélèvement invalide.");
       return;
@@ -103,6 +104,7 @@ export class AppDocumentsContractPaymentComponent {
   }
 
   tableVisible: boolean = false;
+  
   openTable() {
     this.tableVisible = true;
   }
