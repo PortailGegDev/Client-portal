@@ -51,29 +51,6 @@ export class AppInvoicesComponent {
       next: (factures: Invoice[]) => {
         this.invoices = factures;
         console.log(this.invoices);
-
-        // TODO : à supprimer après la finalisation de paiement en ligne
-        this.invoices.push({
-          PostingDate: '/Date(1741478400000)/',
-          PeriodEndDate: '/Date(1714003200000)',
-          PeriodStartDate: '/Date(1721779200000)/',
-          NetDueDate: '/Date(1741478400000)/',
-          NetDueYear: 2025,
-          UtilitiesInvoicingDocument: `101000000038`,
-          TotalAmount: 227.02,
-          TotalAmountHT: 200.02,
-          TotalCurrency: 'EUR',
-          TotalPaidTTC: 0.00,
-          TotalUnpaidTTC: 227.02,
-          StatusInvoicingDocument: `Non Soldée` ,
-          TotalUnpaidHT: 200.02,
-          Canceled: '0',
-          Energy: '01',
-          FactureType: 'Souscription ou ajustement manuelle',
-          ISUContract: '0350000008',
-          PaymentMethod: '',
-          Quantity: 0,
-        });
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des données:', error); // Affiche l'erreur dans la console en cas de problème

@@ -1,7 +1,68 @@
-<h1>Paiement de la facture numéro {{ orderId }}</h1>
+<h3>Réglement</h3>
 
-@if(isLoading) {
-<p>Traitement en cours...</p>
-} @else {
-<p>Redirection vers la page de paiement...</p>
-}
+<p-panel>
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <h5>Paiement de facture N° {{ orderId }}</h5>
+        </div>
+    </ng-template>
+
+    <div class="grid-container grid-1">
+        <div class="info-box-center" style="margin-top: 0;">
+            <div style="align-items: center; padding-top: 30px; padding-bottom: 30px;">
+                <svg class="icon-demenage" xmlns="http://www.w3.org/2000/svg" width="92" height="100"
+                    viewBox="0 0 92 100" fill="none">
+                    <g filter="url(#filter0_ddd_5563_20632)">
+                        <rect x="12" y="16" width="60" height="60" rx="30" fill="white" />
+                        <circle cx="50" cy="54" r="10" fill="#E2F133" style="mix-blend-mode:multiply" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M26 37H58V54H26V37ZM24 37C24 35.8954 24.8954 35 26 35H58C59.1046 35 60 35.8954 60 37V54C60 55.1046 59.1046 56 58 56H26C24.8954 56 24 55.1046 24 54V37ZM30.6152 41.7727H40.4614L40.4614 44.4545L30.6152 44.4545L30.6152 41.7727ZM28.6152 41.7727C28.6152 40.6682 29.5107 39.7727 30.6152 39.7727H40.4614C41.566 39.7727 42.4614 40.6682 42.4614 41.7727V44.4545C42.4614 45.5591 41.566 46.4545 40.4614 46.4545H30.6152C29.5107 46.4545 28.6152 45.5591 28.6152 44.4545V41.7727ZM45.1538 40.7273C45.1538 40.175 45.6015 39.7273 46.1538 39.7273H54.4615C55.0138 39.7273 55.4615 40.175 55.4615 40.7273C55.4615 41.2796 55.0138 41.7273 54.4615 41.7273H46.1538C45.6015 41.7273 45.1538 41.2796 45.1538 40.7273ZM46.1538 45.3635C45.6015 45.3635 45.1538 45.8112 45.1538 46.3635C45.1538 46.9158 45.6015 47.3635 46.1538 47.3635H54.4615C55.0138 47.3635 55.4615 46.9158 55.4615 46.3635C55.4615 45.8112 55.0138 45.3635 54.4615 45.3635H46.1538Z"
+                            fill="#1E1E1E" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_ddd_5563_20632" x="0" y="0" width="92" height="100"
+                            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feMorphology radius="2" operator="erode" in="SourceAlpha"
+                                result="effect1_dropShadow_5563_20632" />
+                            <feOffset dx="-4" dy="-4" />
+                            <feGaussianBlur stdDeviation="3" />
+                            <feColorMatrix type="matrix"
+                                values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.02 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5563_20632" />
+                            <feColorMatrix in="SourceAlpha" type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feMorphology radius="4" operator="erode" in="SourceAlpha"
+                                result="effect2_dropShadow_5563_20632" />
+                            <feOffset dy="12" />
+                            <feGaussianBlur stdDeviation="8" />
+                            <feColorMatrix type="matrix"
+                                values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.05 0" />
+                            <feBlend mode="normal" in2="effect1_dropShadow_5563_20632"
+                                result="effect2_dropShadow_5563_20632" />
+                            <feColorMatrix in="SourceAlpha" type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dx="4" />
+                            <feGaussianBlur stdDeviation="8" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0" />
+                            <feBlend mode="normal" in2="effect2_dropShadow_5563_20632"
+                                result="effect3_dropShadow_5563_20632" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_5563_20632"
+                                result="shape" />
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+
+            @if(isLoading) {
+            <p>Traitement en cours...</p>
+            } @else {
+            <p>Redirection vers la page de paiement...</p>
+            }
+            <br>
+        </div>
+    </div>
+</p-panel>

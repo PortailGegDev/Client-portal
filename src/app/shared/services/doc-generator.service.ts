@@ -20,7 +20,7 @@ export class DocGeneratorService {
 
     img.onload = () => {
       // Centré en haut
-      pdf.addImage(img, 'PNG', 90, 10, 14, 14);
+      pdf.addImage(img, 'PNG', 95, 10, 15, 20);
 
       // Informations de GEG (en haut à gauche)
       pdf.setFontSize(10);
@@ -72,8 +72,11 @@ Ce contrat a été établi sur la base de ses déclarations. Pour servir et valo
 
       signatureImg.onload = () => {
         // Ajouter l'image de signature
-        pdf.addImage(signatureImg, 'PNG', 120, 190, 55, 40);
-
+        const maxWidth = 51;
+        const maxHeight = 63;
+        const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
+        pdf.addImage(img, 'PNG', 80, 10, img.width * ratio, img.height * ratio);
+        
         // Pied de page
         pdf.setFontSize(8);
 

@@ -22,6 +22,8 @@ import { ContractUpdate } from '../../../../shared/models/contract/contract-upda
 import { Constants } from '../../../../shared/utils/constants';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { catchError, filter, map, of, switchMap } from 'rxjs';
+import { CaretRightIcon } from 'primeng/icons';
 
 @Component({
   selector: 'app-contract-details',
@@ -147,8 +149,8 @@ export class AppDocumentContractDetailsComponent {
       BankAccountHolderName: AccountpayerName,
     };
 
-    this.bankService.createCompteBancaire(updateRib).subscribe({
-      next: (response: Bank | null) => {
+    // this.bankService.createCompteBancaire(updateRib).subscribe({
+    //   next: (response: Bank | null) => {
 
         if (!response) {
           this.messageService.add({
@@ -159,40 +161,87 @@ export class AppDocumentContractDetailsComponent {
           return;
         
         }
+    //     if (!response) {
+    //       return;
+    //     }
+
+    //     const createMandat: CreateMandat = {
+    //       SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
+    //       BusinessPartnerBankId: response.BusinessPartnerBankId,
+    //       SEPASignatureCityName: this.contract!.CityName,
+    //       SEPASignatureDate: new Date().toISOString().slice(0, 19),
+    //       SEPAMandateStatus: "1",
+    //       SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
+    //     };
+
+    //     this.mandateService.createMandat(createMandat).subscribe({
+    //       next: (response: any) => {
+    //         console.log("le mandat a crée avec succées")
+    //         const contractUpdate: ContractUpdate = {
+    //           ContractISU: this.contract!.ContractISU,
+    //           BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
+    //           Action: "CHANGE_BANK",
+    //         };
+
+    //         this.contractService.updateContractDetails(contractUpdate).subscribe({
+    //           next: (response: any) => {
+    //             this.loadContract(this.contractIsu);
+    //             this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
+    //           },
+    //         },)
+    //       }
+    //     });
+    //   },
+    //   error: (error) => {
+    //     console.error("Erreur lors de la modification du compte bancaire :", error);
+    //     this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
+    //   },
+    // });
+
+    this.bankService.createCompteBancaire(updateRib).pipe(
+      filter((bank: Bank | null) => !!bank && !!this.contract && !!this.contractDetails),
+      map((bank: Bank | null) => {
 
         const createMandat: CreateMandat = {
           SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
-          BusinessPartnerBankId: response.BusinessPartnerBankId,
+          BusinessPartnerBankId: bank!.BusinessPartnerBankId,
           SEPASignatureCityName: this.contract!.CityName,
           SEPASignatureDate: new Date().toISOString().slice(0, 19),
           SEPAMandateStatus: "1",
           SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
         };
 
-        this.mandateService.createMandat(createMandat).subscribe({
-          next: (response: any) => {
-            console.log("le mandat a crée avec succées")
-            const contractUpdate: ContractUpdate = {
-              ContractISU: this.contract!.ContractISU,
-              BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
-              Action: "CHANGE_BANK",
-            };
+        return createMandat;
+      }),
+      switchMap((mandat: CreateMandat) => {
+        return this.mandateService.createMandat(mandat);
+      }),
+      switchMap((mandat: Mandate | null) => {
+        const contractUpdate: ContractUpdate = {
+          ContractISU: this.contract!.ContractISU,
+          BusinessPartnerBankId: mandat!.BusinessPartnerBankId,
+          Action: "CHANGE_BANK",
+        };
 
-            this.contractService.updateContractDetails(contractUpdate).subscribe({
-              next: (response: any) => {
-                this.loadContract(this.contractIsu);
-                this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
-              },
-            },)
-          }
-        });
+        return this.contractService.updateContractDetails(contractUpdate);
+      }),
+      catchError(error => {
+        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
+        console.error("Erreur globale :", error);
+        return of(null);
+      })
+    ).subscribe({
+      next: (response: any) => {
+        this.loadContract(this.contractIsu);
+        this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
       },
       error: (error) => {
         console.error("Erreur lors de la modification du compte bancaire :", error);
         this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-      },
+      }
     });
   }
+
 
   validBillingDays: string[] = ["05", "10", "15", "20"];
   updateBillingDay(day: string): void {
@@ -225,22 +274,4 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
-
-
-  onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
-    const contractUpdateAddress: ContractUpdate = {
-      ContractISU: this.contractDetails!.ContractISU,
-      HouseNumber: event.number,
-      StreetName: event.street,
-      PostalCode: event.postalCode,
-      CityName: event.city,
-      Action: "CHANGE_BANK",
-    };
-    this.contractService.updateContractDetails(contractUpdateAddress).subscribe({
-      next:()=> {
-        this.loadContract(this.contractIsu);
-      }
-    })
-  }
-  
 }

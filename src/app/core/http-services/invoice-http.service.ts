@@ -5,17 +5,29 @@ import { catchError, map } from 'rxjs/operators';
 import { Invoice } from '../../shared/models/invoice-model';
 import { BaseHttpService } from './base-http.service';
 import { environment } from '../../../environments/environment.prod';
+import { UndoIcon } from 'primeng/icons';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceHTTPService extends BaseHttpService {
 
-  apiSP:string;
+  apiSP: string;
 
   constructor(private http: HttpClient) {
     super();
     this.apiSP = environment.apiSP;
+  }
+
+  fetchFacturesByUtilitiesInvoicingDocument(utilitiesInvoicingDocument: string | null): Observable<Invoice[]> {
+    let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=UtilitiesInvoicingDocument eq '${utilitiesInvoicingDocument}'`;
+
+    return this.http.get<{ invoices: Invoice[] }>(url)
+      .pipe(map((response: any) => response.d.results || []),
+        catchError(error => {
+          console.error('erreur lors de la récupperation de la facture', error);
+          return of([]);
+        }));
   }
 
   fetchFactures(contractISU: string | null, filter: string | null = null): Observable<Invoice[]> {

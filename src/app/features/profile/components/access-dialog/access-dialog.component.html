@@ -1,15 +1,15 @@
-<div class="row" style="text-align: center; height: 400px;">
-    <div class="col-12 mb-3">
+<div class="grid-container-white grid-1" style="text-align: center; height: 400px;">
+    <div class="grid-item-white mb-3">
         Ci-dessous la liste de vos contacts.<br>Si le contact ne figure pas dans la liste,
         veuillez contacter le service client.
     </div>
 
-    <div class="col-12 mb-3">
+    <div class="grid-item-white mb-3">
         <p-select [options]="contracts" [(ngModel)]="selectedContract" optionLabel="name"
             placeholder="Choisir un contact" class="w-full md:w-56" [style]="{'width':'60%', 'text-align':'left'}" />
     </div>
 
-    <div class="col-12 mb-3">
+    <div class="grid-item-white mb-3">
         <p-multiselect [options]="accessDetails" [(ngModel)]="selectedAccess" [appendTo]="'body'"  [maxSelectedLabels]="3"
             placeholder="Donnez les accès aux contrats" styleClass="w-full md:w-80" display="chip"
             [style]="{'width':'60%', 'text-align':'left'}">
@@ -37,7 +37,7 @@
         </p-multiselect>
     </div>
 
-    <div class="col-12 mb-3">
+    <div class="grid-item-white mb-3">
         <p-button [disabled]="!selectedContract && !selectedContract" label="Envoyer la création du compte"
             (click)="onSendAccountCreation()" />
     </div>
