@@ -6,10 +6,11 @@ import { PaymentRedirection } from '../../../../shared/models/payment-redirectio
 import { take } from 'rxjs';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-invoices-paypage',
-  imports: [],
+  imports: [PanelModule],
   templateUrl: './paypage.component.html',
   styleUrl: './paypage.component.scss'
 })
@@ -22,7 +23,7 @@ export class AppInvoicesPaypageComponent implements OnInit {
   currentUserEmail: string | undefined = '';
   orderId: string = '';
   amount: number = 0;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private paymentService: PaymentService,
@@ -57,7 +58,7 @@ export class AppInvoicesPaypageComponent implements OnInit {
 
     this.paymentService.initiatePayment(paymentData).subscribe({
       next: (paymentRedirectionData: PaymentRedirection | undefined) => {
-
+        this.isLoading = false;
         if (paymentRedirectionData) {
           this.submitPaymentData(paymentRedirectionData);
         }
