@@ -15,10 +15,11 @@ import { formatDateFr } from '../../../../shared/utils/date-utilities';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { AppDocumentsContractBillingDateDialogComponent } from '../billing-date-dialog/billing-date-dialog.component';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [CommonModule, FormsModule, SelectButtonModule,InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
+  imports: [AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -26,13 +27,14 @@ export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
   @Input() contractDetails: ContractDetails | undefined;
   @Output() ribUpdated = new EventEmitter<{ iban: string, AccountpayerName: string }>();
-  @Output() billingDayChanged = new EventEmitter<string>();
+  @Output() billingDayChanged = new EventEmitter<boolean>();
 
-  updateRib: boolean = false;
-  updateDate: boolean = false;
+  showUpdateRibDialog: boolean = false;
+  showUpdateDateDialog: boolean = false;
+  showEchtable: boolean = false;
+
   newRib: any = '';
   payerName: string = '';
-  newDate: any = '';
   currentDate: string = formatDateFr(new Date());
   paiements = [
     { date: '', montant: '' },
@@ -79,34 +81,19 @@ export class AppDocumentsContractPaymentComponent {
         AccountpayerName: this.payerName.trim()
       });
 
-      this.updateRib = false;
+      this.showUpdateRibDialog = false;
     } else {
       alert("L'IBAN et le nom du titulaire du compte sont obligatoires.");
     }
   }
 
-  value: string = '';
-  datesDisponibles = [
-    { label: '05', value: '05' },
-    { label: '10', value: '10' },
-    { label: '15', value: '15' },
-    { label: '20', value: '20' }
-  ];
-
-  submitJourDePrelevement(): void {
-    if (!this.newDate || !this.datesDisponibles.some(date => date.value === this.newDate.value)) {
-      console.error("Date de prélèvement invalide.");
-      return;
-    }
-    this.billingDayChanged.emit(this.newDate.value);
-    this.updateDate = false;
-    this.newDate = {};
+  onBillingDayChanged(billingDateChanged: boolean): void {
+    this.billingDayChanged.emit(billingDateChanged);
+    this.showUpdateDateDialog = false;
   }
 
-  tableVisible: boolean = false;
-  
   openTable() {
-    this.tableVisible = true;
+    this.showEchtable = true;
   }
 
 }

@@ -1,0 +1,26 @@
+    <!-- <p-dropdown
+  id="date"
+  [options]="datesDisponibles"
+  [(ngModel)]="newDate"
+  optionLabel="label"
+  placeholder="Choisir une date"
+  [appendTo]="'body'"
+  class="custom-dropdown"
+></p-dropdown> -->
+
+
+<div class="grid-container-white grid-1" style="text-align: center; height: 200px;">
+    <div class="grid-item-white mb-3">
+        <p for="date">Veuillez sélectionner le nouveau jour de prélèvement</p>
+        <p-selectButton id="date" [options]="datesDisponibles" [(ngModel)]="newDate" optionLabel="label"
+            optionValue="value" [unselectable]="false">
+        </p-selectButton>
+    </div>
+
+    <div class="grid-item-white mb-3">
+        <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
+        &nbsp;
+        <p-button label="Valider" class="p-button-primary" (click)="submitBillingDate()"
+            [disabled]="!newDate"></p-button>
+    </div>
+</div>

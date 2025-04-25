@@ -152,15 +152,15 @@ export class AppDocumentContractDetailsComponent {
     // this.bankService.createCompteBancaire(updateRib).subscribe({
     //   next: (response: Bank | null) => {
 
-        // if (!response) {
-        //   this.messageService.add({
-        //     severity: 'error',
-        //     summary: 'Erreur',
-        //     detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
-        //   });
-        //   return;
-        
-        // }
+    // if (!response) {
+    //   this.messageService.add({
+    //     severity: 'error',
+    //     summary: 'Erreur',
+    //     detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
+    //   });
+    //   return;
+
+    // }
     //     if (!response) {
     //       return;
     //     }
@@ -209,8 +209,8 @@ export class AppDocumentContractDetailsComponent {
         }
       }),
       filter((bank: Bank | null) => !!bank && !!this.contract && !!this.contractDetails),
-   
-     
+
+
       map((bank: Bank | null) => {
 
         const createMandat: CreateMandat = {
@@ -254,37 +254,6 @@ export class AppDocumentContractDetailsComponent {
   }
 
 
-  validBillingDays: string[] = ["05", "10", "15", "20"];
-  updateBillingDay(day: string): void {
-    if (!this.contractDetails || !this.contractDetails.BusinessPartnerBankId) {
-      console.error("BusinessPartnerBankId non trouvé dans les détails du contrat.");
-      return;
-    }
-
-    if (!this.validBillingDays.includes(day)) {
-      console.error("Jour de prélèvement invalide. Choisissez parmi 05, 10, 15 ou 20.");
-      return;
-    }
-
-    const contractUpdateDay: ContractUpdate = {
-      ContractISU: this.contractDetails.ContractISU,
-      BusinessPartnerBankId: this.contractDetails.BusinessPartnerBankId,
-      BillingDay: day,
-      Action: "CHANGE_BANK",
-    };
-
-    this.contractService.updateContractDetails(contractUpdateDay).subscribe({
-      next: () => {
-        this.loadContract(this.contractIsu);
-        this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de date de prélèvement réussi !` });
-      },
-      error: (error) => {
-        console.error("Erreur lors de la mise à jour :", error);
-        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-      }
-    });
-  }
-  
   onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
     const contractUpdateAddress: ContractUpdate = {
       ContractISU: this.contractDetails!.ContractISU,
@@ -295,10 +264,18 @@ export class AppDocumentContractDetailsComponent {
       Action: "CHANGE_BANK",
     };
     this.contractService.updateContractDetails(contractUpdateAddress).subscribe({
-      next:()=> {
+      next: () => {
         this.loadContract(this.contractIsu);
       }
     })
   }
 
+  updateBillingDay(bllingDayUpdated: boolean) {
+    if (bllingDayUpdated) {
+      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de date de prélèvement réussie !` });
+      this.loadContract(this.contractIsu);
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de date de prélèvement échouée !` });
+    }
+  }
 }
