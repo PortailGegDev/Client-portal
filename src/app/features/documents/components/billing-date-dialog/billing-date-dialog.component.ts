@@ -49,7 +49,7 @@ export class AppDocumentsContractBillingDateDialogComponent {
     const contractUpdateDay: ContractUpdate = {
       ContractISU: this.contractDetails.ContractISU,
       BusinessPartnerBankId: this.contractDetails.BusinessPartnerBankId,
-      BillingDay: this.newDate.value,
+      BillingDay: this.newDate,
       Action: "CHANGE_BANK",
     };
 
