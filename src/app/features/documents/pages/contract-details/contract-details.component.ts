@@ -22,7 +22,7 @@ import { ContractUpdate } from '../../../../shared/models/contract/contract-upda
 import { Constants } from '../../../../shared/utils/constants';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { catchError, filter, map, of, switchMap } from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { CaretRightIcon } from 'primeng/icons';
 
 @Component({
@@ -152,15 +152,15 @@ export class AppDocumentContractDetailsComponent {
     // this.bankService.createCompteBancaire(updateRib).subscribe({
     //   next: (response: Bank | null) => {
 
-        if (!response) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur',
-            detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
-          });
-          return;
+        // if (!response) {
+        //   this.messageService.add({
+        //     severity: 'error',
+        //     summary: 'Erreur',
+        //     detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
+        //   });
+        //   return;
         
-        }
+        // }
     //     if (!response) {
     //       return;
     //     }
@@ -199,7 +199,18 @@ export class AppDocumentContractDetailsComponent {
     // });
 
     this.bankService.createCompteBancaire(updateRib).pipe(
+      tap((response: Bank | null) => {
+        if (!response) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur',
+            detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
+          });
+        }
+      }),
       filter((bank: Bank | null) => !!bank && !!this.contract && !!this.contractDetails),
+   
+     
       map((bank: Bank | null) => {
 
         const createMandat: CreateMandat = {
@@ -272,6 +283,22 @@ export class AppDocumentContractDetailsComponent {
         this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
       }
     });
+  }
+  
+  onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
+    const contractUpdateAddress: ContractUpdate = {
+      ContractISU: this.contractDetails!.ContractISU,
+      HouseNumber: event.number,
+      StreetName: event.street,
+      PostalCode: event.postalCode,
+      CityName: event.city,
+      Action: "CHANGE_BANK",
+    };
+    this.contractService.updateContractDetails(contractUpdateAddress).subscribe({
+      next:()=> {
+        this.loadContract(this.contractIsu);
+      }
+    })
   }
 
 }
