@@ -32,6 +32,7 @@ export class AppDocumentsContractRibDialogComponent {
 
   newRib: any = '';
   payerName: string = '';
+  newBusinessPartnerBankId: string = '';
   form: FormGroup;
 
   get ibanForm(): any { return this.form.get('iban'); }
@@ -142,7 +143,7 @@ export class AppDocumentsContractRibDialogComponent {
 
 
       map((bank: Bank | null) => {
-
+        this.newBusinessPartnerBankId = bank!.BusinessPartnerBankId;
         const createMandat: CreateMandat = {
           SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
           BusinessPartnerBankId: bank!.BusinessPartnerBankId,
@@ -157,11 +158,11 @@ export class AppDocumentsContractRibDialogComponent {
       switchMap((mandat: CreateMandat) => {
         return this.mandateService.createMandat(mandat);
       }),
-      switchMap((mandat: Mandate | null) => {
+      switchMap(() => {
+
         const contractUpdate: ContractUpdate = {
           ContractISU: this.contract!.ContractISU,
-          BusinessPartnerBankId: mandat!.BusinessPartnerBankId,
-          PayerFullName: AccountpayerName,
+          BusinessPartnerBankId: this.newBusinessPartnerBankId,
           Action: "CHANGE_BANK",
         };
 

@@ -7,7 +7,6 @@ export class ContractUpdate {
   HouseNumber?: string;
   PostalCode?: string;
   CityName?: string;
-  PayerFullName?: string;
 
   public constructor(init?: Partial<ContractUpdate>) {
     Object.assign(this, init);
