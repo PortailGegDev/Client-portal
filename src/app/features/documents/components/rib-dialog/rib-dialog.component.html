@@ -1,4 +1,4 @@
-<div class="grid-container-white grid-1" style="text-align: center; height: 250px;">
+<div class="grid-container-white grid-1" style="text-align: center; height: 270px;">
     <p>Veuillez saisir les données de votre compte bancaire</p>
 
     <form [formGroup]="form" (submit)="submitNewRib()">
@@ -6,11 +6,11 @@
             <input class="mb-3" type="text" pInputText formControlName="iban" style="width: 80%;" placeholder="IBAN">
             @if(ibanForm?.invalid && (ibanForm?.touched || ibanForm?.dirty)){
             <br>
-            @if(ibanForm?.errors?.['required']){
+            @if(ibanForm?.errors?.required){
             <small class="error">L'Iban est obligatoire!</small>
             }
 
-            @if(ibanForm?.errors?.['validateIban']){
+            @if(ibanForm?.errors?.iban){
             <small class="error">L'Iban est invalide!</small>
             }
             }
@@ -21,7 +21,7 @@
                 placeholder="Titulaire du compte bancaire">
             @if(titularForm?.invalid && (titularForm?.touched || titularForm?.dirty)){
             <br>
-            @if(titularForm?.errors?.['required']){
+            @if(titularForm?.errors?.required){
             <small class="error">Le titulaire du compte est obligatoire!</small>
             }
             }

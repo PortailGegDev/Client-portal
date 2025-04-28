@@ -19,8 +19,8 @@ export class AppDocumentsContractRibDialogComponent {
   payerName: string = '';
   form: FormGroup;
 
-  get ibanForm(): any { return this.form.get('lastName'); }
-  get titularForm(): any { return this.form.get('firstName'); }
+  get ibanForm(): any { return this.form.get('iban'); }
+  get titularForm(): any { return this.form.get('titular'); }
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
