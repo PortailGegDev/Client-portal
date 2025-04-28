@@ -54,21 +54,25 @@ export class AppDocumentsContractRibDialogComponent {
 
     if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
       console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
+      this.onRibChanged.emit(false);
       return;
     }
 
     if (!this.contract?.PayerPartnerId) {
       console.error("Le BusinessPartner du payeur est introuvable !");
+      this.onRibChanged.emit(false);
       return;
     }
 
     if (!iban) {
       console.error("Veuillez entrer un identifiant bancaire.");
+      this.onRibChanged.emit(false);
       return;
     }
 
     if (!AccountpayerName) {
       console.error("Veuillez entrer le nom de payeur .");
+      this.onRibChanged.emit(false);
       return;
     }
 

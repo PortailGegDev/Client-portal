@@ -10,7 +10,7 @@
 </div>
 
 <div>
-    <app-documents-contract-payment [contractDetails]="contractDetails" [mandates]="mandates"
+    <app-documents-contract-payment [contractDetails]="contractDetails" [contract]="contract" [mandates]="mandates"
         (ribChanged)="updateBancAccount($event)" (billingDayChanged)="updateBillingDay($event)" />
 </div>
 &nbsp;
@@ -19,7 +19,7 @@
 </div>
 &nbsp;
 <div>
-    <app-documents-contract-document [contract]="contract"/>
+    <app-documents-contract-document [contract]="contract" />
 </div>
 &nbsp;
 <div>
