@@ -11,7 +11,7 @@
 
 <div>
     <app-documents-contract-payment [contractDetails]="contractDetails" [mandates]="mandates"
-        (ribUpdated)="submitBankChange($event)" (billingDayChanged)="updateBillingDay($event)" />
+        (ribChanged)="updateBancAccount($event)" (billingDayChanged)="updateBillingDay($event)" />
 </div>
 &nbsp;
 <div>

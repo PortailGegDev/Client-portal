@@ -118,141 +118,15 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
-  submitBankChange(rib: { iban: string; AccountpayerName: string }): void {
-    const iban = rib.iban?.trim();
-    const AccountpayerName = rib.AccountpayerName?.trim();
+  updateBancAccount(ribUpdate: boolean) {
 
-    if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
-      console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
-      return;
+    if (ribUpdate) {
+      this.loadContract(this.contractIsu);
+      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de rib effectué avec succès !` });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de rib échoué !` });
     }
-
-    if (!this.contract?.PayerPartnerId) {
-      console.error("Le BusinessPartner du payeur est introuvable introuvable.");
-      return;
-    }
-
-    if (!iban) {
-      console.error("Veuillez entrer un identifiant bancaire.");
-      return;
-    }
-
-    if (!AccountpayerName) {
-      console.error("Veuillez entrer le nom de payeur .");
-      return;
-    }
-
-    const updateRib: UpdateRib = {
-      BusinessPartner: this.contractDetails!.BusinessPartner,
-      BusinessPartnerB2B: this.contractDetails!.BusinessPartnerB2B,
-      IBAN: iban,
-      BankAccountHolderName: AccountpayerName,
-    };
-
-    // this.bankService.createCompteBancaire(updateRib).subscribe({
-    //   next: (response: Bank | null) => {
-
-    // if (!response) {
-    //   this.messageService.add({
-    //     severity: 'error',
-    //     summary: 'Erreur',
-    //     detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
-    //   });
-    //   return;
-
-    // }
-    //     if (!response) {
-    //       return;
-    //     }
-
-    //     const createMandat: CreateMandat = {
-    //       SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
-    //       BusinessPartnerBankId: response.BusinessPartnerBankId,
-    //       SEPASignatureCityName: this.contract!.CityName,
-    //       SEPASignatureDate: new Date().toISOString().slice(0, 19),
-    //       SEPAMandateStatus: "1",
-    //       SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
-    //     };
-
-    //     this.mandateService.createMandat(createMandat).subscribe({
-    //       next: (response: any) => {
-    //         console.log("le mandat a crée avec succées")
-    //         const contractUpdate: ContractUpdate = {
-    //           ContractISU: this.contract!.ContractISU,
-    //           BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
-    //           Action: "CHANGE_BANK",
-    //         };
-
-    //         this.contractService.updateContractDetails(contractUpdate).subscribe({
-    //           next: (response: any) => {
-    //             this.loadContract(this.contractIsu);
-    //             this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
-    //           },
-    //         },)
-    //       }
-    //     });
-    //   },
-    //   error: (error) => {
-    //     console.error("Erreur lors de la modification du compte bancaire :", error);
-    //     this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-    //   },
-    // });
-
-    this.bankService.createCompteBancaire(updateRib).pipe(
-      tap((response: Bank | null) => {
-        if (!response) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur',
-            detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
-          });
-        }
-      }),
-      filter((bank: Bank | null) => !!bank && !!this.contract && !!this.contractDetails),
-
-
-      map((bank: Bank | null) => {
-
-        const createMandat: CreateMandat = {
-          SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
-          BusinessPartnerBankId: bank!.BusinessPartnerBankId,
-          SEPASignatureCityName: this.contract!.CityName,
-          SEPASignatureDate: new Date().toISOString().slice(0, 19),
-          SEPAMandateStatus: "1",
-          SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
-        };
-
-        return createMandat;
-      }),
-      switchMap((mandat: CreateMandat) => {
-        return this.mandateService.createMandat(mandat);
-      }),
-      switchMap((mandat: Mandate | null) => {
-        const contractUpdate: ContractUpdate = {
-          ContractISU: this.contract!.ContractISU,
-          BusinessPartnerBankId: mandat!.BusinessPartnerBankId,
-          Action: "CHANGE_BANK",
-        };
-
-        return this.contractService.updateContractDetails(contractUpdate);
-      }),
-      catchError(error => {
-        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-        console.error("Erreur globale :", error);
-        return of(null);
-      })
-    ).subscribe({
-      next: (response: any) => {
-        this.loadContract(this.contractIsu);
-        this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
-      },
-      error: (error) => {
-        console.error("Erreur lors de la modification du compte bancaire :", error);
-        this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-      }
-    });
   }
-
 
   onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
     const contractUpdateAddress: ContractUpdate = {

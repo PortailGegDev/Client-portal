@@ -98,7 +98,7 @@
 @if(showUpdateRibDialog){
 <p-dialog header="Mettre à jour le RIB" [modal]="true" [(visible)]="showUpdateRibDialog" [style]="{ width: '50rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-  <app-documents-contract-rib-dialog />
+  <app-documents-contract-rib-dialog [contractDetails]="contractDetails" [contract]="contract" (onCancelClick)="showUpdateRibDialog=false" (onRibChanged)="onRibChanged($event)" />
 </p-dialog>
 }
 

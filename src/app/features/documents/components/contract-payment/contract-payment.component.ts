@@ -17,6 +17,7 @@ import { TableModule } from 'primeng/table';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AppDocumentsContractBillingDateDialogComponent } from '../billing-date-dialog/billing-date-dialog.component';
 import { AppDocumentsContractRibDialogComponent } from '../rib-dialog/rib-dialog.component';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 
 @Component({
   selector: 'app-documents-contract-payment',
@@ -27,8 +28,10 @@ import { AppDocumentsContractRibDialogComponent } from '../rib-dialog/rib-dialog
 export class AppDocumentsContractPaymentComponent {
   @Input() mandates: Mandate[] = [];
   @Input() contractDetails: ContractDetails | undefined;
-  @Output() ribUpdated = new EventEmitter<{ iban: string, AccountpayerName: string }>();
+  @Input() contract: Contract | undefined;
+
   @Output() billingDayChanged = new EventEmitter<boolean>();
+  @Output() ribChanged = new EventEmitter<boolean>();
 
   showUpdateRibDialog: boolean = false;
   showUpdateDateDialog: boolean = false;
@@ -72,6 +75,10 @@ export class AppDocumentsContractPaymentComponent {
     return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P;
   }
 
+  onRibChanged(ribChanged: boolean) {
+    this.ribChanged.emit(ribChanged);
+    this.showUpdateRibDialog = false;
+  }
 
   onBillingDayChanged(billingDateChanged: boolean): void {
     this.billingDayChanged.emit(billingDateChanged);

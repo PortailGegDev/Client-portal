@@ -30,7 +30,7 @@
         <div class="grid-item-white mb-3">
             <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
             &nbsp;
-            <p-button type="submit" label="Valider" class="p-button-primary"></p-button>
+            <p-button type="submit" label="Valider" class="p-button-primary" [disabled]="!form.valid"></p-button>
         </div>
     </form>
 </div>
