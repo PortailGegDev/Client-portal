@@ -25,6 +25,7 @@ export class AppDocumentsContractInvoiceComponent {
 
   onBillingAddressChanged(billingAddressChanged: boolean): void {
     this.billingAddressChanged.emit(billingAddressChanged);
+    debugger
     this.showUpdateAddressDialog = false;
   }
 
