@@ -35,7 +35,7 @@
 @if(showUpdateAddressDialog){
   <p-dialog header="Modifier l'adresse de facturation" [modal]="true" [(visible)]="showUpdateAddressDialog"
     [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-    <app-documents-contract-billing-address-dialog 
+    <app-documents-contract-billing-address-dialog [contract]="contract"
     (billingAddressChanged)="onBillingAddressChanged($event)" (onCancelClick)="showUpdateAddressDialog=false" />
   </p-dialog>
 }

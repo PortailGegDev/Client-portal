@@ -15,7 +15,7 @@ import { Contract } from '../../../../shared/models/contract/contract.model';
 })
 export class AppDocumentsContractBillingAddressDialogComponent {
   @Input() contractDetails: ContractDetails | undefined;
-  @Input() contract: Contract | any;
+  @Input() contract: Contract | undefined;
 
   @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() billingAddressChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
