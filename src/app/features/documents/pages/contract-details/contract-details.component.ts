@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, numberAttribute, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
@@ -12,7 +12,6 @@ import { AppDocumentsContractServiceComponent } from '../../components/contract-
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MandateService } from '../../services/mandate.service';
-import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { MessageService } from 'primeng/api';
@@ -36,17 +35,15 @@ export class AppDocumentContractDetailsComponent {
   businessPartnerBankId: string = '';
   contractIsu: string[] = [];
 
-
   constructor(private router: Router,
     private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private bankService: BankService,
     private messageService: MessageService,
     private mandateService: MandateService) {
+
     this.contractsList = this.contractService.contracts;
     this.currentUser = this.authService.currentUSer;
-
 
     this.activatedRoute.params.subscribe(params => {
       this.contractIsu.push(params['contractIsu']);
@@ -70,7 +67,7 @@ export class AppDocumentContractDetailsComponent {
         this.businessPartnerBankId = this.contractDetails.BusinessPartnerBankId;
         this.loadMandate([this.businessPartnerBankId]);
       }
-    })
+    });
   }
 
   navigateToService() {
@@ -80,20 +77,6 @@ export class AppDocumentContractDetailsComponent {
   RetourEnBack() {
     this.router.navigate(['documents']);
   }
-
-  // private loadBankAccount(businessPartner: string): void {
-  //   this.bankService.getCompteBancaire(businessPartner).subscribe({
-  //     next: (banks: Bank[]) => {
-  //       if (banks) {
-  //         let partnerBankIds = banks.map(item => item.BusinessPartnerBankId);
-  //         this.loadMandate(partnerBankIds);;
-  //       }
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Erreur lors de la récupération du compte bancaire:', error);
-  //     }
-  //   });
-  // }
 
   private loadMandate(partnerBankIds: string[]): void {
     this.mandateService.getMandate(partnerBankIds).subscribe({
@@ -111,7 +94,11 @@ export class AppDocumentContractDetailsComponent {
   updateBancAccount(ribUpdate: boolean) {
     if (ribUpdate) {
       this.loadContract(this.contractIsu);
-      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de rib effectué avec succès !` });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Opération réussie',
+        detail: `Modification de rib effectué avec succès !`
+      });
     } else {
       this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de rib échoué !` });
     }
