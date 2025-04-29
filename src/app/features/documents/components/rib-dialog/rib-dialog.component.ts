@@ -11,10 +11,10 @@ import { ContractUpdate } from '../../../../shared/models/contract/contract-upda
 import { MandateService } from '../../services/mandate.service';
 import { Constants } from '../../../../shared/utils/constants';
 import { Bank } from '../../../../shared/models/bank.model';
-import { Mandate } from '../../../../shared/models/mandate.model';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { ContractService } from '../../../../shared/services/contract.service';
+import { UpdateRibResult } from '../../../../shared/models/update-rib-result.model';
 
 @Component({
   selector: 'app-documents-contract-rib-dialog',
@@ -28,7 +28,7 @@ export class AppDocumentsContractRibDialogComponent {
   @Input() contract: Contract | undefined;
 
   @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onRibChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onRibChanged: EventEmitter<UpdateRibResult> = new EventEmitter<UpdateRibResult>();
 
   newRib: any = '';
   payerName: string = '';
@@ -54,26 +54,29 @@ export class AppDocumentsContractRibDialogComponent {
     const AccountpayerName = this.titularForm?.value?.trim();
 
     if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
-      console.error("Opération invalide : Pas de rib lié à cette méthode de paiement !");
-      this.onRibChanged.emit(false);
+      console.error(`Pas de rib lié à cette méthode de paiement !`);
+      this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `Pas de rib lié à cette méthode de paiement !` } as UpdateRibResult);
       return;
     }
 
     if (!this.contract?.PayerPartnerId) {
       console.error("Le BusinessPartner du payeur est introuvable !");
-      this.onRibChanged.emit(false);
+      this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `Le BusinessPartner du payeur est introuvable !` } as UpdateRibResult);
       return;
     }
 
     if (!iban) {
       console.error("Veuillez entrer un identifiant bancaire.");
-      this.onRibChanged.emit(false);
+      this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `Veuillez entrer un identifiant bancaire !` } as UpdateRibResult);
       return;
     }
 
     if (!AccountpayerName) {
       console.error("Veuillez entrer le nom de payeur .");
-      this.onRibChanged.emit(false);
+      this.onRibChanged.emit({
+        RibChanged: false,
+        ErrorMessage: `Veuillez entrer le nom de payeur !`
+      } as UpdateRibResult);
       return;
     }
 
@@ -84,59 +87,10 @@ export class AppDocumentsContractRibDialogComponent {
       BankAccountHolderName: AccountpayerName,
     };
 
-    // this.bankService.createCompteBancaire(updateRib).subscribe({
-    //   next: (response: Bank | null) => {
-
-    // if (!response) {
-    //   this.messageService.add({
-    //     severity: 'error',
-    //     summary: 'Erreur',
-    //     detail: 'Réponse du serveur vide lors de la création du compte bancaire.'
-    //   });
-    //   return;
-
-    // }
-    //     if (!response) {
-    //       return;
-    //     }
-
-    //     const createMandat: CreateMandat = {
-    //       SEPAMandate: this.mandateService.generateSEPAMandate(this.contract!.ContractISU, this.contract!.PartnerId),
-    //       BusinessPartnerBankId: response.BusinessPartnerBankId,
-    //       SEPASignatureCityName: this.contract!.CityName,
-    //       SEPASignatureDate: new Date().toISOString().slice(0, 19),
-    //       SEPAMandateStatus: "1",
-    //       SEPAMandateRecipient: this.contractDetails!.ProductSupplier,
-    //     };
-
-    //     this.mandateService.createMandat(createMandat).subscribe({
-    //       next: (response: any) => {
-    //         console.log("le mandat a crée avec succées")
-    //         const contractUpdate: ContractUpdate = {
-    //           ContractISU: this.contract!.ContractISU,
-    //           BusinessPartnerBankId: createMandat.BusinessPartnerBankId,
-    //           Action: "CHANGE_BANK",
-    //         };
-
-    //         this.contractService.updateContractDetails(contractUpdate).subscribe({
-    //           next: (response: any) => {
-    //             this.loadContract(this.contractIsu);
-    //             this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Changement de banque effectué avec succès !` });
-    //           },
-    //         },)
-    //       }
-    //     });
-    //   },
-    //   error: (error) => {
-    //     console.error("Erreur lors de la modification du compte bancaire :", error);
-    //     this.messageService.add({ severity: 'error', summary: 'Oups !', detail: error });
-    //   },
-    // });
-
     this.bankService.createCompteBancaire(updateRib).pipe(
       tap((response: Bank | null) => {
         if (!response) {
-          this.onRibChanged.emit(false);
+          this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `` } as UpdateRibResult);
         }
       }),
       filter((bank: Bank | null) => !!bank && !!this.contract && !!this.contractDetails),
@@ -170,18 +124,21 @@ export class AppDocumentsContractRibDialogComponent {
       }),
       catchError(error => {
         console.error("Erreur globale :", error);
-        this.onRibChanged.emit(false);
+        this.onRibChanged.emit({
+          RibChanged: false,
+          ErrorMessage: `Errer lors de la modification du compte bancaiure !`
+        } as UpdateRibResult);
+
         return of(null);
       })
     ).subscribe({
-      next: (response: any) => {
-        this.onRibChanged.emit(true);
+      next: () => {
+        this.onRibChanged.emit({ RibChanged: true, ErrorMessage: `` } as UpdateRibResult);
       },
       error: (error: any) => {
-        console.error("Erreur lors de la modification du compte bancaire :", error);
-        this.onRibChanged.emit(false);
+        console.error("Errer lors de la modification du compte bancaiure :", error);
+        this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `Errer lors de la modification du compte bancaiure !` } as UpdateRibResult);
       }
     });
   }
-
 }

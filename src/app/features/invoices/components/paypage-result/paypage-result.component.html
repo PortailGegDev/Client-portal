@@ -7,7 +7,7 @@
         </div>
     </ng-template>
 
-    @if(this.invoice){
+    @if(invoice){
     <div class="grid-container grid-1">
         <div class="info-box-center" style="margin-top: 0;">
             <div style="align-items: center; padding-top: 30px; padding-bottom: 30px;">
@@ -58,12 +58,12 @@
                 </svg>
             </div>
 
-            <p>Votre paiement lié à votre contrat {{ getTypeText }} numéro {{ invoice?.ISUContract }} est en cours de
+            <p>Votre paiement lié à votre contrat {{ getTypeText }} numéro {{ invoice.ISUContract }} est en cours de
                 traitement !</p>
 
             <p style="font-size: 14px;">
-                Lors de la validation de votre paiement, vous receverez une confirmation sur l'adeesse {{
-                currentUser()?.email}}
+                Lors de la validation de votre paiement, vous receverez une confirmation sur l'adeesse
+                {{ currentUser()?.email}}
             </p>
 
             <p-button label="Rediriger vers la page de facture" iconPos="right" icon="pi pi-arrow-right"

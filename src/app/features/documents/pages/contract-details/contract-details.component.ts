@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, numberAttribute, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../../../shared/services/contract.service';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
@@ -10,20 +10,14 @@ import { AppDocumentsContractPaymentComponent } from '../../components/contract-
 import { AppDocumentsContractInvoiceComponent } from '../../components/contract-invoice/contract-invoice.component';
 import { AppDocumentsContractServiceComponent } from '../../components/contract-service/contract-service.component';
 import { Contract } from '../../../../shared/models/contract/contract.model';
-import { Bank } from '../../../../shared/models/bank.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MandateService } from '../../services/mandate.service';
-import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
-import { UpdateRib } from '../../../../shared/models/update-rib.model';
-import { CreateMandat } from '../../../../shared/models/create-mandat.model';
 import { ContractUpdate } from '../../../../shared/models/contract/contract-update.model';
-import { Constants } from '../../../../shared/utils/constants';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
-import { CaretRightIcon } from 'primeng/icons';
+import { UpdateRibResult } from '../../../../shared/models/update-rib-result.model';
 
 @Component({
   selector: 'app-contract-details',
@@ -43,33 +37,21 @@ export class AppDocumentContractDetailsComponent {
   businessPartnerBankId: string = '';
   contractIsu: string[] = [];
 
-
   constructor(private router: Router,
     private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private bankService: BankService,
     private messageService: MessageService,
     private mandateService: MandateService) {
+
     this.contractsList = this.contractService.contracts;
     this.currentUser = this.authService.currentUSer;
-
 
     this.activatedRoute.params.subscribe(params => {
       this.contractIsu.push(params['contractIsu']);
 
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
       this.loadContract(this.contractIsu);
-
-
-    });
-
-    effect(() => {
-      const bp = this.authService.businessPartner();
-
-      // if (bp) {
-      //   this.loadBankAccount(bp);
-      // }
     });
   }
 
@@ -80,7 +62,7 @@ export class AppDocumentContractDetailsComponent {
         this.businessPartnerBankId = this.contractDetails.BusinessPartnerBankId;
         this.loadMandate([this.businessPartnerBankId]);
       }
-    })
+    });
   }
 
   navigateToService() {
@@ -90,20 +72,6 @@ export class AppDocumentContractDetailsComponent {
   RetourEnBack() {
     this.router.navigate(['documents']);
   }
-
-  // private loadBankAccount(businessPartner: string): void {
-  //   this.bankService.getCompteBancaire(businessPartner).subscribe({
-  //     next: (banks: Bank[]) => {
-  //       if (banks) {
-  //         let partnerBankIds = banks.map(item => item.BusinessPartnerBankId);
-  //         this.loadMandate(partnerBankIds);;
-  //       }
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Erreur lors de la récupération du compte bancaire:', error);
-  //     }
-  //   });
-  // }
 
   private loadMandate(partnerBankIds: string[]): void {
     this.mandateService.getMandate(partnerBankIds).subscribe({
@@ -118,13 +86,21 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
-  updateBancAccount(ribUpdate: boolean) {
+  updateBankAccount(ribChangedResult: UpdateRibResult) {
 
-    if (ribUpdate) {
+    if (ribChangedResult.RibChanged) {
       this.loadContract(this.contractIsu);
-      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de rib effectué avec succès !` });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Opération réussie',
+        detail: `Modification de rib effectué avec succès !`
+      });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de rib échoué !` });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Oups !',
+        detail: `Modification d'iban échoué : ${ribChangedResult.ErrorMessage ? ribChangedResult.ErrorMessage : ''}`
+      });
     }
   }
 
