@@ -95,6 +95,10 @@ export class ContractService {
       );
   }
 
+  getContractCotitulaire(contractISU: string):Observable<Contract[]> {
+    return this.contractHttpService.fetchContractCotitulaire(contractISU);
+  }
+
   changeContract(contract: any) {
     this.selectedContractSignal.set(contract);
   }
@@ -109,9 +113,8 @@ export class ContractService {
     this.isSelectedContractPartnerSignal.set(isContractPartner);
   }
 
-
   updateContractDetails(contractUpdate: ContractUpdate): Observable<any> {
     return this.contractHttpService.updateContractDetails(contractUpdate);
   }
-  
+
 }

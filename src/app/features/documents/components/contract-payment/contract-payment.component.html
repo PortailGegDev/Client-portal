@@ -27,9 +27,11 @@
         <span class="signature-date">
           Signé le {{ mandate.SEPASignatureDate | timeSpanToDate:'short' }}
         </span>
+        @if(false){
         <span style="text-align: right;">
           <img src="/images/Icons (3).png" style="margin-left: auto;">
         </span>
+        }
       </p-card>
       }
 
@@ -86,9 +88,12 @@
         </svg>
         <span class="mandat-sepa"> {{ currentDate }} </span>
         <span class="signature-date"> Calendrier de paiement </span>
+
+        @if(false){
         <span style="text-align: right;">
           <img src="/images/Icons (3).png" style="margin-left: auto;">
         </span>
+        }
       </p-card>
     </div>
   </div>
@@ -98,7 +103,8 @@
 @if(showUpdateRibDialog){
 <p-dialog header="Mettre à jour le RIB" [modal]="true" [(visible)]="showUpdateRibDialog" [style]="{ width: '50rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-  <app-documents-contract-rib-dialog [contractDetails]="contractDetails" [contract]="contract" (onCancelClick)="showUpdateRibDialog=false" (onRibChanged)="onRibChanged($event)" />
+  <app-documents-contract-rib-dialog [contractDetails]="contractDetails" [contract]="contract"
+    (onCancelClick)="showUpdateRibDialog=false" (onRibChanged)="onRibChanged($event)" />
 </p-dialog>
 }
 
