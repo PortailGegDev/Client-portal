@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Contract } from '../../../../shared/models/contract/contract.model';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-documents-contract-billing-address-dialog',
-  imports: [FormsModule,CommonModule,ButtonModule],
+  imports: [FormsModule,CommonModule,ButtonModule,InputTextModule],
   templateUrl: './billing-address-dialog.component.html',
   styleUrl: './billing-address-dialog.component.scss'
 })

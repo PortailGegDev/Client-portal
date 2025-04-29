@@ -26,11 +26,14 @@ import { Constants } from '../../../../shared/utils/constants';
 export class AppDocumentsComponent {
   showDetails = false;
   selectedContract: any = null;
+  contractDetails: ContractDetails | undefined;
   currentSection: string = 'contrat'; // Par défaut, afficher la section "Contrat"
   contracts: Signal<Contract[]>;
   currentUser: Signal<User | null>;
 
-  mandates: Mandate[] = []
+  mandates: Mandate[] = [];
+  businessPartnerBankId: string = '';
+
 
   allContracts: ContractDetails[] = [];
 
@@ -63,6 +66,9 @@ export class AppDocumentsComponent {
       next: (contracts: ContractDetails[]) => {
         this.allContracts = contracts;
         console.log(contracts);
+        this.contractDetails = contracts[0];
+        this.businessPartnerBankId = this.contractDetails.BusinessPartnerBankId;
+        this.loadMandate([this.businessPartnerBankId]);
       }
     });
   }

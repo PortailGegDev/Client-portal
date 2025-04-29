@@ -1,21 +1,16 @@
-<div class="grid-container-white grid-1" style="text-align: center; height: 270px;">
+<div class="grid-container-white grid-1" style="text-align: center; height: 300px;">
 
     <div class="grid-item-white mb-3">
-    <input class="mb-3" type="text" pInputText placeholder="N°" [(ngModel)]="newNumber"  style="width: 80%;" />
+        <input class="mb-3" type="text" pInputText placeholder="N°" [(ngModel)]="newNumber" style="width: 80%;" />
+        <input class="mb-3" type="text" placeholder="Rue" pInputText [(ngModel)]="newStreet" style="width: 80%;" />
+        <input class="mb-3" type="text" placeholder="Code Postal" pInputText [(ngModel)]="newPostalCode"style="width: 80%;" />
+        <input class="mb-3" type="text" placeholder="Ville" pInputText [(ngModel)]="newCity" style="width: 80%;" />
     </div>
+
 
     <div class="grid-item-white mb-3">
-    <input class="mb-3" type="text"  placeholder="Rue" pInputText [(ngModel)]="newStreet"  style="width: 80%;" />
+        <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
+        &nbsp;
+        <p-button label="Valider" class="p-button-primary" (click)="submitBillingAddress()"></p-button>
     </div>
-
-    <input class="mb-3" type="text" placeholder="Code Postal" [(ngModel)]="newPostalCode"  style="width: 80%;" />
-
-    <input class="mb-3" type="text" placeholder="Ville" [(ngModel)]="newCity"  style="width: 80%;" />
-
- 
-  <div class="grid-item-white mb-3">
-    <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
-    &nbsp;
-    <p-button label="Valider" class="p-button-primary" (click)="submitBillingAddress()"></p-button>
-  </div>
 </div>
