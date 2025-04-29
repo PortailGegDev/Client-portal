@@ -17,8 +17,7 @@ import { AppDocumentsContractBillingAddressDialogComponent } from '../billing-ad
 })
 export class AppDocumentsContractInvoiceComponent {
   @Input() contract: Contract | undefined;
-  // @Output() addressUpdated = new EventEmitter<{ number: string; street: string; postalCode: string; city: string; }>();
-
+  @Input() contractDetails: ContractDetails | undefined;
   @Output() billingAddressChanged = new EventEmitter<boolean>();
   @Output() onCancelClick = new EventEmitter<void>();
 
