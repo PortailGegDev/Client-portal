@@ -10,20 +10,13 @@ import { AppDocumentsContractPaymentComponent } from '../../components/contract-
 import { AppDocumentsContractInvoiceComponent } from '../../components/contract-invoice/contract-invoice.component';
 import { AppDocumentsContractServiceComponent } from '../../components/contract-service/contract-service.component';
 import { Contract } from '../../../../shared/models/contract/contract.model';
-import { Bank } from '../../../../shared/models/bank.model';
 import { Mandate } from '../../../../shared/models/mandate.model';
 import { MandateService } from '../../services/mandate.service';
 import { BankService } from '../../services/bank.service';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
-import { UpdateRib } from '../../../../shared/models/update-rib.model';
-import { CreateMandat } from '../../../../shared/models/create-mandat.model';
-import { ContractUpdate } from '../../../../shared/models/contract/contract-update.model';
-import { Constants } from '../../../../shared/utils/constants';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
-import { CaretRightIcon } from 'primeng/icons';
 
 @Component({
   selector: 'app-contract-details',
@@ -57,11 +50,8 @@ export class AppDocumentContractDetailsComponent {
 
     this.activatedRoute.params.subscribe(params => {
       this.contractIsu.push(params['contractIsu']);
-
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
       this.loadContract(this.contractIsu);
-
-
     });
 
     effect(() => {
@@ -119,7 +109,6 @@ export class AppDocumentContractDetailsComponent {
   }
 
   updateBancAccount(ribUpdate: boolean) {
-
     if (ribUpdate) {
       this.loadContract(this.contractIsu);
       this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de rib effectué avec succès !` });
@@ -128,28 +117,21 @@ export class AppDocumentContractDetailsComponent {
     }
   }
 
-  onAddressUpdated(event: { number: string; street: string; postalCode: string; city: string }) {
-    const contractUpdateAddress: ContractUpdate = {
-      ContractISU: this.contractDetails!.ContractISU,
-      HouseNumber: event.number,
-      StreetName: event.street,
-      PostalCode: event.postalCode,
-      CityName: event.city,
-      Action: "CHANGE_BANK",
-    };
-    this.contractService.updateContractDetails(contractUpdateAddress).subscribe({
-      next: () => {
-        this.loadContract(this.contractIsu);
-      }
-    })
-  }
-
   updateBillingDay(bllingDayUpdated: boolean) {
     if (bllingDayUpdated) {
       this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de date de prélèvement réussie !` });
       this.loadContract(this.contractIsu);
     } else {
       this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de date de prélèvement échouée !` });
+    }
+  }
+
+  updateBillingAddress(bllingAddressUpdated: boolean) {
+    if (bllingAddressUpdated) {
+      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification d'adresse réussie !` });
+      this.loadContract(this.contractIsu);
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification d'adresse' échouée !` });
     }
   }
 }

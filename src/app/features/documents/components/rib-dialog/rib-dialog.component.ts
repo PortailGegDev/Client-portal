@@ -11,7 +11,6 @@ import { ContractUpdate } from '../../../../shared/models/contract/contract-upda
 import { MandateService } from '../../services/mandate.service';
 import { Constants } from '../../../../shared/utils/constants';
 import { Bank } from '../../../../shared/models/bank.model';
-import { Mandate } from '../../../../shared/models/mandate.model';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { ContractService } from '../../../../shared/services/contract.service';

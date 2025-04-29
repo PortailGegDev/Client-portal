@@ -15,7 +15,7 @@
 </div>
 &nbsp;
 <div>
-    <app-documents-contract-invoice [contract]="contract" (addressUpdated)="onAddressUpdated($event)" />
+    <app-documents-contract-invoice [contract]="contract" (billingAddressChanged)="updateBillingAddress($event)" />
 </div>
 &nbsp;
 <div>
