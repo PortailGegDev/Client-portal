@@ -16,6 +16,7 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { UpdateRibResult } from '../../../../shared/models/update-rib-result.model';
 
 @Component({
   selector: 'app-contract-details',
@@ -50,14 +51,6 @@ export class AppDocumentContractDetailsComponent {
       this.contract = this.contractsList().find(item => item.ContractISU === params['contractIsu']);
       this.loadContract(this.contractIsu);
     });
-
-    effect(() => {
-      const bp = this.authService.businessPartner();
-
-      // if (bp) {
-      //   this.loadBankAccount(bp);
-      // }
-    });
   }
 
   private loadContract(contractIsu: string[]) {
@@ -91,8 +84,9 @@ export class AppDocumentContractDetailsComponent {
     });
   }
 
-  updateBancAccount(ribUpdate: boolean) {
-    if (ribUpdate) {
+  updateBankAccount(ribChangedResult: UpdateRibResult) {
+
+    if (ribChangedResult.RibChanged) {
       this.loadContract(this.contractIsu);
       this.messageService.add({
         severity: 'success',
@@ -100,7 +94,11 @@ export class AppDocumentContractDetailsComponent {
         detail: `Modification de rib effectué avec succès !`
       });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de rib échoué !` });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Oups !',
+        detail: `Modification d'iban échoué : ${ribChangedResult.ErrorMessage ? ribChangedResult.ErrorMessage : ''}`
+      });
     }
   }
 
