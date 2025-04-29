@@ -7,6 +7,7 @@ import { Contract } from '../../shared/models/contract/contract.model';
 import { ContractDetails } from '../../shared/models/contract/contract-details.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { ContractUpdate } from '../../shared/models/contract/contract-update.model';
+import { Constants } from '../../shared/utils/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,18 @@ export class ContractHttpService extends BaseHttpService {
 
   fetchContractPartner(businessPartner: string | null): Observable<any[]> {
     const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=BusinessPartner eq '${businessPartner}'`;
+
+    return this.http.get(url).pipe(
+      map((response: any) => response?.d?.results ?? []),
+      catchError(error => {
+        console.error('errreur lors de la récup', error);
+        return of([]);
+      })
+    );
+  }
+
+  fetchContractCotitulaire(contractISU: string): Observable<Contract[]> {
+    const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=ContractISU eq '${contractISU}' and PartnerFct eq ${Constants.PartnerFunction.CO_TITULAIRE}`;
 
     return this.http.get(url).pipe(
       map((response: any) => response?.d?.results ?? []),

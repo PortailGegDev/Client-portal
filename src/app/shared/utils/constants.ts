@@ -63,5 +63,18 @@ export class Constants {
         CGV: "CGV"
     }
 
+    public static PartnerFunction = {
+        CO_TITULAIRE: "Z0000001",
+        GESTIONNAIRE_PORTEFEUILLE: "Z0000002",
+        GROUPEMENT_ACHAT: "Z0000003",
+        SYNDIC: "Z0000004",
+        APPORTEUR_AFFAIRE: "Z0000005",
+        TUTEUR_CURATEUR: "Z0000006",
+        AUTRES: "Z0000007",
+        MANDATAIRE_JUDICIAIRE: "Z0000008",
+    };
+
     public static ContractCreationLink = 'https://www.geg.fr/souscription/part/';
+    
+    public static readonly CO_TITULAIRE_INFO_TEXT = "Pour modifier les informations relatives au titulaire de votre contrat, nous vous invitons à nous appeler au 04 76 84 20 00, choix.\n  Nous sommes joignables du lundi au vendredi de 8h à 20h.";
 }
