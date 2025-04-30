@@ -15,11 +15,9 @@ export class ContractService {
   private selectedContractSignal = signal<Contract | null>(null);
   private isSelectedContractPartnerSignal = signal<boolean>(false);
 
-
   contracts = computed(() => this.contractsSignal());
   selectedContract = computed(() => this.selectedContractSignal());
   isSelectedContractPartner = computed(() => this.isSelectedContractPartnerSignal());
-
   partnerContract: ContractPartner[] = [];
 
   constructor(private contractHttpService: ContractHttpService) { }
@@ -116,5 +114,4 @@ export class ContractService {
   updateContractDetails(contractUpdate: ContractUpdate): Observable<any> {
     return this.contractHttpService.updateContractDetails(contractUpdate);
   }
-
 }

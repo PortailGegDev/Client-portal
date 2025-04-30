@@ -57,7 +57,7 @@ export class ContractHttpService extends BaseHttpService {
   }
 
   fetchContractCotitulaire(contractISU: string): Observable<Contract[]> {
-    const url = `${this.apiUrl}/ZA_ContractPartner?$format=json&$filter=ContractISU eq '${contractISU}' and PartnerFct eq ${Constants.PartnerFunction.CO_TITULAIRE}`;
+    const url = `${this.apiUrlContractList}/ZA_ContractList?$format=json&$filter=ContractISU eq '${contractISU}' and PartnerFct eq '${Constants.PartnerFunction.CO_TITULAIRE}'`;
 
     return this.http.get(url).pipe(
       map((response: any) => response?.d?.results ?? []),
@@ -72,7 +72,7 @@ export class ContractHttpService extends BaseHttpService {
 
     const url = `${this.apiUrl}/ZA_Contract('${contractUpdate.ContractISU}')`;
     const csrfToken = this.localStorageService.getItem('csrfToken');
-    console.log('Contenu du body envoyé :', contractUpdate);
+      console.log('Contenu du body envoyé :', contractUpdate);
 
     return this.http.put(url, contractUpdate, {
       headers: new HttpHeaders({ 'X-Csrf-Token': csrfToken })
