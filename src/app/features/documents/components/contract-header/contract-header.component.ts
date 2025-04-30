@@ -8,6 +8,7 @@ import { ContractDetails } from '../../../../shared/models/contract/contract-det
 import { ContractService } from '../../../../shared/services/contract.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { Constants } from '../../../../shared/utils/constants';
+import { ProfilService } from '../../../../shared/services/profil.service';
 
 @Component({
   selector: 'app-documents-contract-header',
@@ -20,15 +21,27 @@ export class AppDocumentsContractHeaderComponent implements OnChanges {
   @Input() contract: Contract | undefined;
 
   coTitulairesList: string[] = [];
+  haveContract: boolean = false;
   Constants = Constants;
 
-  constructor(private contractService: ContractService) { }
+  constructor(private contractService: ContractService,
+    private profileService: ProfilService
+  ) { }
 
   ngOnChanges(): void {
     if (this.contractDetails) {
-      this.contractService.getContractCotitulaire(this.contractDetails.ContractISU).subscribe({
+      this.contractService.getContractCotitulaire('0350145484').subscribe({
         next: (contracts: Contract[]) => {
-          this.coTitulairesList = contracts.map(item => item.PayerFullName);
+          this.haveContract = contracts.length > 0;
+
+          const coTitulairesBpList = contracts.map(item => item.PartnerId);
+
+          this.profileService.getCoTitularProfil(coTitulairesBpList).subscribe({
+            next: (response) => {
+
+              console.log('Profiles de co-titulaires chargés :', response);
+            }
+          });
         }
       });
     }

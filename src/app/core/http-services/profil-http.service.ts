@@ -9,7 +9,7 @@ import { BaseHttpService } from './base-http.service';
 })
 export class ProfilHttpService extends BaseHttpService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     super();
   }
 
@@ -21,6 +21,18 @@ export class ProfilHttpService extends BaseHttpService {
         catchError(error => {
           console.error('erreur lors de la récupperation de la facture', error);
           return of(undefined);
+        })
+      );
+  }
+
+  fetchPersonByFilter(filter: string | null): Observable<Profil[]> {
+    let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=BusinessPartnerId eq '${filter}'`;
+
+    return this.http.get<{ profil: Profil[] }>(url)
+      .pipe(map((response: any) => response.d.results),
+        catchError(error => {
+          console.error('erreur lors de la récupperation de la facture', error);
+          return of([]);
         })
       );
   }
