@@ -26,7 +26,7 @@ export class ProfilHttpService extends BaseHttpService {
   }
 
   fetchPersonByFilter(filter: string | null): Observable<Profil[]> {
-    let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=BusinessPartnerId eq '${filter}'`;
+    let url = `${this.apiUrl}/ZA_SAPAccount?$format=json&$filter=${filter}`;
 
     return this.http.get<{ profil: Profil[] }>(url)
       .pipe(map((response: any) => response.d.results),

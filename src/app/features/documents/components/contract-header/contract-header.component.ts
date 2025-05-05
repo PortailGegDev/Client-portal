@@ -9,6 +9,7 @@ import { ContractService } from '../../../../shared/services/contract.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { Constants } from '../../../../shared/utils/constants';
 import { ProfilService } from '../../../../shared/services/profil.service';
+import { Profil } from '../../../../shared/models/profil.model';
 
 @Component({
   selector: 'app-documents-contract-header',
@@ -30,16 +31,18 @@ export class AppDocumentsContractHeaderComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.contractDetails) {
-      this.contractService.getContractCotitulaire('0350145484').subscribe({
+      this.contractService.getContractCotitulaire(this.contractDetails.ContractISU).subscribe({
         next: (contracts: Contract[]) => {
           this.haveContract = contracts.length > 0;
 
           const coTitulairesBpList = contracts.map(item => item.PartnerId);
 
           this.profileService.getCoTitularProfil(coTitulairesBpList).subscribe({
-            next: (response) => {
+            next: (profiles: Profil[]) => {
 
-              console.log('Profiles de co-titulaires chargés :', response);
+              profiles.forEach(item=>{
+                this.coTitulairesList.push(item.FullName);
+              })
             }
           });
         }
