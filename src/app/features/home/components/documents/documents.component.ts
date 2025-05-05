@@ -10,6 +10,7 @@ import { DocGeneratorService } from '../../../../shared/services/doc-generator.s
 import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-home-documents',
@@ -32,9 +33,12 @@ export class AppHomeDocumentsComponent {
   ) { }
 
   payFacture(invoice: Invoice): void {
-    if (invoice.StatusInvoicingDocument === "Non Soldée") {
-      console.log("Paiement de la facture en cours...");
+
+    if (invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE) {
+      return;
     }
+
+    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC.toString().replace('.', '')]);
   }
 
   downloadPDF(invoice: Invoice): void {
