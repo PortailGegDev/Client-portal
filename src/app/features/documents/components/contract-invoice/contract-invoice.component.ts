@@ -16,7 +16,7 @@ import { AppDocumentsContractBillingAddressDialogComponent } from '../billing-ad
   styleUrl: './contract-invoice.component.scss'
 })
 export class AppDocumentsContractInvoiceComponent {
-  @Input() contract: Contract | undefined;
+  // @Input() contract: Contract | undefined;
   @Input() contractDetails: ContractDetails | undefined;
   @Output() billingAddressChanged = new EventEmitter<boolean>();
   @Output() onCancelClick = new EventEmitter<void>();
@@ -25,7 +25,6 @@ export class AppDocumentsContractInvoiceComponent {
 
   onBillingAddressChanged(billingAddressChanged: boolean): void {
     this.billingAddressChanged.emit(billingAddressChanged);
-    debugger
     this.showUpdateAddressDialog = false;
   }
 

@@ -114,8 +114,8 @@ export class AppDocumentContractDetailsComponent {
   updateBillingAddress(bllingAddressUpdated: boolean) {
     if (bllingAddressUpdated) {
       this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification d'adresse réussie !` });
-      this.loadContract(this.contractIsu);
-    } else {
+    
+    } else {  this.loadContract(this.contractIsu);
       this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification d'adresse' échouée !` });
     }
   }

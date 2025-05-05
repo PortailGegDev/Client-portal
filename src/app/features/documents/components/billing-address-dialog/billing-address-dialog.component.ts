@@ -16,8 +16,6 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class AppDocumentsContractBillingAddressDialogComponent {
   @Input() contractDetails: ContractDetails | undefined;
-  @Input() contract: Contract | undefined;
-
   @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() billingAddressChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   
@@ -25,12 +23,7 @@ export class AppDocumentsContractBillingAddressDialogComponent {
   newPostalCode: string = '';
   newCity: string = '';
   newNumber: string = '';
-    constructor(private contractService: ContractService) { }
-
-    ngOnInit(): void {
-      console.log('Contract reçu :', this.contract);
-    }
-    
+  constructor(private contractService: ContractService) { }   
 
     submitBillingAddress(): void {
       const number = this.newNumber?.trim();
@@ -44,14 +37,14 @@ export class AppDocumentsContractBillingAddressDialogComponent {
         return;
       }
     
-      if (!this.contract || !this.contract.ContractISU) {
+      if (!this.contractDetails || !this.contractDetails.ContractISU) {
         console.error("Identifiant de contrat manquant !");
         this.billingAddressChanged.emit(false);
         return;
       }
     
       const contractUpdateAddress: ContractUpdate = {
-        ContractISU: this.contract.ContractISU,
+        ContractISU: this.contractDetails.ContractISU,
         HouseNumber: number,
         StreetName: street,
         PostalCode: postalCode,

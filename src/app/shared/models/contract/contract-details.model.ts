@@ -59,7 +59,10 @@ export class ContractDetails {
     SrvYeliGrCoeur!: boolean;
     BusinessPartnerBankId!:string;
     Action!:string;
-
+    StreetName!:string;
+    HouseNumber!:string;
+    PostalCode!:string;
+    CityName!:string;
     public constructor(init?: Partial<ContractDetails>) {
         Object.assign(this, init);
     }
