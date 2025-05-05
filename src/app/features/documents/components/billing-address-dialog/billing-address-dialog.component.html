@@ -1,16 +1,60 @@
 <div class="grid-container-white grid-1" style="text-align: center; height: 300px;">
+    <form [formGroup]="form" (submit)="submitBillingAddress()">
+        <div class="grid-item-white mb-3">
+            <input class="mb-3" type="text" pInputText formControlName="number" style="width: 80%;" placeholder="N" />
+            @if(numberForm?.invalid && (numberForm?.touched || numberForm?.dirty)){
+            <br>
+            @if(numberForm?.errors?.required){
+            <small class="error">Le numéro est obligatoire!</small>
+            }
+            @if(numberForm?.errors?.pattern){
+            <small class="error">  Seuls les chiffres sont autorisés.</small>
+            }
+            }
+        </div>
 
-    <div class="grid-item-white mb-3">
-        <input class="mb-3" type="text" pInputText placeholder="N°" [(ngModel)]="newNumber" style="width: 80%;" />
-        <input class="mb-3" type="text" placeholder="Rue" pInputText [(ngModel)]="newStreet" style="width: 80%;" />
-        <input class="mb-3" type="text" placeholder="Code Postal" pInputText [(ngModel)]="newPostalCode"style="width: 80%;" />
-        <input class="mb-3" type="text" placeholder="Ville" pInputText [(ngModel)]="newCity" style="width: 80%;" />
-    </div>
+        <div class="grid-item-white mb-3">
+            <input type="text" pInputText formControlName="street" style="width: 80%;"
+                placeholder="Rue">
+            @if(streetForm?.invalid && (streetForm?.touched || streetForm?.dirty)){
+            <br>
+            @if(streetForm?.errors?.required){
+            <small class="error">Le rue est obligatoire!</small>
+            }
+            }
+        </div>
 
+        <div class="grid-item-white mb-3">
+            <input type="text" pInputText formControlName="postalCode" style="width: 80%;"
+                placeholder="Code Postal">
+            @if(postalCodeForm?.invalid && (postalCodeForm?.touched || postalCodeForm?.dirty)){
+            <br>
+            @if(postalCodeForm?.errors?.required){
+            <small class="error">Le code postal est obligatoire!</small>
+            }
+            @if(postalCodeForm?.errors?.pattern){
+                <small class="error">Le code postal doit contenir exactement 5 chiffres.</small>
+            }
+            }
+        </div>
 
-    <div class="grid-item-white mb-3">
-        <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
-        &nbsp;
-        <p-button label="Valider" class="p-button-primary" (click)="submitBillingAddress()"></p-button>
-    </div>
+        <div class="grid-item-white mb-3">
+            <input type="text" pInputText formControlName="city" style="width: 80%;"
+                placeholder="Ville">
+            @if(cityForm?.invalid && (cityForm?.touched || cityForm?.dirty)){
+            <br>
+            @if(cityForm?.errors?.required){
+            <small class="error">La Ville est obligatoire!</small>
+            }
+            }
+        </div>
+
+        <div class="grid-item-white mb-3">
+            <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
+            &nbsp;
+            <p-button type="submit" label="Valider" class="p-button-primary" [disabled]="!form.valid"></p-button>
+        </div>
+    </form>
 </div>
+    
+  
