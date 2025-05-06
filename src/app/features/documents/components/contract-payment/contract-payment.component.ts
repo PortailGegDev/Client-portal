@@ -58,10 +58,8 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
   const currentDate=new Date();
   const currentDay=currentDate.getDay();
   const billingDay= Number(this.billingDay);
-  if (currentDay>billingDay){
-    return `${billingDay}/${currentDate.getMonth()+2}/${currentDate.getFullYear()}`;
-  }
-  return `${billingDay}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`;
+  const billingMonth= currentDay>billingDay ? currentDate.getMonth()+2:currentDate.getMonth()+1;
+  return `${billingDay}/${billingMonth}/${currentDate.getFullYear()}`;
 }
 
   get paymentProcess(): string {
