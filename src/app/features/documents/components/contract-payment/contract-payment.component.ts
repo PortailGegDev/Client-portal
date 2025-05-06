@@ -54,9 +54,8 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
   ];
 
   get currentBillingDate():string{
-    debugger
   const currentDate=new Date();
-  const currentDay=currentDate.getDay();
+  const currentDay=currentDate.getDate();
   const billingDay= Number(this.billingDay);
   const billingMonth= currentDay>billingDay ? currentDate.getMonth()+2:currentDate.getMonth()+1;
   return `${billingDay}/${billingMonth}/${currentDate.getFullYear()}`;
