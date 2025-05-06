@@ -87,9 +87,8 @@
             stroke="#544E4E" stroke-opacity="0.6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <!-- <span class="mandat-sepa"> {{ currentDate }} </span> -->
-         <span class="mandat-sepa"> {{currentBillingDate}} </span>
+         <span class="mandat-sepa"> {{currentBillingDate | date:'dd/MM/yyyy' }}  </span>
         <span class="signature-date"> Calendrier de paiement </span>
-
         @if(false){
         <span style="text-align: right;">
           <img src="/images/Icons (3).png" style="margin-left: auto;">

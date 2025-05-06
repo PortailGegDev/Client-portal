@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe} from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -22,7 +22,7 @@ import { UpdateRibResult } from '../../../../shared/models/update-rib-result.mod
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [AppDocumentsContractRibDialogComponent, AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule],
+  imports: [AppDocumentsContractRibDialogComponent, AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule,DatePipe],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
@@ -53,12 +53,20 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
     { date: '', montant: '' }
   ];
 
-  get currentBillingDate():string{
+  get currentBillingDate():Date{
   const currentDate=new Date();
   const currentDay=currentDate.getDate();
   const billingDay= Number(this.billingDay);
-  const billingMonth= currentDay>billingDay ? currentDate.getMonth()+2:currentDate.getMonth()+1;
-  return `${billingDay}/${billingMonth}/${currentDate.getFullYear()}`;
+  let billingMonth= currentDate.getMonth();
+  let billingYear= currentDate.getFullYear();
+  if(currentDay>billingDay){
+    billingMonth+=1;
+  if(billingMonth>11){
+    billingMonth=0;
+    billingYear+=1;
+  }
+  }
+  return new Date(billingYear,billingMonth,billingDay);
 }
 
   get paymentProcess(): string {
