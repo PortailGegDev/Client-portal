@@ -43,8 +43,6 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
   showUpdateDateDialog: boolean = false;
   showEchtable: boolean = false;
   billingDay: string = '';
-
-
   // currentDate: string = formatDateFr(new Date());
   paiements = [
     { date: '', montant: '' },
@@ -55,10 +53,21 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
     { date: '', montant: '' }
   ];
 
+  get currentBillingDate():string{
+    const currentDate=new Date();
+  const currentDay=currentDate.getDay();
+  const billingDay= Number(this.billingDay);
+  if (currentDay>billingDay){
+    return `${billingDay}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`;
+  }
+  return `${billingDay}/${currentDate.getMonth()}/${currentDate.getFullYear()}`;
+}
+
   get paymentProcess(): string {
     if (!this.contractDetails) {
       return '';
     }
+
 
     let process = this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P ? 'Prélèvement' : 'Paiement';
 
@@ -92,7 +101,7 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
     this.billingDayChanged.emit(billingDateChanged);
     this.showUpdateDateDialog = false;
   }
-  
+
   openTable() {
     this.showEchtable = true;
   }
