@@ -15,8 +15,7 @@ import { ContractService } from '../../../../shared/services/contract.service';
 export class AppDocumentsContractBillingDateDialogComponent {
 
   @Input() contractDetails: ContractDetails | undefined;
-
-  @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
+   @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() billingDayChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   newDate: any = '';

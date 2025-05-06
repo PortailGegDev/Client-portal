@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -26,7 +26,12 @@ import { UpdateRibResult } from '../../../../shared/models/update-rib-result.mod
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
-export class AppDocumentsContractPaymentComponent {
+export class AppDocumentsContractPaymentComponent implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+   if (this.contractDetails){
+    this.billingDay=this.contractDetails.BillingDay ?? '';
+   }
+  }
   @Input() mandates: Mandate[] = [];
   @Input() contractDetails: ContractDetails | undefined;
   @Input() contract: Contract | undefined;
@@ -37,8 +42,10 @@ export class AppDocumentsContractPaymentComponent {
   showUpdateRibDialog: boolean = false;
   showUpdateDateDialog: boolean = false;
   showEchtable: boolean = false;
+  billingDay: string = '';
 
-  currentDate: string = formatDateFr(new Date());
+
+  // currentDate: string = formatDateFr(new Date());
   paiements = [
     { date: '', montant: '' },
     { date: '', montant: '' },
@@ -85,7 +92,7 @@ export class AppDocumentsContractPaymentComponent {
     this.billingDayChanged.emit(billingDateChanged);
     this.showUpdateDateDialog = false;
   }
-
+  
   openTable() {
     this.showEchtable = true;
   }

@@ -1,7 +1,7 @@
-<div class="grid-container-white grid-1" style="text-align: center; height: 300px;">
+<div class="grid-container-white grid-1" style="text-align: center; height: 400px;">
     <form [formGroup]="form" (submit)="submitBillingAddress()">
         <div class="grid-item-white mb-3">
-            <input class="mb-3" type="text" pInputText formControlName="number" style="width: 80%;" placeholder="N" />
+            <input type="text" pInputText formControlName="number" style="width: 80%;" placeholder="N" />
             @if(numberForm?.invalid && (numberForm?.touched || numberForm?.dirty)){
             <br>
             @if(numberForm?.errors?.required){
@@ -33,7 +33,7 @@
             <small class="error">Le code postal est obligatoire!</small>
             }
             @if(postalCodeForm?.errors?.pattern){
-                <small class="error">Le code postal doit contenir exactement 5 chiffres.</small>
+            <small class="error">Le code postal doit contenir plus que 5 chiffres.</small>
             }
             }
         </div>

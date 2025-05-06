@@ -35,7 +35,7 @@ export class AppDocumentsContractBillingAddressDialogComponent {
     this.form = this.formBuilder.group({
       number: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
       street: ['', Validators.required],
-      postalCode: ['',[Validators.required,Validators.pattern(/^\d{5}$/)]],
+      postalCode: ['',[Validators.required,Validators.minLength(5),Validators.pattern("^[0-9]*$")]],
       city: ['', Validators.required]
 
     });
