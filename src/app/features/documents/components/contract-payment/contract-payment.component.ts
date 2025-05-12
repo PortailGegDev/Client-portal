@@ -116,9 +116,9 @@ export class AppDocumentsContractPaymentComponent implements OnChanges  {
       return;
   
     this.showEchtable = true;
-    const testContractISU = '0350003558';
+    // const testContractISU = '0350003558';
   
-    this.billingService.getPaymentSchedule(testContractISU).pipe(
+    this.billingService.getPaymentSchedule(this.contract.ContractISU).pipe(
       switchMap((billingPlanID: string) => {
         if (billingPlanID) {
           return this.billingService.getBillingPlanDetails(billingPlanID);

@@ -1,4 +1,4 @@
-<div class="grid-container-white grid-1" style="text-align: center; height: 270px;">
+<div class="grid-container-white grid-1" style="text-align: center; height: 200px;">
     <p>Veuillez saisir le mode de paiment désiré</p>
 
     <form [formGroup]="form" (submit)="submitNewPaymentMethode()">
@@ -12,7 +12,7 @@
             }
         </div>
 
-        <div class="grid-item-white mb-3">
+        <!-- <div class="grid-item-white mb-3">
             <input type="text" pInputText formControlName="paymentProcedure" style="width: 80%;"
                 placeholder="Procédure de paiement">
             @if(paymentProcedureForm?.invalid && (paymentProcedureForm?.touched || paymentProcedureForm?.dirty)){
@@ -21,7 +21,7 @@
             <small class="error">Le procédure de paiment est obligatoire!</small>
             }
             }
-        </div>
+        </div> -->
 
         <div class="grid-item-white mb-3">
             <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
