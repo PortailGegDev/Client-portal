@@ -21,7 +21,7 @@ import { Contract } from '../../../../shared/models/contract/contract.model';
 import { UpdateRibResult } from '../../../../shared/models/update-rib-result.model';
 import { AppDocumentsContractPaymentMethodeDialogComponent } from '../payment-methode-dialog/payment-methode-dialog.component';
 import { BillingService } from '../../../../shared/services/billing.service';
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-documents-contract-payment',
@@ -111,41 +111,33 @@ export class AppDocumentsContractPaymentComponent implements OnChanges  {
   }
 
   billingItems: any[] = [];
-  isLoading: boolean = false;
-  errorMessage: string = '';
-
   openTable(): void {
-    if (!this.contract?.ContractISU) return;
-
+    if (!this.contract?.ContractISU) 
+      return;
+  
     this.showEchtable = true;
-    this.isLoading = true;
-    this.errorMessage = '';
-    this.billingItems = [];
-    // const testContractISU = '0350003558';
-    this.billingService.getPaymentSchedule(this.contract?.ContractISU)
-      .pipe(
-        switchMap((billingPlanID: string | null) => {
-          if (billingPlanID) {
-            return this.billingService.getBillingPlanDetails(billingPlanID);
-          } else {
-            this.errorMessage = 'Aucun échéancier trouvé';
-            return ([]);
-          }
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.billingItems = data;
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error(err);
-          this.errorMessage = 'Erreur lors du chargement de l\'échéancier';
-          this.isLoading = false;
+    const testContractISU = '0350003558';
+  
+    this.billingService.getPaymentSchedule(testContractISU).pipe(
+      switchMap((billingPlanID: string) => {
+        if (billingPlanID) {
+          return this.billingService.getBillingPlanDetails(billingPlanID);
+        } else {
+          return of([]);
         }
-      });
+      })
+    ).subscribe({
+      next: (data) => {
+        this.billingItems = data;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
- 
+  get totalMensualite(): number {
+    return this.billingItems.reduce((sum, item) => sum + Number(item.Mensualite), 0);
+  }
   
 }

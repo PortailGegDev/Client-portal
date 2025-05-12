@@ -8,7 +8,7 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
   providedIn: 'root'
 })
 export class BillingHttpService extends BaseHttpService {
-    // private baseUrl = 'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/Api_PortailClientQF1';
+    private baseUrl = 'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/Api_PortailClientQF1';
 
   constructor(private http: HttpClient,
     private localStorageService: LocalStorageService) {
@@ -16,7 +16,7 @@ export class BillingHttpService extends BaseHttpService {
   }
 
   fetchPaymentSchedule(contractISU: string | null): Observable<any> {
-    let url = `${this.apiUrl}/ZA_BIllingPlanH?$format=json&$filter=ContractISU  eq '${contractISU}'&$format=json&$select=BillingPlanID`;
+    let url = `${this.baseUrl}/ZA_BIllingPlanH?$format=json&$filter=ContractISU  eq '${contractISU}'&$format=json&$select=BillingPlanID`;
 
     return this.http.get(url)
       .pipe(
@@ -32,7 +32,7 @@ export class BillingHttpService extends BaseHttpService {
   }
 
   fetchBillingPlanDetails(billingPlanID: string): Observable<any> {
-    const url = `${this.apiUrlContractList}/ZA_BIllingPlanItem?$format=json&$filter=BillingPlanID eq '${billingPlanID}'`;
+    const url = `${this.baseUrl}/ZA_BIllingPlanItem?$format=json&$filter=BillingPlanID eq '${billingPlanID}'`;
   
     return this.http.get(url).pipe(
       map((response: any) => response?.d?.results || []),

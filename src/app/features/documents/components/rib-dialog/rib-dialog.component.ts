@@ -52,7 +52,6 @@ export class AppDocumentsContractRibDialogComponent {
   submitNewRib() {
     const iban = this.ibanForm?.value?.trim();
     const AccountpayerName = this.titularForm?.value;
-debugger
     if (this.contractDetails?.PaymentMethod !== Constants.PaymentMethod.P) {
       console.error(`Pas de rib lié à cette méthode de paiement !`);
       this.onRibChanged.emit({ RibChanged: false, ErrorMessage: `Pas de rib lié à cette méthode de paiement !` } as UpdateRibResult);

@@ -131,8 +131,7 @@
   <p class="subtitle">
     Ci-dessous les détails de votre calendrier de paiement
   </p>
-
-  <table class="paiement-table" *ngIf="!isLoading && billingItems.length > 0">
+  <table class="paiement-table">
     <thead>
       <tr>
         <th>PRÉLÈVEMENT</th>
@@ -140,20 +139,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let paiement of billingItems">
+      @for (paiement of billingItems; track paiement.BillingPlanID){
+      <tr>
         <td>
           <i class="pi pi-calendar calendar-icon"></i>
           {{ paiement.DateEcheance | timeSpanToDate:'short' }}
         </td>
         <td>{{ paiement.Mensualite }} €</td>
       </tr>
+    }
     </tbody>
     <tfoot>
       <tr class="total-row">
         <td><strong>Montant total TTC</strong></td>
+        <td><strong>{{ totalMensualite }} €</strong></td>
       </tr>
     </tfoot>
   </table>
+
 
   <div class="button-wrapper">
     <button pButton type="button" class="download-button">
