@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe} from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -19,14 +19,17 @@ import { AppDocumentsContractBillingDateDialogComponent } from '../billing-date-
 import { AppDocumentsContractRibDialogComponent } from '../rib-dialog/rib-dialog.component';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { UpdateRibResult } from '../../../../shared/models/update-rib-result.model';
+import { AppDocumentsContractPaymentMethodeDialogComponent } from '../payment-methode-dialog/payment-methode-dialog.component';
+import { BillingService } from '../../../../shared/services/billing.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-documents-contract-payment',
-  imports: [AppDocumentsContractRibDialogComponent, AppDocumentsContractBillingDateDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule,DatePipe],
+  imports: [AppDocumentsContractRibDialogComponent, AppDocumentsContractBillingDateDialogComponent,AppDocumentsContractPaymentMethodeDialogComponent, CommonModule, FormsModule, SelectButtonModule, InputTextModule, InputNumberModule, DialogModule, CardModule, ButtonModule, TimeSpanToDatePipe, MaskRIBPipe, DropdownModule, TableModule,DatePipe],
   templateUrl: './contract-payment.component.html',
   styleUrl: './contract-payment.component.scss'
 })
-export class AppDocumentsContractPaymentComponent implements OnChanges {
+export class AppDocumentsContractPaymentComponent implements OnChanges  {
   ngOnChanges(changes: SimpleChanges): void {
    if (this.contractDetails){
     this.billingDay=this.contractDetails.BillingDay ?? '';
@@ -38,20 +41,15 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
 
   @Output() billingDayChanged = new EventEmitter<boolean>();
   @Output() ribChanged = new EventEmitter<UpdateRibResult>();
+  @Output() paymentMethodeChanged= new EventEmitter<boolean>();
 
   showUpdateRibDialog: boolean = false;
   showUpdateDateDialog: boolean = false;
+  showUpdatePaymentMethodeDialog: boolean = false;
   showEchtable: boolean = false;
   billingDay: string = '';
   // currentDate: string = formatDateFr(new Date());
-  paiements = [
-    { date: '', montant: '' },
-    { date: '', montant: '' },
-    { date: '', montant: '' },
-    { date: '', montant: '' },
-    { date: '', montant: '' },
-    { date: '', montant: '' }
-  ];
+  constructor(private billingService: BillingService) {}
 
   get currentBillingDate():Date{
   const currentDate=new Date();
@@ -63,8 +61,7 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
     billingMonth+=1;
   if(billingMonth>11){
     billingMonth=0;
-    billingYear+=1;
-  }
+    billingYear+=1;}
   }
   return new Date(billingYear,billingMonth,billingDay);
 }
@@ -108,8 +105,47 @@ export class AppDocumentsContractPaymentComponent implements OnChanges {
     this.showUpdateDateDialog = false;
   }
 
-  openTable() {
-    this.showEchtable = true;
+  onPaymentMethodeChanged(paymentMethodeChangedResult: boolean): void{
+    this.paymentMethodeChanged.emit(paymentMethodeChangedResult);
+    this.showUpdatePaymentMethodeDialog= false;
   }
 
+  billingItems: any[] = [];
+  isLoading: boolean = false;
+  errorMessage: string = '';
+
+  openTable(): void {
+    if (!this.contract?.ContractISU) return;
+
+    this.showEchtable = true;
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.billingItems = [];
+    // const testContractISU = '0350003558';
+    this.billingService.getPaymentSchedule(this.contract?.ContractISU)
+      .pipe(
+        switchMap((billingPlanID: string | null) => {
+          if (billingPlanID) {
+            return this.billingService.getBillingPlanDetails(billingPlanID);
+          } else {
+            this.errorMessage = 'Aucun échéancier trouvé';
+            return ([]);
+          }
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          this.billingItems = data;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.errorMessage = 'Erreur lors du chargement de l\'échéancier';
+          this.isLoading = false;
+        }
+      });
+  }
+
+ 
+  
 }

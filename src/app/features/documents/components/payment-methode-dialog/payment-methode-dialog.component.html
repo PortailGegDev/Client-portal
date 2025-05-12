@@ -1,0 +1,32 @@
+<div class="grid-container-white grid-1" style="text-align: center; height: 270px;">
+    <p>Veuillez saisir le mode de paiment désiré</p>
+
+    <form [formGroup]="form" (submit)="submitNewPaymentMethode()">
+        <div class="grid-item-white mb-3">
+            <input class="mb-3" type="text" pInputText formControlName="paymentMethod" style="width: 80%;" placeholder="Mode de paiment">
+            @if(paymentMethodForm?.invalid && (paymentMethodForm?.touched || paymentMethodForm?.dirty)){
+            <br>
+            @if(paymentMethodForm?.errors?.required){
+            <small class="error">Le mode de paiment est obligatoire!</small>
+            }
+            }
+        </div>
+
+        <div class="grid-item-white mb-3">
+            <input type="text" pInputText formControlName="paymentProcedure" style="width: 80%;"
+                placeholder="Procédure de paiement">
+            @if(paymentProcedureForm?.invalid && (paymentProcedureForm?.touched || paymentProcedureForm?.dirty)){
+            <br>
+            @if(paymentProcedureForm?.errors?.required){
+            <small class="error">Le procédure de paiment est obligatoire!</small>
+            }
+            }
+        </div>
+
+        <div class="grid-item-white mb-3">
+            <p-button label="Annuler" severity="help" (click)="onCancelClick.emit()"></p-button>
+            &nbsp;
+            <p-button type="submit" label="Valider" class="p-button-primary" [disabled]="!form.valid"></p-button>
+        </div>
+    </form>
+</div>

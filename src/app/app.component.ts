@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { BillingService } from './shared/services/billing.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
   haveContract: boolean | undefined = undefined;
 
   constructor(private authService: AuthService,private httpClient:HttpClient,
-    private contractService: ContractService,
+    private contractService: ContractService,private billingService: BillingService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
     this.authService.logTokenDetails();
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
 
     effect(() => {
       this.loadContract();
+      // this.fetchBilling('0350000012');
     });
   }
 

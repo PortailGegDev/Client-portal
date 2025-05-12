@@ -4,7 +4,7 @@
 
       <div class="d-flex align-items-center gap-2">
         <h1 class="tittle">Mode de paiement</h1>
-        <span class="button-containerr">Modifier</span>
+        <span class="button-containerr" (click)="showUpdatePaymentMethodeDialog = true">Modifier</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M10.1115 0.521527C11.0605 0.400167 11.9989 0.793461 12.9231 1.66304L12.9244 1.66435C13.8514 2.54097 14.301 3.45776 14.2342 4.41439C14.1701 5.33138 13.6402 6.0923 13.0668 6.69821L12.3569 5.21455C12.5954 4.88399 12.7185 4.58586 12.7378 4.3098C12.7628 3.95256 12.624 3.445 11.8946 2.75495C11.4816 2.36646 11.1376 2.1639 10.8523 2.06991L10.1115 0.521527ZM10.8521 2.06983L10.1115 0.521527C9.20169 0.637863 8.47196 1.20741 7.89807 1.81363L7.89755 1.81417L1.74178 8.32984L1.74032 8.33139C1.55112 8.5328 1.39662 8.79255 1.28576 9.03027C1.17439 9.26909 1.07683 9.55058 1.04118 9.81798L1.04104 9.81796L1.03944 9.832L0.762019 12.2613L0.761763 12.2636C0.690863 12.9017 0.881737 13.5148 1.32943 13.9394C1.77782 14.3646 2.40111 14.5222 3.03647 14.4127L3.03671 14.4126L5.44988 14.0005L5.44988 14.0005L5.45488 13.9996C5.72337 13.9518 6.00178 13.8406 6.23769 13.7145C6.46986 13.5904 6.72247 13.4189 6.9149 13.2097L11.9526 7.87754C12.0204 7.82657 12.0795 7.76422 12.1269 7.69298L13.0662 6.69875L12.3565 5.21505L12.3569 5.21455L10.8523 2.06991L10.8521 2.06983ZM10.8521 2.06983L12.3565 5.21505C12.2523 5.3594 12.1261 5.50995 11.9769 5.66754L11.9764 5.66809L11.2119 6.47734C9.75293 6.18908 8.58968 5.08816 8.22752 3.64912L8.98738 2.84484L8.98775 2.84444C9.47841 2.32624 9.90698 2.05989 10.3017 2.00941C10.4547 1.98986 10.6366 1.99889 10.8521 2.06983ZM7.06913 4.87524C7.64651 6.17698 8.72483 7.19524 10.0558 7.70103L5.82064 12.1838L5.82055 12.1837L5.81159 12.1935C5.77221 12.2367 5.67485 12.3145 5.53045 12.3917C5.38895 12.4673 5.26342 12.5098 5.19412 12.5224L2.78301 12.9342L2.78185 12.9344C2.54754 12.9748 2.42114 12.9074 2.36161 12.851C2.3014 12.7939 2.22621 12.6687 2.25248 12.4302L2.25259 12.4292L2.52874 10.011C2.53918 9.93988 2.57645 9.81167 2.64521 9.66424C2.71588 9.5127 2.78975 9.40531 2.83306 9.35898L2.83359 9.35841L7.06913 4.87524ZM0.75 15.3754C0.335786 15.3754 0 15.7112 0 16.1254C0 16.5396 0.335786 16.8754 0.75 16.8754H14.2462C14.6604 16.8754 14.9962 16.5396 14.9962 16.1254C14.9962 15.7112 14.6604 15.3754 14.2462 15.3754H0.75Z"
@@ -117,6 +117,14 @@
 </p-dialog>
 }
 
+ @if(showUpdatePaymentMethodeDialog){
+  <p-dialog header="Modifier le mode de paiement" [modal]="true" [(visible)]="showUpdatePaymentMethodeDialog"
+    [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
+    <app-documents-contract-payment-methode-dialog [contractDetails]="contractDetails"
+      (paymentMethodeChanged)="onPaymentMethodeChanged($event)" (onCancelClick)="showUpdatePaymentMethodeDialog=false" />
+  </p-dialog>
+  } 
+
 @if(showEchtable){
 <p-dialog header="Echéancier de paiement" [(visible)]="showEchtable" [style]="{ width: '50rem' }" [modal]="true"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [draggable]="false" [resizable]="false" [closable]="true">
@@ -124,7 +132,7 @@
     Ci-dessous les détails de votre calendrier de paiement
   </p>
 
-  <table class="paiement-table">
+  <table class="paiement-table" *ngIf="!isLoading && billingItems.length > 0">
     <thead>
       <tr>
         <th>PRÉLÈVEMENT</th>
@@ -132,18 +140,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let paiement of paiements">
+      <tr *ngFor="let paiement of billingItems">
         <td>
           <i class="pi pi-calendar calendar-icon"></i>
-          {{ paiement.date }}
+          {{ paiement.DateEcheance | timeSpanToDate:'short' }}
         </td>
-        <td>{{ paiement.montant }} €</td>
+        <td>{{ paiement.Mensualite }} €</td>
       </tr>
     </tbody>
     <tfoot>
       <tr class="total-row">
         <td><strong>Montant total TTC</strong></td>
-        <td><strong>€</strong></td>
       </tr>
     </tfoot>
   </table>

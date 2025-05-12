@@ -7,6 +7,8 @@ export class ContractUpdate {
   HouseNumber?: string;
   PostalCode?: string;
   CityName?: string;
+  PaymentMethod?: string;
+  PaymentProcedure?: string;
 
   public constructor(init?: Partial<ContractUpdate>) {
     Object.assign(this, init);

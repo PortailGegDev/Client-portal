@@ -119,4 +119,15 @@ export class AppDocumentContractDetailsComponent {
       this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification d'adresse' échouée !` });
     }
   }
+
+  updatePaymentMethode(paymentMethodeUpdated: boolean) {
+    if (paymentMethodeUpdated) {
+      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de mode de paiment réussie !` });
+      this.loadContract(this.contractIsu);
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de mode de paiment échouée !` });
+    }
+  }
+
+
 }
