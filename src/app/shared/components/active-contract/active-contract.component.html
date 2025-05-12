@@ -1,7 +1,7 @@
 <p-panel>
     <div class="grid-container grid-2-1">
         <div class="grid-item-white">
-            <label class="mb-2"><b>Mes contrats</b></label>
+            <label class="mb-2" style="font-size: 16px; font-weight: 600;"><b>Mes contrats</b></label>
             &nbsp;
             <p-badge [value]="contractCount" [style]="{'background': '#586022'}" />
             <br>
@@ -9,7 +9,7 @@
                 (onChange)="onChangeContract($event)" class="w-full md:w-56" [style]="{'width': '100%'}">
                 <ng-template #selectedItem let-selectedOption>
                     <div class="grid-container grid-2">
-                        <div class="grid-item-transparent">
+                        <div class="grid-item-transparent" style="font-size: 16px; font-weight: 500;">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -26,7 +26,7 @@
                             selectedOption?.PostalCode }} {{ selectedOption?.CityName }}
                         </div>
 
-                        <div class="grid-item-transparent" style="display: flex;">
+                        <div class="grid-item-transparent" style="display: flex; font-size: 16px; font-weight: 600;">
                             @if(selectedOption?.BusinessSector === Constants.EnergyType.ELECTRICITY){
                             <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 16 16" fill="none">
@@ -54,7 +54,8 @@
 
                 <ng-template let-contract #item>
                     <div class="grid-container grid-2">
-                        <div class="grid-item-transparent">
+                        <div class="grid-item-transparent"
+                            style="font-size: 16px; font-weight: 500; color: rgba(84, 78, 78, 0.70);">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path
@@ -69,7 +70,8 @@
                             {{ contract?.HouseNumber }} {{ contract?.StreetName }} {{ contract?.PostalCode }} {{
                             contract?.CityName }}
                         </div>
-                        <div class="grid-item-transparent" style="display: flex;">
+                        <div class="grid-item-transparent"
+                            style="display: flex; font-size: 16px; font-weight: 600; color: rgba(84, 78, 78, 0.70);">
                             @if(contract?.BusinessSector === Constants.EnergyType.ELECTRICITY) {
                             <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 16 16" fill="none">
