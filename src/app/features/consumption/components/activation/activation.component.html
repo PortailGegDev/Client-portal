@@ -13,8 +13,8 @@
             </div>
 
 
-            <p>Suivez votre consommation en plus près</p>
-            <p style="font-size: 14px;">{{description}}</p>
+            <p class="info-1">Suivez votre consommation en plus près</p>
+            <p class="info-2">{{description}}</p>
             <p-button label="{{buttonLabel}}" iconPos="right" (click)="showActivationDialog()" />
         </div>
     </div>
@@ -23,7 +23,7 @@
 @if(dialogVisible){
 <p-dialog header="{{dialogTitle}}" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '50rem' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="false">
-    
-    <app-consumption-activation-dialog (onCloseActivationDialog)="closeActivationDialog()"/>
+
+    <app-consumption-activation-dialog (onCloseActivationDialog)="closeActivationDialog()" />
 </p-dialog>
 }
