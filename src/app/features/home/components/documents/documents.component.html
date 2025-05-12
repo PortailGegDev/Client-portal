@@ -7,7 +7,7 @@
         </div>
     </ng-template>
 
-    <p style="font-size: 12px;">CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
+    <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">CONTRATS, JUSTIFICATIFS, CERTIFICATS...</p>
 
     @if(lastInvoice) {
     <div class="row">
@@ -28,7 +28,10 @@
                         stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 &nbsp; &nbsp;
-                <p style="font-size: 12px;">Dernière facture<br>{{ lastInvoice.NetDueDate | timeSpanToDate:'short' }}
+                <p style="font-size: 16px;margin-bottom: 0px;">
+                    Dernière facture
+                    <br>
+                    <span style="font-size: 12px; color: rgba(84, 78, 78, 0.6);">{{ lastInvoice.NetDueDate | timeSpanToDate:'short' }}</span>
                 </p>
 
                 @switch (lastInvoice.StatusInvoicingDocument) {
@@ -66,8 +69,13 @@
                     </defs>
                 </svg>
                 &nbsp; &nbsp;
-                <p style="font-size: 12px;">Justificatif de domicile<br>{{ formattedDate }}</p>
-                <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger" (click)="downloadJustifPDF()">
+                <p style="font-size: 16px; margin-bottom: 0px;">
+                    Justificatif de domicile
+                    <br>
+                    <span style="font-size: 12px; color: rgba(84, 78, 78, 0.6);">{{ formattedDate }}</span>
+                </p>
+                <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
+                    (click)="downloadJustifPDF()">
 
             </div>
         </div>

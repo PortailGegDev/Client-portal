@@ -7,7 +7,7 @@
 
     <div class="grid-container grid-5-4">
         <div class="grid-item" style="background-color: #ffffff;">
-            <p style="font-size: 12px;">SUR LES 4 DERNIERS MOIS</p>
+            <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">SUR LES 4 DERNIERS MOIS</p>
 
             @if(basicData && basicOptions && basicData.length > 0){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
@@ -28,15 +28,15 @@
         </div>
 
         <div class="grid-item" style="background-color: #ffffff;">
-            <p style="font-size: 12px;">CE QUE JE DOIS</p>
+            <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">CE QUE JE DOIS</p>
             <br>
 
             @if(lastInvoice){
             <div class="payment">
                 <div class="payment-box">
                     <div class="payment-icon"></div>
-                    <p>{{ lastInvoice.TotalAmount }} €</p>
-                    <h2>Prochain prélèvement {{ lastInvoice!.NetDueDate | timeSpanToDate:'short' }}</h2>
+                    <p>{{ lastInvoice.TotalAmount }} <span style="font-size: 18px;">€</span></p>
+                    <h2 style="font-size: 14px; color: rgba(84, 78, 78, 0.70);">Prochain prélèvement {{ lastInvoice!.NetDueDate | timeSpanToDate:'short' }}</h2>
                 </div>
             </div>
             }

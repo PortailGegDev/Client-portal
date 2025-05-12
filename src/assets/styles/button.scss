@@ -1,6 +1,6 @@
 //Button
 .p-button {
-  background: #D4E22C !important;
+  background: $primary-color !important;
   color: black !important;
   font-weight: var(--p-button-label-font-weight) !important;
   border: none !important;
@@ -9,7 +9,7 @@
 
 .p-button-icon-only {
   background: none !important;
-  color: #D4E22C !important;
+  color: $primary-color !important;
 }
 
 .p-button-secondary {
@@ -20,7 +20,7 @@
 .p-button-help {
   background: transparent !important;
   color: rgba(84, 78, 78, 0.70) !important;
-  border: 1px solid #D4E22C !important;
+  border: 1px solid $primary-color !important;
 }
 
 .p-button-info {
@@ -33,11 +33,11 @@
 }
 
 .p-selectbutton p-togglebutton .p-togglebutton.p-togglebutton-checked {
-  background-color: #D4E22C !important;
+  background-color: $primary-color !important;
 }
 
 .p-togglebutton.p-togglebutton-checked::before {
-  background-color: #D4E22C !important;
+  background-color: $primary-color !important;
   box-shadow: none !important;
 }
 
