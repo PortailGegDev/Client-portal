@@ -33,6 +33,7 @@ export class AppDocumentsContractHeaderComponent implements OnChanges {
     if (this.contractDetails) {
       this.contractService.getContractCotitulaire(this.contractDetails.ContractISU).subscribe({
         next: (contracts: Contract[]) => {
+          this.coTitulairesList = [];
           this.haveContract = contracts.length > 0;
 
           const coTitulairesBpList = contracts.map(item => item.PartnerId);
@@ -40,7 +41,7 @@ export class AppDocumentsContractHeaderComponent implements OnChanges {
           this.profileService.getCoTitularProfil(coTitulairesBpList).subscribe({
             next: (profiles: Profil[]) => {
 
-              profiles.forEach(item=>{
+              profiles.forEach(item => {
                 this.coTitulairesList.push(item.FullName);
               })
             }

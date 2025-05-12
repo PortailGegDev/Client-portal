@@ -5,7 +5,7 @@
   .button-containerr  {
     color: #AAB614;
     font-size: 16px;
-    font-family: Figtree;
+    font-family: 'Rubik', sans-serif;
     font-weight: 600;
     word-wrap: break-word;
     cursor: pointer;
@@ -14,7 +14,7 @@
   .tittle{
     color: var(--Black, #3A3A3A);
   /* Desktop/H3 */
-  font-family: Figtree;
+  font-family: 'Rubik', sans-serif;
   font-size: 22px;
   font-style: normal;
   font-weight: 600;
@@ -28,7 +28,7 @@
       /* Style pour "Mandat SEPA" */
 .mandat-sepa {
   color: var(--Black, #3A3A3A);
-  font-family: Figtree;
+  font-family: 'Rubik', sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -41,7 +41,7 @@
 
 .signature-date {
   color: var(--Fundamental-Grey-70, rgba(84, 78, 78, 0.70));
-  font-family: Figtree;
+  font-family: 'Rubik', sans-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
@@ -58,7 +58,7 @@
 .paiement-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 .paiement-table th {

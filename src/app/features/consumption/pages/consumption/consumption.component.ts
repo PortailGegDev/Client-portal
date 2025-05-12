@@ -42,7 +42,6 @@ export class AppConsumptionComponent {
   }
 
   loadConsumption(contractISU: string) {
-    contractISU = '0350103717';
     this.consumptionService.getChartConsumptionData(contractISU).subscribe({
       next: (consumptions) => {
         this.consumptions.set(consumptions);

@@ -7,7 +7,8 @@
 
 @import "primeicons/primeicons.css";
 
-@import "./assets/styles//accordion.scss";
+@import "./assets/styles/variables.scss";
+@import "./assets/styles/accordion.scss";
 @import "./assets/styles/box.scss";
 @import "./assets/styles/button.scss";
 @import "./assets/styles/dialog.scss";
@@ -17,21 +18,27 @@
 @import "./assets/styles/message.scss";
 @import "./assets/styles/tab.scss";
 @import "./assets/styles/table.scss";
+@import "./assets//styles//title.scss";
 
+* {
+  font-family: $font-family-base;
+}
+
+html,
+body {
+  font-family: $font-family-base;
+}
 
 /* Information sur la consommation */
 .consumption-info {
-  /* Espace au-dessus de l'information */
   font-size: 14px;
-  /* Taille de police de l'information */
   display: flex;
   align-items: center;
 }
 
 .consumption-info {
-  color: var(--Grey-70, rgba(84, 78, 78, 0.70));
-  /* Caption */
-  font-family: Figtree;
+  color: rgba(84, 78, 78, 0.50);
+  font-family: $font-family-base;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -93,9 +100,9 @@
 }
 
 .payment p {
-  color: var(--Black, #3A3A3A);
+  color: #3A3A3A;
   /* H2 */
-  font-family: Figtree;
+  font-family: $font-family-base;
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
@@ -105,8 +112,8 @@
 }
 
 .details-button {
-  border-radius: var(--Radius-Radius-CTA, 4px);
-  background: var(--Primary-500, #D4E22C);
+  border-radius: 4px;
+  background: $primary-color;
   /* Shadow sm */
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   color: black;
@@ -150,7 +157,7 @@
 
 .payment h2 {
   color: var(--Black, #3A3A3A);
-  font-family: Figtree;
+  font-family: $font-family-base;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
@@ -236,7 +243,7 @@
 // select tag
 .dropdown-arrow {
   border-radius: 100px;
-  background: var(--Primary-500, #D4E22C);
+  background: $primary-color;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
 
@@ -346,8 +353,8 @@
 }
 
 .contacts-with-access .list-header {
-  color: var(--Black, #3A3A3A);
-  font-family: "Figtree", sans-serif;
+  color: #3A3A3A;
+  font-family: $font-family-base;
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
@@ -359,7 +366,7 @@
 .create-access {
   color: #8E9D25;
   font-size: 16px;
-  font-family: 'Figtree', sans-serif;
+  font-family: $font-family-base;
   font-weight: 600;
   word-wrap: break-word;
   cursor: pointer;
