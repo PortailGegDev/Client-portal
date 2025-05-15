@@ -12,7 +12,7 @@
     <p-panel>
   
       <app-invoices-filter [invoices]="invoices"  (onGlobalFilter)="globalFilter($event)" (onDateRangeSelected)="filterInvoicesByDateRange($event)" />
-      <app-invoices-table [invoices]="invoices" [inputvalue]="globalFiltervalue" /> 
+      <app-invoices-table [selectedContract]="selectedContract" [invoices]="invoices" [inputvalue]="globalFiltervalue" /> 
     </p-panel>
   </div>
 </div>

@@ -39,10 +39,12 @@ export function getDateSAPDate(sapDate: string): Date | null {
 export function convertSAPDateToTsDate(sapDate: string): Date | null {
   const regex = /\/Date\((\d+)\)\//;
   const matches = sapDate.match(regex);
+  
   if (matches && matches[1]) {
     const timestamp = parseInt(matches[1], 10); // Extraire le timestamp
     return new Date(timestamp); // Convertir en objet Date
   }
+
   return null; // Si la date n'est pas valide
 }
 
@@ -70,4 +72,10 @@ export function formatDateFr(date: Date): string {
     month: 'long',
     year: 'numeric'
   }).format(date);
+}
+
+export function addDays(date: Date, days: number): Date {
+  let result = new Date(date);
+  result.setDate(date.getDate() + days);
+  return result;
 }

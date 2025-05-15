@@ -76,15 +76,15 @@
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           }
 
-          @if(isNonSoldee(invoice) || isPartiellementSoldee(invoice)){
+          @if(!isPaymentMethodP && (isNonSoldee(invoice) || isPartiellementSoldee(invoice))){
           <p-tag severity="warn" [value]="getInvoiceStatus(invoice)" />
-          {{ invoice.TotalUnpaidHT }} € Avant le {{invoice.NetDueDate | timeSpanToDate:'short'}}
+          {{ invoice.TotalUnpaidHT }} € Avant le {{ getPaymentTermCustomer(invoice) | date:'dd/MM/yyyy' }}
           }
 
           @if(isTotalementSoldee(invoice)) {
           <p-tag severity="secondary" [value]="getInvoiceStatus(invoice)" />
 
-          @if(isPaymentMethodP(invoice)){
+          @if(isPaymentMethodP){
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           } @else {
           Par CB le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
