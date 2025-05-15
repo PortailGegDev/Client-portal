@@ -27,7 +27,7 @@
                     <div>{{ carousel.subtitle }}</div>
                 </div>
                 <p-button label="{{ carousel.action }}" severity="info" icon="fa fa-solid fa-arrow-right"
-                    iconPos="right" />
+                    iconPos="right" (click)="goToLink(carousel)" />
             </div>
         </ng-template>
     </p-carousel>
