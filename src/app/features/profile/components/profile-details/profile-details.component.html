@@ -72,14 +72,14 @@
                 <label class="detail-label">N de téléphone</label>
 
                 @if(!isEditMode){
-                <p class="detail-value">{{ phone }}</p>
+                <p class="detail-value">{{ profil?.PhoneNumber }}</p>
                 }
 
-                @if(isEditMode){
+                <!-- @if(isEditMode){
                 <div>
                     <input type="tel" [(ngModel)]="phone" />
                 </div>
-                }
+                } -->
             </div>
 
             <div class="contact-actions">

@@ -24,7 +24,6 @@ export class AppProfileDetailsComponent {
 
   user: User | null = null;
   isEditMode: boolean = false;
-  phone = '+33 6 65 43 22 11'; // Initial phone value
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
   email: string = '';
@@ -36,6 +35,7 @@ export class AppProfileDetailsComponent {
     effect(() => {
       this.user = this.currentUser();
       this.email = this.currentUser()?.email || '';
+   
     });
   }
 
@@ -43,9 +43,7 @@ export class AppProfileDetailsComponent {
     // this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
     //   this.currentUser = user;
     //   this.email = user?.email || '';
-
     // });
-
   }
   contracts = [
     { id: 1, name: 'Valentin Verret' },

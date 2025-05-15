@@ -5,6 +5,7 @@ export class Profil {
     CityName!: string;
     PostalAddress!: string;
     FullName!: string;
+    PhoneNumber!:string;
 
     public constructor(init?: Partial<Profil>) {
         Object.assign(this, init);
