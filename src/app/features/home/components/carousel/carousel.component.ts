@@ -7,7 +7,7 @@ import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-home-carousel',
-  imports: [CardModule,CarouselModule, ButtonModule],
+  imports: [CardModule, CarouselModule, ButtonModule],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
@@ -29,5 +29,11 @@ export class AppHomeCarouselComponent implements OnInit {
         console.error('Erreur lors du chargement des données de carousel :', error);
       },
     });
+  }
+
+  goToLink(carouselData: Carousel) {
+    if (carouselData.title === "Un projet d'économies d'énergie ?") {
+      window.open('https://www.geg.fr/prime-cee/');
+    }
   }
 }
