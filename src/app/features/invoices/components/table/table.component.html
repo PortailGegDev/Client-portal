@@ -94,12 +94,12 @@
       </td>
       <td>
         <div style="text-align: right;">
-          <p-button icon="pi pi-download" [rounded]="true" [text]="true"
-            (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
-
           @if(showPaymentButton(invoice)) {
           <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" (click)="payInvoice(invoice)" />
           }
+
+          <p-button icon="pi pi-download" [rounded]="true" [text]="true" pTooltip="Télécharger la facture"
+            tooltipPosition="top" (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
         </div>
       </td>
     </tr>

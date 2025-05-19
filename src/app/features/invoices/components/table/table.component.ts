@@ -18,10 +18,11 @@ import { Router } from '@angular/router';
 import { addDays, convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
 import { Constants } from '../../../../shared/utils/constants';
 import { Contract } from '../../../../shared/models/contract/contract.model';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-invoices-table',
-  imports: [CommonModule, TimeSpanToDatePipe, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule, ToastModule, AbsolutePipe],
+  imports: [CommonModule, TimeSpanToDatePipe, TooltipModule, FormsModule, Message, ButtonModule, TableModule, TagModule, ConfirmDialogModule, InputIconModule, IconFieldModule, ToastModule, AbsolutePipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   providers: [MessageService]
