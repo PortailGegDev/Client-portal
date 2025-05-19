@@ -15,8 +15,9 @@ import { InvoicesService } from '../../services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
-import { convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
+import { addDays, convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
 import { Constants } from '../../../../shared/utils/constants';
+import { Contract } from '../../../../shared/models/contract/contract.model';
 
 @Component({
   selector: 'app-invoices-table',
@@ -28,9 +29,15 @@ import { Constants } from '../../../../shared/utils/constants';
 export class AppInvoicesTableComponent implements OnChanges {
   @Input() invoices: Invoice[] = [];
   @Input() inputvalue: string = '';
+  @Input() selectedContract: Contract | null = null;
+
   @ViewChild('dt') dt: Table | undefined;
 
   selectedInvoices: Invoice[] = [];
+
+  get isPaymentMethodP(): boolean {
+    return this.selectedContract?.PaymentMethod === Constants.PaymentMethod.P;
+  }
 
   constructor(private invoiceService: InvoicesService,
     private messageService: MessageService,
@@ -69,7 +76,7 @@ export class AppInvoicesTableComponent implements OnChanges {
       return;
     }
 
-    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC.toString().replace('.','')]);
+    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC.toString().replace('.', '')]);
   }
 
   deselectAllInvoices() {
@@ -118,19 +125,15 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   isTotalementSoldee(invoice: Invoice): boolean {
-    return !this.isPaymentMethodP(invoice) && invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE
+    return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE
   }
 
   isNonSoldee(invoice: Invoice): boolean {
     return invoice.StatusInvoicingDocument === Constants.InvoiceStatus.NON_SOLDEE
   }
 
-  isPaymentMethodP(invoice: Invoice): boolean {
-    return invoice.PaymentMethod === Constants.PaymentMethod.P;
-  }
-
   isAvenir(invoice: Invoice): boolean {
-    if (this.isNonSoldee(invoice) && invoice.NetDueDate && this.isPaymentMethodP(invoice)) {
+    if (this.isNonSoldee(invoice) && invoice.NetDueDate && this.isPaymentMethodP) {
       return convertSAPDateToTsDate(invoice.NetDueDate)! > new Date();
     }
 
@@ -146,5 +149,21 @@ export class AppInvoicesTableComponent implements OnChanges {
       return true;
     }
     return false;
+  }
+
+  getPaymentTermCustomer(invoice: Invoice): Date | null {
+    const postingDate = convertSAPDateToTsDate(invoice.PostingDate);
+
+    if (!postingDate) {
+      console.warn(`Pas de PostingDate liée à la facutre numéro ${invoice.UtilitiesInvoicingDocument}`);
+      return null;
+    }
+    // TODO : tester l'appelle de méthode concernant l'ajout d'un nombre de jours selectedContract.PaymentTerms au PostingDate
+
+    const index = this.selectedContract!.PaymentTerms.indexOf("z+");
+    const dayNumber = this.selectedContract!.PaymentTerms.substring(index + 2);
+
+
+    return addDays(postingDate, Number(dayNumber))
   }
 }

@@ -20,8 +20,11 @@ export class Contract {
     Premise!: string;
     StreetName!: string;
     Title?: string;
-    contend!: string;
-    contstart!: string;
+    Contend!: string;
+    Contstart!: string;
+    AddressCompteur!: string;
+    PaymentMethod!: string;
+    PaymentTerms!: string;
 
     public constructor(init?: Partial<Contract>) {
         Object.assign(this, init);
