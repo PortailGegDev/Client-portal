@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal, Signal } from '@angular/core';
+import { Component, computed, effect, EventEmitter, Output, signal, Signal } from '@angular/core';
 import { ContractService } from '../../services/contract.service';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { Contract } from '../../models/contract/contract.model';
@@ -17,7 +17,6 @@ import { Constants } from '../../utils/constants';
   styleUrls: ['./active-contract.component.scss'],
 })
 export class ActiveContractComponent  {
-
   Constants = Constants;
   theme: string = '';
   gazElecValue = signal<string>('');

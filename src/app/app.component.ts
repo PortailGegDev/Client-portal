@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
-      businessPartner = '1510136444';
+      businessPartner = '1510000168';
       // businessPartner = '1510060117'; // bp consommation pour QF1
       // businessPartner = '1510023652'; // bp liste de contrats pour DF1
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1

@@ -16,6 +16,7 @@ import { HeadlineComponent } from '../../../../shared/components/headline/headli
 import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { Contract } from '../../../../shared/models/contract/contract.model';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,9 @@ export class AppHomeComponent {
   selectedContract: Signal<Contract | null>;
   theme: string = "";
   carouselData: any[] = [];
+
+  selectedContractsDetails: ContractDetails | null = null;
+
   currentUser = signal<User | undefined>(undefined);
   lastInvoice = signal<Invoice | null>(null);
   consumptions = signal<ChartConsumption[] | null>(null);
@@ -37,12 +41,13 @@ export class AppHomeComponent {
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
     private authService: AuthService) {
-      this.selectedContract = this.contractService.selectedContract;
+    this.selectedContract = this.contractService.selectedContract;
 
     effect(() => {
       if (this.selectedContract()) {
         this.loadConsumption(this.selectedContract()!.ContractISU);
         this.loadLastInvoice(this.selectedContract()!.ContractISU);
+        this.loadContractDetails(this.selectedContract()!.ContractISU);
       }
     });
   }
@@ -81,6 +86,19 @@ export class AppHomeComponent {
       error: (error) => {
         console.error("Erreur lors du chargement des données de consommation:", error);
       },
+    });
+  }
+
+  loadContractDetails(contractISU: string) {
+    let contractIsuList: string[] = [];
+    contractIsuList.push(contractISU);
+
+    this.contractService.getContractsByContractISUList(contractIsuList).subscribe({
+
+      next: (contracts: ContractDetails[]) => {
+        this.selectedContractsDetails = contracts[0];
+        console.log('Contrat détaillé ', this.selectedContractsDetails);
+      }
     });
   }
 }
