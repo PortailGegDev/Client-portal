@@ -14,7 +14,11 @@
         @if(lastInvoice.StatusInvoicingDocument === 'Non Soldée') {
         <div class="col-md-12 mb-3" style="color: #FF6C00;">
             <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
+            @if(!isPaymentMethodP) {
             Une facture non-payée en attente.
+            } @else {
+            Un prélèvement prévu le {{ lastInvoice!.NetDueDate | timeSpanToDate:'short' }}
+            }
         </div>
         }
 
@@ -31,14 +35,21 @@
                 <p style="font-size: 16px;margin-bottom: 0px;">
                     Dernière facture
                     <br>
-                    <span style="font-size: 12px; color: rgba(84, 78, 78, 0.6);">{{ lastInvoice.NetDueDate | timeSpanToDate:'short' }}</span>
+                    <span style="font-size: 12px; color: rgba(84, 78, 78, 0.6);">
+                        {{ lastInvoice.NetDueDate | timeSpanToDate:'short' }}
+                    </span>
                 </p>
 
                 @switch (lastInvoice.StatusInvoicingDocument) {
                 @case ('Non Soldée') {
+                @if(!isPaymentMethodP){
                 <button class="payment-button" (click)="payFacture(lastInvoice)">
                     <b>à payer </b>
                 </button>
+                } @else{
+                    <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
+                    (click)="downloadPDF(lastInvoice)">
+                }
                 }
 
                 @case ('Totalement Soldée') {

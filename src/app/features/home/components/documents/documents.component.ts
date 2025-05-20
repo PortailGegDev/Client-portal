@@ -77,4 +77,8 @@ export class AppHomeDocumentsComponent {
   navigateToDocument() {
     this.router.navigate(["/documents"]);
   }
+
+  get isPaymentMethodP(): boolean {
+    return this.selectedContract.PaymentMethod === Constants.PaymentMethod.P;
+  }
 }
