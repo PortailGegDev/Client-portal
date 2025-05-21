@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InvoiceHTTPService } from '../../../core/http-services/invoice-http.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Invoice } from '../../../shared/models/invoice-model';
 
 @Injectable({
@@ -15,7 +15,8 @@ export class InvoicesService {
   }
 
   getInvoices(contractISU: string | null): Observable<Invoice[]> {
-    return this.invoicesHTTPservice.fetchFactures(contractISU);
+    return this.invoicesHTTPservice.fetchFactures(contractISU)
+      .pipe(map((invoices: Invoice[]) => invoices.filter(item => item.Quantity != 0) || []));
   }
 
   filterInvoicesByDates(contractISU: string | null, startDate: Date, endDate: Date) {
@@ -23,7 +24,7 @@ export class InvoicesService {
     return this.invoicesHTTPservice.fetchFactures(contractISU, filter);
   }
 
-  downloadInvoiceByInvoiceNumber(invoiceNumber : string){
+  downloadInvoiceByInvoiceNumber(invoiceNumber: string) {
     return this.invoicesHTTPservice.downloadInvoiceByInvoiceNumber(invoiceNumber);
   }
 }

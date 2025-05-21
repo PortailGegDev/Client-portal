@@ -25,7 +25,7 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
   basicOptions: any = null;
 
   get paymentModeLabel(): string {
-    let label = `Paiement ${this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P ? 'par ' : 'sans'} prélèvement`;
+    let label = `Paiement ${this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P ? 'par ' : 'sans'} prélèvement `;
 
     if (this.contractDetails?.PaymentProcedure === Constants.PaymentProcedure.BIM) {
       label += 'bimestriel';
