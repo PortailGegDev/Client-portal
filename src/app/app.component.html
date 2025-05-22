@@ -4,7 +4,7 @@
 
     <div class="main-content">
         <!-- <app-loading-spinner /> -->
-        @if (!haveContract && currentRoute === '/profile' || currentRoute ==='/requests/frequently-asked-questions' || currentRoute==='/logout') {
+        @if (haveContract || isProfileOrRequestOrLogout()) {
 
         <router-outlet />
 

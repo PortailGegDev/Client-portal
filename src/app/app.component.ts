@@ -36,6 +36,9 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
     });
+    // this.router.events.subscribe(() => {
+    //   this.currentRoute = this.router.url;
+    // });
 
     effect(() => {
       this.loadContract();
@@ -90,8 +93,8 @@ export class AppComponent implements OnInit {
       }
     });
   }
+  isProfileOrRequestOrLogout(): boolean {
+    return ['/profile', '/requests/new', '/logout'].includes(this.currentRoute);
+  }  
 
-  get isHome(): boolean {
-    return this.currentRoute === '/';
-  }
 }
