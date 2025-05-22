@@ -1,5 +1,5 @@
 import { Component, effect, OnInit, Signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -11,10 +11,11 @@ import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service'
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { BillingService } from './shared/services/billing.service';
+import { AppProfileComponent } from './features/profile/pages/profile/profile.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, ButtonModule, NavBarComponent, FooterComponent],
+  imports: [RouterOutlet, FormsModule, ButtonModule, NavBarComponent, FooterComponent,AppProfileComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -22,8 +23,9 @@ export class AppComponent implements OnInit {
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
+  currentRoute: string = '';
 
-  constructor(private authService: AuthService,private httpClient:HttpClient,
+  constructor(private authService: AuthService,private httpClient:HttpClient,private router:Router,
     private contractService: ContractService,private billingService: BillingService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
@@ -31,6 +33,9 @@ export class AppComponent implements OnInit {
     this.contracts = this.contractService.contracts;
     this.selectedContract = this.contractService.selectedContract;
     this.primeNgLocaleService.applyFrenchLocale();
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
 
     effect(() => {
       this.loadContract();
@@ -84,5 +89,9 @@ export class AppComponent implements OnInit {
         console.log('Contrats chargés :', contracts);
       }
     });
+  }
+
+  get isHome(): boolean {
+    return this.currentRoute === '/';
   }
 }

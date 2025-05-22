@@ -4,7 +4,7 @@
 
     <div class="main-content">
         <!-- <app-loading-spinner /> -->
-        @if (haveContract){
+        @if (!haveContract && currentRoute === '/profile' || currentRoute ==='/requests/frequently-asked-questions' || currentRoute==='/logout') {
 
         <router-outlet />
 
@@ -16,8 +16,7 @@
                 <p class="info-1">Pas de contrats associés à votre compte.</p>
             </div>
         </div>
-
-        }
+    }
     </div>
     <app-footer />
 </div>
