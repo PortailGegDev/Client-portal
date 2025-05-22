@@ -7,6 +7,8 @@ import { getMonthNameByMonthNumber } from '../../../../shared/utils/date-utiliti
 import { Router } from '@angular/router';
 import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pipe';
 import { ButtonModule } from 'primeng/button';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-home-consumption',
@@ -14,12 +16,27 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
-export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
+export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
   @Input() lastInvoice: Invoice | null = null;
   @Input() consumptions: ChartConsumption[] | null = null;
+  @Input() contractDetails: ContractDetails | null = null;
 
   basicData: any = null;
   basicOptions: any = null;
+
+  get paymentModeLabel(): string {
+    let label = `Paiement ${this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P ? 'par ' : 'sans'} prélèvement `;
+
+    if (this.contractDetails?.PaymentProcedure === Constants.PaymentProcedure.BIM) {
+      label += 'bimestriel';
+    }
+
+    if (this.contractDetails?.PaymentProcedure === Constants.PaymentProcedure.ECH || this.contractDetails?.PaymentProcedure === Constants.PaymentProcedure.MEN) {
+      label += 'mensuel';
+    }
+
+    return label;
+  }
 
   constructor(private router: Router,
     private cd: ChangeDetectorRef) { }
@@ -45,7 +62,8 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
     this.basicData = {
       labels: [
-        `${getMonthNameByMonthNumber(consumptions[3]?.monthNumber)} (kWh)`,
+        `${getMonthNameByMonthNumber(consumptions[3]?.monthNumber)
+        } (kWh)`,
         `${getMonthNameByMonthNumber(consumptions[2]?.monthNumber)} (kWh)`,
         `${getMonthNameByMonthNumber(consumptions[1]?.monthNumber)} (kWh)`,
         `${getMonthNameByMonthNumber(consumptions[0]?.monthNumber)} (kWh)`
@@ -84,7 +102,7 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy  {
           },
           formatter: (value: any, context: any) => {
             const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
-            return `${value} kWh\n${month}`;
+            return `${value} kWh\n${month} `;
           },
         },
       },

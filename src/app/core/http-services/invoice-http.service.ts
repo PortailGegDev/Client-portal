@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Invoice } from '../../shared/models/invoice-model';
 import { BaseHttpService } from './base-http.service';
 import { environment } from '../../../environments/environment.prod';
-import { UndoIcon } from 'primeng/icons';
 
 @Injectable({
   providedIn: 'root'
