@@ -1,7 +1,7 @@
 @if(groupedContracts.length > 0) {
 
 @for (address of groupedContracts; track address.key) {
-<div [ngClass]="{'inactive-style': !activeContract}">
+<div class="mb-3" [ngClass]="{'inactive-style': !activeContract}">
     @if(activeContract){
 
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
