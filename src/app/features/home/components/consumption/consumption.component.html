@@ -30,41 +30,42 @@
         <div class="grid-item" style="background-color: #ffffff;">
             <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">CE QUE JE DOIS</p>
             <br>
-
-            @if(lastInvoice){
             <div class="payment">
                 <div class="payment-box">
                     <div class="payment-icon"></div>
 
-                    @if(!isInvoiceTotalementSoldee){
-                    <p>{{ lastInvoice.TotalAmount }} <span style="font-size: 18px;">€</span></p>
+                    @if(lastUnpaidInvoice){
+
+                    <p>{{ lastUnpaidInvoice.TotalUnpaidTTC }} <span style="font-size: 18px;">€</span></p>
 
                     <h2 style="font-size: 14px; color: rgba(84, 78, 78, 0.70);">
                         @if(isPaymentMethodP){
-                        Prochain prélèvement {{ lastInvoice!.NetDueDate | timeSpanToDate:'short' }}
+                        Prochain prélèvement {{ lastUnpaidInvoice!.NetDueDate | timeSpanToDate:'short' }}
                         } @else {
                         A payer avant {{ paymentTermDate | date:'dd/MM/yyyy' }}
                         }
                     </h2>
 
                     } @else {
-                    <p>{{ lastInvoice.TotalUnpaidTTC }} <span style="font-size: 18px;">€</span></p>
+
+                    <p>0.00 <span style="font-size: 18px;">€</span></p>
 
                     <h2 style="font-size: 14px; color: rgba(84, 78, 78, 0.70);">
+                        @if(invoices.length > 0){
                         Facture soldée
+                        }
                     </h2>
                     }
                 </div>
             </div>
-            }
 
             <br>
-            @if(previousUmpayedinvoices > 0) {
+            <!-- @if(previousUmpayedinvoices > 0) {
             <div class="col-md-12 mb-3" style="color: #FF6C00;">
                 <img class="invoice-icon" src="/images/Icons (5).png" alt="Icone">
                 {{previousUmpayedinvoices}} facture(s) non soldée(s).
             </div>
-            }
+            } -->
 
             <p class="col-md-12 consumption-info">
                 <i class="fa-regular fa-calendar"></i>

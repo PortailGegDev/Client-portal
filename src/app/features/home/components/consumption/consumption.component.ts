@@ -20,10 +20,11 @@ import { DatePipe } from '@angular/common';
   styleUrl: './consumption.component.scss'
 })
 export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
-  @Input() lastInvoice: Invoice | null = null;
+  @Input() invoices: Invoice[] = [];
   @Input() consumptions: ChartConsumption[] | null = null;
   @Input() contractDetails: ContractDetails | null = null;
-  @Input() previousUmpayedinvoices: number = 0;
+
+  hasNoInvoice: boolean = false;
 
   basicData: any = null;
   basicOptions: any = null;
@@ -42,20 +43,24 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
     return label;
   }
 
-  get isInvoiceTotalementSoldee(): boolean {
-    return (this.lastInvoice && this.lastInvoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE) || false;
+  get lastUnpaidInvoice(): Invoice | null {
+    return this.invoices.filter(item => item.StatusInvoicingDocument !== Constants.InvoiceStatus.SOLDEE)[0] || null;
   }
+
+  // get isInvoiceTotalementSoldee(): boolean {
+  //   return (this.lastUnpaidInvoice && this.lastUnpaidInvoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE) || false;
+  // }
 
   get isPaymentMethodP(): boolean {
     return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P
   }
 
   get paymentTermDate(): Date | null {
-    if (!this.contractDetails || !this.lastInvoice) {
+    if (!this.contractDetails || this.invoices.length === 0) {
       return null;
     }
 
-    return this.invoiceService.getInvoicePaymentTermCustomer(this.contractDetails, this.lastInvoice);
+    return this.invoiceService.getInvoicePaymentTermCustomer(this.contractDetails, this.invoices[0]);
   }
 
   constructor(private router: Router,

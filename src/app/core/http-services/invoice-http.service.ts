@@ -30,7 +30,7 @@ export class InvoiceHTTPService extends BaseHttpService {
   }
 
   fetchFactures(contractISU: string | null, filter: string | null = null): Observable<Invoice[]> {
-    let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=ISUContract eq '${contractISU}' ${filter ? filter : ''}&$orderby=PostingDate desc&$top=12`;
+    let url = `${this.apiUrl}/ZA_UtilitiesBillingDocuments?$filter=ISUContract eq '${contractISU}' ${filter ? filter : ''}&$orderby=PostingDate desc&$top=24`;
 
     return this.http.get<{ invoices: Invoice[] }>(url)
       .pipe(map((response: any) => response.d.results || []),

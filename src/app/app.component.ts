@@ -92,8 +92,8 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   isProfileOrRequestOrLogout(): boolean {
     return ['/profile', '/requests/new', '/logout'].includes(this.currentRoute);
-  }  
-
+  }
 }

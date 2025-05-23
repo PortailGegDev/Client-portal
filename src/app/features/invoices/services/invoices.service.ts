@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { InvoiceHTTPService } from '../../../core/http-services/invoice-http.service';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Invoice } from '../../../shared/models/invoice-model';
 import { addDays, convertSAPDateToTsDate } from '../../../shared/utils/date-utilities';
-import { AppDocumentsContractInvoiceComponent } from '../../documents/components/contract-invoice/contract-invoice.component';
 import { Contract } from '../../../shared/models/contract/contract.model';
 import { ContractDetails } from '../../../shared/models/contract/contract-details.model';
 
@@ -19,8 +18,7 @@ export class InvoicesService {
   }
 
   getInvoices(contractISU: string | null): Observable<Invoice[]> {
-    return this.invoicesHTTPservice.fetchFactures(contractISU)
-      .pipe(map((invoices: Invoice[]) => invoices.filter(item => item.Quantity != 0) || []));
+    return this.invoicesHTTPservice.fetchFactures(contractISU);
   }
 
   filterInvoicesByDates(contractISU: string | null, startDate: Date, endDate: Date) {

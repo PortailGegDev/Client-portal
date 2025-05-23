@@ -34,8 +34,8 @@ export class AppHomeComponent {
 
   currentUser = signal<User | undefined>(undefined);
   lastInvoice = signal<Invoice | null>(null);
+  invoices = signal<Invoice[]>([]);
   consumptions = signal<ChartConsumption[] | null>(null);
-  previousUmpayedinvoices = signal<number>(0);
 
   constructor(
     private contractService: ContractService,
@@ -57,30 +57,13 @@ export class AppHomeComponent {
   ngOnInit() {
     this.currentUser.set(this.authService.getUserData());
     this.theme = this.brandService.getBrand();
-
   }
 
   loadLastInvoice(contractISU: string): void {
     this.invoicesService.getInvoices(contractISU).subscribe({
       next: (invoices: Invoice[]) => {
-
-        // Trier par date décroissante pour trouver la dernière facture
-        const sortedInvoices = invoices.sort(
-          (a, b) =>
-            new Date(b.PostingDate).getTime() -
-            new Date(a.PostingDate).getTime()
-        );
-
-        // Prendre la première facture après tri
-        this.lastInvoice.set(sortedInvoices[0] || null);
-
-        // Vérifier présence d'anciennes factures impayées
-        const previousUmpayedinvoices = sortedInvoices
-          .filter(item =>
-            item.UtilitiesInvoicingDocument !== sortedInvoices[0].UtilitiesInvoicingDocument
-            && item.StatusInvoicingDocument !== Constants.InvoiceStatus.SOLDEE
-          ).length;
-        this.previousUmpayedinvoices.set(previousUmpayedinvoices);
+        this.invoices.set(invoices);
+        this.lastInvoice.set(invoices[0] || null);
       },
       error: (error) => {
         console.error("Erreur lors du chargement des factures:", error);
