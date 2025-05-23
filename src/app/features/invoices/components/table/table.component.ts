@@ -15,7 +15,7 @@ import { InvoicesService } from '../../services/invoices.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
-import { addDays, convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
+import { convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities';
 import { Constants } from '../../../../shared/utils/constants';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { TooltipModule } from 'primeng/tooltip';
@@ -153,18 +153,10 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   getPaymentTermCustomer(invoice: Invoice): Date | null {
-    const postingDate = convertSAPDateToTsDate(invoice.PostingDate);
-
-    if (!postingDate) {
-      console.warn(`Pas de PostingDate liée à la facutre numéro ${invoice.UtilitiesInvoicingDocument}`);
+    if (!this.selectedContract) {
       return null;
     }
-    // TODO : tester l'appelle de méthode concernant l'ajout d'un nombre de jours selectedContract.PaymentTerms au PostingDate
 
-    const index = this.selectedContract!.PaymentTerms.indexOf("z+");
-    const dayNumber = this.selectedContract!.PaymentTerms.substring(index + 2);
-
-
-    return addDays(postingDate, Number(dayNumber))
+    return this.invoiceService.getInvoicePaymentTermCustomer(this.selectedContract, invoice);
   }
 }

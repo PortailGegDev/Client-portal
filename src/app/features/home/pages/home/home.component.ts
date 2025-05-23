@@ -17,6 +17,7 @@ import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,7 @@ export class AppHomeComponent {
   currentUser = signal<User | undefined>(undefined);
   lastInvoice = signal<Invoice | null>(null);
   consumptions = signal<ChartConsumption[] | null>(null);
+  previousUmpayedinvoices = signal<number>(0);
 
   constructor(
     private contractService: ContractService,
@@ -71,6 +73,14 @@ export class AppHomeComponent {
 
         // Prendre la première facture après tri
         this.lastInvoice.set(sortedInvoices[0] || null);
+
+        // Vérifier présence d'anciennes factures impayées
+        const previousUmpayedinvoices = sortedInvoices
+          .filter(item =>
+            item.UtilitiesInvoicingDocument !== sortedInvoices[0].UtilitiesInvoicingDocument
+            && item.StatusInvoicingDocument !== Constants.InvoiceStatus.SOLDEE
+          ).length;
+        this.previousUmpayedinvoices.set(previousUmpayedinvoices);
       },
       error: (error) => {
         console.error("Erreur lors du chargement des factures:", error);

@@ -9,10 +9,13 @@ import { TimeSpanToDatePipe } from '../../../../shared/pipe/time-span-to-date.pi
 import { ButtonModule } from 'primeng/button';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { Constants } from '../../../../shared/utils/constants';
+import { InvoicesService } from '../../../invoices/services/invoices.service';
+import { AbsolutePipe } from '../../../../shared/pipe/absolute.pipe';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-consumption',
-  imports: [PanelModule, ChartModule, TimeSpanToDatePipe, ButtonModule],
+  imports: [PanelModule, ChartModule, TimeSpanToDatePipe, ButtonModule, DatePipe],
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
@@ -20,6 +23,7 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
   @Input() lastInvoice: Invoice | null = null;
   @Input() consumptions: ChartConsumption[] | null = null;
   @Input() contractDetails: ContractDetails | null = null;
+  @Input() previousUmpayedinvoices: number = 0;
 
   basicData: any = null;
   basicOptions: any = null;
@@ -38,7 +42,24 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
     return label;
   }
 
+  get isInvoiceTotalementSoldee(): boolean {
+    return (this.lastInvoice && this.lastInvoice.StatusInvoicingDocument === Constants.InvoiceStatus.SOLDEE) || false;
+  }
+
+  get isPaymentMethodP(): boolean {
+    return this.contractDetails?.PaymentMethod === Constants.PaymentMethod.P
+  }
+
+  get paymentTermDate(): Date | null {
+    if (!this.contractDetails || !this.lastInvoice) {
+      return null;
+    }
+
+    return this.invoiceService.getInvoicePaymentTermCustomer(this.contractDetails, this.lastInvoice);
+  }
+
   constructor(private router: Router,
+    private invoiceService: InvoicesService,
     private cd: ChangeDetectorRef) { }
 
   ngOnChanges() {

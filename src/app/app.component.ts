@@ -11,11 +11,10 @@ import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service'
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { BillingService } from './shared/services/billing.service';
-import { AppProfileComponent } from './features/profile/pages/profile/profile.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, ButtonModule, NavBarComponent, FooterComponent,AppProfileComponent],
+  imports: [FormsModule, ButtonModule, NavBarComponent, FooterComponent,RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -69,7 +68,7 @@ export class AppComponent implements OnInit {
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
-      businessPartner = '1510000168';
+      businessPartner = '1520000036';
       // businessPartner = '1510060117'; // bp consommation pour QF1
       // businessPartner = '1510023652'; // bp liste de contrats pour DF1
       // businessPartner = '1510063413'; // bp liste de contrats pour QF1
