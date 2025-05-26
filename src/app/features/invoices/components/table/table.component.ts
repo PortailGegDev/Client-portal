@@ -134,7 +134,7 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   isAvenir(invoice: Invoice): boolean {
-    if (this.isNonSoldee(invoice) && invoice.NetDueDate && this.isPaymentMethodP) {
+    if ((this.isNonSoldee(invoice) || this.isPartiellementSoldee(invoice)) && invoice.NetDueDate && this.isPaymentMethodP) {
       return convertSAPDateToTsDate(invoice.NetDueDate)! > new Date();
     }
 

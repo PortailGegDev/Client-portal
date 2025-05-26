@@ -10,7 +10,6 @@ import { ButtonModule } from 'primeng/button';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { Constants } from '../../../../shared/utils/constants';
 import { InvoicesService } from '../../../invoices/services/invoices.service';
-import { AbsolutePipe } from '../../../../shared/pipe/absolute.pipe';
 import { DatePipe } from '@angular/common';
 
 @Component({

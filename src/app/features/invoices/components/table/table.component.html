@@ -84,11 +84,11 @@
           @if(isTotalementSoldee(invoice)) {
           <p-tag severity="secondary" [value]="getInvoiceStatus(invoice)" />
 
-          @if(isPaymentMethodP){
+          <!-- @if(isPaymentMethodP){
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           } @else {
           Par CB le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
-          }
+          } -->
           }
         </span>
       </td>
