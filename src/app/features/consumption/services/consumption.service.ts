@@ -21,11 +21,11 @@ export class ConsumptionService {
 
           consumptions.forEach(consumption => {
 
-            if (!consumption.EndIndexDate) {
+            if (!consumption.MeterReadingDate) {
               return;
             }
 
-            let dateConsumption = convertSAPDateToTsDate(consumption.EndIndexDate);
+            let dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
 
             if (!dateConsumption) {
               return;
@@ -39,7 +39,8 @@ export class ConsumptionService {
               monthNumber: getMonthFromDate(dateConsumption!),
               year: dateConsumption!.getFullYear(),
               value: value,
-              idSeasonal: consumption.IdSeasonal
+              idSeasonal: consumption.IdSeasonal,
+              Energy:consumption.Energy
             };
 
             chartConsumptions.push(chartConsumption);
@@ -56,9 +57,9 @@ export class ConsumptionService {
     return this.consumptionHttpService.fetchConsumptionData(contractISU).pipe(
       map((consumptionsData: any[]) => {
         return consumptionsData
-          .map(consumption => {
-            const dateConsumption = convertSAPDateToTsDate(consumption.MeterReadingDate);
-
+          .map(consumptions => {
+            const dateConsumption = convertSAPDateToTsDate(consumptions.MeterReadingDate);
+            
             // Filtrer les consommations invalides directement
             if (!dateConsumption) {
               return null;
@@ -67,7 +68,7 @@ export class ConsumptionService {
             return {
               date: dateConsumption,
               monthNumber: getMonthFromDate(dateConsumption),
-              value: consumption.Consumption || 0,
+              value: consumptions.Consumption || 0,
             } as ChartConsumption;
           })
           .filter((consumption): consumption is ChartConsumption => !!consumption) // Retirer les valeurs null

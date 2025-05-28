@@ -10,6 +10,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { AppConsumptionActivationComponent } from '../activation/activation.component';
 import { ChartService } from '../../services/chart.service';
+import { Constants } from '../../../../shared/utils/constants';
 
 @Component({
   selector: 'app-consumption-chart',
@@ -26,6 +27,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
   data: any = null;
   chartData: any = null;
   options: any = null;
+  isElectricityEnergyType: boolean = false;
 
   selectedChartOptionsValue: number = 3;
   chartOptions: any[] = [
@@ -49,8 +51,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
   ];
 
   constructor(private chartService: ChartService,
-    private cd: ChangeDetectorRef
-  ) { }
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     // Enregistrer le plugin avant d'initialiser le graphique
@@ -59,17 +60,34 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.consumptions) {
-      this.hcConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HC');
-      this.hpConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HP');
-
-      this.initChart(this.hpConsumptions, this.hcConsumptions);
+      this.isElectricityEnergyType = this.consumptions[0].Energy === Constants.EnergyType.ELECTRICITY;
+      this.initChartData();
     }
   }
 
-  initChart(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {
-    this.data = this.chartService.initChartConsumptionDataByMonth(hpConsumptions, hcConsumptions);
+  initChartData() {
+    if (!this.consumptions) {
+      return;
+    }
+
+    if (this.isElectricityEnergyType) {
+      this.hcConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HC');
+      this.hpConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HP');
+      this.initChart(this.hpConsumptions, this.hcConsumptions, []);
+    } else {
+      this.initChart([], [], this.consumptions);
+    }
+  }
+
+  initChart(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], consumptions: ChartConsumption[]) {
+    this.data = this.chartService.initChartConsumptionDataByMonth(hpConsumptions, hcConsumptions, consumptions);
     this.chartData = this.data;
-    this.options = this.chartService.initChartConsumption(hpConsumptions, hcConsumptions, this.data);
+
+    if (this.isElectricityEnergyType) {
+      this.options = this.chartService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+    } else {
+      this.options = this.chartService.initGazChartConsumption(consumptions, this.data);
+    }
 
     // Forcer l’actualisation de l’UI
     this.cd.detectChanges();
@@ -81,12 +99,21 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     this.cd.detectChanges();
 
     if (event.index === 2) {
-      this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions);
-      this.options = this.chartService.initChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+      // TODO: Corriger cette méthode après mise en place des regles de gaz
+      // this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions);
+      // this.options = this.chartService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
     }
 
     if (event.index === 3) {
-      const groupedConsumptionsByYear = this.groupConsumptionByYear(this.hpConsumptions, this.hcConsumptions);
+      let groupedConsumptionsByYear: any;
+
+      if (this.isElectricityEnergyType) {
+        groupedConsumptionsByYear = this.groupConsumptionByYear(this.hpConsumptions, this.hcConsumptions);
+      } else {
+        groupedConsumptionsByYear = this.groupConsumptionByYear(this.consumptions!, []);
+      }
+
+      // TODO : Modifier consommation par année pour le gaz comme un fait pour la commation par mois
       this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
       this.options = this.chartService.initChartConsumptionByYear(groupedConsumptionsByYear, this.chartData);
     }

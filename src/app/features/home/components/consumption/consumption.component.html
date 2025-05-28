@@ -9,12 +9,11 @@
         <div class="grid-item" style="background-color: #ffffff;">
             <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">SUR LES 4 DERNIERS MOIS</p>
 
-            @if(basicData && basicOptions && basicData.length > 0){
+            @if(basicData && basicOptions){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
             <p class="consumption-info">
                 <span class="info-icon">i</span>
-                Consommation en kWh à partir des données disponibles, réelles, <br> recalculées,
-                estimées.
+                Consommation en kWh à partir des données disponibles, réelles, recalculées, estimées.
             </p>
             } @else {
             <div class="info-box-center">

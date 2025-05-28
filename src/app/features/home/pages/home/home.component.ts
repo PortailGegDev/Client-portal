@@ -74,6 +74,7 @@ export class AppHomeComponent {
   loadConsumption(contractISU: string) {
     this.consumptionService.getLastfourChartConsumptionData(contractISU).subscribe({
       next: (consumptions) => {
+        console.log('Données de consommations du contrat contractISU : ', consumptions)
         this.consumptions.set(consumptions);
       },
       error: (error) => {
