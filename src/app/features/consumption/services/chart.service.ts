@@ -78,7 +78,7 @@ export class ChartService {
       chartResult.datasets.push({
         type: 'bar',
         label: 'Gaz',
-        backgroundColor: 'blue',
+        backgroundColor: '#00AFCB',
         data: [
           gazConsumptions.find(item => item.monthNumber === 1)?.value,
           gazConsumptions.find(item => item.monthNumber === 2)?.value,
@@ -93,7 +93,7 @@ export class ChartService {
           gazConsumptions.find(item => item.monthNumber === 11)?.value,
           gazConsumptions.find(item => item.monthNumber === 12)?.value,
         ],
-        borderColor: 'blue'
+        borderColor: '#00AFCB'
       });
     }
 
@@ -388,7 +388,7 @@ export class ChartService {
     };
   }
 
-  initChartConsumptionByYear(groupedData: any, data: any): any {
+  initChartConsumptionByYearElec(groupedData: any, data: any): any {
     const years = Object.keys(groupedData).map(Number).sort(); // Labels (années)
     const hpValues = years.map(year => groupedData[year].hp); // Données HP
     const hcValues = years.map(year => groupedData[year].hc); // Données HC
@@ -465,4 +465,90 @@ export class ChartService {
       ]
     };
   }
+
+
+
+
+  initChartConsumptionByYearGaz(groupedData: any, data: any): any {
+    const years = Object.keys(groupedData).map(Number).sort();
+    const values = years.map(year => groupedData[year].value);
+  
+    return {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      labels: years,
+      datasets: [
+        {
+          label: 'Gaz',
+          data: values,
+          backgroundColor: '#00AFCB'
+        }
+      ],
+      plugins: {
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
+            label: (tooltipItem: any) => {
+              const year = parseInt(tooltipItem.label);
+              return [
+                `Total: ${groupedData[year].value} kWh`
+              ];
+            }
+          },
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          titleColor: 'white',
+          bodyColor: 'white',
+          borderColor: '#FF6C00',
+          borderWidth: 2,
+          padding: 10,
+          caretSize: 5,
+          position: 'nearest',
+          displayColors: false
+        },
+        legend: {
+          position: 'bottom',
+          align: 'end',
+          labels: {
+            generateLabels: (chart: Chart) => [
+              { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
+              ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
+            ],
+            boxWidth: 10,
+            padding: 15
+          }
+        },
+        datalabels: {
+          anchor: 'end',
+          color: 'gray',
+          font: { weight: 'bold', size: 12 },
+          formatter: (_: any, context: any) => {
+            const index = context.dataIndex;
+            const value = values[index];
+            return value ? `${value} kWh` : '';
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: false,
+          ticks: { color: 'gray' },
+          grid: { display: false },
+          barPercentage: 0.5,
+          categoryPercentage: 0.6
+        },
+        y: {
+          stacked: false,
+          title: {
+            display: true,
+            text: 'kWh',
+            color: 'gray',
+            font: { size: 14 }
+          },
+          ticks: { color: 'gray' },
+          grid: { color: '#f3f3f3', drawBorder: false }
+        }
+      }
+    };
+  }  
 }

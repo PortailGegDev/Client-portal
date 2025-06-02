@@ -99,27 +99,37 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     this.cd.detectChanges();
 
     if (event.index === 2) {
-      // TODO: Corriger cette méthode après mise en place des regles de gaz
-      // this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions);
-      // this.options = this.chartService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+      this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
+
+      if (this.isElectricityEnergyType) {
+        this.options = this.chartService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+      } else {
+        this.options = this.chartService.initGazChartConsumption(this.consumptions!, this.data);
+      }
     }
 
     if (event.index === 3) {
       let groupedConsumptionsByYear: any;
 
       if (this.isElectricityEnergyType) {
-        groupedConsumptionsByYear = this.groupConsumptionByYear(this.hpConsumptions, this.hcConsumptions);
+        groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
+
       } else {
-        groupedConsumptionsByYear = this.groupConsumptionByYear(this.consumptions!, []);
+        groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
       }
 
-      // TODO : Modifier consommation par année pour le gaz comme un fait pour la commation par mois
-      this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
-      this.options = this.chartService.initChartConsumptionByYear(groupedConsumptionsByYear, this.chartData);
+      if (this.isElectricityEnergyType) {
+        this.chartData = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
+        this.options = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
+
+      } else {
+        this.chartData = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
+        this.options = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
+      }
     }
   }
 
-  private groupConsumptionByYear(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {
+  private groupConsumptionByYearElec(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {
     const yearlyData: { [year: number]: { hp: number, hc: number } } = {};
 
     [...hpConsumptions, ...hcConsumptions].forEach(item => {
@@ -135,4 +145,19 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
     return yearlyData;
   }
+
+
+  private groupConsumptionByYearGas(consumptions: ChartConsumption[]) {
+    const yearlyData: { [year: number]: { value: number } } = {};
+
+    consumptions.forEach(item => {
+      if (!yearlyData[item.year]) {
+        yearlyData[item.year] = { value: 0 };
+      }
+      yearlyData[item.year].value += item.value;
+    });
+
+    return yearlyData;
+  }
+
 }
