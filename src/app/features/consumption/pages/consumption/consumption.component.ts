@@ -78,7 +78,6 @@ export class AppConsumptionComponent {
     this.updateChart();
   }
 
-
   getLabels() {
     switch (this.currentTimeScale) {
       case 'hour':

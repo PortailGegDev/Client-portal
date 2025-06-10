@@ -32,6 +32,7 @@ export class ChartService {
     if (hcConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
+        borderRadius: 5,
         label: 'Heures creuses',
         backgroundColor: '#0DB58D',
         data: [
@@ -48,13 +49,14 @@ export class ChartService {
           hpConsumptions.find(item => item.monthNumber === 11)?.value,
           hpConsumptions.find(item => item.monthNumber === 12)?.value,
         ],
-        borderColor: '#FF6C00'
+        borderColor: '#FF6C00',
       });
     }
 
     if (hpConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
+        borderRadius: 5,
         label: 'Heures pleines',
         backgroundColor: '#FF6C00',
         data: [
@@ -77,6 +79,7 @@ export class ChartService {
     if (gazConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
+        borderRadius: 5,
         label: 'Gaz',
         backgroundColor: '#00AFCB',
         data: [
@@ -116,275 +119,12 @@ export class ChartService {
         },
         {
           type: 'bar',
+          borderRadius: 5,
           label: 'Heures pleines',
           backgroundColor: '#FF6C00',
           data: years.map(y => groppedConsumptionsByYear[y].hc) // Somme des valeurs HC par année
         }
       ]
-    };
-  }
-
-  initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any): any {
-
-    return {
-      maintainAspectRatio: false,
-      aspectRatio: 0.6,
-      plugins: {
-        tooltip: {
-          enabled: true, // Active les tooltips
-          callbacks: {
-            // Personnaliser le contenu du tooltip
-            title: (tooltipItem: any) => {
-              // Utilise le label (mois) comme titre du tooltip
-              return `Mois: ${tooltipItem[0].label}`;
-            },
-            label: (tooltipItem: any) => {
-              // Récupérer les valeurs des heures pleines et heures creuses
-              const hpValue = hpConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0; // Heure creuse
-              const hcValue = hcConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0; // Heure pleine
-
-              // Retourner une ligne avec les valeurs des heures pleines et creuses
-              return [`Heures pleines: ${hcValue} kWh`, `Heures creuses: ${hpValue} kWh`, `Total: ${hcValue + hpValue} kWh`];
-            }
-          },
-          backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
-          titleColor: 'white', // Couleur du titre
-          bodyColor: 'white', // Couleur du texte
-          borderColor: '#FF6C00', // Bordure du tooltip
-          borderWidth: 2, // Largeur de la bordure
-          padding: 10, // Espacement intérieur
-          caretSize: 5, // Taille de la flèche du tooltip
-          position: 'nearest', // Position du tooltip par rapport à l'élément
-          displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
-        },
-        legend: {
-          position: 'bottom', // Place la légende en bas
-          align: 'end', // Aligne à gauche pour garder une disposition en ligne
-          labels: {
-            generateLabels: (chart: Chart) => {
-              // Récupère les légendes existantes
-              const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-
-              // Ajoute un "titre" comme premier élément
-              return [
-                {
-                  text: 'LEGENDE :', // Titre de la légende
-                  fillStyle: 'transparent', // Pas de couleur de carré pour le titre
-                  hidden: false
-                },
-                ...defaultLabels // Ajoute les autres légendes
-              ];
-            },
-            boxWidth: 10, // Réduit la taille des icônes des légendes
-            padding: 15,
-          },
-        },
-        datalabels: {
-          anchor: 'end', // Position du texte au-dessus des barres
-          // align: 'top',  // Alignement du texte
-          color: 'gray',
-          font: {
-            weight: 'bold',
-            size: 12
-          },
-          formatter: (value: any, context: any) => {
-
-            // const index = context.dataIndex;
-            // const datasetIndex = context.datasetIndex;
-
-            // // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
-            // if (datasetIndex === data.datasets.length - 1) {
-            //   const hpValue = hpConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-            //   const hcValue = hcConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-            //   const total = hpValue + hcValue;
-            //   return total ? `${total} kWh` : '';
-            // }
-
-            return ''; // Ne rien afficher pour la première barre
-          }
-        }
-      },
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-            color: 'gray'
-          },
-          grid: {
-            display: false,
-          },
-          barPercentage: 0.5, // Réduit la largeur des barres (0 = invisible, 1 = pleine largeur)
-          categoryPercentage: 0.6 // Réduit l'espace occupé par chaque catégorie (groupe de barres)
-        },
-        y: {
-          stacked: true,
-          title: {
-            display: true,
-            text: 'kWh', // L'unité affichée en haut de l'axe Y
-            color: 'gray',
-            font: {
-              size: 14
-            },
-          },
-          ticks: {
-            color: 'gray',
-          },
-          grid: {
-            color: '#f3f3f3',
-            drawBorder: false
-          }
-        },
-        y1: { // Deuxième axe Y
-          position: 'right', // Place l'axe à droite
-          title: {
-            display: true,
-            text: 'temp. °C', // L'unité affichée en haut de l'axe Y1
-            color: 'gray',
-            font: {
-              size: 14
-            },
-          },
-          grid: {
-            drawOnChartArea: false // Évite les lignes superposées
-          },
-          ticks: {
-            color: 'gray'
-          },
-          min: 0,  // Fixe le minimum à 0
-          max: 50  // Fixe le maximum à 50
-        }
-      }
-    };
-  }
-
-  initGazChartConsumption(consumptions: ChartConsumption[], data: any): any {
-
-    return {
-      maintainAspectRatio: false,
-      aspectRatio: 0.6,
-      plugins: {
-        tooltip: {
-          enabled: true, // Active les tooltips
-          callbacks: {
-            // Personnaliser le contenu du tooltip
-            title: (tooltipItem: any) => {
-              // Utilise le label (mois) comme titre du tooltip
-              return `Mois: ${tooltipItem[0].label}`;
-            },
-            label: (tooltipItem: any) => {
-              const value = consumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value ?? 0;
-
-              // Retourner une ligne avec les valeurs des heures pleines et creuses
-              return [`Total: ${value} kWh`];
-            }
-          },
-          backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
-          titleColor: 'white', // Couleur du titre
-          bodyColor: 'white', // Couleur du texte
-          borderColor: '#FF6C00', // Bordure du tooltip
-          borderWidth: 2, // Largeur de la bordure
-          padding: 10, // Espacement intérieur
-          caretSize: 5, // Taille de la flèche du tooltip
-          position: 'nearest', // Position du tooltip par rapport à l'élément
-          displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
-        },
-        legend: {
-          position: 'bottom', // Place la légende en bas
-          align: 'end', // Aligne à gauche pour garder une disposition en ligne
-          labels: {
-            generateLabels: (chart: Chart) => {
-              // Récupère les légendes existantes
-              const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-
-              // Ajoute un "titre" comme premier élément
-              return [
-                {
-                  text: 'LEGENDE :', // Titre de la légende
-                  fillStyle: 'transparent', // Pas de couleur de carré pour le titre
-                  hidden: false
-                },
-                ...defaultLabels // Ajoute les autres légendes
-              ];
-            },
-            boxWidth: 10, // Réduit la taille des icônes des légendes
-            padding: 15,
-          },
-        },
-        datalabels: {
-          anchor: 'end', // Position du texte au-dessus des barres
-          // align: 'top',  // Alignement du texte
-          color: 'gray',
-          font: {
-            weight: 'bold',
-            size: 12
-          },
-          formatter: (value: any, context: any) => {
-
-            // const index = context.dataIndex;
-            // const datasetIndex = context.datasetIndex;
-
-            // // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
-            // if (datasetIndex === data.datasets.length - 1) {
-            //   const hpValue = hpConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-            //   const hcValue = hcConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-            //   const total = hpValue + hcValue;
-            //   return total ? `${total} kWh` : '';
-            // }
-
-            return '';
-          }
-        }
-      },
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-            color: 'gray'
-          },
-          grid: {
-            display: false,
-          },
-          barPercentage: 0.5, // Réduit la largeur des barres (0 = invisible, 1 = pleine largeur)
-          categoryPercentage: 0.6 // Réduit l'espace occupé par chaque catégorie (groupe de barres)
-        },
-        y: {
-          stacked: true,
-          title: {
-            display: true,
-            text: 'kWh', // L'unité affichée en haut de l'axe Y
-            color: 'gray',
-            font: {
-              size: 14
-            },
-          },
-          ticks: {
-            color: 'gray',
-          },
-          grid: {
-            color: '#f3f3f3',
-            drawBorder: false
-          }
-        },
-        y1: { // Deuxième axe Y
-          position: 'right', // Place l'axe à droite
-          title: {
-            display: true,
-            text: 'temp. °C', // L'unité affichée en haut de l'axe Y1
-            color: 'gray',
-            font: {
-              size: 14
-            },
-          },
-          grid: {
-            drawOnChartArea: false // Évite les lignes superposées
-          },
-          ticks: {
-            color: 'gray'
-          },
-          min: 0,  // Fixe le minimum à 0
-          max: 50  // Fixe le maximum à 50
-        }
-      }
     };
   }
 
@@ -434,26 +174,24 @@ export class ChartService {
         },
         datalabels: {
           anchor: 'end',
-          // align: 'top',
-          color: 'gray',
-          font: { weight: 'bold', size: 12 },
-          formatter: (_: any, context: any) => {
-
-            // if (context.datasetIndex === data.datasets.length - 1) {
-            //   const year = years[context.dataIndex];
-            //   const total = groupedData[year].hp + groupedData[year].hc;
-            //   return total ? `${total} kWh` : '';
-            // }
-
-            return ''; // Ne rien afficher pour la première barre
+          align: 'top',
+          color: 'black',
+          font: { weight: 'bold', size: 13 },
+          formatter: (value: number, context: any) => {
+            if (context.datasetIndex === 1) {
+              const index = context.dataIndex;
+              const total = hpValues[index] + hcValues[index];
+              return `${total.toLocaleString()} kWh`;
+            }
+            return ''; // Ne rien afficher sur l'autre série
           }
         }
+
       },
       scales: {
         x: { stacked: true, ticks: { color: 'gray' }, grid: { display: false }, barPercentage: 0.5, categoryPercentage: 0.6 },
         y: {
           stacked: true,
-          title: { display: true, text: 'kWh', color: 'gray', font: { size: 14 } },
           ticks: { color: 'gray' },
           grid: { color: '#f3f3f3', drawBorder: false }
         }
@@ -461,18 +199,15 @@ export class ChartService {
       labels: years,
       datasets: [
         { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
-        { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues }
+        { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues ,borderRadius: 5,}
       ]
     };
   }
 
-
-
-
   initChartConsumptionByYearGaz(groupedData: any, data: any): any {
     const years = Object.keys(groupedData).map(Number).sort();
     const values = years.map(year => groupedData[year].value);
-  
+
     return {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
@@ -480,6 +215,7 @@ export class ChartService {
       datasets: [
         {
           label: 'Gaz',
+          borderRadius: 5,
           data: values,
           backgroundColor: '#00AFCB'
         }
@@ -520,8 +256,9 @@ export class ChartService {
         },
         datalabels: {
           anchor: 'end',
-          color: 'gray',
-          font: { weight: 'bold', size: 12 },
+          align: 'top',
+          color: 'black',
+          font: { weight: 'bold', size: 13 },
           formatter: (_: any, context: any) => {
             const index = context.dataIndex;
             const value = values[index];
@@ -550,5 +287,5 @@ export class ChartService {
         }
       }
     };
-  }  
+  }
 }

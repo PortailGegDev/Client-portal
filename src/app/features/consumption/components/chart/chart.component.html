@@ -9,6 +9,9 @@
         <div class="grid-item-white mb-3">
             <p-selectbutton [options]="chartOptions" [(ngModel)]="selectedChartOptionsValue" [multiple]="false"
                 optionLabel="name" optionValue="value" (onOptionClick)="onOptionClick($event)" />
+
+            <p-selectbutton [options]="chartDatas" [(ngModel)]="selectedChartData" [multiple]="false" optionLabel="name"
+                optionValue="value" (onOptionClick)="onOptionDataClick($event)" />
         </div>
 
         <div class="grid-item-white mb-3 gap-2" style="display: flex; justify-content: end;">
@@ -46,6 +49,14 @@
         } @else {
 
         @if(chartData) {
+        <div class="grid-container grid-1">
+            <div class="grid-item-white" style="display: flex; justify-content: space-between; ">
+                <label>KWh</label>
+                <label style="justify-content:end;">Temp. °C</label>
+            </div>
+        </div>
+
+
         <p-chart type="bar" [data]="chartData" [options]="options" class="h-[30rem]" />
         <p class="consumption-info">
             <span class="info-icon">i</span>

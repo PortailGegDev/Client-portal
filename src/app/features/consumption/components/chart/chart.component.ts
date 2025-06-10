@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { AppConsumptionActivationComponent } from '../activation/activation.component';
 import { ChartService } from '../../services/chart.service';
 import { Constants } from '../../../../shared/utils/constants';
+import { ChartOptionsService } from '../../services/chart-options.service';
 
 @Component({
   selector: 'app-consumption-chart',
@@ -50,7 +51,93 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     { name: 'Evénements', code: 'EVENT' }
   ];
 
+
+  //TEMP code à supprimer après finalisation
+
+  selectedChartData = 'Elec';
+  chartDatas: any[] = [
+    { name: 'ELEC', value: 1 },
+    { name: 'GAZ', value: 2 }
+  ];
+
+  onOptionDataClick(event: any) {
+    this.consumptions = [];
+
+    if (event.index === 0) {
+      this.isElectricityEnergyType = true;
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-06-24'), idSeasonal: 'HP', monthNumber: 6, value: 180, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-02-24'), idSeasonal: 'HP', monthNumber: 2, value: 200, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-03-24'), idSeasonal: 'HP', monthNumber: 3, value: 198, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 4, value: 165, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 5, value: 320, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 6, value: 200, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 2, value: 63, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 3, value: 120, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 4, value: 88, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 5, value: 90, year: 2025
+      });
+
+    } else {
+      this.isElectricityEnergyType = false;
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 6, value: 180, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 2, value: 200, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 3, value: 198, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 4, value: 165, year: 2025
+      });
+
+      this.consumptions?.push({
+        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 5, value: 320, year: 2025
+      });
+
+    }
+
+    this.initChartData();;
+  }
+
+  // End TEMP Code
+
+
   constructor(private chartService: ChartService,
+    private charOptionService: ChartOptionsService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -84,9 +171,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.options = this.chartService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+      this.options = this.charOptionService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
     } else {
-      this.options = this.chartService.initGazChartConsumption(consumptions, this.data);
+      this.options = this.charOptionService.initGazChartConsumption(consumptions, this.data);
     }
 
     // Forcer l’actualisation de l’UI
@@ -95,6 +182,8 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
   onOptionClick(event: any) {
     this.chartData = null;
+    this.options = null;
+
     // Forcer l’actualisation de l’UI
     this.cd.detectChanges();
 
@@ -102,9 +191,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
       this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
 
       if (this.isElectricityEnergyType) {
-        this.options = this.chartService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+        this.options = this.charOptionService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
       } else {
-        this.options = this.chartService.initGazChartConsumption(this.consumptions!, this.data);
+        this.options = this.charOptionService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }
 
@@ -113,16 +202,11 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
       if (this.isElectricityEnergyType) {
         groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
-
-      } else {
-        groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
-      }
-
-      if (this.isElectricityEnergyType) {
         this.chartData = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
         this.options = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
 
       } else {
+        groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
         this.chartData = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
         this.options = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
       }
