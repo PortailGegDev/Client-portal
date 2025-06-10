@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, Simp
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
-import { Chart, Title } from 'chart.js';
+import { Chart } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
@@ -138,7 +138,14 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
   constructor(private chartService: ChartService,
     private charOptionService: ChartOptionsService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef) {
+
+    this.charOptionService.chartOptions$.subscribe((options: any) => {
+      if (this.consumptions) {
+        this.options = options
+      }
+    });
+  }
 
   ngOnInit() {
     // Enregistrer le plugin avant d'initialiser le graphique
@@ -171,9 +178,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.options = this.charOptionService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+      this.charOptionService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
     } else {
-      this.options = this.charOptionService.initGazChartConsumption(consumptions, this.data);
+      this.charOptionService.initGazChartConsumption(consumptions, this.data);
     }
 
     // Forcer l’actualisation de l’UI
@@ -191,9 +198,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
       this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
 
       if (this.isElectricityEnergyType) {
-        this.options = this.charOptionService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+        this.charOptionService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
       } else {
-        this.options = this.charOptionService.initGazChartConsumption(this.consumptions!, this.data);
+        this.charOptionService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }
 
@@ -203,12 +210,12 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
       if (this.isElectricityEnergyType) {
         groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
         this.chartData = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
-        this.options = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
+        this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
 
       } else {
         groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
         this.chartData = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
-        this.options = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
+        this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
       }
     }
   }
@@ -230,7 +237,6 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     return yearlyData;
   }
 
-
   private groupConsumptionByYearGas(consumptions: ChartConsumption[]) {
     const yearlyData: { [year: number]: { value: number } } = {};
 
@@ -243,5 +249,4 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
     return yearlyData;
   }
-
 }

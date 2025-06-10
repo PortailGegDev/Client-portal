@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Chart, Title } from 'chart.js';
+import { Chart } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { shortFrenchMonth } from '../../../shared/utils/date-utilities';
 
@@ -7,9 +7,7 @@ import { shortFrenchMonth } from '../../../shared/utils/date-utilities';
   providedIn: 'root'
 })
 export class ChartService {
-
-  options: any = null;
-
+  
   constructor() { }
 
   initChartConsumptionDataByMonth(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], gazConsumptions: ChartConsumption[]): any {
@@ -199,7 +197,7 @@ export class ChartService {
       labels: years,
       datasets: [
         { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
-        { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues ,borderRadius: 5,}
+        { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues, borderRadius: 5, }
       ]
     };
   }

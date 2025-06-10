@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Chart, Title } from 'chart.js';
+import { Chart } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
-import { shortFrenchMonth } from '../../../shared/utils/date-utilities';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChartOptionsService {
 
-    options: any = null;
+    private chartOptionsSubject = new BehaviorSubject<any>(null);
+    chartOptions$ = this.chartOptionsSubject.asObservable();
 
-    constructor() { }
-
-    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any): any {
-        return {
+    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any) {
+        const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
             plugins: {
@@ -132,11 +131,13 @@ export class ChartOptionsService {
                 }
             }
         };
+
+        this.chartOptionsSubject.next(options);
     }
 
-    initGazChartConsumption(consumptions: ChartConsumption[], data: any): any {
+    initGazChartConsumption(consumptions: ChartConsumption[], data: any) {
 
-        return {
+        const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
             plugins: {
@@ -239,5 +240,7 @@ export class ChartOptionsService {
                 }
             }
         };
+
+        this.chartOptionsSubject.next(options);
     }
 }
