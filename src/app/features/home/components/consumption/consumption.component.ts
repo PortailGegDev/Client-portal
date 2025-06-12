@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Invoice } from '../../../../shared/models/invoice-model';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
@@ -11,6 +11,9 @@ import { ContractDetails } from '../../../../shared/models/contract/contract-det
 import { Constants } from '../../../../shared/utils/constants';
 import { InvoicesService } from '../../../invoices/services/invoices.service';
 import { DatePipe } from '@angular/common';
+import { ChartOptionsService } from '../../../consumption/services/chart-options.service';
+import { Chart } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-home-consumption',
@@ -18,7 +21,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './consumption.component.html',
   styleUrl: './consumption.component.scss'
 })
-export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
+export class AppHomeConsumptionComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invoices: Invoice[] = [];
   @Input() consumptions: ChartConsumption[] | null = null;
   @Input() contractDetails: ContractDetails | null = null;
@@ -63,41 +66,43 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
   }
 
   constructor(private router: Router,
-    private invoiceService: InvoicesService,
-    private cd: ChangeDetectorRef) { }
+    private chartOptionsService: ChartOptionsService,
+    private invoiceService: InvoicesService) {
+
+    this.chartOptionsService.chartOptions$.subscribe((options: any) => {
+      if (this.consumptions) {
+        this.basicOptions = null;
+        this.basicOptions = options;
+
+      }
+    });
+
+  }
+
+  ngOnInit() {
+    // Enregistrer le plugin avant d'initialiser le graphique
+    Chart.register(ChartDataLabels);
+  }
 
   ngOnChanges() {
-    // Nettoyage des anciennes données
-    this.basicData = null;
-    this.basicOptions = null;
-    this.cd.detectChanges();
-
     if (this.consumptions) {
       this.getChartDataAndOptions(this.consumptions);
     }
   }
 
   ngOnDestroy() {
-    // Nettoyage au moment de la destruction du composant
-    this.basicData = null;
     this.basicOptions = null;
-    this.cd.detectChanges();
+    this.chartOptionsService.resetChartOptions();
   }
 
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
-    
+
     this.basicData = {
-      labels: [
-        `${getMonthNameByMonthNumber(consumptions[3]?.monthNumber)
-        } (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[2]?.monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[1]?.monthNumber)} (kWh)`,
-        `${getMonthNameByMonthNumber(consumptions[0]?.monthNumber)} (kWh)`
-      ],
+      labels: consumptions.map(item => item.monthNumber ? getMonthNameByMonthNumber(item.monthNumber) : ''),
       datasets: [
         {
           label: 'Consommation',
-          data: [consumptions[3]?.value, consumptions[2]?.value, consumptions[1]?.value, consumptions[0]?.value],
+          data: consumptions.map(item => item.value || 0),
           backgroundColor: [
             'rgba(255, 108, 0, 0.10)',
             'rgba(255, 108, 0, 0.10',
@@ -108,56 +113,7 @@ export class AppHomeConsumptionComponent implements OnChanges, OnDestroy {
       ],
     };
 
-    this.basicOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: false, // Masquer la légende
-        },
-        tooltip: {
-          enabled: true, // Activer l'affichage des tooltips
-        },
-        datalabels: {
-          color: "black",
-          display: true,
-          align: "center",
-          anchor: "center",
-          font: {
-            size: 14,
-            weight: "bold",
-          },
-          formatter: (value: any, context: any) => {
-            const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
-            return `${value} kWh\n${month} `;
-          },
-        },
-      },
-      scales: {
-        x: {
-          display: true, // Masquer l'axe X si nécessaire
-          grid: {
-            display: false, // Enlever le quadrillage de l'axe Y
-          },
-        },
-        y: {
-          display: false, // Masquer l'axe Y si nécessaire
-          grid: {
-            display: false, // Enlever le quadrillage de l'axe Y
-          },
-        },
-      },
-      layout: {
-        padding: {
-          left: 0,
-          top: 0,
-          right: 0,
-          bottom: 0,
-        },
-      },
-    };
-
-    // Forcer l’actualisation de l’UI
-    this.cd.detectChanges();
+    this.chartOptionsService.initHomeChartConsumption(consumptions);
   }
 
   navigateToConsumption() {

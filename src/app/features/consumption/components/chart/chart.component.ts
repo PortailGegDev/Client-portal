@@ -19,7 +19,7 @@ import { ChartOptionsService } from '../../services/chart-options.service';
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
-export class AppConsumptionChartComponent implements OnInit, OnChanges {
+export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() consumptions: ChartConsumption[] | null = null;
 
   hcConsumptions: ChartConsumption[] = [];
@@ -137,12 +137,15 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
 
   constructor(private chartService: ChartService,
-    private charOptionService: ChartOptionsService,
-    private cd: ChangeDetectorRef) {
+    private chartOptionsService: ChartOptionsService) {
 
-    this.charOptionService.chartOptions$.subscribe((options: any) => {
+    this.chartOptionsService.chartOptions$.subscribe((options: any) => {
       if (this.consumptions) {
-        this.options = options
+        // this.options = {
+        //   ...JSON.parse(JSON.stringify(options))
+        // };
+
+        this.options=options;
       }
     });
   }
@@ -157,6 +160,11 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
       this.isElectricityEnergyType = this.consumptions[0].Energy === Constants.EnergyType.ELECTRICITY;
       this.initChartData();
     }
+  }
+
+  ngOnDestroy() {
+    this.options = null;
+    this.chartOptionsService.resetChartOptions();
   }
 
   initChartData() {
@@ -178,29 +186,23 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.charOptionService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
     } else {
-      this.charOptionService.initGazChartConsumption(consumptions, this.data);
+      this.chartOptionsService.initGazChartConsumption(consumptions, this.data);
     }
-
-    // Forcer l’actualisation de l’UI
-    this.cd.detectChanges();
   }
 
   onOptionClick(event: any) {
     this.chartData = null;
     this.options = null;
 
-    // Forcer l’actualisation de l’UI
-    this.cd.detectChanges();
-
     if (event.index === 2) {
       this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
 
       if (this.isElectricityEnergyType) {
-        this.charOptionService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
       } else {
-        this.charOptionService.initGazChartConsumption(this.consumptions!, this.data);
+        this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }
 
@@ -209,13 +211,13 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges {
 
       if (this.isElectricityEnergyType) {
         groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
-        this.chartData = this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
-        this.chartService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
+        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
+        this.chartOptionsService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
 
       } else {
         groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
-        this.chartData = this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
-        this.chartService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
+        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
+        this.chartOptionsService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
       }
     }
   }

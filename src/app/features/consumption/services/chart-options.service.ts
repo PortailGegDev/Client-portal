@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartOptions } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { BehaviorSubject } from 'rxjs';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -242,5 +244,222 @@ export class ChartOptionsService {
         };
 
         this.chartOptionsSubject.next(options);
+    }
+
+    initChartConsumptionByYearElec(groupedData: any, data: any) {
+        const years = Object.keys(groupedData).map(Number).sort(); // Labels (années)
+        const hpValues = years.map(year => groupedData[year].hp); // Données HP
+        const hcValues = years.map(year => groupedData[year].hc); // Données HC
+
+        const options = {
+            maintainAspectRatio: false,
+            aspectRatio: 0.6,
+            plugins: {
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
+                        label: (tooltipItem: any) => {
+                            const year = parseInt(tooltipItem.label);
+                            return [
+                                `Heures pleines: ${groupedData[year].hc} kWh`,
+                                `Heures creuses: ${groupedData[year].hp} kWh`,
+                                `Total: ${groupedData[year].hc + groupedData[year].hp} kWh`
+                            ];
+                        }
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#FF6C00',
+                    borderWidth: 2,
+                    padding: 10,
+                    caretSize: 5,
+                    position: 'nearest',
+                    displayColors: false
+                },
+                legend: {
+                    position: 'bottom',
+                    align: 'end',
+                    labels: {
+                        generateLabels: (chart: Chart) => [
+                            { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
+                            ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
+                        ],
+                        boxWidth: 10,
+                        padding: 15
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: 'black',
+                    font: { weight: 'bold', size: 13 },
+                    formatter: (value: number, context: any) => {
+                        if (context.datasetIndex === 1) {
+                            const index = context.dataIndex;
+                            const total = hpValues[index] + hcValues[index];
+                            return `${total.toLocaleString()} kWh`;
+                        }
+                        return ''; // Ne rien afficher sur l'autre série
+                    }
+                }
+
+            },
+            scales: {
+                x: { stacked: true, ticks: { color: 'gray' }, grid: { display: false }, barPercentage: 0.5, categoryPercentage: 0.6 },
+                y: {
+                    stacked: true,
+                    ticks: { color: 'gray' },
+                    grid: { color: '#f3f3f3', drawBorder: false }
+                }
+            },
+            labels: years,
+            datasets: [
+                { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
+                { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues, borderRadius: 5, }
+            ]
+        };
+
+        this.chartOptionsSubject.next(options);
+    }
+
+    initChartConsumptionByYearGaz(groupedData: any, data: any) {
+        const years = Object.keys(groupedData).map(Number).sort();
+        const values = years.map(year => groupedData[year].value);
+
+        const options = {
+            maintainAspectRatio: false,
+            aspectRatio: 0.6,
+            labels: years,
+            datasets: [
+                {
+                    label: 'Gaz',
+                    borderRadius: 5,
+                    data: values,
+                    backgroundColor: '#00AFCB'
+                }
+            ],
+            plugins: {
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
+                        label: (tooltipItem: any) => {
+                            const year = parseInt(tooltipItem.label);
+                            return [
+                                `Total: ${groupedData[year].value} kWh`
+                            ];
+                        }
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#FF6C00',
+                    borderWidth: 2,
+                    padding: 10,
+                    caretSize: 5,
+                    position: 'nearest',
+                    displayColors: false
+                },
+                legend: {
+                    position: 'bottom',
+                    align: 'end',
+                    labels: {
+                        generateLabels: (chart: Chart) => [
+                            { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
+                            ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
+                        ],
+                        boxWidth: 10,
+                        padding: 15
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: 'black',
+                    font: { weight: 'bold', size: 13 },
+                    formatter: (_: any, context: any) => {
+                        const index = context.dataIndex;
+                        const value = values[index];
+                        return value ? `${value} kWh` : '';
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    stacked: false,
+                    ticks: { color: 'gray' },
+                    grid: { display: false },
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.6
+                },
+                y: {
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'kWh',
+                        color: 'gray',
+                        font: { size: 14 }
+                    },
+                    ticks: { color: 'gray' },
+                    grid: { color: '#f3f3f3', drawBorder: false }
+                }
+            }
+        };
+
+        this.chartOptionsSubject.next(options);
+    }
+
+    
+    initHomeChartConsumption(consumptions: ChartConsumption[]) {
+
+        const options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    enabled: false,
+                },
+                datalabels: {
+                    color: "black",
+                    display: true,
+                    align: "top",
+                    anchor: "center",
+                    font: {
+                        size: 14,
+                        weight: "500",
+                    }, 
+                    formatter: (value: any, context: any) => {
+                        const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
+                        return `${value} kWh\n${month} `;
+                    },
+                },
+            },
+            scales: {
+                x: {
+                    display: false,
+                },
+                y: {
+                    display: false
+                },
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                },
+            },
+        };
+
+        this.chartOptionsSubject.next(options);
+    }
+
+    resetChartOptions() {
+        this.chartOptionsSubject.next(null);
     }
 }

@@ -3,7 +3,7 @@ import { ConsumptionHttpService } from '../../../core/http-services/consumption-
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { convertSAPDateToTsDate, getMonthFromDate } from '../../../shared/utils/date-utilities';
 import { map, Observable } from 'rxjs';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 @Injectable({
   providedIn: 'root'
