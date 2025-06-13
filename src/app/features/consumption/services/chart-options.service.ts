@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Chart, ChartOptions } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
-import { BehaviorSubject, max } from 'rxjs';
-import { UndoIcon } from 'primeng/icons';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -14,7 +13,10 @@ export class ChartOptionsService {
     private chartOptionsSubject = new BehaviorSubject<any>(null);
     chartOptions$ = this.chartOptionsSubject.asObservable();
 
-    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any, maxConsumptionValue: number) {
+    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any) {
+        const hcMaxValue = hcConsumptions!.length > 0 ? Math.max(...hcConsumptions!.map(item => item.value)) : 0;
+        const hpMaxValue = hpConsumptions!.length > 0 ? Math.max(...hpConsumptions!.map(item => item.value)) : 0;
+
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
@@ -58,13 +60,14 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: this.getScalesOptionsWithMeteo(true)
+            scales: this.getScalesOptionsWithMeteo(true, hcMaxValue + hpMaxValue)
         };
 
         this.chartOptionsSubject.next(options);
     }
 
-    initGazChartConsumption(consumptions: ChartConsumption[], data: any, maxConsumptionValue: number) {
+    initGazChartConsumption(consumptions: ChartConsumption[], data: any) {
+        const maxConsumptionValue = consumptions.length > 0 ? Math.max(...consumptions.map(item => item.value)) : 0;
 
         const options = {
             maintainAspectRatio: false,
@@ -100,16 +103,19 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: this.getScalesOptionsWithMeteo(true)
+            scales: this.getScalesOptionsWithMeteo(true, maxConsumptionValue)
         };
 
         this.chartOptionsSubject.next(options);
     }
 
-    initChartConsumptionByYearElec(groupedData: any, data: any) {
+    initChartConsumptionByYearElec(groupedData: any) {
         const years = Object.keys(groupedData).map(Number).sort(); // Labels (années)
         const hpValues = years.map(year => groupedData[year].hp); // Données HP
         const hcValues = years.map(year => groupedData[year].hc); // Données HC
+
+        const hcMaxValue = hcValues!.length > 0 ? Math.max(...hcValues) : 0;
+        const hpMaxValue = hpValues!.length > 0 ? Math.max(...hpValues) : 0;
 
         const options = {
             maintainAspectRatio: false,
@@ -127,16 +133,7 @@ export class ChartOptionsService {
                                 `Total: ${groupedData[year].hc + groupedData[year].hp} kWh`
                             ];
                         }
-                    },
-                    backgroundColor: 'rgba(0,0,0,0.7)',
-                    titleColor: 'white',
-                    bodyColor: 'white',
-                    borderColor: '#FF6C00',
-                    borderWidth: 2,
-                    padding: 10,
-                    caretSize: 5,
-                    position: 'nearest',
-                    displayColors: false
+                    }
                 },
                 legend: this.getLegendOptions(),
                 datalabels: {
@@ -152,15 +149,17 @@ export class ChartOptionsService {
                 }
 
             },
-            scales: this.getScalesOptions(true),
+            scales: this.getScalesOptions(true, hcMaxValue + hpMaxValue),
         };
 
         this.chartOptionsSubject.next(options);
     }
 
-    initChartConsumptionByYearGaz(groupedData: any, data: any) {
+    initChartConsumptionByYearGaz(groupedData: any) {
         const years = Object.keys(groupedData).map(Number).sort();
         const values = years.map(year => groupedData[year].value);
+
+        const maxValue = values!.length > 0 ? Math.max(...values) : 0;
 
         const options = {
             maintainAspectRatio: false,
@@ -188,7 +187,7 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: this.getScalesOptions(false),
+            scales: this.getScalesOptions(false, maxValue),
         };
 
         this.chartOptionsSubject.next(options);
@@ -246,7 +245,7 @@ export class ChartOptionsService {
         this.chartOptionsSubject.next(null);
     }
 
-    private getScalesOptions(stacked: boolean): any {
+    private getScalesOptions(stacked: boolean, maxConsumptionValue: number): any {
         return {
             x: {
                 stacked: stacked,
@@ -259,14 +258,14 @@ export class ChartOptionsService {
                 stacked: stacked,
                 ticks: { color: 'gray' },
                 grid: { color: '#f3f3f3', drawBorder: false },
-                // max: maxConsumptionValue + (maxConsumptionValue * 10) / 100
+                max: this.getYMaxValue(maxConsumptionValue)
             }
         };
     }
 
-    private getScalesOptionsWithMeteo(stacked: boolean): any {
+    private getScalesOptionsWithMeteo(stacked: boolean, maxConsumptionValue: number): any {
         return {
-            ...this.getScalesOptions(stacked),
+            ...this.getScalesOptions(stacked, maxConsumptionValue),
             y1: {
                 position: 'right',
                 grid: {
@@ -285,6 +284,7 @@ export class ChartOptionsService {
         return {
             position: 'bottom', // Place la légende en bas
             align: 'end', // Aligne à gauche pour garder une disposition en ligne
+            onClick: () => { },
             labels: {
                 generateLabels: (chart: Chart) => {
                     // Récupère les légendes existantes
@@ -304,7 +304,7 @@ export class ChartOptionsService {
                 boxWidth: 10, // Réduit la taille des icônes des légendes
                 padding: 15,
                 color: 'black',
-            },
+            }
         };
     }
 
@@ -330,5 +330,10 @@ export class ChartOptionsService {
             position: 'nearest', // Position du tooltip par rapport à l'élément
             displayColors: false, // Désactive l'affichage des couleurs à côté des valeurs
         }
+    }
+
+    // Avoir un axe Y plus haut que la valeur max du graph
+    private getYMaxValue(maxConsumptionValue: number) {
+        return maxConsumptionValue + (maxConsumptionValue * 10) / 100;
     }
 }

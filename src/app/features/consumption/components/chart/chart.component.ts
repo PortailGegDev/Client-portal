@@ -29,7 +29,6 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
   chartData: any = null;
   options: any = null;
   isElectricityEnergyType: boolean = false;
-  maxConsumptionValue: number = 0;
 
   selectedChartOptionsValue: number = 3;
   chartOptions: any[] = [
@@ -62,75 +61,15 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
   ];
 
   onOptionDataClick(event: any) {
-    this.consumptions = [];
-
     if (event.index === 0) {
       this.isElectricityEnergyType = true;
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-06-24'), idSeasonal: 'HP', monthNumber: 6, value: 180, year: 2025
-      });
+      this.consumptions = this.consumptions?.filter(item => item.Energy === '01') ?? [];
 
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-02-24'), idSeasonal: 'HP', monthNumber: 2, value: 200, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-03-24'), idSeasonal: 'HP', monthNumber: 3, value: 198, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 4, value: 165, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 5, value: 320, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 6, value: 200, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 2, value: 63, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 3, value: 120, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 4, value: 88, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 5, value: 90, year: 2025
-      });
 
     } else {
       this.isElectricityEnergyType = false;
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 6, value: 180, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 2, value: 200, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 3, value: 198, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 4, value: 165, year: 2025
-      });
-
-      this.consumptions?.push({
-        Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 5, value: 320, year: 2025
-      });
-
+      this.consumptions = this.consumptions?.filter(item => item.Energy === '02') ?? [];
     }
-    this.maxConsumptionValue = this.consumptions.length > 0 ? Math.max(...this.consumptions.map(item => item.value)) : 0;
 
     this.initChartData();;
   }
@@ -143,10 +82,6 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
     this.chartOptionsService.chartOptions$.subscribe((options: any) => {
       if (this.consumptions) {
-        // this.options = {
-        //   ...JSON.parse(JSON.stringify(options))
-        // };
-
         this.options = options;
       }
     });
@@ -159,7 +94,6 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   ngOnChanges() {
     if (this.consumptions) {
-      this.maxConsumptionValue = this.consumptions.length > 0 ? Math.max(...this.consumptions.map(item => item.value)) : 0;
       this.isElectricityEnergyType = this.consumptions[0].Energy === Constants.EnergyType.ELECTRICITY;
       this.initChartData();
     }
@@ -189,9 +123,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data, this.maxConsumptionValue);
+      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
     } else {
-      this.chartOptionsService.initGazChartConsumption(consumptions, this.data, this.maxConsumptionValue);
+      this.chartOptionsService.initGazChartConsumption(consumptions, this.data);
     }
   }
 
@@ -203,9 +137,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
       this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
 
       if (this.isElectricityEnergyType) {
-        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data, this.maxConsumptionValue);
+        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
       } else {
-        this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data, this.maxConsumptionValue);
+        this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }
 
@@ -215,12 +149,12 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
       if (this.isElectricityEnergyType) {
         groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
         this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear, this.isElectricityEnergyType);
-        this.chartOptionsService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
+        this.chartOptionsService.initChartConsumptionByYearElec(groupedConsumptionsByYear);
 
       } else {
-        groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
+        groupedConsumptionsByYear = this.groupConsumptionByYearGaz(this.consumptions!);
         this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear, this.isElectricityEnergyType);
-        this.chartOptionsService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
+        this.chartOptionsService.initChartConsumptionByYearGaz(groupedConsumptionsByYear);
       }
     }
   }
@@ -242,13 +176,14 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     return yearlyData;
   }
 
-  private groupConsumptionByYearGas(consumptions: ChartConsumption[]) {
+  private groupConsumptionByYearGaz(consumptions: ChartConsumption[]) {
     const yearlyData: { [year: number]: { value: number } } = {};
 
     consumptions.forEach(item => {
       if (!yearlyData[item.year]) {
         yearlyData[item.year] = { value: 0 };
       }
+
       yearlyData[item.year].value += item.value;
     });
 
