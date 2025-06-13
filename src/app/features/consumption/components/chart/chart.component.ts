@@ -214,12 +214,12 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
       if (this.isElectricityEnergyType) {
         groupedConsumptionsByYear = this.groupConsumptionByYearElec(this.hpConsumptions, this.hcConsumptions);
-        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
+        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear, this.isElectricityEnergyType);
         this.chartOptionsService.initChartConsumptionByYearElec(groupedConsumptionsByYear, this.chartData);
 
       } else {
         groupedConsumptionsByYear = this.groupConsumptionByYearGas(this.consumptions!);
-        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear);
+        this.chartData = this.chartService.initChartConsumptionDataByYear(groupedConsumptionsByYear, this.isElectricityEnergyType);
         this.chartOptionsService.initChartConsumptionByYearGaz(groupedConsumptionsByYear, this.chartData);
       }
     }

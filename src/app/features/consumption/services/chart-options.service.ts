@@ -20,7 +20,7 @@ export class ChartOptionsService {
             aspectRatio: 0.6,
             plugins: {
                 tooltip: {
-                    enabled: true, // Active les tooltips
+                    ...this.getTooltipOptions(),
                     callbacks: {
                         // Personnaliser le contenu du tooltip
                         title: (tooltipItem: any) => {
@@ -36,22 +36,10 @@ export class ChartOptionsService {
                             return [`Heures pleines: ${hcValue} kWh`, `Heures creuses: ${hpValue} kWh`, `Total: ${hcValue + hpValue} kWh`];
                         }
                     },
-                    backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
-                    titleColor: 'white', // Couleur du titre
-                    bodyColor: 'white', // Couleur du texte
-                    borderColor: '#FF6C00', // Bordure du tooltip
-                    borderWidth: 2, // Largeur de la bordure
-                    padding: 10, // Espacement intérieur
-                    caretSize: 5, // Taille de la flèche du tooltip
-                    position: 'nearest', // Position du tooltip par rapport à l'élément
-                    displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
                 },
                 legend: this.getLegendOptions(),
                 datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    color: 'black',
-                    font: { weight: 'bold', size: 13 },
+                    ...this.getDatasetOptions(),
                     formatter: (value: any, context: any) => {
 
 
@@ -68,12 +56,6 @@ export class ChartOptionsService {
 
                         return ''; // Ne rien afficher pour la première barre
                     }
-                },
-                background: {
-                    borderRadius: {
-                        topLeft: 10,
-                        topRight: 10
-                    }
                 }
             },
             scales: this.getScalesOptionsWithMeteo(true)
@@ -89,7 +71,7 @@ export class ChartOptionsService {
             aspectRatio: 0.6,
             plugins: {
                 tooltip: {
-                    enabled: true,
+                    ...this.getTooltipOptions(),
                     callbacks: {
                         title: (tooltipItem: any) => {
                             return `Mois: ${tooltipItem[0].label}`;
@@ -100,28 +82,15 @@ export class ChartOptionsService {
                             return [`Total: ${value} kWh`];
                         }
                     },
-                    backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
-                    titleColor: 'white', // Couleur du titre
-                    bodyColor: 'white', // Couleur du texte
-                    borderColor: '#FF6C00', // Bordure du tooltip
-                    borderWidth: 2, // Largeur de la bordure
-                    padding: 10, // Espacement intérieur
-                    caretSize: 5, // Taille de la flèche du tooltip
-                    position: 'nearest', // Position du tooltip par rapport à l'élément
-                    displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
                 },
                 legend: this.getLegendOptions(),
                 datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    color: 'black',
-                    font: { weight: 'bold', size: 13 },
+                    ...this.getDatasetOptions(),
                     formatter: (value: any, context: any) => {
 
                         const index = context.dataIndex;
                         const datasetIndex = context.datasetIndex;
 
-                        // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
                         if (datasetIndex === data.datasets.length - 1) {
                             const total = value;
                             return total ? `${total} kWh` : '';
@@ -147,7 +116,7 @@ export class ChartOptionsService {
             aspectRatio: 0.6,
             plugins: {
                 tooltip: {
-                    enabled: true,
+                    ...this.getTooltipOptions(),
                     callbacks: {
                         title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
                         label: (tooltipItem: any) => {
@@ -171,10 +140,7 @@ export class ChartOptionsService {
                 },
                 legend: this.getLegendOptions(),
                 datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    color: 'black',
-                    font: { weight: 'bold', size: 13 },
+                    ...this.getDatasetOptions(),
                     formatter: (value: number, context: any) => {
                         if (context.datasetIndex === 1) {
                             const index = context.dataIndex;
@@ -187,11 +153,6 @@ export class ChartOptionsService {
 
             },
             scales: this.getScalesOptions(true),
-            labels: years,
-            datasets: [
-                { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
-                { type: 'bar', label: 'Heures pleines', backgroundColor: '#FF6C00', data: hcValues, borderRadius: 5, }
-            ]
         };
 
         this.chartOptionsSubject.next(options);
@@ -204,18 +165,9 @@ export class ChartOptionsService {
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
-            labels: years,
-            datasets: [
-                {
-                    label: 'Gaz',
-                    borderRadius: 5,
-                    data: values,
-                    backgroundColor: '#00AFCB'
-                }
-            ],
             plugins: {
                 tooltip: {
-                    enabled: true,
+                    ...this.getTooltipOptions(),
                     callbacks: {
                         title: (tooltipItem: any) => `Année: ${tooltipItem[0].label}`,
                         label: (tooltipItem: any) => {
@@ -224,23 +176,11 @@ export class ChartOptionsService {
                                 `Total: ${groupedData[year].value} kWh`
                             ];
                         }
-                    },
-                    backgroundColor: 'rgba(0,0,0,0.7)',
-                    titleColor: 'white',
-                    bodyColor: 'white',
-                    borderColor: '#FF6C00',
-                    borderWidth: 2,
-                    padding: 10,
-                    caretSize: 5,
-                    position: 'nearest',
-                    displayColors: false
+                    }
                 },
                 legend: this.getLegendOptions(),
                 datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    color: 'black',
-                    font: { weight: 'bold', size: 13 },
+                    ...this.getDatasetOptions(),
                     formatter: (_: any, context: any) => {
                         const index = context.dataIndex;
                         const value = values[index];
@@ -248,7 +188,7 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: this.getScalesOptions(false)
+            scales: this.getScalesOptions(false),
         };
 
         this.chartOptionsSubject.next(options);
@@ -366,5 +306,29 @@ export class ChartOptionsService {
                 color: 'black',
             },
         };
+    }
+
+    private getDatasetOptions(): any {
+        return {
+            anchor: 'end',
+            align: 'top',
+            color: 'black',
+            font: { weight: 'bold', size: 13 }
+        };
+    }
+
+    private getTooltipOptions(): any {
+        return {
+            enabled: true, // Active les tooltips
+            backgroundColor: 'rgba(0,0,0,0.7)', // Couleur de fond du tooltip
+            titleColor: 'white', // Couleur du titre
+            bodyColor: 'white', // Couleur du texte
+            borderColor: '#FF6C00', // Bordure du tooltip
+            borderWidth: 2, // Largeur de la bordure
+            padding: 10, // Espacement intérieur
+            caretSize: 5, // Taille de la flèche du tooltip
+            position: 'nearest', // Position du tooltip par rapport à l'élément
+            displayColors: false, // Désactive l'affichage des couleurs à côté des valeurs
+        }
     }
 }

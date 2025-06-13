@@ -7,7 +7,7 @@ import { shortFrenchMonth } from '../../../shared/utils/date-utilities';
   providedIn: 'root'
 })
 export class ChartService {
-  
+
   constructor() { }
 
   initChartConsumptionDataByMonth(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], gazConsumptions: ChartConsumption[]): any {
@@ -101,26 +101,40 @@ export class ChartService {
     return chartResult;
   }
 
-  initChartConsumptionDataByYear(groppedConsumptionsByYear: any): any {
+  initChartConsumptionDataByYear(groppedConsumptionsByYear: any, electricity: boolean): any {
 
     // Extraire les années triées
     const years = Object.keys(groppedConsumptionsByYear).map(y => parseInt(y)).sort((a, b) => a - b);
+
+    if (electricity) {
+      return {
+        labels: years.map(y => y.toString()), // Les labels sont les années
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Heures creuses',
+            backgroundColor: '#0DB58D',
+            data: years.map(y => groppedConsumptionsByYear[y].hp) // Somme des valeurs HP par année
+          },
+          {
+            type: 'bar',
+            borderRadius: 5,
+            label: 'Heures pleines',
+            backgroundColor: '#FF6C00',
+            data: years.map(y => groppedConsumptionsByYear[y].hc) // Somme des valeurs HC par année
+          }
+        ]
+      };
+    }
 
     return {
       labels: years.map(y => y.toString()), // Les labels sont les années
       datasets: [
         {
           type: 'bar',
-          label: 'Heures creuses',
-          backgroundColor: '#0DB58D',
-          data: years.map(y => groppedConsumptionsByYear[y].hp) // Somme des valeurs HP par année
-        },
-        {
-          type: 'bar',
-          borderRadius: 5,
-          label: 'Heures pleines',
-          backgroundColor: '#FF6C00',
-          data: years.map(y => groppedConsumptionsByYear[y].hc) // Somme des valeurs HC par année
+          label: 'Gaz',
+          backgroundColor: '#00AFCB',
+          data: years.map(y => groppedConsumptionsByYear[y].value) // Somme des valeurs HP par année
         }
       ]
     };
