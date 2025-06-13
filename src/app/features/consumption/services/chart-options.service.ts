@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Chart, ChartOptions } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, max } from 'rxjs';
+import { UndoIcon } from 'primeng/icons';
 
 
 
@@ -13,7 +14,7 @@ export class ChartOptionsService {
     private chartOptionsSubject = new BehaviorSubject<any>(null);
     chartOptions$ = this.chartOptionsSubject.asObservable();
 
-    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any) {
+    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any, maxConsumptionValue: number) {
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
@@ -45,30 +46,7 @@ export class ChartOptionsService {
                     position: 'nearest', // Position du tooltip par rapport à l'élément
                     displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
                 },
-                legend: {
-                    position: 'bottom', // Place la légende en bas
-                    align: 'end', // Aligne à gauche pour garder une disposition en ligne
-                    labels: {
-                        generateLabels: (chart: Chart) => {
-                            // Récupère les légendes existantes
-                            const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-
-                            // Ajoute un "titre" comme premier élément
-                            return [
-                                {
-                                    text: 'LEGENDE :',
-                                    fillStyle: 'transparent',
-                                    strokeStyle: 'transparent',
-                                    hidden: false
-                                },
-                                ...defaultLabels // Ajoute les autres légendes
-                            ];
-                        },
-                        boxWidth: 10, // Réduit la taille des icônes des légendes
-                        padding: 15,
-                        color: 'black',
-                    },
-                },
+                legend: this.getLegendOptions(),
                 datalabels: {
                     anchor: 'end',
                     align: 'top',
@@ -98,46 +76,13 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: 'gray'
-                    },
-                    grid: {
-                        display: false,
-                    },
-                    barPercentage: 0.5, // Réduit la largeur des barres (0 = invisible, 1 = pleine largeur)
-                    categoryPercentage: 0.6 // Réduit l'espace occupé par chaque catégorie (groupe de barres)
-                },
-                y: {
-                    stacked: true,
-                    ticks: {
-                        color: 'gray',
-                    },
-                    grid: {
-                        color: '#f3f3f3',
-                        drawBorder: false
-                    }
-                },
-                y1: { // Deuxième axe Y
-                    position: 'right', // Place l'axe à droite
-                    grid: {
-                        drawOnChartArea: false // Évite les lignes superposées
-                    },
-                    ticks: {
-                        color: 'gray'
-                    },
-                    min: 0,  // Fixe le minimum à 0
-                    max: 50  // Fixe le maximum à 50
-                }
-            }
+            scales: this.getScalesOptionsWithMeteo(true)
         };
 
         this.chartOptionsSubject.next(options);
     }
 
-    initGazChartConsumption(consumptions: ChartConsumption[], data: any) {
+    initGazChartConsumption(consumptions: ChartConsumption[], data: any, maxConsumptionValue: number) {
 
         const options = {
             maintainAspectRatio: false,
@@ -165,28 +110,7 @@ export class ChartOptionsService {
                     position: 'nearest', // Position du tooltip par rapport à l'élément
                     displayColors: false // Désactive l'affichage des couleurs à côté des valeurs
                 },
-                legend: {
-                    position: 'bottom', // Place la légende en bas
-                    align: 'end', // Aligne à gauche pour garder une disposition en ligne
-                    labels: {
-                        generateLabels: (chart: Chart) => {
-                            const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-
-                            return [
-                                {
-                                    text: 'LEGENDE :',
-                                    fillStyle: 'transparent',
-                                    strokeStyle: 'transparent',
-                                    hidden: false
-                                },
-                                ...defaultLabels
-                            ];
-                        },
-                        boxWidth: 10,
-                        padding: 15,
-                        color: 'black'
-                    },
-                },
+                legend: this.getLegendOptions(),
                 datalabels: {
                     anchor: 'end',
                     align: 'top',
@@ -207,40 +131,7 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: 'gray'
-                    },
-                    grid: {
-                        display: false,
-                    },
-                    barPercentage: 0.5, // Réduit la largeur des barres (0 = invisible, 1 = pleine largeur)
-                    categoryPercentage: 0.6 // Réduit l'espace occupé par chaque catégorie (groupe de barres)
-                },
-                y: {
-                    stacked: true,
-                    ticks: {
-                        color: 'gray',
-                    },
-                    grid: {
-                        color: '#f3f3f3',
-                        drawBorder: false
-                    }
-                },
-                y1: {
-                    position: 'right',
-                    grid: {
-                        drawOnChartArea: false
-                    },
-                    ticks: {
-                        color: 'gray'
-                    },
-                    min: 0,
-                    max: 50
-                }
-            }
+            scales: this.getScalesOptionsWithMeteo(true)
         };
 
         this.chartOptionsSubject.next(options);
@@ -278,18 +169,7 @@ export class ChartOptionsService {
                     position: 'nearest',
                     displayColors: false
                 },
-                legend: {
-                    position: 'bottom',
-                    align: 'end',
-                    labels: {
-                        generateLabels: (chart: Chart) => [
-                            { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
-                            ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
-                        ],
-                        boxWidth: 10,
-                        padding: 15
-                    }
-                },
+                legend: this.getLegendOptions(),
                 datalabels: {
                     anchor: 'end',
                     align: 'top',
@@ -306,14 +186,7 @@ export class ChartOptionsService {
                 }
 
             },
-            scales: {
-                x: { stacked: true, ticks: { color: 'gray' }, grid: { display: false }, barPercentage: 0.5, categoryPercentage: 0.6 },
-                y: {
-                    stacked: true,
-                    ticks: { color: 'gray' },
-                    grid: { color: '#f3f3f3', drawBorder: false }
-                }
-            },
+            scales: this.getScalesOptions(true),
             labels: years,
             datasets: [
                 { type: 'bar', label: 'Heures creuses', backgroundColor: '#0DB58D', data: hpValues },
@@ -362,18 +235,7 @@ export class ChartOptionsService {
                     position: 'nearest',
                     displayColors: false
                 },
-                legend: {
-                    position: 'bottom',
-                    align: 'end',
-                    labels: {
-                        generateLabels: (chart: Chart) => [
-                            { text: 'LEGENDE :', fillStyle: 'transparent', hidden: false },
-                            ...Chart.defaults.plugins.legend.labels.generateLabels(chart)
-                        ],
-                        boxWidth: 10,
-                        padding: 15
-                    }
-                },
+                legend: this.getLegendOptions(),
                 datalabels: {
                     anchor: 'end',
                     align: 'top',
@@ -386,32 +248,13 @@ export class ChartOptionsService {
                     }
                 }
             },
-            scales: {
-                x: {
-                    stacked: false,
-                    ticks: { color: 'gray' },
-                    grid: { display: false },
-                    barPercentage: 0.5,
-                    categoryPercentage: 0.6
-                },
-                y: {
-                    stacked: false,
-                    title: {
-                        display: true,
-                        text: 'kWh',
-                        color: 'gray',
-                        font: { size: 14 }
-                    },
-                    ticks: { color: 'gray' },
-                    grid: { color: '#f3f3f3', drawBorder: false }
-                }
-            }
+            scales: this.getScalesOptions(false)
         };
 
         this.chartOptionsSubject.next(options);
     }
 
-    
+
     initHomeChartConsumption(consumptions: ChartConsumption[]) {
 
         const options = {
@@ -431,7 +274,7 @@ export class ChartOptionsService {
                     font: {
                         size: 14,
                         weight: "500",
-                    }, 
+                    },
                     formatter: (value: any, context: any) => {
                         const month = context.chart.data.labels ? context.chart.data.labels[context.dataIndex] : null;
                         return `${value} kWh\n${month} `;
@@ -461,5 +304,67 @@ export class ChartOptionsService {
 
     resetChartOptions() {
         this.chartOptionsSubject.next(null);
+    }
+
+    private getScalesOptions(stacked: boolean): any {
+        return {
+            x: {
+                stacked: stacked,
+                ticks: { color: 'gray' },
+                grid: { display: false },
+                barPercentage: 0.5,
+                categoryPercentage: 0.6
+            },
+            y: {
+                stacked: stacked,
+                ticks: { color: 'gray' },
+                grid: { color: '#f3f3f3', drawBorder: false },
+                // max: maxConsumptionValue + (maxConsumptionValue * 10) / 100
+            }
+        };
+    }
+
+    private getScalesOptionsWithMeteo(stacked: boolean): any {
+        return {
+            ...this.getScalesOptions(stacked),
+            y1: {
+                position: 'right',
+                grid: {
+                    drawOnChartArea: false
+                },
+                ticks: {
+                    color: 'gray'
+                },
+                min: 0,
+                max: 50
+            }
+        };
+    }
+
+    private getLegendOptions(): any {
+        return {
+            position: 'bottom', // Place la légende en bas
+            align: 'end', // Aligne à gauche pour garder une disposition en ligne
+            labels: {
+                generateLabels: (chart: Chart) => {
+                    // Récupère les légendes existantes
+                    const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+
+                    // Ajoute un "titre" comme premier élément
+                    return [
+                        {
+                            text: 'LEGENDE :',
+                            fillStyle: 'transparent',
+                            strokeStyle: 'transparent',
+                            hidden: false
+                        },
+                        ...defaultLabels // Ajoute les autres légendes
+                    ];
+                },
+                boxWidth: 10, // Réduit la taille des icônes des légendes
+                padding: 15,
+                color: 'black',
+            },
+        };
     }
 }

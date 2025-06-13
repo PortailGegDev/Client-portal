@@ -29,6 +29,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
   chartData: any = null;
   options: any = null;
   isElectricityEnergyType: boolean = false;
+  maxConsumptionValue: number = 0;
 
   selectedChartOptionsValue: number = 3;
   chartOptions: any[] = [
@@ -129,6 +130,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
       });
 
     }
+    this.maxConsumptionValue = this.consumptions.length > 0 ? Math.max(...this.consumptions.map(item => item.value)) : 0;
 
     this.initChartData();;
   }
@@ -145,7 +147,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
         //   ...JSON.parse(JSON.stringify(options))
         // };
 
-        this.options=options;
+        this.options = options;
       }
     });
   }
@@ -157,6 +159,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   ngOnChanges() {
     if (this.consumptions) {
+      this.maxConsumptionValue = this.consumptions.length > 0 ? Math.max(...this.consumptions.map(item => item.value)) : 0;
       this.isElectricityEnergyType = this.consumptions[0].Energy === Constants.EnergyType.ELECTRICITY;
       this.initChartData();
     }
@@ -186,9 +189,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data, this.maxConsumptionValue);
     } else {
-      this.chartOptionsService.initGazChartConsumption(consumptions, this.data);
+      this.chartOptionsService.initGazChartConsumption(consumptions, this.data, this.maxConsumptionValue);
     }
   }
 
@@ -200,9 +203,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
       this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
 
       if (this.isElectricityEnergyType) {
-        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data, this.maxConsumptionValue);
       } else {
-        this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data);
+        this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data, this.maxConsumptionValue);
       }
     }
 
