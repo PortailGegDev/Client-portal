@@ -2,18 +2,21 @@
     "carousel": [
         {
             "title": "Relevez vos index",
+            "code" : "RELEVEZ_INDEX",
             "subtitle": "Il est temps de faire votre auto-relève",
             "img": "/images/img.png",
             "action": "Relever"
         },
         {
             "title": "Chèque énergie",
+            "code" : "CHEQUE_ENERGIE",
             "subtitle": "Ce mois-ci saisissez votre chèque énergie",
             "img": "/images/img-1.png",
             "action": "Saisir"
         },
         {
             "title": "Un projet d'économies d'énergie ?",
+            "code" : "PROJET_ECONOMIES_ENERGIE",
             "subtitle": "GEG vous aide à financer vos travaux avec la prime CEE",
             "img": "/images/img-2.png",
             "action": "Demander"

@@ -10,11 +10,10 @@ import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { BillingService } from './shared/services/billing.service';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, ButtonModule, NavBarComponent, FooterComponent,RouterOutlet],
+  imports: [FormsModule, ButtonModule, NavBarComponent, FooterComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,24 +23,23 @@ export class AppComponent implements OnInit {
   haveContract: boolean | undefined = undefined;
   currentRoute: string = '';
 
-  constructor(private authService: AuthService,private httpClient:HttpClient,private router:Router,
-    private contractService: ContractService,private billingService: BillingService,
+  constructor(private authService: AuthService,
+    private httpClient: HttpClient,
+    private router: Router,
+    private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
     this.authService.logTokenDetails();
     this.contracts = this.contractService.contracts;
     this.selectedContract = this.contractService.selectedContract;
     this.primeNgLocaleService.applyFrenchLocale();
+
     this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
     });
-    // this.router.events.subscribe(() => {
-    //   this.currentRoute = this.router.url;
-    // });
 
     effect(() => {
       this.loadContract();
-      // this.fetchBilling('0350000012');
     });
   }
 
@@ -68,12 +66,9 @@ export class AppComponent implements OnInit {
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
+      // businessPartner = '1510000229';
+
       businessPartner = '1510000178';
-      // businessPartner = '1510060117'; // bp consommation pour QF1
-      // businessPartner = '1510023652'; // bp liste de contrats pour DF1
-      // businessPartner = '1510063413'; // bp liste de contrats pour QF1
-      // businessPartner='1510031862'; // bp liste de contrats pour partenaire
-      // businessPartner='350000261'; //bp DF1
       this.authService.businessPartner.set(businessPartner);
       console.log("Vous êtes en locale : Votre Bp est '1510136444'");
     }

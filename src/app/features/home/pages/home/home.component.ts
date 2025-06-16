@@ -18,6 +18,8 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
 import { Constants } from '../../../../shared/utils/constants';
+import { ProfilService } from '../../../../shared/services/profil.service';
+import { Profil } from '../../../../shared/models/profil.model';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,7 @@ export class AppHomeComponent {
   selectedContract: Signal<Contract | null>;
   theme: string = "";
   carouselData: any[] = [];
-
+  isClientPrecaireAide : boolean = false;
   selectedContractsDetails: ContractDetails | null = null;
 
   currentUser = signal<User | undefined>(undefined);
@@ -42,6 +44,7 @@ export class AppHomeComponent {
     private invoicesService: InvoicesService,
     private consumptionService: ConsumptionService,
     private brandService: BrandService,
+    private profileService: ProfilService,
     private authService: AuthService) {
     this.selectedContract = this.contractService.selectedContract;
 
@@ -50,6 +53,7 @@ export class AppHomeComponent {
         this.loadConsumption(this.selectedContract()!.ContractISU);
         this.loadLastInvoice(this.selectedContract()!.ContractISU);
         this.loadContractDetails(this.selectedContract()!.ContractISU);
+        this.loadProfil(this.selectedContract()!.PartnerId);
       }
     });
   }
@@ -57,6 +61,20 @@ export class AppHomeComponent {
   ngOnInit() {
     this.currentUser.set(this.authService.getUserData());
     this.theme = this.brandService.getBrand();
+  }
+
+  loadProfil(bp: string): void {
+    this.profileService.getProfil(bp).subscribe({
+      next: (data: Profil | undefined) => {
+        this.isClientPrecaireAide = data?.SocialStatus === Constants.SocialStatus.CLIENT_AIDE 
+        ||  data?.SocialStatus === Constants.SocialStatus.CLIENT_PRECAIRE;
+
+        console.log('Client précaire ou aidé:', this.isClientPrecaireAide);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des profils:', error);
+      }
+    });
   }
 
   loadLastInvoice(contractISU: string): void {

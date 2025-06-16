@@ -1,5 +1,6 @@
 export class Carousel {
     title!: string;
+    code!: string;
     subtitle!: string;
     img!: string;
     action!: string;

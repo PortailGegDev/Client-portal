@@ -74,7 +74,18 @@ export class Constants {
         MANDATAIRE_JUDICIAIRE: "Z0000008",
     };
 
+    public static SocialStatus = {
+        CLIENT_PRECAIRE: "Client précaire",
+        CLIENT_AIDE: "Client aidé",
+    }
+
+    public static Carousel_Item_Code = {
+        RELEVEZ_INDEX: "RELEVEZ_INDEX",
+        CHEQUE_ENERGIE: "CHEQUE_ENERGIE",
+        PROJET_ECONOMIES_ENERGIE: "PROJET_ECONOMIES_ENERGIE"
+    }
+
     public static ContractCreationLink = 'https://www.geg.fr/souscription/part/';
-    
+
     public static readonly CO_TITULAIRE_INFO_TEXT = "Pour modifier les informations relatives au titulaire de votre contrat, nous vous invitons à nous appeler au 04 76 84 20 00, choix.\n  Nous sommes joignables du lundi au vendredi de 8h à 20h.";
 }
