@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Chart } from 'chart.js';
 import { ChartConsumption } from '../../../shared/models/chart-consumption.model';
 import { shortFrenchMonth } from '../../../shared/utils/date-utilities';
+import { Chart, ScriptableContext } from 'chart.js';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,8 @@ export class ChartService {
           label: 'Données météo',
           borderColor: 'darkgray',
           borderWidth: 2,
+          spanGaps: true,
+          autoSkip: false,
           fill: false,
           tension: 0.4,
           data: [1, 5, 12, 17, 12, 30, 35, 30, 25, 17, 12, 3],
@@ -30,71 +32,98 @@ export class ChartService {
     if (hcConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
-        borderRadius: 5,
         label: 'Heures creuses',
-        backgroundColor: '#0DB58D',
+        // backgroundColor: '#0DB58D',
         data: [
-          hpConsumptions.find(item => item.monthNumber === 1)?.value,
-          hpConsumptions.find(item => item.monthNumber === 2)?.value,
-          hpConsumptions.find(item => item.monthNumber === 3)?.value,
-          hpConsumptions.find(item => item.monthNumber === 4)?.value,
-          hpConsumptions.find(item => item.monthNumber === 5)?.value,
-          hpConsumptions.find(item => item.monthNumber === 6)?.value,
-          hpConsumptions.find(item => item.monthNumber === 7)?.value,
-          hpConsumptions.find(item => item.monthNumber === 8)?.value,
-          hpConsumptions.find(item => item.monthNumber === 9)?.value,
-          hpConsumptions.find(item => item.monthNumber === 10)?.value,
-          hpConsumptions.find(item => item.monthNumber === 11)?.value,
-          hpConsumptions.find(item => item.monthNumber === 12)?.value,
+          hpConsumptions.find(item => item.monthNumber === 1)?.value?? 0,
+          hpConsumptions.find(item => item.monthNumber === 2)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 3)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 4)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 5)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 6)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 7)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 8)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 9)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 10)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 11)?.value ?? 0,
+          hpConsumptions.find(item => item.monthNumber === 12)?.value ?? 0,
         ],
-        borderColor: '#FF6C00',
+        pointStyle: 'rect',
+        borderColor:'#0DB58D',
+        minBarWidth: 48,
+        borderRadius: 5,        
+        minBarLength: 29,
+       backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+          // ctx.raw contient la valeur brute de la barre
+          return ctx.raw === 0
+            ? '#F8F6F5'  // gris léger pour les 0
+            : '#0DB58D';         
+        } 
       });
     }
 
     if (hpConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
-        borderRadius: 5,
         label: 'Heures pleines',
-        backgroundColor: '#FF6C00',
+        //  backgroundColor: '#FF6C00',
+
         data: [
-          hcConsumptions.find(item => item.monthNumber === 1)?.value,
-          hcConsumptions.find(item => item.monthNumber === 2)?.value,
-          hcConsumptions.find(item => item.monthNumber === 3)?.value,
-          hcConsumptions.find(item => item.monthNumber === 4)?.value,
-          hcConsumptions.find(item => item.monthNumber === 5)?.value,
-          hcConsumptions.find(item => item.monthNumber === 6)?.value,
-          hcConsumptions.find(item => item.monthNumber === 7)?.value,
-          hcConsumptions.find(item => item.monthNumber === 8)?.value,
-          hcConsumptions.find(item => item.monthNumber === 9)?.value,
-          hcConsumptions.find(item => item.monthNumber === 10)?.value,
-          hcConsumptions.find(item => item.monthNumber === 11)?.value,
-          hcConsumptions.find(item => item.monthNumber === 12)?.value,
-        ]
+          hcConsumptions.find(item => item.monthNumber === 1)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 2)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 3)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 4)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 5)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 6)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 7)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 8)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 9)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 10)?.value?? 0,
+          hcConsumptions.find(item => item.monthNumber === 11)?.value?? 0,
+          hcConsumptions.find(item => item.monthNumber === 12)?.value?? 0,
+        ],     
+        minBarWidth: 48,
+        borderRadius: 5, 
+        borderColor:'#FF6C00',      
+        minBarLength: 29,
+       backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+          // ctx.raw contient la valeur brute de la barre
+          return ctx.raw === 0
+            ? '#F8F6F5'  // gris léger pour les 0
+            : '#FF6C00';         
+        } 
       });
     }
 
     if (gazConsumptions.length > 0) {
       chartResult.datasets.push({
         type: 'bar',
-        borderRadius: 5,
         label: 'Gaz',
-        backgroundColor: '#00AFCB',
         data: [
-          gazConsumptions.find(item => item.monthNumber === 1)?.value,
-          gazConsumptions.find(item => item.monthNumber === 2)?.value,
-          gazConsumptions.find(item => item.monthNumber === 3)?.value,
-          gazConsumptions.find(item => item.monthNumber === 4)?.value,
-          gazConsumptions.find(item => item.monthNumber === 5)?.value,
-          gazConsumptions.find(item => item.monthNumber === 6)?.value,
-          gazConsumptions.find(item => item.monthNumber === 7)?.value,
-          gazConsumptions.find(item => item.monthNumber === 8)?.value,
-          gazConsumptions.find(item => item.monthNumber === 9)?.value,
-          gazConsumptions.find(item => item.monthNumber === 10)?.value,
-          gazConsumptions.find(item => item.monthNumber === 11)?.value,
-          gazConsumptions.find(item => item.monthNumber === 12)?.value,
+          gazConsumptions.find(item => item.monthNumber === 1)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 2)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 3)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 4)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 5)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 6)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 7)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 8)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 9)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 10)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 11)?.value ?? 0,
+          gazConsumptions.find(item => item.monthNumber === 12)?.value ?? 0,
         ],
-        borderColor: '#00AFCB'
+        minBarWidth: 48,
+        borderRadius: 5,   
+        borderColor: '#00AFCB',     
+        minBarLength: 29,
+        // on précise ici le typage du ctx
+        backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+          // ctx.raw contient la valeur brute de la barre
+          return ctx.raw === 0
+            ? '#F8F6F5'  // gris léger pour les 0
+            : '#00AFCB';         // bleu gaz pour les autres
+        } 
       });
     }
 

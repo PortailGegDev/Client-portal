@@ -225,7 +225,7 @@ export class ChartOptionsService {
                     display: false,
                 },
                 y: {
-                    display: false
+                    display: false,
                 },
             },
             layout: {
@@ -252,14 +252,16 @@ export class ChartOptionsService {
                 ticks: { color: 'gray' },
                 grid: { display: false },
                 barPercentage: 0.5,
-                categoryPercentage: 0.6
+                categoryPercentage: 0.6,
+                autoSkip: false,
             },
             y: {
                 stacked: stacked,
+                beginAtZero: true,
                 ticks: { color: 'gray' },
                 grid: { color: '#f3f3f3', drawBorder: false },
-                max: this.getYMaxValue(maxConsumptionValue)
-            }
+                max: this.getYMaxValue(maxConsumptionValue),
+            },
         };
     }
 
@@ -282,38 +284,56 @@ export class ChartOptionsService {
 
     private getLegendOptions(): any {
         return {
-            position: 'bottom', // Place la légende en bas
-            align: 'end', // Aligne à gauche pour garder une disposition en ligne
-            onClick: () => { },
-            labels: {
-                generateLabels: (chart: Chart) => {
-                    // Récupère les légendes existantes
-                    const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-
-                    // Ajoute un "titre" comme premier élément
-                    return [
-                        {
-                            text: 'LEGENDE :',
-                            fillStyle: 'transparent',
-                            strokeStyle: 'transparent',
-                            hidden: false
-                        },
-                        ...defaultLabels // Ajoute les autres légendes
-                    ];
+          position: 'bottom',
+          align: 'end',
+          onClick: () => {},
+          labels: {
+            generateLabels: (chart: Chart) => {
+              const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+      
+              const dynamicLabels = defaultLabels.map(label => {
+                // si datasetIndex est ∅, on renvoie juste le label sans toucher aux couleurs
+                if (label.datasetIndex == null) {
+                  return label;
+                }
+      
+                const ds = chart.data.datasets[label.datasetIndex];
+                const hasNonZero = (ds.data as number[]).some(v => v !== 0);
+                const color = hasNonZero ? (ds.borderColor as string) : '#F8F6F5';
+      
+                return {
+                  ...label,
+                  fillStyle: color,
+                  strokeStyle: color,
+                  textColor: color
+                };
+              });
+      
+              return [
+                {
+                  text: 'LÉGENDE :',
+                  fillStyle: 'transparent',
+                  strokeStyle: 'transparent',
+                  textColor: 'black',
+                  hidden: false
                 },
-                boxWidth: 10, // Réduit la taille des icônes des légendes
-                padding: 15,
-                color: 'black',
-            }
+                ...dynamicLabels
+              ];
+            },
+            boxWidth: 10,
+            padding: 15
+          }
         };
-    }
+      }
+      
+      
 
     private getDatasetOptions(): any {
         return {
             anchor: 'end',
             align: 'top',
             color: 'black',
-            font: { weight: 'bold', size: 13 }
+            font: { weight: 'bold', size: 13 },
         };
     }
 
