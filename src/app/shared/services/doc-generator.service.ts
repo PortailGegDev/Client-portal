@@ -74,8 +74,8 @@ Ce contrat a été établi sur la base de ses déclarations. Pour servir et valo
         // Ajouter l'image de signature
         const maxWidth = 51;
         const maxHeight = 63;
-        const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
-        pdf.addImage(img, 'PNG', 80, 10, img.width * ratio, img.height * ratio);
+        const ratio = Math.min(maxWidth / signatureImg.width, maxHeight / signatureImg.height);
+        pdf.addImage(signatureImg, 'PNG', 100, 190, signatureImg.width * ratio, signatureImg.height * ratio); 
         
         // Pied de page
         pdf.setFontSize(8);
