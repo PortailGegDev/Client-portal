@@ -12,10 +12,11 @@ import { AppConsumptionActivationComponent } from '../activation/activation.comp
 import { ChartService } from '../../services/chart.service';
 import { Constants } from '../../../../shared/utils/constants';
 import { ChartOptionsService } from '../../services/chart-options.service';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-consumption-chart',
-  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, AppConsumptionActivationComponent],
+  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, AppConsumptionActivationComponent, DatePicker],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
@@ -25,6 +26,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
   hcConsumptions: ChartConsumption[] = [];
   hpConsumptions: ChartConsumption[] = [];
 
+  dateConsumption: Date = new Date();
   data: any = null;
   chartData: any = null;
   options: any = null;
@@ -53,7 +55,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
 
   //TEMP code à supprimer après finalisation
-
+  //#region temp code
   selectedChartData = 'Elec';
   chartDatas: any[] = [
     { name: 'ELEC', value: 1 },
@@ -73,8 +75,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
     this.initChartData();;
   }
-
+  //#endregion
   // End TEMP Code
+
 
 
   constructor(private chartService: ChartService,

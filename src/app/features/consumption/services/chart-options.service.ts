@@ -44,6 +44,9 @@ export class ChartOptionsService {
                     ...this.getDatasetOptions(),
                     formatter: (value: any, context: any) => {
 
+                        if (window.innerWidth <= 900) {
+                            return '';
+                        }
 
                         const index = context.dataIndex;
                         const datasetIndex = context.datasetIndex;
@@ -90,6 +93,10 @@ export class ChartOptionsService {
                 datalabels: {
                     ...this.getDatasetOptions(),
                     formatter: (value: any, context: any) => {
+                        
+                        if (window.innerWidth <= 900) {
+                            return '';
+                        }
 
                         const index = context.dataIndex;
                         const datasetIndex = context.datasetIndex;
@@ -138,7 +145,8 @@ export class ChartOptionsService {
                 legend: this.getLegendOptions(),
                 datalabels: {
                     ...this.getDatasetOptions(),
-                    formatter: (value: number, context: any) => {
+                    formatter: (value: number, context: any) => {                    
+
                         if (context.datasetIndex === 1) {
                             const index = context.dataIndex;
                             const total = hpValues[index] + hcValues[index];
@@ -181,9 +189,10 @@ export class ChartOptionsService {
                 datalabels: {
                     ...this.getDatasetOptions(),
                     formatter: (_: any, context: any) => {
+
                         const index = context.dataIndex;
                         const value = values[index];
-                        return value ? `${value} kWh` : '';
+                        return value && window.innerWidth > 900 ? `${value} kWh` : '';
                     }
                 }
             },
@@ -284,49 +293,47 @@ export class ChartOptionsService {
 
     private getLegendOptions(): any {
         return {
-          position: 'bottom',
-          align: 'end',
-          onClick: () => {},
-          labels: {
-            generateLabels: (chart: Chart) => {
-              const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-      
-              const dynamicLabels = defaultLabels.map(label => {
-                // si datasetIndex est ∅, on renvoie juste le label sans toucher aux couleurs
-                if (label.datasetIndex == null) {
-                  return label;
-                }
-      
-                const ds = chart.data.datasets[label.datasetIndex];
-                const hasNonZero = (ds.data as number[]).some(v => v !== 0);
-                const color = hasNonZero ? (ds.borderColor as string) : '#F8F6F5';
-      
-                return {
-                  ...label,
-                  fillStyle: color,
-                  strokeStyle: color,
-                  textColor: color
-                };
-              });
-      
-              return [
-                {
-                  text: 'LÉGENDE :',
-                  fillStyle: 'transparent',
-                  strokeStyle: 'transparent',
-                  textColor: 'black',
-                  hidden: false
+            position: 'bottom',
+            align: 'end',
+            onClick: () => { },
+            labels: {
+                generateLabels: (chart: Chart) => {
+                    const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+
+                    const dynamicLabels = defaultLabels.map(label => {
+                        // si datasetIndex est ∅, on renvoie juste le label sans toucher aux couleurs
+                        if (label.datasetIndex == null) {
+                            return label;
+                        }
+
+                        const ds = chart.data.datasets[label.datasetIndex];
+                        const hasNonZero = (ds.data as number[]).some(v => v !== 0);
+                        const color = hasNonZero ? (ds.borderColor as string) : '#F8F6F5';
+
+                        return {
+                            ...label,
+                            fillStyle: color,
+                            strokeStyle: color,
+                            textColor: color
+                        };
+                    });
+
+                    return [
+                        {
+                            text: 'LÉGENDE :',
+                            fillStyle: 'transparent',
+                            strokeStyle: 'transparent',
+                            textColor: 'black',
+                            hidden: false
+                        },
+                        ...dynamicLabels
+                    ];
                 },
-                ...dynamicLabels
-              ];
-            },
-            boxWidth: 10,
-            padding: 15
-          }
+                boxWidth: 10,
+                padding: 15
+            }
         };
-      }
-      
-      
+    }
 
     private getDatasetOptions(): any {
         return {

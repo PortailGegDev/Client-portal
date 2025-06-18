@@ -33,9 +33,8 @@ export class ChartService {
       chartResult.datasets.push({
         type: 'bar',
         label: 'Heures creuses',
-        // backgroundColor: '#0DB58D',
         data: [
-          hpConsumptions.find(item => item.monthNumber === 1)?.value?? 0,
+          hpConsumptions.find(item => item.monthNumber === 1)?.value ?? 0,
           hpConsumptions.find(item => item.monthNumber === 2)?.value ?? 0,
           hpConsumptions.find(item => item.monthNumber === 3)?.value ?? 0,
           hpConsumptions.find(item => item.monthNumber === 4)?.value ?? 0,
@@ -49,16 +48,16 @@ export class ChartService {
           hpConsumptions.find(item => item.monthNumber === 12)?.value ?? 0,
         ],
         pointStyle: 'rect',
-        borderColor:'#0DB58D',
+        borderColor: '#0DB58D',
         minBarWidth: 48,
-        borderRadius: 5,        
+        borderRadius: 8,
         minBarLength: 29,
-       backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+        backgroundColor: (ctx: ScriptableContext<'bar'>) => {
           // ctx.raw contient la valeur brute de la barre
           return ctx.raw === 0
             ? '#F8F6F5'  // gris léger pour les 0
-            : '#0DB58D';         
-        } 
+            : '#0DB58D';
+        }
       });
     }
 
@@ -66,8 +65,6 @@ export class ChartService {
       chartResult.datasets.push({
         type: 'bar',
         label: 'Heures pleines',
-        //  backgroundColor: '#FF6C00',
-
         data: [
           hcConsumptions.find(item => item.monthNumber === 1)?.value ?? 0,
           hcConsumptions.find(item => item.monthNumber === 2)?.value ?? 0,
@@ -78,20 +75,20 @@ export class ChartService {
           hcConsumptions.find(item => item.monthNumber === 7)?.value ?? 0,
           hcConsumptions.find(item => item.monthNumber === 8)?.value ?? 0,
           hcConsumptions.find(item => item.monthNumber === 9)?.value ?? 0,
-          hcConsumptions.find(item => item.monthNumber === 10)?.value?? 0,
-          hcConsumptions.find(item => item.monthNumber === 11)?.value?? 0,
-          hcConsumptions.find(item => item.monthNumber === 12)?.value?? 0,
-        ],     
+          hcConsumptions.find(item => item.monthNumber === 10)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 11)?.value ?? 0,
+          hcConsumptions.find(item => item.monthNumber === 12)?.value ?? 0,
+        ],
         minBarWidth: 48,
-        borderRadius: 5, 
-        borderColor:'#FF6C00',      
+        borderRadius: 8,
+        borderColor: '#FF6C00',
         minBarLength: 29,
-       backgroundColor: (ctx: ScriptableContext<'bar'>) => {
+        backgroundColor: (ctx: ScriptableContext<'bar'>) => {
           // ctx.raw contient la valeur brute de la barre
           return ctx.raw === 0
             ? '#F8F6F5'  // gris léger pour les 0
-            : '#FF6C00';         
-        } 
+            : '#FF6C00';
+        }
       });
     }
 
@@ -114,16 +111,16 @@ export class ChartService {
           gazConsumptions.find(item => item.monthNumber === 12)?.value ?? 0,
         ],
         minBarWidth: 48,
-        borderRadius: 5,   
-        borderColor: '#00AFCB',     
+        borderRadius: 8,
+        borderColor: '#00AFCB',
         minBarLength: 29,
-        // on précise ici le typage du ctx
         backgroundColor: (ctx: ScriptableContext<'bar'>) => {
           // ctx.raw contient la valeur brute de la barre
           return ctx.raw === 0
             ? '#F8F6F5'  // gris léger pour les 0
             : '#00AFCB';         // bleu gaz pour les autres
-        } 
+
+        },
       });
     }
 
@@ -142,13 +139,15 @@ export class ChartService {
           {
             type: 'bar',
             label: 'Heures creuses',
+            borderColor: '#0DB58D',
             backgroundColor: '#0DB58D',
             data: years.map(y => groppedConsumptionsByYear[y].hp) // Somme des valeurs HP par année
           },
           {
             type: 'bar',
-            borderRadius: 5,
+            borderRadius: 8,
             label: 'Heures pleines',
+            borderColor: '#FF6C00',
             backgroundColor: '#FF6C00',
             data: years.map(y => groppedConsumptionsByYear[y].hc) // Somme des valeurs HC par année
           }
@@ -162,6 +161,8 @@ export class ChartService {
         {
           type: 'bar',
           label: 'Gaz',
+          borderRadius: 8,
+          borderColor: '#00AFCB',
           backgroundColor: '#00AFCB',
           data: years.map(y => groppedConsumptionsByYear[y].value) // Somme des valeurs HP par année
         }

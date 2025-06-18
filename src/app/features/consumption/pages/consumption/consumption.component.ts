@@ -98,6 +98,9 @@ export class AppConsumptionComponent {
             Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 5, value: 320, year: 2025
           });
 
+          consumptions?.push({
+            Energy: "02", date: new Date('2025-05-22T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 12, value: 320, year: 2022
+          });
 
         this.consumptions.set(consumptions);
 

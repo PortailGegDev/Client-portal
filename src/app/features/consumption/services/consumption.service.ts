@@ -40,7 +40,7 @@ export class ConsumptionService {
               year: dateConsumption!.getFullYear(),
               value: value,
               idSeasonal: consumption.IdSeasonal,
-              Energy:consumption.Energy
+              Energy: consumption.Energy
             };
 
             chartConsumptions.push(chartConsumption);
@@ -59,7 +59,7 @@ export class ConsumptionService {
         return consumptionsData
           .map(consumptions => {
             const dateConsumption = convertSAPDateToTsDate(consumptions.MeterReadingDate);
-            
+
             // Filtrer les consommations invalides directement
             if (!dateConsumption) {
               return null;

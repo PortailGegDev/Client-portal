@@ -12,6 +12,8 @@
 
             <p-selectbutton [options]="chartDatas" [(ngModel)]="selectedChartData" [multiple]="false" optionLabel="name"
                 optionValue="value" (onOptionClick)="onOptionDataClick($event)" />
+
+            <p-datepicker [(ngModel)]="dateConsumption" view="year" dateFormat="yy" showIcon [appendTo]="'body'"/>
         </div>
 
         <div class="grid-item-white mb-3 gap-2" style="display: flex; justify-content: end;">
@@ -57,7 +59,7 @@
         </div>
 
 
-        <p-chart type="bar" [data]="chartData" [options]="options" class="h-[30rem]"/>
+        <p-chart type="bar" [data]="chartData" [options]="options" class="h-[30rem]" />
         <p class="consumption-info">
             <span class="info-icon">i</span>
             Les données disponibles dans le graphique pouvent être estimées, réelles ou recalculées. Estimations en
