@@ -78,7 +78,7 @@
 
           @if(!isPaymentMethodP && (isNonSoldee(invoice) || isPartiellementSoldee(invoice))){
           <p-tag severity="warn" [value]="getInvoiceStatus(invoice)" />
-          {{ invoice.TotalUnpaidHT }} € Avant le {{ getPaymentTermCustomer(invoice) | date:'dd/MM/yyyy' }}
+          {{ invoice.TotalUnpaidTTC }} € Avant le {{ getPaymentTermCustomer(invoice) | date:'dd/MM/yyyy' }}
           }
 
           @if(isTotalementSoldee(invoice)) {

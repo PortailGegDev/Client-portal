@@ -9,13 +9,12 @@
         <div class="grid-item-white mb-3">
             <p-selectbutton [options]="chartOptions" [(ngModel)]="selectedChartOptionsValue" [multiple]="false"
                 optionLabel="name" optionValue="value" (onOptionClick)="onOptionClick($event)" />
-
-            <p-selectbutton [options]="chartDatas" [(ngModel)]="selectedChartData" [multiple]="false" optionLabel="name"
-                optionValue="value" (onOptionClick)="onOptionDataClick($event)" />
-
-            <p-datepicker [(ngModel)]="dateConsumption" view="year" dateFormat="yy" showIcon [appendTo]="'body'"/>
+            &nbsp;
+            <p-datepicker [(ngModel)]="dateConsumption" view="year" dateFormat="yy" showIcon [appendTo]="'body'" />
         </div>
 
+        <!-- TODO : A décommenter quand on a les données nécessaire pour affichier les conso en euro  -->
+        @if(false){
         <div class="grid-item-white mb-3 gap-2" style="display: flex; justify-content: end;">
             <span>Affichage</span>
             &nbsp;
@@ -25,6 +24,7 @@
             <p-select [options]="typeDataChart" [(ngModel)]="selectedTypeDataChart" optionLabel="name"
                 placeholder="Sélectionnez" class="w-full md:w-56" [appendTo]="'body'" />
         </div>
+        }
     </div>
 
     @switch (selectedChartOptionsValue) {
@@ -54,7 +54,11 @@
         <div class="grid-container grid-1">
             <div class="grid-item-white" style="display: flex; justify-content: space-between; ">
                 <label>KWh</label>
+
+                <!-- TODO : A décommenter lorsqu'on aura le graph de données meteos -->
+                @if(false){
                 <label style="justify-content:end;">Temp. °C</label>
+                }
             </div>
         </div>
 

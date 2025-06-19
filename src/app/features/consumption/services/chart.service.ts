@@ -14,18 +14,20 @@ export class ChartService {
     let chartResult: any = {
       labels: shortFrenchMonth,
       datasets: [
-        {
-          type: 'line',
-          label: 'Données météo',
-          borderColor: 'darkgray',
-          borderWidth: 2,
-          spanGaps: true,
-          autoSkip: false,
-          fill: false,
-          tension: 0.4,
-          data: [1, 5, 12, 17, 12, 30, 35, 30, 25, 17, 12, 3],
-          yAxisID: 'y1' // Lie la courbe à l'axe `y1`
-        }
+        // TODO : Cacher les données méteos : en attendant les informations ou les apis liées
+        // A décommenter et à mettre en plcae des données reçu dans "data"
+        // {
+        //   type: 'line',
+        //   label: 'Données météo',
+        //   borderColor: 'darkgray',
+        //   borderWidth: 2,
+        //   spanGaps: true,
+        //   autoSkip: false,
+        //   fill: false,
+        //   tension: 0.4,
+        //   data: [1, 5, 12, 17, 12, 30, 35, 30, 25, 17, 12, 3],
+        //   yAxisID: 'y1' // Lie la courbe à l'axe `y1`
+        // }
       ]
     };
 

@@ -13,10 +13,11 @@ import { ChartService } from '../../services/chart.service';
 import { Constants } from '../../../../shared/utils/constants';
 import { ChartOptionsService } from '../../services/chart-options.service';
 import { DatePicker } from 'primeng/datepicker';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-consumption-chart',
-  imports: [FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, AppConsumptionActivationComponent, DatePicker],
+  imports: [CommonModule, FormsModule, PanelModule, ChartModule, SelectButtonModule, SelectModule, ButtonModule, AppConsumptionActivationComponent, DatePicker],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
@@ -34,8 +35,9 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   selectedChartOptionsValue: number = 3;
   chartOptions: any[] = [
-    { name: 'Heure', value: 1 },
-    { name: 'Jour', value: 2 },
+    // TODO : A décommenter lors d'avoir les informations nécessaire pour le faire
+    // { name: 'Heure', value: 1 },
+    // { name: 'Jour', value: 2 },
     { name: 'Mois', value: 3 },
     { name: 'Année', value: 4 }
   ];
@@ -52,33 +54,6 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     { name: 'Période précédente', code: 'PP' },
     { name: 'Evénements', code: 'EVENT' }
   ];
-
-
-  //TEMP code à supprimer après finalisation
-  //#region temp code
-  selectedChartData = 'Elec';
-  chartDatas: any[] = [
-    { name: 'ELEC', value: 1 },
-    { name: 'GAZ', value: 2 }
-  ];
-
-  onOptionDataClick(event: any) {
-    if (event.index === 0) {
-      this.isElectricityEnergyType = true;
-      this.consumptions = this.consumptions?.filter(item => item.Energy === '01') ?? [];
-
-
-    } else {
-      this.isElectricityEnergyType = false;
-      this.consumptions = this.consumptions?.filter(item => item.Energy === '02') ?? [];
-    }
-
-    this.initChartData();;
-  }
-  //#endregion
-  // End TEMP Code
-
-
 
   constructor(private chartService: ChartService,
     private chartOptionsService: ChartOptionsService) {
@@ -136,17 +111,18 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     this.chartData = null;
     this.options = null;
 
-    if (event.index === 2) {
-      this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, this.consumptions!);
+    if (event.option.value === 3) {
 
       if (this.isElectricityEnergyType) {
+        this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, []);
         this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
       } else {
+        this.chartData = this.chartService.initChartConsumptionDataByMonth([], [], this.consumptions!);
         this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }
 
-    if (event.index === 3) {
+    if (event.option.value === 4) {
       let groupedConsumptionsByYear: any;
 
       if (this.isElectricityEnergyType) {

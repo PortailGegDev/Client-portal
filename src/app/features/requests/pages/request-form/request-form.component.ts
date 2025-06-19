@@ -105,10 +105,10 @@ export class AppRequestsFormComponent implements OnInit {
       reclamationMotif: [''],
       message: [''],
       refPCE: [''],
-      rescissionStreetNumber: [''],
-      rescissionStreet: [''],
-      rescissionPostalCode: [''],
-      rescissionCity: [''],
+      rescissionStreetNumber: [{ value: '', disabled: true }, Validators.required],
+      rescissionStreet: [{ value: '', disabled: true }, Validators.required],
+      rescissionPostalCode: [{ value: '', disabled: true }, Validators.required],
+      rescissionCity: [{ value: '', disabled: true }, Validators.required],
       rescissionInvoiceStreetNumber: [''],
       rescissionInvoiceStreet: [''],
       rescissionInvoicePostalCode: [''],
@@ -163,10 +163,19 @@ export class AppRequestsFormComponent implements OnInit {
     }
 
     this.selectedContractForm?.valueChanges.subscribe((value: any) => {
-      if (value.length > 0) {
-        this.shouldShowGasReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.GAZ);
-        this.shouldShowElectricityReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.ELECTRICITY);
+
+      if (value.length === 0) {
+        this.clearRescissionAddress();
       }
+
+      if (!this.isRescission) {
+        return;
+      }
+
+      this.shouldShowGasReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.GAZ);
+      this.shouldShowElectricityReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.ELECTRICITY);
+
+      this.initRescissionAddress(); // remplir les champs
     });
   }
 
@@ -177,6 +186,25 @@ export class AppRequestsFormComponent implements OnInit {
       this.firstNameForm.setValue(user.firstname);
       this.emailForm.setValue(user.email);
     }
+  }
+
+  initRescissionAddress() {
+    const selectedContracts = this.selectedContractForm?.value;
+
+    if (selectedContracts && selectedContracts.length > 0) {
+      const contract = selectedContracts[0];
+      this.rescissionStreetNumberForm.setValue(contract.HouseNumber);
+      this.rescissionStreetForm.setValue(contract.StreetName);
+      this.rescissionPostalCodeForm.setValue(contract.PostalCode);
+      this.rescissionCityForm.setValue(contract.CityName);
+    }
+  }
+
+  clearRescissionAddress() {
+    this.rescissionStreetNumberForm.reset();
+    this.rescissionStreetForm.reset();
+    this.rescissionPostalCodeForm.reset();
+    this.rescissionCityForm.reset();
   }
 
   submitDemande() {

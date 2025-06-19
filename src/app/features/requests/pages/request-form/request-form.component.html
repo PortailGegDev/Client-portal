@@ -160,6 +160,70 @@
                 }
 
                 @if(isRescission){
+
+                    <h6 class="mt-3">Résiliation</h6>
+                    <div class="row mt-3">
+                        <div class="form-group col">
+                            <span class="label" for="rescissionDepartureDate">Date de départ</span>
+                            <p-datepicker formControlName="rescissionDepartureDate" [appendTo]="'body'"
+                                [style]="{'width':'100%'}" />
+                            @if(rescissionDepartureDateForm?.invalid && (rescissionDepartureDateForm?.touched ||
+                            rescissionDepartureDateForm?.dirty)){
+                            <small class="error">La date de départ est obligatoire.</small>
+                            }
+                        </div>
+
+                        <div class="form-group col">
+                            <span class="label" for="selectedContract">Contrat à résilier</span>
+                            <p-multiselect [options]="contracts()" placeholder="Sélectionnez" optionLabel="TypeEtAdress"
+                                formControlName="selectedContract" [maxSelectedLabels]="1" [appendTo]="'body'"
+                                [selectedItemsLabel]="'{0} élèments sélectionnés'" styleClass="w-full md:w-80">
+    
+                                <ng-template let-contract pTemplate="item">
+                                    {{getContractLabel(contract)}}
+                                </ng-template>
+    
+                                <ng-template let-selectedContract pTemplate="selectedItems">
+                                    {{getSelectedContractLabel()}}
+                                </ng-template>
+    
+                            </p-multiselect>
+    
+                            @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
+                            selectedContractForm?.dirty)){
+                            <small class="error">Le contrat à résilier est obligatoire.</small>
+                            }
+                        </div>
+                    </div>
+    
+                    @if (selectedContractForm.value.length > 0) {
+    
+                    <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
+    
+                    <div class="row mt-3">
+                        @if (shouldShowElectricityReading) {
+    
+                        <div class="form-group col">
+                            <span class="label" for="hpReading">Relevé d’électricité Heures Pleines</span>
+                            <p-inputnumber inputId="integeronly" formControlName="hpReading" />
+                        </div>
+    
+                        <div class="form-group col">
+                            <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
+                            <p-inputnumber inputId="integeronly" formControlName="hcReading" />
+                        </div>
+    
+                        }
+    
+                        @if (shouldShowGasReading) {
+                        <div class="form-group col">
+                            <span class="label" for="gazReading">Relevé Gaz</span>
+                            <p-inputnumber inputId="integeronly" formControlName="gazReading" />
+                        </div>
+                        }
+                    </div>
+                    }
+
                 <h6 class="mt-3">Adresse du logement à résilier</h6>
 
                 <div class="row mt-3">
@@ -241,69 +305,6 @@
                         }
                     </div>
                 </div>
-
-                <h6 class="mt-3">Résiliation</h6>
-                <div class="row mt-3">
-                    <div class="form-group col">
-                        <span class="label" for="rescissionDepartureDate">Date de départ</span>
-                        <p-datepicker formControlName="rescissionDepartureDate" [appendTo]="'body'"
-                            [style]="{'width':'100%'}" />
-                        @if(rescissionDepartureDateForm?.invalid && (rescissionDepartureDateForm?.touched ||
-                        rescissionDepartureDateForm?.dirty)){
-                        <small class="error">La date de départ est obligatoire.</small>
-                        }
-                    </div>
-
-                    <div class="form-group col">
-                        <span class="label" for="selectedContract">Contrat à résilier</span>
-                        <p-multiselect [options]="contracts()" placeholder="Sélectionnez" optionLabel="TypeEtAdress"
-                            formControlName="selectedContract" [maxSelectedLabels]="1" [appendTo]="'body'"
-                            [selectedItemsLabel]="'{0} élèments sélectionnés'" styleClass="w-full md:w-80">
-
-                            <ng-template let-contract pTemplate="item">
-                                {{getContractLabel(contract)}}
-                            </ng-template>
-
-                            <ng-template let-selectedContract pTemplate="selectedItems">
-                                {{getSelectedContractLabel()}}
-                            </ng-template>
-
-                        </p-multiselect>
-
-                        @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
-                        selectedContractForm?.dirty)){
-                        <small class="error">Le contrat à résilier est obligatoire.</small>
-                        }
-                    </div>
-                </div>
-
-                @if (selectedContractForm.value.length > 0) {
-
-                <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
-
-                <div class="row mt-3">
-                    @if (shouldShowElectricityReading) {
-
-                    <div class="form-group col">
-                        <span class="label" for="hpReading">Relevé d’électricité Heures Pleines</span>
-                        <p-inputnumber inputId="integeronly" formControlName="hpReading" />
-                    </div>
-
-                    <div class="form-group col">
-                        <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
-                        <p-inputnumber inputId="integeronly" formControlName="hcReading" />
-                    </div>
-
-                    }
-
-                    @if (shouldShowGasReading) {
-                    <div class="form-group col">
-                        <span class="label" for="gazReading">Relevé Gaz</span>
-                        <p-inputnumber inputId="integeronly" formControlName="gazReading" />
-                    </div>
-                    }
-                </div>
-                }
                 }
 
                 @if(isRelocation){

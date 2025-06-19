@@ -93,7 +93,7 @@ export class ChartOptionsService {
                 datalabels: {
                     ...this.getDatasetOptions(),
                     formatter: (value: any, context: any) => {
-                        
+
                         if (window.innerWidth <= 900) {
                             return '';
                         }
@@ -145,7 +145,7 @@ export class ChartOptionsService {
                 legend: this.getLegendOptions(),
                 datalabels: {
                     ...this.getDatasetOptions(),
-                    formatter: (value: number, context: any) => {                    
+                    formatter: (value: number, context: any) => {
 
                         if (context.datasetIndex === 1) {
                             const index = context.dataIndex;
@@ -277,17 +277,19 @@ export class ChartOptionsService {
     private getScalesOptionsWithMeteo(stacked: boolean, maxConsumptionValue: number): any {
         return {
             ...this.getScalesOptions(stacked, maxConsumptionValue),
-            y1: {
-                position: 'right',
-                grid: {
-                    drawOnChartArea: false
-                },
-                ticks: {
-                    color: 'gray'
-                },
-                min: 0,
-                max: 50
-            }
+            // TODO : Cacher les données méteos : en attendant les informations ou les apis liées
+            // A décommenter pour mettre en place l'axe y1 liée au température "°c" pour les données meteo
+            // y1: {
+            //     position: 'right',
+            //     grid: {
+            //         drawOnChartArea: false
+            //     },
+            //     ticks: {
+            //         color: 'gray'
+            //     },
+            //     min: 0,
+            //     max: 50
+            // }
         };
     }
 
