@@ -9,7 +9,7 @@
         <div class="grid-item" style="background-color: #ffffff;">
             <p style="font-size: 11px; color: rgba(84, 78, 78, 0.70);">SUR LES 4 DERNIERS MOIS</p>
 
-            @if(basicData && basicOptions){
+            @if((basicData || basicData !== {}) && basicOptions){
             <p-chart class="home-chart" type="bar" [data]="basicData" [options]="basicOptions" />
             <p class="consumption-info">
                 <span class="info-icon">i</span>

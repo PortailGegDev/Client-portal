@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Invoice } from '../../../../shared/models/invoice-model';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';

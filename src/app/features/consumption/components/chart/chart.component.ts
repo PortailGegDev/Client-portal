@@ -72,7 +72,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   ngOnChanges() {
     if (this.consumptions) {
-      this.isElectricityEnergyType = this.consumptions[0].Energy === Constants.EnergyType.ELECTRICITY;
+      this.isElectricityEnergyType = this.consumptions[0].energy === Constants.EnergyType.ELECTRICITY;
       this.initChartData();
     }
   }
