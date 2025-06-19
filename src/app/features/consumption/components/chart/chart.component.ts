@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ChartConsumption } from '../../../../shared/models/chart-consumption.model';
 import { PanelModule } from 'primeng/panel';
 import { ChartModule } from 'primeng/chart';
@@ -23,11 +23,12 @@ import { CommonModule } from '@angular/common';
 })
 export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() consumptions: ChartConsumption[] | null = null;
+  @Output() onYearChanged: EventEmitter<number> = new EventEmitter<number>();
 
   hcConsumptions: ChartConsumption[] = [];
   hpConsumptions: ChartConsumption[] = [];
 
-  dateConsumption: Date = new Date();
+  selectedDateConsumption: Date = new Date();
   data: any = null;
   chartData: any = null;
   options: any = null;
@@ -72,7 +73,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   ngOnChanges() {
     if (this.consumptions) {
-      this.isElectricityEnergyType = this.consumptions[0].energy === Constants.EnergyType.ELECTRICITY;
+      this.isElectricityEnergyType = this.consumptions[0]?.energy === Constants.EnergyType.ELECTRICITY;
       this.initChartData();
     }
   }
@@ -136,6 +137,10 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
         this.chartOptionsService.initChartConsumptionByYearGaz(groupedConsumptionsByYear);
       }
     }
+  }
+
+  onChangeYear() {
+    this.onYearChanged.emit(this.selectedDateConsumption.getFullYear());
   }
 
   private groupConsumptionByYearElec(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[]) {

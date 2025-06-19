@@ -9,7 +9,7 @@
 
   <div class="grid-container grid-1 mb-3">
     <div class="grid-item">
-      <app-consumption-chart [consumptions]="consumptions()" />
+      <app-consumption-chart [consumptions]="consumptions()" (onYearChanged)="onYearChanged($event)"/>
     </div>
   </div>
 

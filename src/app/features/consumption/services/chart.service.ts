@@ -118,7 +118,7 @@ export class ChartService {
         minBarLength: 29,
         backgroundColor: (ctx: ScriptableContext<'bar'>) => {
           // ctx.raw contient la valeur brute de la barre
-          return ctx.raw === 0
+          return (!ctx || ctx.raw === 0)
             ? '#F8F6F5'  // gris léger pour les 0
             : '#00AFCB';         // bleu gaz pour les autres
 

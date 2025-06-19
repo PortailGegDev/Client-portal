@@ -27,79 +27,79 @@ export class AppConsumptionComponent {
       const selectedContract = this.contractService.selectedContract();
 
       if (selectedContract) {
-        this.loadConsumption(selectedContract.ContractISU);
+        this.loadConsumption(selectedContract.ContractISU, (new Date).getFullYear());
       }
     });
   }
 
-  loadConsumption(contractISU: string) {
-    this.consumptionService.getChartConsumptionData(contractISU).subscribe({
+  loadConsumption(contractISU: string, year: number) {
+    this.consumptionService.getChartConsumptionData(contractISU, year).subscribe({
       next: (consumptions) => {
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-06-24'), idSeasonal: 'HP', monthNumber: 6, value: 180, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-06-24'), idSeasonal: 'HP', monthNumber: 6, value: 180, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-02-24'), idSeasonal: 'HP', monthNumber: 2, value: 200, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-02-24'), idSeasonal: 'HP', monthNumber: 2, value: 200, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-03-24'), idSeasonal: 'HP', monthNumber: 3, value: 198, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-03-24'), idSeasonal: 'HP', monthNumber: 3, value: 198, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 4, value: 165, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 4, value: 165, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 5, value: 320, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HP', monthNumber: 5, value: 320, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 6, value: 200, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 6, value: 200, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 2, value: 63, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 2, value: 63, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 3, value: 120, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 3, value: 120, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 4, value: 88, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 4, value: 88, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "01", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 5, value: 90, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "01", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'HC', monthNumber: 5, value: 90, year: 2025
+        // });
 
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 6, value: 180, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-06-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 6, value: 180, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 2, value: 200, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-02-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 2, value: 200, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 1, value: 198, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-03-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 1, value: 198, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 4, value: 165, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-04-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 4, value: 165, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 5, value: 320, year: 2025
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-05-24T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 5, value: 320, year: 2025
+        // });
 
-          // consumptions?.push({
-          //   Energy: "02", date: new Date('2025-05-22T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 12, value: 320, year: 2022
-          // });
+        // consumptions?.push({
+        //   Energy: "02", date: new Date('2025-05-22T01:00:00+0100'), idSeasonal: 'CONSO_GAZ', monthNumber: 12, value: 320, year: 2022
+        // });
 
         this.consumptions.set(consumptions);
 
@@ -108,5 +108,9 @@ export class AppConsumptionComponent {
         console.error("Erreur lors du chargement des données de consommation:", error);
       },
     });
+  }
+
+  onYearChanged(year: number) {
+    this.loadConsumption(this.contractService.selectedContract()!.ContractISU, year);
   }
 }

@@ -13,8 +13,13 @@ export class ConsumptionService {
 
   constructor(private consumptionHttpService: ConsumptionHttpService) { }
 
-  getChartConsumptionData(contractISU: string): Observable<ChartConsumption[]> {
-    return this.consumptionHttpService.fetchConsumptionData(contractISU)
+  getChartConsumptionData(contractISU: string, year: number): Observable<ChartConsumption[]> {
+    const startDate = new Date(year, 0, 1);
+    const endDate = new Date(year, 11, 31);
+
+    const filter = `and MeterReadingDate ge datetime'${startDate.toISOString().slice(0, 19)}' and MeterReadingDate le datetime'${endDate.toISOString().slice(0, 19)}'`
+
+    return this.consumptionHttpService.fetchConsumptionDataByYear(contractISU, filter)
       .pipe(
         map((consumptionsData: any[]) => {
           let chartConsumptions: ChartConsumption[] = [];
