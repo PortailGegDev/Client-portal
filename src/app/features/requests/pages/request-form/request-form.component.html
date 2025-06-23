@@ -175,19 +175,19 @@
 
                         <div class="form-group col">
                             <span class="label" for="selectedContract">Contrat à résilier</span>
-                            <p-multiselect [options]="contracts()" placeholder="Sélectionnez" optionLabel="TypeEtAdress"
-                                formControlName="selectedContract" [maxSelectedLabels]="1" [appendTo]="'body'"
-                                [selectedItemsLabel]="'{0} élèments sélectionnés'" styleClass="w-full md:w-80">
+                            <p-select [options]="contracts()" placeholder="Sélectionnez" 
+                                formControlName="selectedContract" [appendTo]="'body'"
+                                styleClass="w-full md:w-80">
     
-                                <ng-template let-contract pTemplate="item">
+                                <ng-template let-contract #item>
                                     {{getContractLabel(contract)}}
                                 </ng-template>
     
-                                <ng-template let-selectedContract pTemplate="selectedItems">
+                                <ng-template let-selectedContract #selectedItem >
                                     {{getSelectedContractLabel()}}
                                 </ng-template>
     
-                            </p-multiselect>
+                            </p-select>
     
                             @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
                             selectedContractForm?.dirty)){

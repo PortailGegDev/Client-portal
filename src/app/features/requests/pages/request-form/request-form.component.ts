@@ -17,6 +17,9 @@ import { AppRequestsRequestSendedComponent } from '../../components/request-send
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { AppRequestsHighlightComponent } from '../../components/highlight/highlight.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { RequestService } from '../../../../shared/services/request.service';
+import { RequestRecission } from '../../../../shared/models/request-rescission.model';
+import { Address } from '../../../../shared/models/address.model';
 
 @Component({
   selector: 'app-requests-form-rescission',
@@ -41,6 +44,7 @@ export class AppRequestsFormComponent implements OnInit {
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
   get emailForm(): any { return this.form.get('email'); }
+  get phoneForm(): any { return this.form.get('phone'); }
   get refClientForm(): any { return this.form.get('clientRef'); }
   get addressForm(): any { return this.form.get('address'); }
   get postalCodeForm(): any { return this.form.get('postalCode'); }
@@ -77,7 +81,8 @@ export class AppRequestsFormComponent implements OnInit {
   constructor(private router: Router,
     private authService: AuthService, private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private requestService: RequestService) {
 
     this.requestType = this.activatedRoute.snapshot.url[this.activatedRoute.snapshot.url.length - 1].path;
 
@@ -122,7 +127,7 @@ export class AppRequestsFormComponent implements OnInit {
       tarif: [''],
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
-      selectedContract: [[]],
+      selectedContract: [''],
       relocationAdresseNouveauLogement: ['']
     });
 
@@ -172,8 +177,8 @@ export class AppRequestsFormComponent implements OnInit {
         return;
       }
 
-      this.shouldShowGasReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.GAZ);
-      this.shouldShowElectricityReading = value.some((item: any) => item.BusinessSector === Constants.EnergyType.ELECTRICITY);
+      this.shouldShowGasReading = value.BusinessSector === Constants.EnergyType.GAZ;
+      this.shouldShowElectricityReading = value.BusinessSector === Constants.EnergyType.ELECTRICITY;
 
       this.initRescissionAddress(); // remplir les champs
     });
@@ -191,12 +196,11 @@ export class AppRequestsFormComponent implements OnInit {
   initRescissionAddress() {
     const selectedContracts = this.selectedContractForm?.value;
 
-    if (selectedContracts && selectedContracts.length > 0) {
-      const contract = selectedContracts[0];
-      this.rescissionStreetNumberForm.setValue(contract.HouseNumber);
-      this.rescissionStreetForm.setValue(contract.StreetName);
-      this.rescissionPostalCodeForm.setValue(contract.PostalCode);
-      this.rescissionCityForm.setValue(contract.CityName);
+    if (selectedContracts) {
+      this.rescissionStreetNumberForm.setValue(selectedContracts.HouseNumber);
+      this.rescissionStreetForm.setValue(selectedContracts.StreetName);
+      this.rescissionPostalCodeForm.setValue(selectedContracts.PostalCode);
+      this.rescissionCityForm.setValue(selectedContracts.CityName);
     }
   }
 
@@ -211,9 +215,41 @@ export class AppRequestsFormComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    
+    if (this.isRescission) {
+      this.requestService.createRescissionRequest(this.getRescissionFormDate()).subscribe({
+        next: (response: any) => {
+          this.requestSended = true;
+        },
+        error: (error) => {
+          console.error(`erreur lors d'envoie de demande`, error);
+        }
+      });
+    }
+  }
 
-    console.log(this.form.value)
-    this.requestSended = true;
+  getRescissionFormDate(): RequestRecission {
+    return {
+      contractISU: this.selectedContractForm.value?.ContractISU,
+      firstName: this.firstNameForm.value,
+      lastName: this.lastNameForm.value,
+      email: this.emailForm.value,
+      phone: this.phoneForm.value,
+      departureDate: this.rescissionDepartureDateForm.value,
+      referenceClient: this.refClientForm.value,
+      requestReason: "",
+      dataUsageConsent: "true",
+      billingAddress: {
+        street: `${this.rescissionInvoiceStreetNumberForm.value} ${this.rescissionInvoiceStreetForm.value}`,
+        postalCode: this.rescissionInvoicePostalCodeForm.value,
+        city: this.rescissionInvoiceCityForm.value
+      } as Address,
+      resiliationAddress: {
+        street: `${this.rescissionStreetNumberForm.value} ${this.rescissionStreetForm.value}`,
+        postalCode: this.rescissionPostalCodeForm.value,
+        city: this.rescissionCityForm.value,
+      } as Address
+    } as RequestRecission;
   }
 
   setControlRequired(formControlName: string) {
@@ -257,11 +293,12 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   getSelectedContractLabel(): string {
-    if (this.selectedContractForm.value.length > 0) {
-      return this.getContractLabel(this.selectedContractForm.value[0]);
+    if (this.selectedContractForm?.value) {
+      return this.getContractLabel(this.selectedContractForm.value);
     }
 
     return '';
   }
+
 }
 
