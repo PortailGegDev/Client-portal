@@ -217,6 +217,7 @@ export class AppRequestsFormComponent implements OnInit {
     }
     
     if (this.isRescission) {
+      console.log('json ', this.getRescissionFormDate())
       this.requestService.createRescissionRequest(this.getRescissionFormDate()).subscribe({
         next: (response: any) => {
           this.requestSended = true;
