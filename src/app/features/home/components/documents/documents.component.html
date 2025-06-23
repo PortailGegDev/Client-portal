@@ -40,23 +40,24 @@
                     </span>
                 </p>
 
-                @switch (lastInvoice.StatusInvoicingDocument) {
-                @case ('Non Soldée') {
+                @if (lastInvoice.StatusInvoicingDocument === 'Non Soldée' || lastInvoice.StatusInvoicingDocument === 'Partiellement soldée') {
+
                 @if(!isPaymentMethodP){
                 <button class="payment-button" (click)="payFacture(lastInvoice)">
                     <b>à payer </b>
                 </button>
                 } @else{
-                    <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
-                    (click)="downloadPDF(lastInvoice)">
-                }
-                }
-
-                @case ('Totalement Soldée') {
                 <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
                     (click)="downloadPDF(lastInvoice)">
                 }
+
+                } 
+                
+                @if (lastInvoice.StatusInvoicingDocument === 'Totalement Soldée') {
+                <img class="invoice-icon invoice-icon-download" src="/images/Icons (1).svg" alt="Télécharger"
+                    (click)="downloadPDF(lastInvoice)">
                 }
+
             </div>
         </div>
     </div>
