@@ -3,8 +3,10 @@
 <div class="card flex justify-center">
     <div class="d-flex align-items-center gap-3">
         <h5>Services souscrits</h5>
-        <span class="button-containerr">Découvrir d'autres services</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+        <a (click)="navigateToServices()" class="button-containerr">
+          Découvrir d'autres services
+        </a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
             <path d="M5 10.5002H15M15 10.5002L10.8333 6.3335M15 10.5002L10.8333 14.6668" stroke="#AAB614" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
     </div>

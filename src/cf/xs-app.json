@@ -33,6 +33,13 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
+
+        {
+            "source": "^/resiliation/(.*)$",
+            "destination": "geg_fournisseur_salesforce_2",
+            "authenticationType": "xsuaa",
+            "csrfProtection": false
+        },
         {
             "source": "^/user-api/currentUser$",
             "target": "/currentUser",

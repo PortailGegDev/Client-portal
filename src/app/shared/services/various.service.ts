@@ -5,6 +5,7 @@ import { VariousHttpService } from '../../core/http-services/various-http.servic
 import { Faq } from '../models/faq.model';
 import { Article } from '../models/article.model';
 import { Headline } from '../models/headline.model';
+import { OptionVerte } from '../models/option-verte.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,8 @@ export class VariousService {
 
   getHeadlineData(): Observable<Headline[]> {
     return this.variousHttpService.fetchHeadlineData();
+  }
+  getOptionVerteData(): Observable<OptionVerte[]> {
+    return this.variousHttpService.fetchOptionVerte();
   }
 }

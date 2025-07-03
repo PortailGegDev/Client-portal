@@ -1,0 +1,33 @@
+{
+  "optionVertes": [
+      {
+    "mainTitle": "Sérénité Électricité",
+    "subtitle": "Enfin une Option Verte respectueuse de l'environnement et accessible à tous !",
+    "highlights":"1. Une électricité produite en France à partir d'énergies 100% renouvelables<br> 2. Une démarche éco-responsable en faveur de la planète… <br>3. ... permettant le financement d'énergies renouvelables",
+    "sections": [
+      {
+        "id": 1,
+        "title": "Respect de l'environnement et traçabilité garantie",
+        "content": "Les garanties d'origine attribuées par l'organisme de contrôle Powernext me garantissent l'origine 100% Verte de l'énergie.\nEt pour chaque kWh consommé GEG s'engage à produire ou acheter puis à injecter sur le réseau un kilowattheure issu d'énergies renouvelables"
+      },
+      {
+        "id": 2,
+        "title": "Une entreprise certifiée ISO 14001",
+        "content": "Grâce à la certification ISO14001 de 8 de ses centrales hydroélectriques, GEG a acquis une maîtrise environnementale de ces sites de production d'énergie et s'engage au quotidien dans la préservation de l'environnement."
+      },
+      {
+        "id": 3,
+        "title": "Un fournisseur engagé…",
+        "content": "Moteur de la transition énergétique, GEG agit pour le développement durable en priorisant le développement des énergies renouvelables, l'efficacité énergétique et la mobilité durable"
+      },
+      {
+        "id": 4,
+        "title": "... et producteur d'énergies vertes",
+        "content": "Grâce au développement, à la construction et à l'exploitation de projets d'énergies nouvelles et renouvelables (51 à ce jour), GEG produit le meilleur de l'énergie verte !"
+      }
+    ],
+    "footer": "En choisissant l'Option Verte, pour 1€ (pour les puissances de 3 et 6 kVA) ou 2€ (à partir de 9 kVA) par mois reportés sur ma facture d'électricité, j'affirme ma démarche écoresponsable en privilégiant une électricité produite à partir de sources d'énergie renouvelable !"
+  }
+  ]
+}
+  

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-documents-contract-service',
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './contract-service.component.scss'
 })
 export class AppDocumentsContractServiceComponent {
-
+constructor(private router:Router){}
   
 
   boxData: any[] = [
@@ -34,5 +35,7 @@ export class AppDocumentsContractServiceComponent {
     }
 
   ];
-
+  navigateToServices(): void {
+    this.router.navigate(['/services']);
+  }
 }
