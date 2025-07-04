@@ -35,7 +35,7 @@
         },
 
         {
-            "source": "^/resiliation/(.*)$",
+            "source": "^/apexrest/(.*)$",
             "destination": "geg_fournisseur_salesforce_2",
             "authenticationType": "xsuaa",
             "csrfProtection": false

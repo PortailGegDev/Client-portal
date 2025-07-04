@@ -9,5 +9,5 @@ export const environment = {
     apiSP: '/DownloadFacture',
     apiPayment: '/qf200/payment',
     apiSalsforce:'/Contact',
-    apiSalsforceOrigame3: '/resiliation'
+    apiSalsforceOrigame3: '/apexrest'
 };

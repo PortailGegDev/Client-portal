@@ -18,8 +18,8 @@ export class RequestHttpService extends BaseHttpService {
   }
   
   createRequestRescission(dataBody:RequestRecission):Observable<any>{
-    const Url = `${this.apiSalsforceOrigame3}/resiliation`;
-    return this.http.post<any>('Url',dataBody).pipe
+    let url = `${this.apiSalsforceOrigame3}/resiliation`;
+    return this.http.post<any>(url, dataBody).pipe
     (map((response: any) => response.attributes[0] || []),
       catchError(error => {
         console.error(`erreur lors d'envoie de demande`, error);
