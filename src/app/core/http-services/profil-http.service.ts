@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { Profil } from '../../shared/models/profil.model';
 import { BaseHttpService } from './base-http.service';
+import { SalesforceContact } from '../../shared/models/salsforceContact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,10 @@ export class ProfilHttpService extends BaseHttpService {
           return of([]);
         })
       );
+  }
+
+  getContactByBusinessPartner(businessPartner: string): Observable<SalesforceContact> {
+    const url = `/Contact/GEG_eFluid_ID__c/${businessPartner}`;
+    return this.http.get<SalesforceContact>(url);
   }
 }

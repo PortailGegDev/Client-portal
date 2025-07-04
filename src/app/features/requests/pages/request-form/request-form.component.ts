@@ -40,6 +40,8 @@ export class AppRequestsFormComponent implements OnInit {
 
   currentUser = signal<User | undefined>(undefined);
   contracts: Signal<Contract[]>;
+  contactId: string | null = null;
+
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
@@ -215,10 +217,19 @@ export class AppRequestsFormComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    
+    if (!this.contactId) {
+      console.error('Contact ID non défini');
+      return;
+    }
+    const formData = this.getRescissionFormDate();
+    const payload = {
+      ...formData,
+      contactId: this.contactId
+    };
     if (this.isRescission) {
+      console.log('Payload envoyé :', payload);
       console.log('json ', this.getRescissionFormDate())
-      this.requestService.createRescissionRequest(this.getRescissionFormDate()).subscribe({
+      this.requestService.createRescissionRequest(payload).subscribe({
         next: (response: any) => {
           this.requestSended = true;
         },

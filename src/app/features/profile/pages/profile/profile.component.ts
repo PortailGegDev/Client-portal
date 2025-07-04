@@ -36,12 +36,13 @@ export class AppProfileComponent {
 
   profil: Profil | undefined;
   salsforceContact: SalesforceContact | undefined;
-
+  contactId: string | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router, private httpClient: HttpClient,
-    private renderer: Renderer2,
+    private renderer: Renderer2
+    ,
     private elRef: ElementRef,
     private profileService: ProfilService
   ) {
@@ -102,15 +103,11 @@ export class AppProfileComponent {
       console.error('BusinessPartner non défini');
       return;
     }
-    const businessPartner = this.profil.BusinessPartner;
-    const url = `/Contact/GEG_eFluid_ID__c/${businessPartner}`;
-
-    this.httpClient.get<SalesforceContact>(url).subscribe({
-      next: (salsforceContact) => {
-        const contactId = salsforceContact.Id;  // <-- Extraction du champ "Id"
-
-        console.log('Réponse Salesforce complète :', salsforceContact);
-        console.log('Contact ID récupéré :', contactId);
+    this.profileService.fetchContact(this.profil.BusinessPartner).subscribe({
+      next: (contact: SalesforceContact) => {
+        this.contactId = contact.Id;
+        console.log('Réponse Salesforce complète :', contact);
+        console.log('Contact ID récupéré :', this.contactId);
       },
       error: (error) => {
         console.error('Erreur appel API Salesforce :', error);

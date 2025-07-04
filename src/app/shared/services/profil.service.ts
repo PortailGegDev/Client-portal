@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProfilHttpService } from '../../core/http-services/profil-http.service';
 import { Observable, of } from 'rxjs';
 import { Profil } from '../models/profil.model';
+import { SalesforceContact } from '../models/salsforceContact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +35,9 @@ export class ProfilService {
 
     return this.profilhttpService.fetchPersonByFilter(filter);
   }
+
+    // Méthode pour récupérer le contact en fonction du BusinessPartner
+    fetchContact(businessPartner: string): Observable<SalesforceContact> {
+      return this.profilhttpService.getContactByBusinessPartner(businessPartner);
+    }
 }
