@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
@@ -43,23 +43,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.testSalesforceAPI();
-  }
+  // ngOnInit() {
+  //   this.testSalesforceAPI();
+  // }
 
-  testSalesforceAPI(): void {
-    let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
+  // testSalesforceAPI(): void {
+  //   let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
 
-    this.httpClient.get(url)
-      .subscribe({
-        next: (data) => {
-          console.log('Réponse Salesforce :', data);
-        },
-        error: (error) => {
-          console.error('Erreur appel API Salesforce :', error);
-        }
-      });
-  }
+  //   this.httpClient.get(url)
+  //     .subscribe({
+  //       next: (data) => {
+  //         console.log('Réponse Salesforce :', data);
+  //       },
+  //       error: (error) => {
+  //         console.error('Erreur appel API Salesforce :', error);
+  //       }
+  //     });
+  // }
 
   loadContract() {
     let businessPartner = this.authService.businessPartner();

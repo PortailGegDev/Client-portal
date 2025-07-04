@@ -7,6 +7,8 @@ export class Profil {
     FullName!: string;
     PhoneNumber!:string;
     SocialStatus!:string;
+    BusinessPartner!:string;
+    
 
     public constructor(init?: Partial<Profil>) {
         Object.assign(this, init);

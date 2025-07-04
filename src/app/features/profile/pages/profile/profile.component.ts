@@ -11,6 +11,8 @@ import { Profil } from '../../../../shared/models/profil.model';
 import { AppMesLogementsComponent } from '../../components/mes-logements/mes-logements.component';
 import { AppMesPreferencesComponent } from '../../components/mes-preferences/mes-preferences.component';
 import { AuthService } from '../../../../core/http-services/auth.service';
+import { map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -35,7 +37,7 @@ export class AppProfileComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private router: Router, private httpClient: HttpClient,
     private renderer: Renderer2,
     private elRef: ElementRef,
     private profileService: ProfilService
@@ -68,15 +70,44 @@ export class AppProfileComponent {
   }
 
   loadProfil(bp: string): void {
-    this.profileService.getProfil(bp).subscribe({
-      next: (data: any) => {
-        this.profil = data;  // Stocker les profils reçus
+    this.profileService.getProfil(bp)
+      .pipe(
+        map((data: any) => {
+          // Récupérer l'objet profil complet (selon ta structure)
+          const profil = data.d?.results?.[0] ?? data;
+          return profil;  // On renvoie tout le profil
+        })
+      )
+      .subscribe({
+        next: (profil: any) => {
+          this.profil = profil;
+  
+          // Afficher le BusinessPartner et tout le profil
+          console.log('BusinessPartner:', profil.BusinessPartner);
+          console.log('Profil complet:', profil);
+          this.testSalesforceAPI();
 
-        console.log('Profils chargés:', this.profil); // Vérification dans la console
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des profils:', error);
+          this.profil = undefined;
+        }
+      });
+  }
+  testSalesforceAPI(): void {
+    if (!this.profil?.BusinessPartner) {
+      console.error('BusinessPartner non défini');
+      return;
+    }
+    const businessPartner = this.profil.BusinessPartner;
+    const url = `/Contact/GEG_eFluid_ID__c/${businessPartner}`;
+
+    this.httpClient.get(url).subscribe({
+      next: (data) => {
+        console.log('Réponse Salesforce :', data);
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération des profils:', error);
-        this.profil = undefined; // Réinitialiser en cas d'erreur
+        console.error('Erreur appel API Salesforce :', error);
       }
     });
   }
