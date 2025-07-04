@@ -13,6 +13,8 @@ import { AppMesPreferencesComponent } from '../../components/mes-preferences/mes
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { SalesforceContact } from '../../../../shared/models/salsforceContact.model'; // adapte le chemin
+
 
 
 @Component({
@@ -33,6 +35,7 @@ export class AppProfileComponent {
   person: any = null;
 
   profil: Profil | undefined;
+  salsforceContact: SalesforceContact | undefined;
 
 
   constructor(
@@ -102,9 +105,12 @@ export class AppProfileComponent {
     const businessPartner = this.profil.BusinessPartner;
     const url = `/Contact/GEG_eFluid_ID__c/${businessPartner}`;
 
-    this.httpClient.get(url).subscribe({
-      next: (data) => {
-        console.log('Réponse Salesforce :', data);
+    this.httpClient.get<SalesforceContact>(url).subscribe({
+      next: (salsforceContact) => {
+        const contactId = salsforceContact.Id;  // <-- Extraction du champ "Id"
+
+        console.log('Réponse Salesforce complète :', salsforceContact);
+        console.log('Contact ID récupéré :', contactId);
       },
       error: (error) => {
         console.error('Erreur appel API Salesforce :', error);
