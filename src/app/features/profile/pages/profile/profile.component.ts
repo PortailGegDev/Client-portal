@@ -36,7 +36,7 @@ export class AppProfileComponent {
 
   profil: Profil | undefined;
   salsforceContact: SalesforceContact | undefined;
-  contactId: string | null = null;
+  // contactId: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -77,7 +77,6 @@ export class AppProfileComponent {
     this.profileService.getProfil(bp)
       .pipe(
         map((data: any) => {
-          // Récupérer l'objet profil complet (selon ta structure)
           const profil = data.d?.results?.[0] ?? data;
           return profil;  // On renvoie tout le profil
         })
@@ -85,8 +84,6 @@ export class AppProfileComponent {
       .subscribe({
         next: (profil: any) => {
           this.profil = profil;
-  
-          // Afficher le BusinessPartner et tout le profil
           console.log('BusinessPartner:', profil.BusinessPartner);
           console.log('Profil complet:', profil);
           // this.testSalesforceAPI();

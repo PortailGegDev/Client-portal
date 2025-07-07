@@ -96,27 +96,6 @@ export class AppComponent  {
     });
   }
 
-  
-  
-
-  // ngOnInit() {
-  //   this.testSalesforceAPI();
-  // }
-
-  // testSalesforceAPI(): void {
-  //   let url = `/Contact/GEG_eFluid_ID__c/1000000063`;
-
-  //   this.httpClient.get(url)
-  //     .subscribe({
-  //       next: (data) => {
-  //         console.log('Réponse Salesforce :', data);
-  //       },
-  //       error: (error) => {
-  //         console.error('Erreur appel API Salesforce :', error);
-  //       }
-  //     });
-  // }
-
   loadContract() {
     let businessPartner = this.authService.businessPartner();
 

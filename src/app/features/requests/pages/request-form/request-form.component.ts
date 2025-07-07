@@ -260,12 +260,14 @@ export class AppRequestsFormComponent implements OnInit {
       requestReason: "",
       dataUsageConsent: "true",
       billingAddress: {
-        street: `${this.rescissionInvoiceStreetNumberForm.value} ${this.rescissionInvoiceStreetForm.value}`,
+        street: ` ${this.rescissionInvoiceStreetForm.value}`,
+        streetNumber: ` ${this.rescissionInvoiceStreetNumberForm.value}`,
         postalCode: this.rescissionInvoicePostalCodeForm.value,
         city: this.rescissionInvoiceCityForm.value
       } as Address,
       resiliationAddress: {
-        street: `${this.rescissionStreetNumberForm.value} ${this.rescissionStreetForm.value}`,
+        street: `${this.rescissionStreetForm.value}`,
+        streetNumber: ` ${this.rescissionStreetNumberForm.value}`,
         postalCode: this.rescissionPostalCodeForm.value,
         city: this.rescissionCityForm.value,
       } as Address
