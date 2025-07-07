@@ -10,6 +10,8 @@ import { environment } from '../environments/environment';
 import { PrimeNgLocaleService } from './shared/services/prime-ng-locale.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Profil } from './shared/models/profil.model';
+import { ProfilService } from './shared/services/profil.service';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +19,15 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
   currentRoute: string = '';
+  profil: Profil | undefined;
 
   constructor(private authService: AuthService,
-    private httpClient: HttpClient,
+    private httpClient: HttpClient,private profilService: ProfilService,
     private router: Router,
     private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
@@ -41,6 +44,42 @@ export class AppComponent {
     effect(() => {
       this.loadContract();
     });
+  }
+
+  ngOnInit(): void {
+    this.initProfilEtContact();
+  }
+  initProfilEtContact(): void {
+    const bp = this.getBusinessPartnerConnected();
+
+    if (!bp) {
+      console.error('BusinessPartner connecté non trouvé');
+      return;
+    }
+
+    this.profilService.getProfil(bp).subscribe({
+      next: (profil) => {
+        this.profil = profil;
+
+        if (profil?.BusinessPartner) {
+          this.profilService.fetchContact(profil.BusinessPartner).subscribe({
+            next: (contact) => {
+              console.log('Contact récupéré depuis AppComponent :', contact.Id);
+            },
+            error: (err) => {
+              console.error('Erreur lors de la récupération du contact', err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération du profil', err);
+      }
+    });
+  }
+  getBusinessPartnerConnected(): string | null {
+    // À adapter selon où tu stockes l'info de session
+    return localStorage.getItem('BusinessPartner');
   }
 
   // ngOnInit() {

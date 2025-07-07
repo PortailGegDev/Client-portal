@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProfilHttpService } from '../../core/http-services/profil-http.service';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { Profil } from '../models/profil.model';
 import { SalesforceContact } from '../models/salsforceContact.model';
 
@@ -9,6 +9,8 @@ import { SalesforceContact } from '../models/salsforceContact.model';
 })
 export class ProfilService {
 
+  private contactIdSubject = new BehaviorSubject<string | null>(null);
+  contactId$ = this.contactIdSubject.asObservable();
   constructor(private profilhttpService: ProfilHttpService) { }
 
   getProfil(bp: string | null): Observable<Profil | undefined> {
@@ -37,7 +39,19 @@ export class ProfilService {
   }
 
     // Méthode pour récupérer le contact en fonction du BusinessPartner
+    // fetchContact(businessPartner: string): Observable<SalesforceContact> {
+    //   return this.profilhttpService.getContactByBusinessPartner(businessPartner);
+    // }
+
     fetchContact(businessPartner: string): Observable<SalesforceContact> {
-      return this.profilhttpService.getContactByBusinessPartner(businessPartner);
+      return this.profilhttpService.getContactByBusinessPartner(businessPartner).pipe(
+        tap(contact => {
+          this.contactIdSubject.next(contact.Id);  // ✅ sauvegarde du contactId
+        })
+      );
+    }
+  
+    getCurrentContactId(): string | null {
+      return this.contactIdSubject.value;
     }
 }

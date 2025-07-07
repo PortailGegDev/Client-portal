@@ -20,6 +20,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { RequestService } from '../../../../shared/services/request.service';
 import { RequestRecission } from '../../../../shared/models/request-rescission.model';
 import { Address } from '../../../../shared/models/address.model';
+import { ProfilService } from '../../../../shared/services/profil.service';
 
 @Component({
   selector: 'app-requests-form-rescission',
@@ -80,7 +81,7 @@ export class AppRequestsFormComponent implements OnInit {
   get lastModificationPower(): boolean { return this.requestType === Constants.DemandeType.POWER_MODIFICATION; }
 
 
-  constructor(private router: Router,
+  constructor(private router: Router,private profilService: ProfilService,
     private authService: AuthService, private contractService: ContractService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -97,6 +98,13 @@ export class AppRequestsFormComponent implements OnInit {
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
+    this.profilService.contactId$.subscribe(id => {
+      this.contactId = id;
+  
+      if (id) {
+        this.initForm(); // initialiser le formulaire seulement après avoir le contactId
+      }
+    });
   }
 
   buildForm() {
