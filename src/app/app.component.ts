@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Profil } from './shared/models/profil.model';
 import { ProfilService } from './shared/services/profil.service';
+import { map } from 'rxjs';
+import { SalesforceContact } from './shared/models/salsforceContact.model';
 
 @Component({
   selector: 'app-root',
@@ -19,16 +21,17 @@ import { ProfilService } from './shared/services/profil.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
   contracts: Signal<Contract[]>;
   selectedContract: Signal<Contract | null>;
   haveContract: boolean | undefined = undefined;
   currentRoute: string = '';
   profil: Profil | undefined;
+  contactId: string | null = null;
 
   constructor(private authService: AuthService,
     private httpClient: HttpClient,private profilService: ProfilService,
-    private router: Router,
+    private router: Router,private profileService: ProfilService,
     private contractService: ContractService,
     private primeNgLocaleService: PrimeNgLocaleService
   ) {
@@ -43,44 +46,58 @@ export class AppComponent implements OnInit {
 
     effect(() => {
       this.loadContract();
-    });
-  }
+      const bp = this.authService.businessPartner();
 
-  ngOnInit(): void {
-    this.initProfilEtContact();
-  }
-  initProfilEtContact(): void {
-    const bp = this.getBusinessPartnerConnected();
-
-    if (!bp) {
-      console.error('BusinessPartner connecté non trouvé');
-      return;
-    }
-
-    this.profilService.getProfil(bp).subscribe({
-      next: (profil) => {
-        this.profil = profil;
-
-        if (profil?.BusinessPartner) {
-          this.profilService.fetchContact(profil.BusinessPartner).subscribe({
-            next: (contact) => {
-              console.log('Contact récupéré depuis AppComponent :', contact.Id);
-            },
-            error: (err) => {
-              console.error('Erreur lors de la récupération du contact', err);
-            }
-          });
-        }
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du profil', err);
+      if (bp) {
+        this.initProfilEtContact(bp);
       }
     });
   }
-  getBusinessPartnerConnected(): string | null {
-    // À adapter selon où tu stockes l'info de session
-    return localStorage.getItem('BusinessPartner');
+  initProfilEtContact(bp: string): void {
+    this.profileService.getProfil(bp)
+      .pipe(
+        map((data: any) => {
+          // Récupérer l'objet profil complet (selon ta structure)
+          const profil = data.d?.results?.[0] ?? data;
+          return profil;  // On renvoie tout le profil
+        })
+      )
+      .subscribe({
+        next: (profil: any) => {
+          this.profil = profil;
+  
+          // Afficher le BusinessPartner et tout le profil
+          console.log('BusinessPartner:', profil.BusinessPartner);
+          console.log('Profil complet:', profil);
+          this.testSalesforceAPI();
+
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des profils:', error);
+          this.profil = undefined;
+        }
+      });
   }
+
+    testSalesforceAPI(): void {
+    if (!this.profil?.BusinessPartner) {
+      console.error('BusinessPartner non défini');
+      return;
+    }
+    this.profileService.fetchContact(this.profil.BusinessPartner).subscribe({
+      next: (contact: SalesforceContact) => {
+        this.contactId = contact.Id;
+        console.log('Réponse Salesforce complète :', contact);
+        console.log('Contact ID récupéré :', this.contactId);
+      },
+      error: (error) => {
+        console.error('Erreur appel API Salesforce :', error);
+      }
+    });
+  }
+
+  
+  
 
   // ngOnInit() {
   //   this.testSalesforceAPI();

@@ -89,7 +89,7 @@ export class AppProfileComponent {
           // Afficher le BusinessPartner et tout le profil
           console.log('BusinessPartner:', profil.BusinessPartner);
           console.log('Profil complet:', profil);
-          this.testSalesforceAPI();
+          // this.testSalesforceAPI();
 
         },
         error: (error) => {
@@ -98,22 +98,22 @@ export class AppProfileComponent {
         }
       });
   }
-  testSalesforceAPI(): void {
-    if (!this.profil?.BusinessPartner) {
-      console.error('BusinessPartner non défini');
-      return;
-    }
-    this.profileService.fetchContact(this.profil.BusinessPartner).subscribe({
-      next: (contact: SalesforceContact) => {
-        this.contactId = contact.Id;
-        console.log('Réponse Salesforce complète :', contact);
-        console.log('Contact ID récupéré :', this.contactId);
-      },
-      error: (error) => {
-        console.error('Erreur appel API Salesforce :', error);
-      }
-    });
-  }
+  // testSalesforceAPI(): void {
+  //   if (!this.profil?.BusinessPartner) {
+  //     console.error('BusinessPartner non défini');
+  //     return;
+  //   }
+  //   this.profileService.fetchContact(this.profil.BusinessPartner).subscribe({
+  //     next: (contact: SalesforceContact) => {
+  //       this.contactId = contact.Id;
+  //       console.log('Réponse Salesforce complète :', contact);
+  //       console.log('Contact ID récupéré :', this.contactId);
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur appel API Salesforce :', error);
+  //     }
+  //   });
+  // }
 
   toggleAccessDropdown() {
     this.isAccessOpen = !this.isAccessOpen;
