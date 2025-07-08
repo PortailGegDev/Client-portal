@@ -30,6 +30,8 @@ export class AppProfileDetailsComponent implements OnInit {
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
   email: string = '';
+  contact: SalesforceContact | null = null;
+
 
   constructor(private authService: AuthService,
     private profileService: ProfilService) {
@@ -42,13 +44,18 @@ export class AppProfileDetailsComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.profileService.contactId$.subscribe(id => {
-      if (id) {
-        // Une fois l'ID reçu, on récupère les infos du contact
-        this.profileService.fetchContact(id).subscribe((contact: SalesforceContact) => {
-          this.contactPhone = contact.Phone;
-          this.dateNaissance = contact.Birthdate;
-        });
+    const bp = localStorage.getItem('BusinessPartner'); // ✅ récupère le BusinessPartner
+    if (!bp) {
+      console.error('Aucun BusinessPartner trouvé');
+      return;
+    }
+    this.profileService.fetchContact(bp).subscribe({
+      next: (contact) => {
+        this.contact = contact;
+        console.log('Contact chargé :', contact);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement du contact', err);
       }
     });
   }
