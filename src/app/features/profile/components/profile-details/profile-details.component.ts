@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, Input, Signal, signal } from '@angular/core';
+import { Component, effect, Input, OnInit, Signal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,7 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { Subscription } from 'rxjs';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
+import { SalesforceContact } from '../../../../shared/models/salsforceContact.model';
 
 @Component({
   selector: 'app-profile-details',
@@ -17,14 +18,15 @@ import { Profil } from '../../../../shared/models/profil.model';
   templateUrl: './profile-details.component.html',
   styleUrl: './profile-details.component.scss'
 })
-export class AppProfileDetailsComponent {
+export class AppProfileDetailsComponent implements OnInit {
   @Input() profil: Profil | undefined;
 
   currentUser: Signal<User | null>;
 
   user: User | null = null;
   isEditMode: boolean = false;
-  phone = '+33 6 65 43 22 11'; 
+  contactPhone: string | null = null;
+  dateNaissance: string | null = null;
   accessdialogVisible: boolean = false;
   contactsWithAccess: string[] = [];
   email: string = '';
@@ -39,14 +41,18 @@ export class AppProfileDetailsComponent {
     });
   }
 
-  ngOnInit() {
-    // this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-    //   this.currentUser = user;
-    //   this.email = user?.email || '';
-
-    // });
-
+  ngOnInit():void {
+    this.profileService.contactId$.subscribe(id => {
+      if (id) {
+        // Une fois l'ID reçu, on récupère les infos du contact
+        this.profileService.fetchContact(id).subscribe((contact: SalesforceContact) => {
+          this.contactPhone = contact.Phone;
+          this.dateNaissance = contact.Birthdate;
+        });
+      }
+    });
   }
+
   contracts = [
     { id: 1, name: 'Valentin Verret' },
     { id: 2, name: 'Pauline Verret' },

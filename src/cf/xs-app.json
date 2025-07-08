@@ -26,17 +26,17 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
-       
+
         {
-            "source": "^/Contact/(.*)$",
+            "source": "^/apexrest/(.*)$",
             "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
 
         {
-            "source": "^/apexrest/(.*)$",
-            "destination": "geg_fournisseur_salesforce_2",
+            "source": "^/data/(.*)$",
+            "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },

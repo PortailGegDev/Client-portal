@@ -39,7 +39,7 @@ export class ProfilHttpService extends BaseHttpService {
   }
 
   getContactByBusinessPartner(businessPartner: string): Observable<SalesforceContact> {
-    const url = `/Contact/GEG_eFluid_ID__c/${businessPartner}`;
+    const url = `/data/v62.0/sobjects/Contact/GEG_eFluid_ID__c/${businessPartner}`;
     return this.http.get<SalesforceContact>(url);
   }
 }

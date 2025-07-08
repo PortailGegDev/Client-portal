@@ -5,6 +5,7 @@ export class SalesforceContact {
     Phone!: string;
     FirstName!: string;
     LastName!: string;
+    Birthdate!: string;
     
 
     public constructor(init?: Partial<SalesforceContact>) {

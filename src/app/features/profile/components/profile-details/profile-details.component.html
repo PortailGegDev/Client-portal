@@ -8,7 +8,7 @@
 
             <div class="col-md-12">
                 <label class="detail-label">Date de naissance</label>
-                <p class="detail-value">22/05/1980</p>
+                <p class="detail-value">{{dateNaissance}}</p>
             </div>
         </p-panel>
     </div>
@@ -72,12 +72,12 @@
                 <label class="detail-label">N de téléphone</label>
 
                 @if(!isEditMode){
-                <p class="detail-value">{{ phone }}</p>
+                <p class="detail-value">{{ contactPhone }}</p>
                 }
 
                 @if(isEditMode){
                 <div>
-                    <input type="tel" [(ngModel)]="phone" />
+                    <input type="tel" [(ngModel)]="contactPhone" />
                 </div>
                 }
             </div>
