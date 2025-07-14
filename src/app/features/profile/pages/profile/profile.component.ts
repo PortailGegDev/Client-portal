@@ -45,15 +45,14 @@ export class AppProfileComponent {
     ,
     private elRef: ElementRef,
     private profileService: ProfilService
-  ) 
-  {
-    // effect(() => {
-    //   const bp = this.authService.businessPartner();
+  ) {
+    effect(() => {
+      const bp = this.authService.businessPartner();
 
-    //   if (bp) {
-    //     this.loadProfil(bp);
-    //   }
-    // });
+      if (bp) {
+        this.loadProfil(bp);
+      }
+    });
   }
 
   ngOnInit() {
@@ -74,28 +73,27 @@ export class AppProfileComponent {
     }
   }
 
-  // loadProfil(bp: string): void {
-  //   this.profileService.getProfil(bp)
-  //     .pipe(
-  //       map((data: any) => {
-  //         const profil = data.d?.results?.[0] ?? data;
-  //         return profil;  // On renvoie tout le profil
-  //       })
-  //     )
-  //     .subscribe({
-  //       next: (profil: any) => {
-  //         this.profil = profil;
-  //         console.log('BusinessPartner:', profil.BusinessPartner);
-  //         console.log('Profil complet:', profil);
-  //         // this.testSalesforceAPI();
+  loadProfil(bp: string): void {
+    this.profileService.getProfil(bp)
+      .pipe(
+        map((data: any) => {
+          const profil = data.d?.results?.[0] ?? data;
+          return profil;  // On renvoie tout le profil
+        })
+      )
+      .subscribe({
+        next: (profil: any) => {
+          this.profil = profil;
+          console.log('BusinessPartner:', profil.BusinessPartner);
+          console.log('Profil complet:', profil);
 
-  //       },
-  //       error: (error) => {
-  //         console.error('Erreur lors de la récupération des profils:', error);
-  //         this.profil = undefined;
-  //       }
-  //     });
-  // }
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des profils:', error);
+          this.profil = undefined;
+        }
+      });
+  }
 
   toggleAccessDropdown() {
     this.isAccessOpen = !this.isAccessOpen;
