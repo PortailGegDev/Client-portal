@@ -45,14 +45,15 @@ export class AppProfileComponent {
     ,
     private elRef: ElementRef,
     private profileService: ProfilService
-  ) {
-    effect(() => {
-      const bp = this.authService.businessPartner();
+  ) 
+  {
+    // effect(() => {
+    //   const bp = this.authService.businessPartner();
 
-      if (bp) {
-        this.loadProfil(bp);
-      }
-    });
+    //   if (bp) {
+    //     this.loadProfil(bp);
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -73,43 +74,27 @@ export class AppProfileComponent {
     }
   }
 
-  loadProfil(bp: string): void {
-    this.profileService.getProfil(bp)
-      .pipe(
-        map((data: any) => {
-          const profil = data.d?.results?.[0] ?? data;
-          return profil;  // On renvoie tout le profil
-        })
-      )
-      .subscribe({
-        next: (profil: any) => {
-          this.profil = profil;
-          console.log('BusinessPartner:', profil.BusinessPartner);
-          console.log('Profil complet:', profil);
-          // this.testSalesforceAPI();
+  // loadProfil(bp: string): void {
+  //   this.profileService.getProfil(bp)
+  //     .pipe(
+  //       map((data: any) => {
+  //         const profil = data.d?.results?.[0] ?? data;
+  //         return profil;  // On renvoie tout le profil
+  //       })
+  //     )
+  //     .subscribe({
+  //       next: (profil: any) => {
+  //         this.profil = profil;
+  //         console.log('BusinessPartner:', profil.BusinessPartner);
+  //         console.log('Profil complet:', profil);
+  //         // this.testSalesforceAPI();
 
-        },
-        error: (error) => {
-          console.error('Erreur lors de la récupération des profils:', error);
-          this.profil = undefined;
-        }
-      });
-  }
-  // testSalesforceAPI(): void {
-  //   if (!this.profil?.BusinessPartner) {
-  //     console.error('BusinessPartner non défini');
-  //     return;
-  //   }
-  //   this.profileService.fetchContact(this.profil.BusinessPartner).subscribe({
-  //     next: (contact: SalesforceContact) => {
-  //       this.contactId = contact.Id;
-  //       console.log('Réponse Salesforce complète :', contact);
-  //       console.log('Contact ID récupéré :', this.contactId);
-  //     },
-  //     error: (error) => {
-  //       console.error('Erreur appel API Salesforce :', error);
-  //     }
-  //   });
+  //       },
+  //       error: (error) => {
+  //         console.error('Erreur lors de la récupération des profils:', error);
+  //         this.profil = undefined;
+  //       }
+  //     });
   // }
 
   toggleAccessDropdown() {
