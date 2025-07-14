@@ -18,7 +18,7 @@ import { SalesforceContact } from '../../../../shared/models/salsforceContact.mo
   templateUrl: './profile-details.component.html',
   styleUrl: './profile-details.component.scss'
 })
-export class AppProfileDetailsComponent {
+export class AppProfileDetailsComponent implements OnInit {
   @Input() profil: Profil | undefined;
 
   currentUser: Signal<User | null>;
@@ -32,7 +32,12 @@ export class AppProfileDetailsComponent {
   email: string = '';
   contact: SalesforceContact | null = null;
 
-
+  ngOnInit(): void {
+    // Appeler cette méthode une fois que `profil` est disponible
+    if (this.profil?.BusinessPartner) {
+      this.getContactByBp();
+    }
+  }
   constructor(private authService: AuthService,
     private profileService: ProfilService) {
     this.currentUser = this.authService.currentUSer;
