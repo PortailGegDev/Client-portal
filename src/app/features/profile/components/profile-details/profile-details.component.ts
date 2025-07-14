@@ -18,7 +18,7 @@ import { SalesforceContact } from '../../../../shared/models/salsforceContact.mo
   templateUrl: './profile-details.component.html',
   styleUrl: './profile-details.component.scss'
 })
-export class AppProfileDetailsComponent implements OnInit {
+export class AppProfileDetailsComponent {
   @Input() profil: Profil | undefined;
 
   currentUser: Signal<User | null>;
@@ -42,24 +42,24 @@ export class AppProfileDetailsComponent implements OnInit {
       this.email = this.currentUser()?.email || '';
     });
   }
-
-  ngOnInit():void {
-    const bp = localStorage.getItem('BusinessPartner'); // ✅ récupère le BusinessPartner
-    if (!bp) {
-      console.error('Aucun BusinessPartner trouvé');
-      return;
+  
+  getContactByBp() {
+    const bp = this.profil?.BusinessPartner;
+    if (bp) {
+      this.profileService.getContactByBp(bp).subscribe({
+        next: (contact: SalesforceContact) => {
+          this.contact = contact;
+          console.log('Contact récupéré :', contact);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération du contact :', error);
+        }
+      });
+    } else {
+      console.warn('BusinessPartner est indéfini');
     }
-    this.profileService.fetchContact(bp).subscribe({
-      next: (contact) => {
-        this.contact = contact;
-        console.log('Contact chargé :', contact);
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement du contact', err);
-      }
-    });
   }
-
+  
   contracts = [
     { id: 1, name: 'Valentin Verret' },
     { id: 2, name: 'Pauline Verret' },
@@ -92,15 +92,4 @@ export class AppProfileDetailsComponent implements OnInit {
   closeAccessDialog() {
     this.accessdialogVisible = false;
   }
-
-
-  //   generateEmail(firstName: string, lastName: string): string {
-  //   if (firstName && lastName) {
-  //     // Nettoyer les noms pour éviter les espaces ou majuscules
-  //     const emailFirstName = firstName.toLowerCase().replace(/\s+/g, '');
-  //     const emailLastName = lastName.toLowerCase().replace(/\s+/g, '');
-  //     return `${emailFirstName}.${emailLastName}@gmail.com`;
-  //   }
-  //   return 'email.inconnu@gmail.com'; // Valeur par défaut si aucune donnée
-  // }
 }

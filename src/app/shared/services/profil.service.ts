@@ -54,4 +54,8 @@ export class ProfilService {
     getCurrentContactId(): string | null {
       return this.contactIdSubject.value;
     }
+
+    getContactByBp(businessPartner: string): Observable<SalesforceContact> {
+      return this.profilhttpService.getContactByBusinessPartner(businessPartner);
+    }
 }
