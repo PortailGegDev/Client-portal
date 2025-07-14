@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, Input, OnInit, Signal, signal } from '@angular/core';
+import { Component, effect, Input, OnChanges, OnInit, Signal, signal, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -18,7 +18,7 @@ import { SalesforceContact } from '../../../../shared/models/salsforceContact.mo
   templateUrl: './profile-details.component.html',
   styleUrl: './profile-details.component.scss'
 })
-export class AppProfileDetailsComponent implements OnInit {
+export class AppProfileDetailsComponent implements OnChanges {
   @Input() profil: Profil | undefined;
 
   currentUser: Signal<User | null>;
@@ -32,9 +32,8 @@ export class AppProfileDetailsComponent implements OnInit {
   email: string = '';
   contact: SalesforceContact | null = null;
 
-  ngOnInit(): void {
-    // Appeler cette méthode une fois que `profil` est disponible
-    if (this.profil?.BusinessPartner) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['profil'] && this.profil?.BusinessPartner) {
       this.getContactByBp();
     }
   }
