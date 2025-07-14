@@ -8,7 +8,7 @@
 
             <div class="col-md-12">
                 <label class="detail-label">Date de naissance</label>
-                <p class="detail-value">{{contact?.Birthdate}}</p>
+                <p class="detail-value">{{ contact?.Birthdate | date: 'longDate' }}</p>
             </div>
         </p-panel>
     </div>
