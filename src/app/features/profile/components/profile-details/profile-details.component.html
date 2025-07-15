@@ -8,7 +8,7 @@
 
             <div class="col-md-12">
                 <label class="detail-label">Date de naissance</label>
-                <p class="detail-value">{{ contact?.Birthdate | date: 'longDate' }}</p>
+                <p class="detail-value">{{ contact?.Birthdate | date:'dd/MM/yyyy'}}</p>
             </div>
         </p-panel>
     </div>
@@ -61,11 +61,11 @@
                 <p class="detail-value">{{ email }}</p>
                 }
 
-                @if(isEditMode){
+                <!-- @if(isEditMode){
                 <div>
                     <input type="email" [(ngModel)]="email" />
                 </div>
-                }
+                } -->
             </div>
 
             <div class="col-md-12">
