@@ -57,9 +57,9 @@
             <div class="col-md-12">
                 <label class="detail-label">Adresse e-mail</label>
 
-                @if(!isEditMode){
+                <!-- @if(!isEditMode){ -->
                 <p class="detail-value">{{ email }}</p>
-                }
+                <!-- } -->
 
                 <!-- @if(isEditMode){
                 <div>
@@ -72,7 +72,7 @@
                 <label class="detail-label">N de téléphone</label>
 
                 @if(!isEditMode){
-                <p class="detail-value">{{ contact?.MobilePhone }}</p>
+                <p class="detail-value">+ {{ contact?.MobilePhone }}</p>
                 }
 
                 @if(isEditMode){
