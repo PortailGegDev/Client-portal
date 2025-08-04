@@ -21,12 +21,15 @@ import { RequestService } from '../../../../shared/services/request.service';
 import { RequestRecission } from '../../../../shared/models/request-rescission.model';
 import { Address } from '../../../../shared/models/address.model';
 import { ProfilService } from '../../../../shared/services/profil.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, InputNumberModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, InputNumberModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent,ToastModule],
   templateUrl: './request-form.component.html',
-  styleUrl: './request-form.component.scss'
+  styleUrl: './request-form.component.scss',
+  providers: [MessageService]
 })
 
 export class AppRequestsFormComponent implements OnInit {
@@ -82,7 +85,7 @@ export class AppRequestsFormComponent implements OnInit {
 
 
   constructor(private router: Router,private profilService: ProfilService,
-    private authService: AuthService, private contractService: ContractService,
+    private authService: AuthService, private contractService: ContractService,private messageService: MessageService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private requestService: RequestService) {
@@ -112,7 +115,7 @@ export class AppRequestsFormComponent implements OnInit {
       firstName: [{ value: '', disabled: true }, Validators.required],
       lastName: [{ value: '', disabled: true }, Validators.required],
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
-      phone: [{ value: '', disabled: true }],
+      phone: ['',Validators.required],
       clientRef: [''],
       address: [''],
       postalCode: [''],
@@ -223,30 +226,48 @@ export class AppRequestsFormComponent implements OnInit {
 
   submitDemande() {
     if (!this.form.valid) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Formulaire invalide',
+        detail: 'Veuillez remplir correctement tous les champs requis.'
+      });
       return;
     }
+  
     if (!this.contactId) {
-      console.error('Contact ID non défini');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Contact ID non défini.'
+      });
       return;
     }
+  
     const formData = this.getRescissionFormDate();
-    const payload = {
-      ...formData,
-      contactId: this.contactId
-    };
+    const payload = { ...formData, contactId: this.contactId };
+  
     if (this.isRescission) {
-      console.log('Payload envoyé :', payload);
-      console.log('json ', this.getRescissionFormDate())
       this.requestService.createRescissionRequest(payload).subscribe({
-        next: (response: any) => {
+        next: () => {
           this.requestSended = true;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Demande envoyée',
+            detail: 'Votre demande de résiliation a été envoyée avec succès.'
+          });
         },
         error: (error) => {
-          console.error(`erreur lors d'envoie de demande`, error);
+          console.error('Erreur lors de l’envoi de la demande', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Échec',
+            detail: 'Une erreur est survenue lors de l’envoi de votre demande.'
+          });
         }
       });
     }
   }
+  
 
   getRescissionFormDate(): RequestRecission {
     return {

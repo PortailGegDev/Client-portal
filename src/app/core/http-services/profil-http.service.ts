@@ -42,4 +42,13 @@ export class ProfilHttpService extends BaseHttpService {
     const url = `/data/v62.0/sobjects/Contact/GEG_eFluid_ID__c/${businessPartner}`;
     return this.http.get<SalesforceContact>(url);
   }
+
+  updatePhoneNumberByBusinessPartner(businessPartner: string, newMobile: string): Observable<SalesforceContact> {
+    const url = `/data/v62.0/sobjects/Contact/GEG_eFluid_ID__c/${businessPartner}`;
+    const body = {
+      MobilePhone: newMobile
+    };
+  
+    return this.http.patch<SalesforceContact>(url, body);
+  }
 }

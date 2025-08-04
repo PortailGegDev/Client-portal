@@ -21,7 +21,7 @@ export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
     { path: 'consumption', component: AppConsumptionComponent },
     { path: 'invoices', component: AppInvoicesComponent },
-    { path: 'invoices/paypage/orderId/:invoiceNumber/amount/:amount', component: AppInvoicesPaypageComponent },
+    { path: 'invoices/paypage/orderId/:invoiceNumber/amount/:amount/productSupplier/:productSupplier', component: AppInvoicesPaypageComponent },
     { path: 'invoices/paypage-result/orderId/:invoiceNumber', component: AppInvoicesPaypageResultComponent },
     { path: 'documents', component: AppDocumentsComponent },
     { path: 'documents/contract-details/:contractIsu', component: AppDocumentContractDetailsComponent },

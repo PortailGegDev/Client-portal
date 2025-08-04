@@ -11,12 +11,15 @@ import { Subscription } from 'rxjs';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { Profil } from '../../../../shared/models/profil.model';
 import { SalesforceContact } from '../../../../shared/models/salsforceContact.model';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-profile-details',
-  imports: [FormsModule, CommonModule, PanelModule, ButtonModule, DialogModule, AppProfileAccessDialogComponent],
+  imports: [FormsModule, CommonModule, PanelModule, ButtonModule, DialogModule, AppProfileAccessDialogComponent,ToastModule],
   templateUrl: './profile-details.component.html',
-  styleUrl: './profile-details.component.scss'
+  styleUrl: './profile-details.component.scss',
+  providers: [MessageService]
 })
 export class AppProfileDetailsComponent implements OnChanges {
   @Input() profil: Profil | undefined;
@@ -37,7 +40,7 @@ export class AppProfileDetailsComponent implements OnChanges {
       this.getContactByBp();
     }
   }
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthService,  private messageService: MessageService,
     private profileService: ProfilService) {
     this.currentUser = this.authService.currentUSer;
 
@@ -63,6 +66,66 @@ export class AppProfileDetailsComponent implements OnChanges {
       console.warn('BusinessPartner est indéfini');
     }
   }
+
+  savePhoneNumber() {
+    if (!this.profil?.BusinessPartner || !this.contactPhone) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Oups !',
+        detail: `Numéro de téléphone invalide.`
+      });
+      return;
+    }
+  
+    this.profileService.updatePhoneNumberByBusinessPartner(this.profil.BusinessPartner, this.contactPhone)
+      .subscribe({
+        next: () => {
+          // Récupérer le contact mis à jour
+          this.profileService.getContactByBp(this.profil!.BusinessPartner!)
+            .subscribe({
+              next: (updatedContact: SalesforceContact) => {
+                this.contact = updatedContact;
+                this.contactPhone = updatedContact.MobilePhone || '';
+                this.isEditMode = false;
+  
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Opération réussie',
+                  detail: `Mise à jour du numéro de téléphone réussie !`
+                });
+              },
+            });
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Oups !',
+            detail: `Échec de la mise à jour du numéro de téléphone.`
+          });
+        }
+      });
+  }
+  
+  hasShownPhoneError: boolean = false;
+
+  validatePhone(value: string) {
+    const onlyDigits = /^[0-9]*$/;
+  
+    if (!onlyDigits.test(value)) {
+      if (!this.hasShownPhoneError) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Le numéro de téléphone ne peut contenir que des chiffres.'
+        });
+        this.hasShownPhoneError = true;
+      }
+      this.contactPhone = value.replace(/\D/g, '');
+    } else {
+      // Reset du flag si entrée valide
+      this.hasShownPhoneError = false;
+    }
+  }  
   
   contracts = [
     { id: 1, name: 'Valentin Verret' },

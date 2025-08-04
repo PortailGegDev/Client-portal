@@ -3,7 +3,7 @@ import { PaymentService } from '../../services/payment.service';
 import { PaymentData } from '../../../../shared/models/payment-data.model';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentRedirection } from '../../../../shared/models/payment-redirection.model';
-import { take } from 'rxjs';
+import { of, switchMap, take } from 'rxjs';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
 import { PanelModule } from 'primeng/panel';
@@ -22,6 +22,7 @@ export class AppInvoicesPaypageComponent implements OnInit {
   currentUser: Signal<User | null>;
   currentUserEmail: string | undefined = '';
   orderId: string = '';
+  productSupplier = '';
   amount: number = 0;
   isLoading: boolean = true;
 
@@ -37,23 +38,27 @@ export class AppInvoicesPaypageComponent implements OnInit {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
       this.orderId = params['invoiceNumber'];
       this.amount = params['amount'];
+      this.productSupplier = params['productSupplier'];
       this.currentUserEmail = this.currentUser()?.email;
 
       if (!this.currentUserEmail) {
-        console.error(`Utilisateur invalide!`);
+        console.error('Utilisateur invalide !');
         return;
       }
-
-      this.initiatePayment(this.orderId, this.amount, this.currentUserEmail);
+  
+      this.initiatePayment(this.orderId, this.amount, this.currentUserEmail, this.productSupplier);
     });
   }
+  
 
-  initiatePayment(orderId: string, amount: number, currentUserEmail: string): void {
+  initiatePayment(orderId: string, amount: number, currentUserEmail: string, productSupplier: string): void {
 
     const paymentData: PaymentData = {
       orderId: orderId,
       amount: amount,
-      userEmail: currentUserEmail
+      userEmail: currentUserEmail,
+      productSupplier: productSupplier  
+
     };
 
     this.paymentService.initiatePayment(paymentData).subscribe({

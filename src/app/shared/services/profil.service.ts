@@ -58,4 +58,8 @@ export class ProfilService {
     getContactByBp(businessPartner: string): Observable<SalesforceContact> {
       return this.profilhttpService.getContactByBusinessPartner(businessPartner);
     }
+
+    updatePhoneNumberByBusinessPartner(businessPartner:string, newMobile:string): Observable<SalesforceContact>{
+      return this.profilhttpService.updatePhoneNumberByBusinessPartner(businessPartner,newMobile)
+    }
 }

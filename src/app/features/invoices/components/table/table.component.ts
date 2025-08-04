@@ -19,6 +19,7 @@ import { convertSAPDateToTsDate } from '../../../../shared/utils/date-utilities'
 import { Constants } from '../../../../shared/utils/constants';
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { TooltipModule } from 'primeng/tooltip';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
   selector: 'app-invoices-table',
@@ -41,7 +42,7 @@ export class AppInvoicesTableComponent implements OnChanges {
   }
 
   constructor(private invoiceService: InvoicesService,
-    private messageService: MessageService,
+    private messageService: MessageService,private paymentService: PaymentService,
     private router: Router
   ) { }
 
@@ -77,7 +78,16 @@ export class AppInvoicesTableComponent implements OnChanges {
       return;
     }
 
-    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC.toString().replace('.', '')]);
+    this.paymentService.getProductSupplier(this.selectedContract?.ContractISU || '').subscribe({
+      next: (productSupplier) => {
+    this.router.navigate(['invoices', 'paypage', 'orderId', invoice.UtilitiesInvoicingDocument, 'amount', invoice.TotalUnpaidTTC.toString().replace('.', ''), 'productSupplier',
+      productSupplier
+    ]);
+  },
+  error: (err) => {
+    console.error('Erreur récupération productSupplier', err);
+  }
+});
   }
 
   deselectAllInvoices() {

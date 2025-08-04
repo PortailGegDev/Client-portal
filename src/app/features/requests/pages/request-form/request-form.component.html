@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="custom-container">
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
@@ -51,6 +52,9 @@
                     <div class="form-group col">
                         <span class="label" for="phone">N° de téléphone</span>
                         <input type="text" pInputText formControlName="phone" />
+                        @if(phoneForm?.invalid && (phoneForm?.touched || phoneForm?.dirty)){
+                            <small class="error">Le numéro de téléphone est obligatoire.</small>
+                            }
                     </div>
                 </div>
 <!-- 

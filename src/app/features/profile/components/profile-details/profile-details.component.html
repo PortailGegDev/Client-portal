@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="row m-3">
     <div class="col-md-6 mb-4">
         <p-panel header="Identité" [style]="{'width': '100%', 'height': '100%'}">
@@ -77,7 +78,7 @@
 
                 @if(isEditMode){
                 <div>
-                    <input type="tel" [(ngModel)]="contactPhone" />
+                    <input type="tel" [(ngModel)]="contactPhone"  (ngModelChange)="validatePhone($event)"  />
                 </div>
                 }
             </div>
@@ -85,10 +86,10 @@
             <div class="contact-actions">
                 @if(isEditMode){
                 <div class="col-12 mb-3">
-                    <p-button label="Annuler" severity="help" (click)="saveEdit()" />
+                    <p-button label="Annuler" severity="help" (click)="cancelEdit()"/>
 
                     &nbsp;
-                    <p-button label="Enregistrer" (click)="saveEdit()" />
+                    <p-button label="Enregistrer" (click)="savePhoneNumber()" />
                 </div>
                 }
             </div>

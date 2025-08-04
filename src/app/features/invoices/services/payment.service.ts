@@ -18,4 +18,9 @@ export class PaymentService {
   checkPaymentResult(invoiceNumber: string): Observable<string | undefined> {
     return this.paymentHttpService.checkPaymentResult(invoiceNumber);
   }
+
+  getProductSupplier(contractISU: string): Observable<string | undefined> {
+    return this.paymentHttpService.getProductSupplier(contractISU)
+  }
+
 }
