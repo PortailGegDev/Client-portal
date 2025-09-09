@@ -85,6 +85,88 @@ export class Constants {
         PROJET_ECONOMIES_ENERGIE: "PROJET_ECONOMIES_ENERGIE"
     }
 
+
+      /* ----------------- Services Pack ----------------- */
+  public static ServicesPack = {
+    ELECTRICITE: 'OPT_SRN_E',
+    ELECTRICITE_0: 'OPT_SRN_E0',
+    ELECTRICITE_GAZ: 'OPT_SRN_EG',
+    ELECTRICITE_GAZ_PLOMBERIE: 'PCKSRN_EGP',
+    GREEN_OPTION: 'GREEN_OPTION',
+    ARRONDI_SOL: 'SrvArrondiSol',
+  };
+
+  /* ----------------- Données d'affichage ----------------- */
+ public static BoxData = [
+  {
+    id: Constants.ServicesPack.ELECTRICITE,
+    title: 'Sérénité Electricité',
+    price: '2,99€/mois',
+    service: 'Assistance dépannage',
+    icon: '/images/Icons (1).png',
+    backgroundImage: '/images/service_contrat.jpg',
+    status: 'souscrit',
+    link: '/services/serenity-electricity'
+  },
+  {
+    id: Constants.ServicesPack.ELECTRICITE_GAZ,
+    title: 'Sérénité Electricité, Gaz',
+    price: '2,99€/mois',
+    service: 'Assistance dépannage',
+    icon: '/images/Icons (1).png',
+    backgroundImage: '/images/Service2.jpg',
+    link: ''
+  },
+  {
+    id: Constants.ServicesPack.ELECTRICITE_GAZ_PLOMBERIE,
+    title: 'Sérénité Electricité, Gaz & Plomberie',
+    price: '2,99€/mois',
+    service: 'Assistance dépannage',
+    icon: '/images/Icons (1).png',
+    backgroundImage: '/images/service3.jpg',
+    status: '',
+    link: ''
+  },
+  { 
+    id: Constants.ServicesPack.GREEN_OPTION,
+    title: 'Option verte',
+    price: '1€ - 2,99€/mois',
+    service: 'Énergie renouvelable',
+    icon: '/images/Icons (1).png',
+    backgroundImage: '/images/service4.jpg',
+    status: '',
+    link: '/services/green-option'
+  },
+  // {
+  //   title: 'E-Facture',
+  //   price: 'Gratuit',
+  //   service: 'Facturation numérique',
+  //   icon: '/images/Icons (1).png',
+  //   backgroundImage: '/images/service_facture.jpg',
+  //   status: 'souscrit',
+  //   link: ''  // pas de lien
+  // },
+  // {
+  //   title: 'Facture papier',
+  //   price: 'Gratuit',
+  //   service: 'Facturation classique',
+  //   icon: '/images/Icons (1).png',
+  //   backgroundImage: '/images/service6.jpg',
+  //   status: '',
+  //   link: ''
+  // },
+  // {
+  //   id: Constants.ServicesPack.ARRONDI_SOL,
+  //   title: 'Arrondis solidaires',
+  //   price: 'Gratuit',
+  //   service: 'Don associatif',
+  //   icon: '/images/Icons (1).png',
+  //   backgroundImage: '/images/service7.jpg',
+  //   status: '',
+  //   link: ''
+  // },
+];
+
     public static ContractCreationLink = 'https://www.geg.fr/souscription/part/';
 
     public static readonly CO_TITULAIRE_INFO_TEXT = "Pour modifier les informations relatives au titulaire de votre contrat, nous vous invitons à nous appeler au 04 76 84 20 00, choix.\n  Nous sommes joignables du lundi au vendredi de 8h à 20h.";

@@ -48,8 +48,9 @@ export class AppProfileLodgementDetailsComponent implements OnInit {
 
   }
   constructor(private router: Router) { }
+
   RetourEnBack() {
-    this.router.navigate(['/pages/profil']);
+    this.router.navigate(['profile']);
   }
 
   selectType(type: string): void {

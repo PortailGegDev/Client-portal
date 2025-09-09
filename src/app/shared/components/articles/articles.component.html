@@ -5,24 +5,27 @@
                 <h5>Notre sélection d’articles</h5>
             </div>
 
-            <div class="col-6 button-container-header" style="text-align: right;">
+            <a class="col-6 button-container-header" style="text-align: right;" href="https://www.geg.fr/blog/">
                 Voir tous les articles →
-            </div>
+            </a>
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="false" [circular]="true" [numScroll]="numScroll"
-        [showIndicators]="false" autoplayInterval="5000" [responsiveOptions]="responsiveOptions">
+    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="false" [circular]="true"
+        [numScroll]="numScroll" [showIndicators]="false" autoplayInterval="5000"
+        [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>
             <div class="card-text" style="margin-right: 10px; margin-left: 10px;">
                 <img src="{{ article.img }}" [alt]="article.title" class="w-full rounded-border"
                     style="width: 100%; margin-bottom: 10px;" />
                 <div class="card-title" style="margin-bottom: 10px;">{{ article.title }}</div>
                 <div class="flex justify-between items-center">
-                    <div class="card-description font-semibold text-xl" style="margin-bottom: 10px;">{{ article.description }}</div>
-                    <div class="button-container-article">
+                    <div class="card-description font-semibold text-xl" style="margin-bottom: 10px;">{{
+                        article.description }}</div>
+                    <a class="button-container-article" [href]="article.lien" target="_blank" rel="noopener noreferrer">
                         Voir l'article →
-                    </div>
+                    </a>
+
                 </div>
             </div>
         </ng-template>

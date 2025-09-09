@@ -27,7 +27,8 @@
     ],
     "oauth2-configuration": {
         "redirect-uris": [
-            "https://client-portal-002.cfapps.eu10-004.hana.ondemand.com/*"
+            "https://client-portal-002.cfapps.eu10-004.hana.ondemand.com/**",
+            "https://mon-espacetest.geg.fr/**"
         ]
     }
 }

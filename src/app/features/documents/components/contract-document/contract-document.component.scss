@@ -11,6 +11,7 @@
   font-weight: 600;
   line-height: 100%; /* 22px */
   letter-spacing: -0.22px;
+  
   }
 
   .document-title {
@@ -36,3 +37,7 @@
 padding: 20px;
     gap: 24px;
   }
+::ng-deep .card-link{
+  text-decoration: none;
+}
+  

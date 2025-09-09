@@ -57,9 +57,9 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-8">
                     <p-card class="no-border-card">
-                        @for (option of optionVertes; track option.mainTitle) {
+                        @for (option of optionVertes; track option.subtitle) {
                         <div class="section mb-3">
-                            <h2>{{ option.mainTitle }}</h2>
+                            <h2>Sérénité Électricité</h2>
                             <div class="subtitle1">{{option.subtitle}}</div>
                             <div class="description" [innerHTML]="option.highlights"></div>
                         </div>

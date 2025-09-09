@@ -21,9 +21,9 @@ export class AppDocumentsContractDocumentComponent {
 
   documents = [
     { title: 'Justificatif de domicile', type: Constants.ContractSupportingDoc.DOMICILE, date: formatDateFr(new Date()) },
-    { title: 'Grille tarifaire Tarif Base', type: Constants.ContractSupportingDoc.GRILLE_TARIFAIRE_TARIF_BASE, date: formatDateFr(new Date()) },
-    { title: 'Certificat de garantie d`origine', type: Constants.ContractSupportingDoc.GARANTIE_ORIGINE, date: formatDateFr(new Date()) },
-    { title: 'CGV', type: Constants.ContractSupportingDoc.CGV, date: `${(new Date()).getFullYear()} Tarif Base` }
+    // { title: 'Grille tarifaire Tarif Base', type: Constants.ContractSupportingDoc.GRILLE_TARIFAIRE_TARIF_BASE, date: formatDateFr(new Date()) },
+    // { title: 'Certificat de garantie d`origine', type: Constants.ContractSupportingDoc.GARANTIE_ORIGINE, date: formatDateFr(new Date()) },
+    { title: 'CGV', type: Constants.ContractSupportingDoc.CGV, date: `${(new Date()).getFullYear()} Tarif Base`, url:'https://www.geg.fr/cgv-pour-les-particuliers-et-les-professionnels/'}
   ];
 
   constructor(private authService: AuthService,

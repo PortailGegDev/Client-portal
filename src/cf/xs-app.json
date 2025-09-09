@@ -54,6 +54,6 @@
     ],
     "logout": {
         "logoutEndpoint": "/logout",
-        "logoutPage": "logout.html"
+        "logoutPage": "https://mon-espacetest.geg.fr/"
     }
 }

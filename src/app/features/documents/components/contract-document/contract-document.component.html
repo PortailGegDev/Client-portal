@@ -2,11 +2,29 @@
   <h5>Documents associés</h5>
 
   <div class="row">
-
     @for (document of documents ; track document.title) {
-    <div class="col-12 col-md-6 col-lg-3 mb-3">
-      <app-documents-justif-box [title]="document.title" [contractJustificatifType]="document.type" [date]="document.date" (onClick)="downloadJustificatif($event)"/>
-    </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-3">
+        <ng-container *ngIf="document.url; else normalCard">
+          <!-- Carte cliquable si URL existe -->
+          <a [href]="document.url" target="_blank" rel="noopener noreferrer" class="card-link">
+            <app-documents-justif-box 
+              [title]="document.title" 
+              [contractJustificatifType]="document.type" 
+              [date]="document.date">
+            </app-documents-justif-box>
+          </a>
+        </ng-container>
+
+        <ng-template #normalCard>
+          <!-- Carte normale avec téléchargement -->
+          <app-documents-justif-box 
+            [title]="document.title" 
+            [contractJustificatifType]="document.type" 
+            [date]="document.date" 
+            (onClick)="downloadJustificatif($event)">
+          </app-documents-justif-box>
+        </ng-template>
+      </div>
     }
   </div>
 </div>

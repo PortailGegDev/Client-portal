@@ -11,15 +11,20 @@ export class AppRequestsHighlightComponent {
 
   constructor(private router: Router) { }
 
-  goToRelocation() {
-    this.router.navigate(['/requests/relocation']);
+   isHiddenPage(): boolean {
+    const url = this.router.url;
+    return url === '/services/green-option'
+        || url === '/services/serenity-electricity';
   }
+  
+  // goToRelocation() {
+  //   this.router.navigate(['/requests/relocation']);
+  // }
 
-  goToFaq() {
-    this.router.navigate(['/requests/frequently-asked-questions']);
-  }
+  // goToFaq() {
+  //   this.router.navigate(['/requests/frequently-asked-questions']);
+  // }
 
-  goToCustomerService() {
-
-  }
+  // goToCustomerService() {
+  // }
 }

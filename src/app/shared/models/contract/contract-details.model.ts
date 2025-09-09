@@ -54,7 +54,7 @@ export class ContractDetails {
     GreenOptin!: string;
     TauxEnergieVerte!: number;
     ServicesPack!: string;
-    SrvArrondiSol!: boolean;
+    SrvArrondiSol!: string;
     SrvEuroSol!: boolean;
     SrvYeliGrCoeur!: boolean;
     BusinessPartnerBankId!:string;

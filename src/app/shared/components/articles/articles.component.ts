@@ -65,4 +65,8 @@ export class ArticlesComponent implements OnInit {
       },
     });
   }
+  openLink(url?: string) {
+  if(url) window.open(url, '_blank');
+}
+
 }

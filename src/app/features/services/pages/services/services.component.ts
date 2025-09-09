@@ -1,87 +1,82 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { ContractHttpService } from '../../../../core/http-services/contrat-http.service';
+import { Component, OnInit, Signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ActiveContractComponent } from '../../../../shared/components/active-contract/active-contract.component';
-
-
+import { Contract } from '../../../../shared/models/contract/contract.model';
+import { ContractService } from '../../../../shared/services/contract.service';
+import { ContractDetails } from '../../../../shared/models/contract/contract-details.model';
+import { Constants } from '../../../../shared/utils/constants';
+import { AppServicesSerenityElectricityComponent } from '../serenity-electricity/serenity-electricity.component';
+import { AppServicesGreenOptionComponent } from '../green-option/green-option.component';
 @Component({
   selector: 'app-services',
-  imports: [CommonModule,ActiveContractComponent],
+  imports: [CommonModule, ActiveContractComponent,AppServicesSerenityElectricityComponent,RouterModule,AppServicesGreenOptionComponent],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
-export class AppServicesComponent {
-  constructor(private router: Router) {}
-  goTo(link: string) {
+export class AppServicesComponent implements OnInit {
+
+  isServicepackE: boolean = false;  // Sérénité électrique
+  isServicepackEG: boolean = false;  // Sérénité électrique,Gaz
+  isPackSereniteEGP: boolean = false;  // Sérénité électrique,Gaz_Plomberie
+  isOptionSrvArrondiSol: boolean = false;
+  isGreenOption: boolean = false;
+  selectedContract: Signal<Contract | null>;
+  contractIsu: string[] = [];
+  boxData = Constants.BoxData;
+
+  constructor(private router: Router, private contractService: ContractService) {
+    this.selectedContract = this.contractService.selectedContract;
+  }
+  ngOnInit() {
+    const contract = this.selectedContract();
+    if (contract?.ContractISU) {
+      this.loadContracts([contract.ContractISU]);
+    }
+  }
+
+  loadContracts(contractIsu: string[]): void {
+    this.contractService.getContractsByContractISUList(contractIsu).subscribe({
+      next: (contracts: ContractDetails[]) => {
+        if (!contracts?.length) {
+          console.warn('Aucun contrat trouvé pour contractIsu', contractIsu);
+          return;
+        }
+        const contrat = contracts[0];
+        const pack = contrat.ServicesPack;
+
+        this.isServicepackE = pack === Constants.ServicesPack.ELECTRICITE || pack === Constants.ServicesPack.ELECTRICITE_0;
+        this.isServicepackEG = pack === Constants.ServicesPack.ELECTRICITE_GAZ;
+        this.isPackSereniteEGP = pack === Constants.ServicesPack.ELECTRICITE_GAZ_PLOMBERIE;
+        this.isOptionSrvArrondiSol = contrat.SrvArrondiSol !== 'false';
+        this.isGreenOption = contrat.GreenOptin !== 'SO';
+      },
+      error: (err) => console.error('Erreur lors de la récupération des contrats:', err)
+    });
+  }
+
+goTo(link: string) {
+  if (link) {
+    console.log('Navigation vers :', link);
     this.router.navigate([link]);
   }
-  boxData: any[] = [
-    {
-      status: 'souscrit',
-      price: '2,99€/mois',
-      service: 'assistance dépannage',
-      title: 'Sérénité Electricité',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/service_contrat.jpg',
-      link: 'services/serenity-electricity' 
+}
 
-    },
-    {
-      // status: 'souscrit',
-      price: '2,99€/mois',
-      service: 'assistance dépannage',
-      title: 'Sérénité Electricité',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/Service2.jpg'
 
-    },
-    {
-      // status: 'souscrit',
-      price: '2,99€/mois',
-      service: 'assistance dépannage',
-      title: 'Sérénité Electricité, Gaz<br>Plomberie',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/service3.jpg'
+trackByTitle(index: number, box: any) {
+  return box.title;
+}
 
-    },
-    {
-      // status: 'souscrit',
-      price: '1€-2,99€/mois ',
-      service: 'assistance dépannage',
-      title: 'Option verte',
-      icon: '/images/Icons (1).png',
+  shouldDisplayBox(boxId: string | undefined): boolean {
+    // Si le box n'est pas lié à un ServicePack, il est toujours affiché
+    if (!boxId) return true;
 
-      backgroundImage: '/images/service4.jpg'
-
-    },
-
-    {
-      status: 'souscrit',
-      price: 'Gratuit',
-      service: 'Service',
-      title: 'E-Facture',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/service_facture.jpg'
-    },
-    {
-      // status: 'souscrit',
-      price: 'Gratuit',
-      service: 'Service',
-      title: 'Facture en papier',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/service6.jpg'
-    },
-
-    {
-      // status: 'souscrit',
-      price: 'Gratuit',
-      service: 'Service',
-      title: 'Arrondis solidaires',
-      icon: '/images/Icons (1).png',
-      backgroundImage: '/images/service7.jpg'
-    },
-  ];
-
+    return (
+      (boxId === 'OPT_SRN_E' && this.isServicepackE) ||
+      (boxId === 'OPT_SRN_EG' && this.isServicepackEG) ||
+      (boxId === 'PCKSRN_EGP' && this.isPackSereniteEGP) ||
+      (boxId === 'GREEN_OPTION' && this.isGreenOption) ||
+      (boxId === 'SrvArrondiSol' && this.isOptionSrvArrondiSol)
+    );
+  }
 }

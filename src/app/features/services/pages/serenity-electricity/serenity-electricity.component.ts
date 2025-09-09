@@ -55,7 +55,7 @@ optionVertes: OptionVerte[]=[];
       title: 'Sérénité Electricité',
       icon: '/images/Icons (1).png',
       backgroundImage: '/images/service_contrat.jpg',
-      link: 'services/serenity-electricity' 
+      link: '/services/serenity-electricity' 
 
     },
   ]

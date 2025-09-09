@@ -1,45 +1,52 @@
 {
     "articles": [
         {
-            "title": "Production d’électricité",
-            "description": "Comment GEG produit son électricité",
+            "title": "Production d'électricité",
+            "description":"Energies renouvelables et territoires : comment valoriser les projets de production d’énergies vertes ?",
             "img": "/images/Rectangle 1477 (8).png",
+            "lien": "https://www.geg.fr/blog/decryptage/tout-comprendre-des-enjeux-de-la-transition-energetique/",
             "screen":"home"
         },
         {
             "title": "Consommation cachée, même éteints, ils consomment",
             "description": "Découvrez les bons gestes à adopter",
             "img": "/images/Rectangle 1477 (9).png",
+            "lien": "https://www.geg.fr/blog/economies-d-energie/consommation-cachee-des-appareils-electriques-meme-eteints-ils-continuent-de-consommer/",
             "screen":"home"
         },
         {
             "title": "Voiture électrique",
-            "description": "Tout comprendre sur les atouts et points faibles",
+            "description": "Pour vos bornes de recharge électriques, GEG a la solution !",
             "img": "/images/Rectangle 1477 (10).png",
+            "lien": "https://www.geg.fr/blog/entreprises/pour-vos-bornes-de-recharge-electriques-geg-a-la-solution/",
             "screen":"home"
         },
         {
             "title": "Sobriété énergétique et sobriété numérique",
             "description": "Attention à vos appareils électriques ! Découvrez les bons gestes à adopter...",
             "img": "/images/Rectangle 1477 (4).png",
+            "lien": "https://www.geg.fr/blog/economies-d-energie/faire-rimer-sobriete-energetique-et-sobriete-numerique/",
             "screen":"consumption"
         },
         {
             "title": "Sobriété énergétique et salle de bains",
             "description": "Découvrez les bons gestes à adopter...",
             "img": "/images/Rectangle 1477 (5).png",
+            "lien": "https://www.geg.fr/blog/economies-d-energie/sobriete-energetique-et-salle-de-bain-les-bons-gestes-a-adopter/",
             "screen":"consumption"
         },
         {
-            "title": "Consommation cachée de vos appareils",
-            "description": "Machine à laver, ballon d’eau chaude, chauffage...",
+            "title": "Vous avez un projet de rénovation énergétique ?",
+            "description": "Pour vos travaux d’économie d’énergie, pensez à la prime CEE !",
             "img": "/images/Rectangle 1477 (6).png",
+            "lien": "https://www.geg.fr/blog/economies-d-energie/pour-vos-travaux-d-economie-d-energie-pensez-aux-cee/",
             "screen":"consumption"
         },
         {
-            "title": "Consommation d’énergie : les écogestes du printemps !",
-            "description": "Les gestes les plus efficaces pour réduire votre consommation d’énergie au printemps ?",
+            "title": "Appareils énergivores",
+            "description": "Mieux les connaître pour faire des économies d’énergie",
             "img": "/images/Rectangle 1477 (7).png",
+            "lien": "https://www.geg.fr/blog/economies-d-energie/appareils-energivores-mieux-les-connaitre-pour-faire-des-economies-d-energie/",
             "screen":"consumption"
         }
     ]
