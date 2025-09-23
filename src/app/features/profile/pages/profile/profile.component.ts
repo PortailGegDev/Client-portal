@@ -14,12 +14,13 @@ import { AuthService } from '../../../../core/http-services/auth.service';
 import { map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SalesforceContact } from '../../../../shared/models/salsforceContact.model'; // adapte le chemin
+import { AppProfileHighlightProfilComponent } from '../../components/highlight-profil/highlight-profil.component';
 
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent, AppMesLogementsComponent, AppMesPreferencesComponent],
+  imports: [CommonModule, FormsModule, TabsModule, CardModule, PanelModule, AppProfileDetailsComponent, AppMesLogementsComponent, AppMesPreferencesComponent,AppProfileHighlightProfilComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -192,6 +193,6 @@ export class AppProfileComponent {
     }
   }
   navigateToService() {
-    this.router.navigate(['services']);
+    this.router.navigate(['/services/serenity-electricity']);
   }
 }

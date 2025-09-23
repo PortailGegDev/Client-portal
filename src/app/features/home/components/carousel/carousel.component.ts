@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { VariousService } from '../../../../shared/services/various.service';
@@ -12,15 +12,17 @@ import { Constants } from '../../../../shared/utils/constants';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
-export class AppHomeCarouselComponent implements OnInit {
+export class AppHomeCarouselComponent implements OnChanges {
   @Input() isClientPrecaireAide: boolean = false;
 
   carouselData: Carousel[] = [];
 
   constructor(private variousService: VariousService) { }
 
-  ngOnInit() {
-    this.initCarouselData();
+   ngOnChanges(changes: SimpleChanges) {
+    if (changes['isClientPrecaireAide']) {
+      this.initCarouselData();
+    }
   }
 
   initCarouselData() {
@@ -33,11 +35,11 @@ export class AppHomeCarouselComponent implements OnInit {
         if (!this.isClientPrecaireAide) {
           const carouselDataChequeEnergie = this.carouselData.find(item => item.code === Constants.Carousel_Item_Code.CHEQUE_ENERGIE);
 
-            const index = carouselDataChequeEnergie ? this.carouselData.indexOf(carouselDataChequeEnergie) : -1;
+          const index = carouselDataChequeEnergie ? this.carouselData.indexOf(carouselDataChequeEnergie) : -1;
 
-            if (index > -1) {
-              this.carouselData.splice(index, 1);
-            }
+          if (index > -1) {
+            this.carouselData.splice(index, 1);
+          }
         }
       },
       error: (error) => {

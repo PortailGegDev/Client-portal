@@ -12,11 +12,11 @@
 
             <p-tabpanels>
                 <p-tabpanel value="0">
-                    <app-profile-details [profil]="profil"/>
+                    <app-profile-details [profil]="profil" />
                 </p-tabpanel>
-                
+
                 <p-tabpanel value="1">
-                       <app-mes-logements [profil]="profil"></app-mes-logements>   
+                    <app-mes-logements [profil]="profil"></app-mes-logements>
                 </p-tabpanel>
 
                 <p-tabpanel value="2">
@@ -26,67 +26,8 @@
             </p-tabpanels>
         </p-tabs>
     </div>
-
+    
     <div class="col-md-4 mb-3" style="margin-top: 100px;">
-        <div class="right-container">
-            <div class="content-box">
-                <div class="item">
-                    <div class="inner-box">
-                        <img src="/images/Rectangle 1477.png" alt="Image">
-                        <div class="text">
-                            <div class="title">Parrainnez un proche</div>
-                            <div class="subtitle">Et gagnez 10% sur votre prochaine facture</div>
-                            <div class="button-section">
-                                <div class="button-text">Je parraine</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                    fill="none">
-                                    <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                        stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="inner-box">
-                        <img src="/images/Rectangle 1476.png" alt="Image">
-                        <div class="text">
-                            <div class="title">Nos services</div>
-                            <div class="subtitle">Besoin d’un suivi sur mesure ?</div>
-                            <div class="button-section" (click)="navigateToService()">
-                                <div class="button-text">Voir les services</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                    fill="none">
-                                    <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                        stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="inner-box">
-                    <img src="/images/Rectangle 1476 (1).png" alt="Image">
-                    <div class="text">
-                        <div class="title">Eco-gestes</div>
-                        <div class="subtitle">Baisser votre consommation au quotidien</div>
-                        <div class="button-section">
-                            <div class="button-text">Voir le guide</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                fill="none">
-                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                    stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-profile-highlight-profil />
     </div>
 </div>

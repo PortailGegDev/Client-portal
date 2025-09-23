@@ -5,13 +5,13 @@
                 <h5>Notre sélection d’articles</h5>
             </div>
 
-            <a class="col-6 button-container-header" style="text-align: right;" href="https://www.geg.fr/blog/">
+            <a class="col-6 button-container-header" style="text-align: right;" href="https://www.geg.fr/blog/" target="_blank">
                 Voir tous les articles →
             </a>
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="false" [circular]="true"
+    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="false" [circular]="false"
         [numScroll]="numScroll" [showIndicators]="false" autoplayInterval="5000"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>

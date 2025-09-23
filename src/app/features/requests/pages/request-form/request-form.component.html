@@ -33,7 +33,8 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
+               
+                <!-- <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="email">Adresse E-mail</span>
                         <input type="text" pInputText formControlName="email" />
@@ -53,11 +54,13 @@
                         <span class="label" for="phone">N° de téléphone</span>
                         <input type="text" pInputText formControlName="phone" />
                         @if(phoneForm?.invalid && (phoneForm?.touched || phoneForm?.dirty)){
-                            <small class="error">Le numéro de téléphone est obligatoire.</small>
-                            }
+                        <small class="error">Le numéro de téléphone est obligatoire.</small>
+                        }
                     </div>
-                </div>
-<!-- 
+                </div> -->
+                
+
+                <!-- 
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="clientRef">Référence client</span>
@@ -70,8 +73,29 @@
 
                 @if(isReclamation) {
                 <h6 class="mt-3">Adresse</h6>
+                <div class="form-group col">
+                    <span class="label" for="selectedContract">Contrat</span>
+                    <p-select [options]="contracts()" placeholder="Sélectionnez" formControlName="selectedContract"
+                        [appendTo]="'body'" styleClass="w-full md:w-80">
 
-                <div class="row mt-3">
+                        <ng-template let-contract #item>
+                            {{getContractLabel(contract)}}
+                        </ng-template>
+
+                        <ng-template let-selectedContract #selectedItem>
+                            {{getSelectedContractLabel()}}
+                        </ng-template>
+
+                    </p-select>
+
+                    @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
+                    selectedContractForm?.dirty)){
+                    <small class="error">Le contrat est obligatoire.</small>
+                    }
+                </div>
+
+
+                <!-- <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="address">Adresse</span>
                         <input type="text" pInputText formControlName="address" />
@@ -100,22 +124,36 @@
                         <small class="error">La ville est obligatoire.</small>
                         }
                     </div>
-                </div>
+                </div> -->
 
                 <h6 class="mt-3">Réclamation</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
-                        <span class="label" for="reclamationMotif">Motif de ma réclamation</span>
+                        <span class="label" for="reclamationMotif">Sous-type</span>
 
                         <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name"
                             class="w-full md:w-56" />
 
                         @if(reclamationMotifForm?.invalid && (reclamationMotifForm?.touched ||
                         reclamationMotifForm?.dirty)){
-                        <small class="error">Le motif de réclamation est obligatoire.</small>
+                        <small class="error">Le type de réclamation est obligatoire.</small>
                         }
                     </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="reclamationNature">Nature</span>
+
+                        <p-select formControlName="reclamationNature" [options]="reclamationNatures" optionLabel="name"
+                            class="w-full md:w-56" />
+
+                        @if(reclamationNatureForm?.invalid && (reclamationNatureForm?.touched ||
+                        reclamationNatureForm?.dirty)){
+                        <small class="error">La nature de réclamation est obligatoire.</small>
+                        }
+                    </div>
+
                 </div>
 
                 <div class="row mt-3">
@@ -165,68 +203,67 @@
 
                 @if(isRescission){
 
-                    <h6 class="mt-3">Résiliation</h6>
-                    <div class="row mt-3">
-                        <div class="form-group col">
-                            <span class="label" for="rescissionDepartureDate">Date de départ</span>
-                            <p-datepicker formControlName="rescissionDepartureDate" [appendTo]="'body'"
-                                [style]="{'width':'100%'}" />
-                            @if(rescissionDepartureDateForm?.invalid && (rescissionDepartureDateForm?.touched ||
-                            rescissionDepartureDateForm?.dirty)){
-                            <small class="error">La date de départ est obligatoire.</small>
-                            }
-                        </div>
-
-                        <div class="form-group col">
-                            <span class="label" for="selectedContract">Contrat à résilier</span>
-                            <p-select [options]="contracts()" placeholder="Sélectionnez" 
-                                formControlName="selectedContract" [appendTo]="'body'"
-                                styleClass="w-full md:w-80">
-    
-                                <ng-template let-contract #item>
-                                    {{getContractLabel(contract)}}
-                                </ng-template>
-    
-                                <ng-template let-selectedContract #selectedItem >
-                                    {{getSelectedContractLabel()}}
-                                </ng-template>
-    
-                            </p-select>
-    
-                            @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
-                            selectedContractForm?.dirty)){
-                            <small class="error">Le contrat à résilier est obligatoire.</small>
-                            }
-                        </div>
+                <h6 class="mt-3">Résiliation</h6>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="rescissionDepartureDate">Date de départ</span>
+                        <p-datepicker formControlName="rescissionDepartureDate" [appendTo]="'body'"
+                            [style]="{'width':'100%'}" />
+                        @if(rescissionDepartureDateForm?.invalid && (rescissionDepartureDateForm?.touched ||
+                        rescissionDepartureDateForm?.dirty)){
+                        <small class="error">La date de départ est obligatoire.</small>
+                        }
                     </div>
-    
-                    @if (selectedContractForm.value.length > 0) {
-    
-                    <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
-    
-                    <div class="row mt-3">
-                        @if (shouldShowElectricityReading) {
-    
-                        <div class="form-group col">
-                            <span class="label" for="hpReading">Relevé d’électricité Heures Pleines</span>
-                            <p-inputnumber inputId="integeronly" formControlName="hpReading" />
-                        </div>
-    
-                        <div class="form-group col">
-                            <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
-                            <p-inputnumber inputId="integeronly" formControlName="hcReading" />
-                        </div>
-    
+
+                    <div class="form-group col">
+                        <span class="label" for="selectedContract">Contrat à résilier</span>
+                        <p-select [options]="contracts()" placeholder="Sélectionnez" formControlName="selectedContract"
+                            [appendTo]="'body'" styleClass="w-full md:w-80">
+
+                            <ng-template let-contract #item>
+                                {{getContractLabel(contract)}}
+                            </ng-template>
+
+                            <ng-template let-selectedContract #selectedItem>
+                                {{getSelectedContractLabel()}}
+                            </ng-template>
+
+                        </p-select>
+
+                        @if(selectedContractForm?.invalid && (selectedContractForm?.touched ||
+                        selectedContractForm?.dirty)){
+                        <small class="error">Le contrat à résilier est obligatoire.</small>
                         }
-    
-                        @if (shouldShowGasReading) {
-                        <div class="form-group col">
-                            <span class="label" for="gazReading">Relevé Gaz</span>
-                            <p-inputnumber inputId="integeronly" formControlName="gazReading" />
-                        </div>
-                        }
+                    </div>
+                </div>
+
+                @if (selectedContractForm.value.length > 0) {
+
+                <h6 class="mt-3">Si mon compteur est à l’intérieur du logement</h6>
+
+                <div class="row mt-3">
+                    @if (shouldShowElectricityReading) {
+
+                    <div class="form-group col">
+                        <span class="label" for="hpReading">Relevé d’électricité Heures Pleines</span>
+                        <p-inputnumber inputId="integeronly" formControlName="hpReading" />
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="hcReading">Relevé d’électricité Heures Creuses</span>
+                        <p-inputnumber inputId="integeronly" formControlName="hcReading" />
+                    </div>
+
+                    }
+
+                    @if (shouldShowGasReading) {
+                    <div class="form-group col">
+                        <span class="label" for="gazReading">Relevé Gaz</span>
+                        <p-inputnumber inputId="integeronly" formControlName="gazReading" />
                     </div>
                     }
+                </div>
+                }
 
                 <h6 class="mt-3">Adresse du logement à résilier</h6>
 

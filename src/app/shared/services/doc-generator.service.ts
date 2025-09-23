@@ -41,7 +41,7 @@ export class DocGeneratorService {
       // Titre centré et coloré
       pdf.setTextColor(100, 150, 30); // Vert GEG plus foncé
       pdf.setFontSize(18);
-      pdf.text('Votre justificatif de domicile', 20, 100);
+      pdf.text('Votre attestation de contrat', 20, 100);
 
       // Texte principal
       pdf.setTextColor(0, 0, 0); // Noir

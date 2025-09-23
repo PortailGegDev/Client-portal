@@ -40,7 +40,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     // { name: 'Heure', value: 1 },
     // { name: 'Jour', value: 2 },
     { name: 'Mois', value: 3 },
-    { name: 'Année', value: 4 }
+    // { name: 'Année', value: 4 }
   ];
 
   selectUnityValue: number = 1;

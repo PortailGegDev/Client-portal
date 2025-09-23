@@ -101,9 +101,9 @@ export class AppComponent  {
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
-       //businessPartner = '1510000229'; // avec client précaire
-      // businessPartner = '1510000222';
-       businessPartner='1510000233'
+      //  businessPartner = '1510000229'; // avec client précaire
+      businessPartner = '1510000222';
+      //  businessPartner='1510000233'
       this.authService.businessPartner.set(businessPartner);
       console.log("Vous êtes en locale : Votre Bp est '1510136444'");
     }

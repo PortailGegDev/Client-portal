@@ -26,7 +26,7 @@ import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-requests-form-rescission',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, InputNumberModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent,ToastModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelModule, InputTextModule, ButtonModule, SelectModule, TextareaModule, DatePickerModule, MultiSelectModule, InputNumberModule, AppRequestsRequestSendedComponent, AppRequestsHighlightComponent, ToastModule],
   templateUrl: './request-form.component.html',
   styleUrl: './request-form.component.scss',
   providers: [MessageService]
@@ -36,6 +36,7 @@ export class AppRequestsFormComponent implements OnInit {
   title: string = 'Demande de résiliation';
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
+  reclamationNatures: any[] | undefined;
   form!: FormGroup;
   contractList: Contract[] = [];
   requestSended: boolean = false;
@@ -49,13 +50,14 @@ export class AppRequestsFormComponent implements OnInit {
 
   get lastNameForm(): any { return this.form.get('lastName'); }
   get firstNameForm(): any { return this.form.get('firstName'); }
-  get emailForm(): any { return this.form.get('email'); }
-  get phoneForm(): any { return this.form.get('phone'); }
+  // get emailForm(): any { return this.form.get('email'); }
+  // get phoneForm(): any { return this.form.get('phone'); }
   get refClientForm(): any { return this.form.get('clientRef'); }
   get addressForm(): any { return this.form.get('address'); }
   get postalCodeForm(): any { return this.form.get('postalCode'); }
   get cityForm(): any { return this.form.get('city'); }
   get reclamationMotifForm(): any { return this.form.get('reclamationMotif'); }
+  get reclamationNatureForm(): any { return this.form.get('reclamationNature'); }
   get messageForm(): any { return this.form.get('message'); }
   get puissanceForm(): any { return this.form.get('puissance'); }
   get tarifForm(): any { return this.form.get('tarif'); }
@@ -84,8 +86,8 @@ export class AppRequestsFormComponent implements OnInit {
   get lastModificationPower(): boolean { return this.requestType === Constants.DemandeType.POWER_MODIFICATION; }
 
 
-  constructor(private router: Router,private profilService: ProfilService,
-    private authService: AuthService, private contractService: ContractService,private messageService: MessageService,
+  constructor(private router: Router, private profilService: ProfilService,
+    private authService: AuthService, private contractService: ContractService, private messageService: MessageService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private requestService: RequestService) {
@@ -94,19 +96,33 @@ export class AppRequestsFormComponent implements OnInit {
 
     this.title = this.getPageTitle(this.requestType);
     this.contracts = this.contractService.contracts;
+
   }
 
   ngOnInit() {
     this.reclamationMotifs = Constants.ReclamationMotif;
+    this.reclamationNatures = [];
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
     this.profilService.contactId$.subscribe(id => {
       this.contactId = id;
-  
+
       if (id) {
         this.initForm(); // initialiser le formulaire seulement après avoir le contactId
       }
+    });
+
+    // 🔥 Ici la dépendance entre Motif et Nature
+    this.form.get('reclamationMotif')?.valueChanges.subscribe((selectedMotif: any) => {
+      if (selectedMotif) {
+        this.reclamationNatures = Constants.ReclamationNature.filter(
+          n => n.parentCode === selectedMotif.code
+        );
+      } else {
+        this.reclamationNatures = [];
+      }
+      this.form.get('reclamationNature')?.reset(); // reset du select nature
     });
   }
 
@@ -114,13 +130,14 @@ export class AppRequestsFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstName: [{ value: '', disabled: true }, Validators.required],
       lastName: [{ value: '', disabled: true }, Validators.required],
-      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
-      phone: ['',Validators.required],
+      // email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
+      // phone: ['', Validators.required],
       clientRef: [''],
       address: [''],
       postalCode: [''],
       city: [''],
       reclamationMotif: [''],
+      reclamationNature: [''],
       message: [''],
       refPCE: [''],
       rescissionStreetNumber: [{ value: '', disabled: true }, Validators.required],
@@ -149,6 +166,7 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('address');
       this.setControlRequired('postalCode');
       this.setControlRequired('reclamationMotif');
+      this.setControlRequired('reclamationNature');
       this.setControlRequired('message');
       this.setControlRequired('city');
     }
@@ -202,7 +220,7 @@ export class AppRequestsFormComponent implements OnInit {
     if (user) {
       this.lastNameForm.setValue(user.lastname);
       this.firstNameForm.setValue(user.firstname);
-      this.emailForm.setValue(user.email);
+      // this.emailForm.setValue(user.email);
     }
   }
 
@@ -233,7 +251,7 @@ export class AppRequestsFormComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.contactId) {
       this.messageService.add({
         severity: 'error',
@@ -242,10 +260,10 @@ export class AppRequestsFormComponent implements OnInit {
       });
       return;
     }
-  
+
     const formData = this.getRescissionFormDate();
     const payload = { ...formData, contactId: this.contactId };
-  
+
     if (this.isRescission) {
       this.requestService.createRescissionRequest(payload).subscribe({
         next: () => {
@@ -267,15 +285,15 @@ export class AppRequestsFormComponent implements OnInit {
       });
     }
   }
-  
+
 
   getRescissionFormDate(): RequestRecission {
     return {
       contractISU: this.selectedContractForm.value?.ContractISU,
       firstName: this.firstNameForm.value,
       lastName: this.lastNameForm.value,
-      email: this.emailForm.value,
-      phone: this.phoneForm.value,
+      // email: this.emailForm.value,
+      // phone: this.phoneForm.value,
       departureDate: this.rescissionDepartureDateForm.value,
       referenceClient: this.refClientForm.value,
       requestReason: "",

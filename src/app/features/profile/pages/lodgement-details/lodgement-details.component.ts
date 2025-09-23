@@ -2,14 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { SelectButton } from 'primeng/selectbutton';
+import { SelectModule } from 'primeng/select';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { AppProfileHighlightProfilComponent } from '../../components/highlight-profil/highlight-profil.component';
 
 @Component({
   selector: 'app-lodgement-details',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,CardModule,ButtonModule,SelectModule,DropdownModule,InputGroupModule,InputGroupAddonModule,AppProfileHighlightProfilComponent],
   templateUrl: './lodgement-details.component.html',
   styleUrl: './lodgement-details.component.scss'
 })
-export class AppProfileLodgementDetailsComponent implements OnInit {
+export class AppProfileLodgementDetailsComponent {
   selectedType: string = '';
   selectedHeating: string = '';
   superficie: number = 0;
@@ -18,35 +26,51 @@ export class AppProfileLodgementDetailsComponent implements OnInit {
   nombrePanneaux: number = 0;
   selectedPvv: string = '';
   selectedCar: string = '';
+adresse = "16 rue Pierre Larousse, 75014 Paris";
+edlNumber = "EDL n° N123456";
+
+chauffeEauOptions = [
+  { name: 'Électrique', code: 'ELEC' },
+  { name: 'Gaz', code: 'GAZ' },
+  { name: 'Solaire', code: 'SOL' }
+];
+
+cuissonOptions = [
+  { name: 'Gaz', code: 'GAZ' },
+  { name: 'Électrique', code: 'ELEC' },
+  { name: 'Induction', code: 'IND' }
+];
+
+selectedChauffeEau: any;
+selectedCuisson: any;
+
+  // ngOnInit(): void {
+  //   const savedType = localStorage.getItem('selectedType');
+  //   const savedHeating = localStorage.getItem('selectedHeating');
+  //   const savedSuperficie = localStorage.getItem('superficie');
+  //   const savedNombreHabitants = localStorage.getItem('nombreHabitants');
+  //   const savedPv = localStorage.getItem('selectedPv');
 
 
-  ngOnInit(): void {
-    const savedType = localStorage.getItem('selectedType');
-    const savedHeating = localStorage.getItem('selectedHeating');
-    const savedSuperficie = localStorage.getItem('superficie');
-    const savedNombreHabitants = localStorage.getItem('nombreHabitants');
-    const savedPv = localStorage.getItem('selectedPv');
+  //   if (savedType) {
+  //     this.selectedType = savedType; // Récupère la sélection enregistrée pour selectedType
+  //   }
+  //   if (savedHeating) {
+  //     this.selectedHeating = savedHeating; // Récupère la sélection enregistrée pour selectedHeating
+  //   }
+  //   if (savedPv) {
+  //     this.selectedPv = savedPv;
+  //   }
+  //   this.superficie = savedSuperficie ? +savedSuperficie : 75; // Utiliser une valeur par défaut si rien n'est trouvé
+  //   this.nombreHabitants = savedNombreHabitants ? +savedNombreHabitants : 4;
 
+  //   // TODO : A voir avec Manar
+  //   // this.nombrePanneaux =+ localStorage.getItem('nombrePanneaux') || 4;
 
-    if (savedType) {
-      this.selectedType = savedType; // Récupère la sélection enregistrée pour selectedType
-    }
-    if (savedHeating) {
-      this.selectedHeating = savedHeating; // Récupère la sélection enregistrée pour selectedHeating
-    }
-    if (savedPv) {
-      this.selectedPv = savedPv;
-    }
-    this.superficie = savedSuperficie ? +savedSuperficie : 75; // Utiliser une valeur par défaut si rien n'est trouvé
-    this.nombreHabitants = savedNombreHabitants ? +savedNombreHabitants : 4;
+  //   this.selectedPvv = localStorage.getItem('selectedPvv') || '';
+  //   this.selectedCar = localStorage.getItem('selectedCar') || '';
 
-    // TODO : A voir avec Manar
-    // this.nombrePanneaux =+ localStorage.getItem('nombrePanneaux') || 4;
-
-    this.selectedPvv = localStorage.getItem('selectedPvv') || '';
-    this.selectedCar = localStorage.getItem('selectedCar') || '';
-
-  }
+  // }
   constructor(private router: Router) { }
 
   RetourEnBack() {
@@ -64,7 +88,7 @@ export class AppProfileLodgementDetailsComponent implements OnInit {
   }
 
   navigateToService() {
-    this.router.navigate(['/pages/service']);
+    this.router.navigate(['/services/serenity-electricity']);
   }
   selectPv(value: string): void {
     this.selectedPv = value;
@@ -99,4 +123,6 @@ export class AppProfileLodgementDetailsComponent implements OnInit {
 
 
   }
+
+  
 }

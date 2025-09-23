@@ -12,7 +12,7 @@
       <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Rechercher" style="width: 90%;" />
     </p-iconfield>
   </div>
-
+  @if(false){
   <div class="col-md-3 mb-3">
     <p-message severity="info" styleClass="h-full">
       <div class="outer-circle">
@@ -51,8 +51,6 @@
     </p-message>
   </div>
 
-
-
   @if(EstimateFacture){
   <p-dialog header="Estimer prochaine facture" [(visible)]="EstimateFacture" [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
@@ -61,11 +59,11 @@
   </p-dialog>
   }
 
-
   @if(ChequeEnergie){
   <p-dialog header="Vous bénéficiez d’un chèque énérgie " [(visible)]="ChequeEnergie" [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '80vw !important' }" [draggable]="false"
     [resizable]="false">
     <app-invoices-energy-check [invoices]="invoices" />
   </p-dialog>
+  }
   }

@@ -1,5 +1,5 @@
 <div class="grid-container-white grid-1" style="text-align: center; height: 200px;">
-    <p>Veuillez saisir le mode de paiment désiré</p>
+    <p>Veuillez saisir le mode de paiement désiré</p>
 
     <form [formGroup]="form" (submit)="submitNewPaymentMethode()">
         <div class="grid-item-white mb-3">
@@ -7,7 +7,7 @@
             @if(paymentMethodForm?.invalid && (paymentMethodForm?.touched || paymentMethodForm?.dirty)){
             <br>
             @if(paymentMethodForm?.errors?.required){
-            <small class="error">Le mode de paiment est obligatoire!</small>
+            <small class="error">Le mode de paiement est obligatoire!</small>
             }
             }
         </div>

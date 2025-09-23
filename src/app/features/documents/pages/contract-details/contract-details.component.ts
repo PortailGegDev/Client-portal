@@ -122,10 +122,10 @@ export class AppDocumentContractDetailsComponent {
 
   updatePaymentMethode(paymentMethodeUpdated: boolean) {
     if (paymentMethodeUpdated) {
-      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de mode de paiment réussie !` });
+      this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: `Modification de mode de paiement réussie !` });
       this.loadContract(this.contractIsu);
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de mode de paiment échouée !` });
+      this.messageService.add({ severity: 'error', summary: 'Oups !', detail: `Modification de mode de paiement échouée !` });
     }
   }
 

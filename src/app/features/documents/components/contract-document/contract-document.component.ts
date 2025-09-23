@@ -7,10 +7,11 @@ import { DocGeneratorService } from '../../../../shared/services/doc-generator.s
 import { Contract } from '../../../../shared/models/contract/contract.model';
 import { AuthService } from '../../../../core/http-services/auth.service';
 import { User } from '../../../../shared/models/user.model';
+import { AppDocumentsCGVBoxComponent } from '../cgv-box/cgv-box.component';
 
 @Component({
   selector: 'app-documents-contract-document',
-  imports: [CommonModule, AppDocumentsJustifBoxComponent],
+  imports: [CommonModule, AppDocumentsJustifBoxComponent,AppDocumentsCGVBoxComponent],
   templateUrl: './contract-document.component.html',
   styleUrl: './contract-document.component.scss'
 })
@@ -20,10 +21,10 @@ export class AppDocumentsContractDocumentComponent {
   currentUser: User | null = null;
 
   documents = [
-    { title: 'Justificatif de domicile', type: Constants.ContractSupportingDoc.DOMICILE, date: formatDateFr(new Date()) },
+    { title: 'Attestation de contrat', type: Constants.ContractSupportingDoc.DOMICILE, date: formatDateFr(new Date()) },
     // { title: 'Grille tarifaire Tarif Base', type: Constants.ContractSupportingDoc.GRILLE_TARIFAIRE_TARIF_BASE, date: formatDateFr(new Date()) },
     // { title: 'Certificat de garantie d`origine', type: Constants.ContractSupportingDoc.GARANTIE_ORIGINE, date: formatDateFr(new Date()) },
-    { title: 'CGV', type: Constants.ContractSupportingDoc.CGV, date: `${(new Date()).getFullYear()} Tarif Base`, url:'https://www.geg.fr/cgv-pour-les-particuliers-et-les-professionnels/'}
+    { title: 'CGV', type: Constants.ContractSupportingDoc.CGV, date: `${(new Date()).getFullYear()} Tarif Base`}
   ];
 
   constructor(private authService: AuthService,

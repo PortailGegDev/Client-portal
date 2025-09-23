@@ -1,12 +1,14 @@
 <div class="custom-container">
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
-<h1 style="margin-bottom: 20px;">Détails logement</h1>
-<br>
+<h1>Détails logement</h1>
 <p>Complétez les informations sur votre logement pour recevoir les conseils personnalisés</p>
-<div class="main-container">
-    <div class="left-container">
+
+<div class="row">
+    <div class="col-md-8 mb-3">
         <div class="container">
+
+
             <div class="info-box">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <circle cx="16.5" cy="14" r="7.5" fill="#E2F133" />
@@ -14,8 +16,8 @@
                         d="M3.82696 6.74844V12.6153C3.82696 14.1501 3.82696 14.9175 4.12565 15.5037C4.38838 16.0193 4.80762 16.4386 5.32326 16.7013C5.90947 17 6.67687 17 8.21166 17H12.231C13.7657 17 14.5331 17 15.1194 16.7013C15.635 16.4386 16.0542 16.0193 16.317 15.5037C16.6157 14.9175 16.6157 14.1501 16.6157 12.6153V2.38434M18.4426 8.77869L13.4795 3.26491C12.3507 2.01092 11.7863 1.38392 11.1217 1.15245C10.5379 0.949139 9.90249 0.949186 9.31873 1.15258C8.6541 1.38415 8.08981 2.01123 6.96123 3.26539L2 8.77869M12.0483 17V11.5191H8.39435V17"
                         stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <div class="address">16 rue Pierre Larousse, 75014 Paris</div>
-                <div class="edl">EDL n° 123456</div>
+                <div class="address">{{adresse}}</div>
+                <div class="edl">{{edlNumber}}</div>
                 <div class="ic">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -32,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="type-container">
+            <div class="heating-container">
                 <div class="type-label">Type de logement</div>
                 <div class="type-options">
                     <div class="type-option" [ngClass]="{'selected': selectedType === 'Maison'}"
@@ -56,21 +58,24 @@
                     </div>
                 </div>
             </div>
+
             <div class="details-container">
                 <div class="detail">
                     <div class="detail-label">Superficie</div>
-                    <div class="input-container">
-                        <!-- <input type="number" class="detail-value" [(ngModel)]="superficie"
-                            (change)="saveChanges('superficie', $event.target?.value)" /> -->
-                        <span class="unit">m³</span>
+                    <div class="system-box">
+                        <div class="input-container">
+                <input class="a form-control" id="superficie" type="number" pInputText [(ngModel)]="superficie" />
+                <span class="unit">m³</span>
+              </div>
                     </div>
                 </div>
                 <div class="detail">
                     <div class="detail-label">Nombre d’habitants</div>
-                    <!-- <input type="number" class="detail-value" [(ngModel)]="nombreHabitants"
-                        (change)="saveChanges('nombreHabitants', $event.target?.value)" /> -->
+                    <input class="a" id="nombreHabitants" type="number" pInputText [(ngModel)]="nombreHabitants" />
                 </div>
             </div>
+
+
             <div class="heating-container">
                 <div class="type-label">chauffage principal</div>
                 <div class="type-options">
@@ -95,19 +100,23 @@
                     </div>
                 </div>
             </div>
+
             <div class="system-container">
                 <div class="system-box">
-                    <div class="detail-label">Système de chauffe eau</div>
-                    <div class="system-select">Sélectionnez...</div>
+                    <div class="detail-label">Système de chauffe-eau</div>
+                    <p-dropdown [options]="chauffeEauOptions" [(ngModel)]="selectedChauffeEau" optionLabel="name"
+                        placeholder="Sélectionnez" class="w-full md:w-56"> </p-dropdown>
                 </div>
                 <div class="system-box">
                     <div class="detail-label">Système de cuisson</div>
-                    <div class="system-select">Sélectionnez...</div>
+                    <p-dropdown [options]="cuissonOptions" [(ngModel)]="selectedCuisson" optionLabel="name"
+                        placeholder="Sélectionnez" class="w-full md:w-56"></p-dropdown>
                 </div>
             </div>
+
             <div class="pv-container">
                 <div class="detail-label">Avez-vous des panneaux photovoltaïques ?</div>
-                <div class="type-options" style="width: 200px;">
+                <div class="type-options2" style="border: 1px #AAB614 solid;">
                     <div class="type" [class.selected]="selectedPv === 'oui'" (click)="selectPv('oui')">
                         <div class="type-text">Oui</div>
                     </div>
@@ -120,12 +129,14 @@
 
             <div class="pv-container">
                 <div class="detail-label">Nombre de panneaux</div>
-                <!-- <input type="number" class="detail-value" [(ngModel)]="nombrePanneaux"
-                    (change)="saveChanges('nombrePanneaux', $event.target?.value)" /> -->
+                <input class="a" id="nombrePanneaux" type="number" pInputText [(ngModel)]="nombrePanneaux" />
+
             </div>
+
+
             <div class="pv-container">
                 <div class="detail-label">Avez-vous Une voiture électrique ?</div>
-                <div class="type-options2" style="width: 200px;">
+                <div class="type-options2">
                     <div class="type" [class.selected]="selectedCar === 'oui'" (click)="selectCar('oui')">
                         <div class="type-text2">Oui</div>
                     </div>
@@ -138,7 +149,7 @@
 
             <div class="pv-container">
                 <div class="detail-label">Avez-vous Une piscine ?</div>
-                <div class="type-options2" style="width: 200px;">
+                <div class="type-options2">
                     <div class="type" [class.selected]="selectedPvv === 'oui'" (click)="selectPvv('oui')">
                         <div class="type-text2">Oui</div>
                     </div>
@@ -152,61 +163,32 @@
         </div>
     </div>
 
-    <div class="right-container">
-        <div class="content-box">
-            <div class="item">
-                <div class="inner-box">
-                    <img src="/images/Rectangle 1477.png" alt="Image">
-                    <div class="text">
-                        <div class="title">Parrainnez un proche</div>
-                        <div class="subtitle">Et gagnez 10% sur votre prochaine facture</div>
-                        <div class="button-section">
-                            <div class="button-text">Je parraine</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                fill="none">
-                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                    stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="item">
-                <div class="inner-box">
-                    <img src="/images/Rectangle 1476.png" alt="Image">
-                    <div class="text">
-                        <div class="title">Nos services</div>
-                        <div class="subtitle">Besoin d’un suivi sur mesure ?</div>
-                        <div class="button-section" (click)="navigateToService()">
-                            <div class="button-text">Voir les services</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                fill="none">
-                                <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                    stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="inner-box">
-                <img src="/images/Rectangle 1476 (1).png" alt="Image">
-                <div class="text">
-                    <div class="title">Eco-gestes</div>
-                    <div class="subtitle">Baisser votre consommation au quotidien</div>
-                    <div class="button-section">
-                        <div class="button-text">Voir le guide</div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-                            <path d="M5 10.7858H15M15 10.7858L10.8333 6.61914M15 10.7858L10.8333 14.9525"
-                                stroke="#8E9D25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
+   <div class="col-md-4 mb-3" >
+        <app-profile-highlight-profil />
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

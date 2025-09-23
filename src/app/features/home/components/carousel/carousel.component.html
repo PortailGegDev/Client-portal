@@ -1,6 +1,6 @@
 @if(carouselData.length > 0){
 <p-card class="no-header" [style]="{'width': '100%', 'height': '100%', 'background-color': '#FF6C00'}">
-    <p-carousel [value]="carouselData" [showNavigators]="false" [numVisible]="1" [numScroll]="1" [circular]="true"
+    <p-carousel [value]="carouselData" [showNavigators]="false" [numVisible]="1" [numScroll]="1" [circular]="false"
         [showIndicators]="true" autoplayInterval="3000"
         [style]="{'width': '100%', 'height': '100%', 'margin': '0', 'padding': '0'}">
         <ng-template let-carousel #item>

@@ -54,7 +54,7 @@ export class NavBarComponent {
         },
         {
           label: 'Je déménage',
-          routerLink: '/requests/relocation',
+          // routerLink: '/requests/relocation',
           visible: !isSelectedContractPartner,
           styleClass: 'right-menu-item'
         },
