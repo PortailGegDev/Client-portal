@@ -85,30 +85,7 @@
   align-items: flex-start;
   gap: 24px;
   }
-    .circle {
-    width: 24px;
-    height: 24px;
-    background: #E9EE7B;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #4A511F;
-    font-size: 11px;
-    font-family: 'Rubik', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.44px;
-  }
-  .footer-box {
-    align-self: stretch;
-    padding: 16px;
-    background: #FAFAD1;
-    border-radius: 4px;
-    color: #4A511F;
-    font-size: 15px;
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    line-height: 19.5px;
-    word-wrap: break-word;
+
+  ::ng-deep .p-card-body {
+    padding: 10px !important;
   }

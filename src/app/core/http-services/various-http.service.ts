@@ -68,4 +68,15 @@ export class VariousHttpService {
       })
     );
   }
+
+  fetchAssistanceDepannage(): Observable<OptionVerte[]> {
+    return this.http.get<{ assistanceDepannage: OptionVerte[] }>('/assistance-depannage-data.json').pipe(
+      map(response => response.assistanceDepannage || []), // Transforme la réponse pour ne renvoyer que les données nécessaires
+      catchError(error => {
+        console.error('Erreur lors de la requête:', error);
+        // Retourne un tableau vide ou une valeur par défaut en cas d'erreur
+        return of([]);
+      })
+    );
+  }
 }

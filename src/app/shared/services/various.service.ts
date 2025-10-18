@@ -34,4 +34,8 @@ export class VariousService {
   getOptionVerteData(): Observable<OptionVerte[]> {
     return this.variousHttpService.fetchOptionVerte();
   }
+
+  getAssistanceDepannageData(): Observable<OptionVerte[]> {
+    return this.variousHttpService.fetchAssistanceDepannage();
+  }
 }

@@ -2,30 +2,46 @@
     <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
 </div>
 
-<div class="grid-container grid-2-1">
+<div class="grid-container grid-2-1" *ngIf="box">
     <div class="grid-item mb-3">
-
-        @for (box of boxData; track box.price){
         <p-panel>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
+
+
                     <div class="box" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
+                        @if (box.status === 'souscrit'){
                         <div class="box-header d-flex align-items-center">
+                            <img [src]="box.icon" alt="Icon">
+                            <div class="box-status">{{ box.status }}</div>
+
                         </div>
+                        }
                         <br>
                         <div class="box-price" [innerHTML]="box.price"></div>
                         <div class="box-details">
                             <div class="box-service">{{ box.service }}</div>
-
                             <div class="box-title" [innerHTML]="box.title"></div>
 
                             <div class="row mt-3">
-                                <p-button label="Souscrire" icon="pi pi-arrow-right" iconPos="right"></p-button>
+                                <ng-container *ngIf="box?.status === 'souscrit'; else subscribeBtn">
+                                    <p-button label="Résilier" icon="pi pi-pencil" iconPos="right" severity="danger"
+                                        (click)="goToForm('recission', box.id)">
+                                    </p-button>
+                                </ng-container>
+
+                                <ng-template #subscribeBtn>
+                                    <p-button label="Souscrire" icon="pi-arrow-right" iconPos="right" severity="success" styleClass="custom-icon-button"
+                                        (click)="goToForm('subscribe', box.id)">
+                                    </p-button>
+                                </ng-template>
                             </div>
+
                         </div>
                     </div>
+
                     <br>
-                    @for (document of documents ; track document.title) {
+                   @for (document of documents ; track document.title) {
                     <p-card class="download">
                         <div class="d-flex flex-wrap align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -42,36 +58,38 @@
                                 <div class="document-date">{{ document.date }}</div>
                             </div>
 
+                            <a href="/CPV-CG_GEG_Service_Option_Verte-VF.pdf" download>
                             <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2" />
+                            </a>
                         </div>
                     </p-card>
                     }
                 </div>
+
                 <div class="col-12 col-md-6 col-lg-8">
-                    <p-card class="no-border-card">
-                        @for (option of optionVertes; track option.subtitle) {
+                    <p-card class="no-border-card" *ngFor="let option of optionVertes">
                         <div class="section mb-3">
                             <h2>Option verte</h2>
-                            <div class="subtitle1">{{option.subtitle}}</div>
+                            <div class="subtitle1">{{ option.subtitle }}</div>
                             <div class="description" [innerHTML]="option.highlights"></div>
                         </div>
-                        @for (section of option.sections; track section.id) {
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="circle me-2">{{ section.id }}</div>
-                            <div>{{ section.title }}</div>
+
+                        <div *ngFor="let section of option.sections">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="circle me-2">{{ section.id }}</div>
+                                <div>{{ section.title }}</div>
+                            </div>
+                            <div class="mb-3">{{ section.content }}</div>
                         </div>
-                        <div class="mb-3">{{section.content}}</div>
-                        }
-                        <div class="footer-box">{{option.footer}}</div>
-                        }
+
+                        <div class="footer-box">{{ option.footer }}</div>
                     </p-card>
                 </div>
             </div>
         </p-panel>
-        }
     </div>
 
     <div class="grid-item mb-3">
-        <app-requests-highlight />
+        <app-requests-highlight></app-requests-highlight>
     </div>
 </div>

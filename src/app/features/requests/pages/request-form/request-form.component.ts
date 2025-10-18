@@ -23,6 +23,7 @@ import { Address } from '../../../../shared/models/address.model';
 import { ProfilService } from '../../../../shared/services/profil.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { RequestReclamation } from '../../../../shared/models/request-reclamation.model';
 
 @Component({
   selector: 'app-requests-form-rescission',
@@ -36,7 +37,6 @@ export class AppRequestsFormComponent implements OnInit {
   title: string = 'Demande de résiliation';
   requestType: string = '';
   reclamationMotifs: any[] | undefined;
-  reclamationNatures: any[] | undefined;
   form!: FormGroup;
   contractList: Contract[] = [];
   requestSended: boolean = false;
@@ -57,7 +57,6 @@ export class AppRequestsFormComponent implements OnInit {
   get postalCodeForm(): any { return this.form.get('postalCode'); }
   get cityForm(): any { return this.form.get('city'); }
   get reclamationMotifForm(): any { return this.form.get('reclamationMotif'); }
-  get reclamationNatureForm(): any { return this.form.get('reclamationNature'); }
   get messageForm(): any { return this.form.get('message'); }
   get puissanceForm(): any { return this.form.get('puissance'); }
   get tarifForm(): any { return this.form.get('tarif'); }
@@ -101,7 +100,6 @@ export class AppRequestsFormComponent implements OnInit {
 
   ngOnInit() {
     this.reclamationMotifs = Constants.ReclamationMotif;
-    this.reclamationNatures = [];
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
@@ -111,18 +109,6 @@ export class AppRequestsFormComponent implements OnInit {
       if (id) {
         this.initForm(); // initialiser le formulaire seulement après avoir le contactId
       }
-    });
-
-    // 🔥 Ici la dépendance entre Motif et Nature
-    this.form.get('reclamationMotif')?.valueChanges.subscribe((selectedMotif: any) => {
-      if (selectedMotif) {
-        this.reclamationNatures = Constants.ReclamationNature.filter(
-          n => n.parentCode === selectedMotif.code
-        );
-      } else {
-        this.reclamationNatures = [];
-      }
-      this.form.get('reclamationNature')?.reset(); // reset du select nature
     });
   }
 
@@ -137,7 +123,6 @@ export class AppRequestsFormComponent implements OnInit {
       postalCode: [''],
       city: [''],
       reclamationMotif: [''],
-      reclamationNature: [''],
       message: [''],
       refPCE: [''],
       rescissionStreetNumber: [{ value: '', disabled: true }, Validators.required],
@@ -163,12 +148,9 @@ export class AppRequestsFormComponent implements OnInit {
 
 
     if (this.isReclamation) {
-      this.setControlRequired('address');
-      this.setControlRequired('postalCode');
       this.setControlRequired('reclamationMotif');
-      this.setControlRequired('reclamationNature');
       this.setControlRequired('message');
-      this.setControlRequired('city');
+      this.setControlRequired('selectedContract');
     }
 
     if (this.lastModificationPower) {
@@ -207,6 +189,10 @@ export class AppRequestsFormComponent implements OnInit {
       if (!this.isRescission) {
         return;
       }
+
+      //  if (!this.isReclamation) {
+      //   return;
+      // }
 
       this.shouldShowGasReading = value.BusinessSector === Constants.EnergyType.GAZ;
       this.shouldShowElectricityReading = value.BusinessSector === Constants.EnergyType.ELECTRICITY;
@@ -260,31 +246,90 @@ export class AppRequestsFormComponent implements OnInit {
       });
       return;
     }
-
+  // ---- DEMANDE DE RÉSILIATION ----
+  if (this.isRescission) {
     const formData = this.getRescissionFormDate();
     const payload = { ...formData, contactId: this.contactId };
 
-    if (this.isRescission) {
-      this.requestService.createRescissionRequest(payload).subscribe({
-        next: () => {
-          this.requestSended = true;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Demande envoyée',
-            detail: 'Votre demande de résiliation a été envoyée avec succès.'
-          });
-        },
-        error: (error) => {
-          console.error('Erreur lors de l’envoi de la demande', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Échec',
-            detail: 'Une erreur est survenue lors de l’envoi de votre demande.'
-          });
-        }
-      });
-    }
+    this.requestService.createRescissionRequest(payload).subscribe({
+      next: () => {
+        this.requestSended = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Demande envoyée',
+          detail: 'Votre demande de résiliation a été envoyée avec succès.'
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de l’envoi de la demande', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Échec',
+          detail: 'Une erreur est survenue lors de l’envoi de votre demande de résiliation.'
+        });
+      }
+    });
   }
+
+  // ---- DEMANDE DE RÉCLAMATION ----
+  else if (this.isReclamation) {
+    const formData = this.getReclamationFormDate();
+    const payload = { ...formData, contactId: this.contactId };
+
+    this.requestService.createReclamationRequest(payload).subscribe({
+      next: () => {
+        this.requestSended = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Demande envoyée',
+          detail: 'Votre demande de réclamation a été envoyée avec succès.'
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de l’envoi de la demande', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Échec',
+          detail: 'Une erreur est survenue lors de l’envoi de votre demande de réclamation.'
+        });
+      }
+    });
+  }
+
+  // ---- CAS PAR DÉFAUT ----
+  else {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Type de demande inconnu',
+      detail: 'Veuillez sélectionner un type de demande valide.'
+    });
+  }
+}
+
+  //   const formData = this.getRescissionFormDate();
+  //   const payload = { ...formData, contactId: this.contactId };
+
+  //   if (this.isRescission) {
+  //     this.requestService.createRescissionRequest(payload).subscribe({
+  //       next: () => {
+  //         this.requestSended = true;
+  //         this.messageService.add({
+  //           severity: 'success',
+  //           summary: 'Demande envoyée',
+  //           detail: 'Votre demande de résiliation a été envoyée avec succès.'
+  //         });
+  //       },
+  //       error: (error) => {
+  //         console.error('Erreur lors de l’envoi de la demande', error);
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Échec',
+  //           detail: 'Une erreur est survenue lors de l’envoi de votre demande.'
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
 
   getRescissionFormDate(): RequestRecission {
@@ -296,8 +341,10 @@ export class AppRequestsFormComponent implements OnInit {
       // phone: this.phoneForm.value,
       departureDate: this.rescissionDepartureDateForm.value,
       referenceClient: this.refClientForm.value,
-      requestReason: "",
+      requestReason: "demande de résiliation",
       dataUsageConsent: "true",
+      sourceCreation: "EP",
+      canal:"AEL",
       billingAddress: {
         street: ` ${this.rescissionInvoiceStreetForm.value}`,
         streetNumber: ` ${this.rescissionInvoiceStreetNumberForm.value}`,
@@ -311,6 +358,20 @@ export class AppRequestsFormComponent implements OnInit {
         city: this.rescissionCityForm.value,
       } as Address
     } as RequestRecission;
+  }
+
+    getReclamationFormDate(): RequestReclamation{
+    return {
+      contractISU: this.selectedContractForm.value?.ContractISU,
+      firstName: this.firstNameForm.value,
+      lastName: this.lastNameForm.value,
+      message: this.messageForm.value,
+      type: this.reclamationMotifForm.value,
+      requestReason: "demande de réclamation",
+      dataUsageConsent: "true",
+      sourceCreation: "EP",
+      canal:"AEL",
+    } as RequestReclamation;
   }
 
   setControlRequired(formControlName: string) {
@@ -362,4 +423,9 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
 }
+
+
+
+
+
 

@@ -73,6 +73,6 @@ export class HeadlineComponent implements OnInit, OnChanges {
 
 
   navigateToService() {
-    this.router.navigate(["/services"]);
+    this.router.navigate(["/services/serenity-electricity"]);
   }
 }

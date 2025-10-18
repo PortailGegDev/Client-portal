@@ -9,31 +9,33 @@
 
 <div class="row g-3">
   @for (box of boxData; track box.title){
-  <div class="col-12 col-md-6 col-lg-3 mb-3" *ngIf="shouldDisplayBox(box.id)">
-    <div class="box w-100 d-flex flex-column" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
-      @if (box.status === 'souscrit'){
-      <div class="box-header d-flex align-items-center">
-        <img [src]="box.icon" alt="Icon">
-        <div class="box-status">{{ box.status }}</div>
-      </div>
-      }
-      <div class="box-price">{{ box.price }}</div>
-      <div class="box-details">
-        <div class="box-service">{{ box.service }}</div>
-        <div class="d-flex justify-content-between align-items-center">
+    <div class="col-12 col-md-6 col-lg-3 mb-3">
+      <div class="box w-100 d-flex flex-column" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
 
-          <div class="box-title" [innerHTML]="box.title"></div>
+        @if (box.status === 'souscrit'){
+          <div class="box-header d-flex align-items-center">
+            <img [src]="box.icon" alt="Icon">
+            <div class="box-status">{{ box.status }}</div>
+          </div>
+        }
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"
-         (click)="goTo(box.link!)"
-            style="background: #BED600; border-radius: 4px; cursor: pointer;">
-            <path d="M6 12.5H18M18 12.5L13 7.5M18 12.5L13 17.5" stroke="#1E1E1E" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          
+        <div class="box-price">{{ box.price }}</div>
+        <div class="box-details">
+          <div class="box-service">{{ box.service }}</div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="box-title" [innerHTML]="box.title"></div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" 
+                 viewBox="0 0 24 25" fill="none" 
+                 (click)="goToBox(box)"
+                 style="background: #BED600; border-radius: 4px; cursor: pointer;">
+              <path d="M6 12.5H18M18 12.5L13 7.5M18 12.5L13 17.5"
+                    stroke="#1E1E1E" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   }
 </div>

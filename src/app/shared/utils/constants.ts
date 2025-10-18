@@ -21,42 +21,6 @@ public static ReclamationMotif = [
     { name: 'Accessibilité', code: 'ACCESSIBILITE' },
 ];
 
-public static ReclamationNature = [
-    // --- QUALITE DE SERVICE ---
-    { name: 'Demande client refusée', code: 'DEMANDE_CLIENT_REFUSE', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Erreur traitement demandé', code: 'ERREUR_TRAITEMENT_DEMANDE', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Qualité technique intervention', code: 'QUALITE_TECHNIQUE_INTERVENTION', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Qualité fourniture réseau', code: 'QUALITE_FOURNITURE_RESEAU', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Réponse Client inadaptée/incomplète/erronée', code: 'REPONSE_CLIENT_INADAPTEE', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Contestation ventes services/contrat inadapté', code: 'CONTESTATION_VENTES_SERVICES', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Offres et services inexistants', code: 'OFFRES_SERVICES_INEXISTANTS', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Problème d\'installation technique/matériel', code: 'PROBLEME_INSTALLATION', parentCode: 'QUALITE_DE_SERVICE' },
-    { name: 'Dysfonctionnement lié au déploiement compteur communiquant', code: 'DYSFONCTIONNEMENT_COMPTEUR', parentCode: 'QUALITE_DE_SERVICE' },
-
-    // --- FACTURATION ---
-    { name: 'Erreur de prix', code: 'ERREUR_PRIX', parentCode: 'FACTURATION' },
-    { name: 'Contestation facturation : retard /absence/régularisation', code: 'CONTESTATION_FACTURATION_RETARD', parentCode: 'FACTURATION' },
-    { name: 'Contestation frais, prestations, services, taxes, prix', code: 'CONTESTATION_FRAIS', parentCode: 'FACTURATION' },
-    { name: 'Contestation relevé /Consommation', code: 'CONTESTATION_RELEVE', parentCode: 'FACTURATION' },
-    { name: 'Contestations estimations/Absence relève', code: 'CONTESTATION_ESTIMATIONS', parentCode: 'FACTURATION' },
-    { name: 'Contestation index/date souscription ou résiliation', code: 'CONTESTATION_INDEX_DATE', parentCode: 'FACTURATION' },
-    { name: 'Contestation montant devis', code: 'CONTESTATION_MONTANT_DEVIS', parentCode: 'FACTURATION' },
-
-    // --- REACTIVITE ---
-    { name: 'Rdv (ou prise de RDV) non respecté par le GRD (ou FR)', code: 'RDV_NON_RESPECTE', parentCode: 'REACTIVITE' },
-    { name: 'Délai RDV GRD', code: 'DELAI_RDV_GRD', parentCode: 'REACTIVITE' },
-    { name: 'Délai réponse au client', code: 'DELAI_REPONSE_CLIENT', parentCode: 'REACTIVITE' },
-    { name: 'Délai remboursement/encaissement', code: 'DELAI_REMBOURSEMENT', parentCode: 'REACTIVITE' },
-    { name: 'Délai mise en œuvre technique ou contractuelle (souscription, cessation, modification) jusqu\'à validation', code: 'DELAI_MISE_EN_OEUVRE', parentCode: 'REACTIVITE' },
-
-    // --- ACCESSIBILITE ---
-    { name: 'Fermeture canal tél/physique "exceptionnelle"', code: 'FERMETURE_CANAL_EXCEPTIONNELLE', parentCode: 'ACCESSIBILITE' },
-    { name: 'Mauvaise orientation du client', code: 'MAUVAISE_ORIENTATION', parentCode: 'ACCESSIBILITE' },
-    { name: 'Dysfonctionnements techniques AEL/sites internet/call center', code: 'DYSFONCTIONNEMENTS_TECHNIQUES', parentCode: 'ACCESSIBILITE' },
-    { name: 'Temps d\'attente excessif', code: 'TEMPS_ATTENTE_EXCESSIF', parentCode: 'ACCESSIBILITE' }
-];
-
-
     public static readonly EnergyType: {
         ELECTRICITY: string;
         GAZ: string;
@@ -92,7 +56,9 @@ public static ReclamationNature = [
     public static ContractSupportingDoc = {
         DOMICILE: "DOMICILE",
         GRILLE_TARIFAIRE_TARIF_BASE: "GRILLE_TARIFAIRE_TARIF_BASE",
-        GARANTIE_ORIGINE: "GARANTIE_ORIGINE",
+        DOCUMENT_INFORMATION: "DOCUMENT_INFORMATION",
+        CONDITION_GENERALE: "CONDITION_GENERALE",
+        FICHE_INFORMATION: "FICHE_INFORMATION",
         CGV: "CGV"
     }
 
@@ -138,7 +104,7 @@ public static ReclamationNature = [
     service: 'Assistance dépannage',
     icon: '/images/Icons (1).png',
     backgroundImage: '/images/service_contrat.jpg',
-    status: 'souscrit',
+    status: '',
     link: '/services/serenity-electricity'
   },
   {
@@ -147,6 +113,7 @@ public static ReclamationNature = [
     price: '2,99€/mois',
     service: 'Assistance dépannage',
     icon: '/images/Icons (1).png',
+     status: '',
     backgroundImage: '/images/Service2.jpg',
     link: ''
   },
@@ -170,34 +137,6 @@ public static ReclamationNature = [
     status: '',
     link: '/services/green-option'
   },
-  // {
-  //   title: 'E-Facture',
-  //   price: 'Gratuit',
-  //   service: 'Facturation numérique',
-  //   icon: '/images/Icons (1).png',
-  //   backgroundImage: '/images/service_facture.jpg',
-  //   status: 'souscrit',
-  //   link: ''  // pas de lien
-  // },
-  // {
-  //   title: 'Facture papier',
-  //   price: 'Gratuit',
-  //   service: 'Facturation classique',
-  //   icon: '/images/Icons (1).png',
-  //   backgroundImage: '/images/service6.jpg',
-  //   status: '',
-  //   link: ''
-  // },
-  // {
-  //   id: Constants.ServicesPack.ARRONDI_SOL,
-  //   title: 'Arrondis solidaires',
-  //   price: 'Gratuit',
-  //   service: 'Don associatif',
-  //   icon: '/images/Icons (1).png',
-  //   backgroundImage: '/images/service7.jpg',
-  //   status: '',
-  //   link: ''
-  // },
 ];
 
     public static ContractCreationLink = 'https://www.geg.fr/souscription/part/';

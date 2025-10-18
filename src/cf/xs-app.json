@@ -26,14 +26,12 @@
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
-
         {
             "source": "^/apexrest/(.*)$",
             "destination": "geg_fournisseur_salesforce",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
-
         {
             "source": "^/data/(.*)$",
             "destination": "geg_fournisseur_salesforce",
@@ -46,6 +44,12 @@
             "service": "sap-approuter-userapi"
         },
         {
+            "source": "^/logout.html$",
+            "target": "/logout.html",
+            "localDir": "./",
+            "authenticationType": "none"
+        },
+        {
             "source": "^/(.*)$",
             "target": "/$1",
             "localDir": "./",
@@ -54,6 +58,6 @@
     ],
     "logout": {
         "logoutEndpoint": "/logout",
-        "logoutPage": "https://mon-espacetest.geg.fr/"
+        "logoutPage": "/index.html#/home"
     }
 }

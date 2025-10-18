@@ -1,9 +1,49 @@
-<div class="grid-container grid-2">
+<!-- Titre -->
+<div class="row mb-3">
+  <div class="col-12">
     <h1>Mes demandes</h1>
-    <div class="grid-item right-button-container">
-        <p-button (click)="viewCreateDemande()" label="Créer une demande" icon="pi pi-plus" iconPos="right" />
-    </div>
+  </div>
 </div>
+
+<!-- Ligne avec filtre et bouton -->
+<div class="row align-items-center mb-3">
+  
+  <!-- Filtre de date à gauche -->
+  <div class="col-auto">
+     <p-datepicker [(ngModel)]="rangeDates" placeholder="01/01/2024-12/09/2025" [iconDisplay]="'input'" [showIcon]="true" 
+      inputId="icondisplay" selectionMode="range" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="fr"
+      [style]="{'width':'100%'}" (onSelect)="onSelectDateRange()" (onClearClick)="onClearDateRange()"
+      [showButtonBar]="true" />
+  </div>
+
+  <!-- Filtre de type de demande -->
+<div class="col-auto">
+  <p-dropdown 
+    [(ngModel)]="selectedType" 
+    (onChange)="applyFilters()"
+    placeholder="Type de demande"
+    [options]="[
+      { label: 'Tous les types', value: '' },
+      { label: 'Réclamation', value: 'Demande de Réclamation' },
+      { label: 'Résiliation', value: 'Demande de Resiliation' }
+    ]"
+    [showClear]="true"
+    [autoDisplayFirst]="false"
+    [style]="{'width':'100%'}">
+  </p-dropdown>
+</div>
+
+  <!-- Bouton à droite -->
+  <div class="col text-end">
+    <p-button 
+      (click)="viewCreateDemande()" 
+      label="Créer une demande" 
+      icon="pi pi-plus" 
+      iconPos="right" />
+  </div>
+
+</div>
+
 <!-- Bloc de chargement -->
 @if (loading) {
 <div class="loading-container">
@@ -18,38 +58,26 @@
         </div>
     </div>
 }
- @else {
-<p-table [value]="demandes" [rows]="5" responsiveLayout="stack">
+@else {
+<p-table [value]="filteredDemandes" [rows]="5" responsiveLayout="stack">
     <ng-template pTemplate="body" let-op>
         <tr class="responsive-row">
             <td class="date-cell" style="gap: 8px;">
                 <i class="pi pi-calendar"></i>
                 <b>{{ op.createdDate | date:'dd/MM/yyyy' }}</b>
             </td>
-            <td class="title-cell">
-                {{ op.typeDemande }}
-            </td>
+            <td class="title-cell">{{ op.typeDemande }}</td>
             <td class="contract-cell">
-                <i class="circle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                        fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M8.86613 1.54223C9.07161 1.63247 9.19179 1.84857 9.16005 2.07074L8.57491 6.1667L12.2261 6.1667C12.3887 6.16668 12.5431 6.16666 12.6674 6.17793C12.7869 6.18876 12.983 6.21595 13.1503 6.35046C13.3492 6.51024 13.4639 6.75228 13.4616 7.00734C13.4597 7.22206 13.3566 7.39103 13.2893 7.49037C13.2194 7.59369 13.1216 7.7132 13.0186 7.83901L7.71872 14.3166C7.57661 14.4903 7.33617 14.5481 7.13069 14.4578C6.92521 14.3676 6.80503 14.1515 6.83677 13.9293L7.4219 9.83336L3.77069 9.83336C3.60812 9.83338 3.45369 9.8334 3.32941 9.82213C3.20992 9.8113 3.01384 9.78411 2.84647 9.6496C2.64765 9.48982 2.53295 9.24778 2.53519 8.99272C2.53707 8.778 2.64019 8.60903 2.70747 8.50969C2.77745 8.40637 2.87525 8.28686 2.97821 8.16105L8.2781 1.68341C8.42021 1.50972 8.66065 1.45199 8.86613 1.54223ZM7.9165 3.70455L3.76474 8.77892C3.74904 8.7981 3.73424 8.81621 3.72028 8.83332C3.74237 8.83335 3.76575 8.83336 3.79054 8.83336H7.99841C8.14335 8.83336 8.28117 8.89626 8.37614 9.00576C8.4711 9.11526 8.51388 9.26059 8.49338 9.40407L8.08032 12.2955L12.2321 7.22114C12.2478 7.20196 12.2626 7.18385 12.2765 7.16673C12.2544 7.1667 12.2311 7.1667 12.2063 7.1667H7.99841C7.85346 7.1667 7.71565 7.1038 7.62068 6.9943C7.52571 6.8848 7.48294 6.73948 7.50343 6.59599L7.9165 3.70455Z"
-                            fill="white" />
-                    </svg>
-                </i>
-                <b>{{ op.contractISU }}</b>
+            <i class="circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.86613 1.54223C9.07161 1.63247 9.19179 1.84857 9.16005 2.07074L8.57491 6.1667L12.2261 6.1667C12.3887 6.16668 12.5431 6.16666 12.6674 6.17793C12.7869 6.18876 12.983 6.21595 13.1503 6.35046C13.3492 6.51024 13.4639 6.75228 13.4616 7.00734C13.4597 7.22206 13.3566 7.39103 13.2893 7.49037C13.2194 7.59369 13.1216 7.7132 13.0186 7.83901L7.71872 14.3166C7.57661 14.4903 7.33617 14.5481 7.13069 14.4578C6.92521 14.3676 6.80503 14.1515 6.83677 13.9293L7.4219 9.83336L3.77069 9.83336C3.60812 9.83338 3.45369 9.8334 3.32941 9.82213C3.20992 9.8113 3.01384 9.78411 2.84647 9.6496C2.64765 9.48982 2.53295 9.24778 2.53519 8.99272C2.53707 8.778 2.64019 8.60903 2.70747 8.50969C2.77745 8.40637 2.87525 8.28686 2.97821 8.16105L8.2781 1.68341C8.42021 1.50972 8.66065 1.45199 8.86613 1.54223ZM7.9165 3.70455L3.76474 8.77892C3.74904 8.7981 3.73424 8.81621 3.72028 8.83332C3.74237 8.83335 3.76575 8.83336 3.79054 8.83336H7.99841C8.14335 8.83336 8.28117 8.89626 8.37614 9.00576C8.4711 9.11526 8.51388 9.26059 8.49338 9.40407L8.08032 12.2955L12.2321 7.22114C12.2478 7.20196 12.2626 7.18385 12.2765 7.16673C12.2544 7.1667 12.2311 7.1667 12.2063 7.1667H7.99841C7.85346 7.1667 7.71565 7.1038 7.62068 6.9943C7.52571 6.8848 7.48294 6.73948 7.50343 6.59599L7.9165 3.70455Z" fill="white" /> </svg> 
+            </i>
+                <b>Contrat n°{{ op.contractISU }}</b>
             </td>
             <td class="status-cell">
                 <span class="status" [ngClass]="op.statusClass">
                     <i [class]="op.statusIcon"></i> {{ op.statutAffiche }}
                 </span>
             </td>
-    <!-- TODO : A décommenter quand on a le button voir les details  -->
-            @if(false){
-            <td class="details-cell">
-                <span class="link-details" href="#">Voir les détails →</span>
-            </td>
-        }
         </tr>
     </ng-template>
 </p-table>

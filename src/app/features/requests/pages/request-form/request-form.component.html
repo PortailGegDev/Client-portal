@@ -94,43 +94,11 @@
                     }
                 </div>
 
-
-                <!-- <div class="row mt-3">
-                    <div class="form-group col">
-                        <span class="label" for="address">Adresse</span>
-                        <input type="text" pInputText formControlName="address" />
-
-                        @if(addressForm?.invalid && (addressForm?.touched || addressForm?.dirty)){
-                        <small class="error">L'adresse du client est obligatoire.</small>
-                        }
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="form-group col">
-                        <span class="label" for="postalCode">Code Postal</span>
-                        <input type="text" pInputText formControlName="postalCode" />
-
-                        @if(postalCodeForm?.invalid && (postalCodeForm?.touched || postalCodeForm?.dirty)){
-                        <small class="error">Le code postal est obligatoire.</small>
-                        }
-                    </div>
-
-                    <div class="form-group col">
-                        <span class="label" for="city">Ville</span>
-                        <input type="text" pInputText formControlName="city" />
-
-                        @if(cityForm?.invalid && (cityForm?.touched || cityForm?.dirty)){
-                        <small class="error">La ville est obligatoire.</small>
-                        }
-                    </div>
-                </div> -->
-
                 <h6 class="mt-3">Réclamation</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
-                        <span class="label" for="reclamationMotif">Sous-type</span>
+                        <span class="label" for="reclamationMotif">Type</span>
 
                         <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name"
                             class="w-full md:w-56" />
@@ -140,20 +108,6 @@
                         <small class="error">Le type de réclamation est obligatoire.</small>
                         }
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="form-group col">
-                        <span class="label" for="reclamationNature">Nature</span>
-
-                        <p-select formControlName="reclamationNature" [options]="reclamationNatures" optionLabel="name"
-                            class="w-full md:w-56" />
-
-                        @if(reclamationNatureForm?.invalid && (reclamationNatureForm?.touched ||
-                        reclamationNatureForm?.dirty)){
-                        <small class="error">La nature de réclamation est obligatoire.</small>
-                        }
-                    </div>
-
                 </div>
 
                 <div class="row mt-3">

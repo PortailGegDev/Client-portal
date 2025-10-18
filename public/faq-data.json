@@ -2,7 +2,7 @@
   "faq": [
     {
       "question": "Je ne comprends pas le montant de ma facture, que faire ?",
-      "answer": "Si vous avez des interrogations sur le montant de votre facture, appelez nous au 04 76 84 20 00.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Si vous avez besoin de précision sur la composition de votre facture, consultez notre<br> page dédiée <a href='https://particuliers.geg.fr/82-comprendre-ma-facture.htm' class='yellow' target='_blank' (click)='$event.stopPropagation()'>Comprendre sa facture</a>",
+      "answer": "Si vous avez des interrogations sur le montant de votre facture, appelez nous au 04 76 84 20 00.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Si vous avez besoin de précision sur la composition de votre facture, consultez notre<br> page dédiée <a href='https://particuliers.geg.fr/82-comprendre-ma-facture.htm' target='_blank'>Comprendre sa facture</a>",
       "isOpen": false
     },
     {
@@ -27,17 +27,17 @@
     },
     {
       "question": "Je veux modifier mon option tarifaire (Simple Tarif ou HP/HC)",
-      "answer": "Pour toute demande de changement d'option tarifaire, appelez nous au 04 76 84 20 00, choix 2.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Pour tout comprendre de l'option tarifaire, en rendez vous sur notre page dédiée : <br> Heures pleines, Heures creuses",
+      "answer": "Pour toute demande de changement d'option tarifaire, appelez nous au 04 76 84 20 00, choix 2.<br>Nous sommes joignables du lundi au vendredi de 8h à 20h.<br><br>Pour tout comprendre de l'option tarifaire, en rendez vous sur notre page dédiée : <br> <a href='https://www.geg.fr/aide-et-contact/centre-aide-contact/particulier/heures-pleines-heures-creuses/' target='_blank'> Heures pleines, Heures creuses</a>",
       "isOpen": false
     },
     {
-      "question": "J'ai une question sur mon relevé de compteu",
+      "question": "J'ai une question sur mon relevé de compteur",
       "answer": "Pour nous faire part d'une erreur de relève, nous vous invitons à nous appeler au 04 76 84 20 00, choix 2. <br> Nous sommes joignables du lundi au vendredi de 8h à 20h.",
       "isOpen": false
     },
     {
       "question": "Je souhaite des conseils en maitrise de l'énergie",
-      "answer": "GEG vous accompagne dans la réduction de vos consommations d'énergies.<br><br>Retrouvez tous nos conseils, vidéos, articles, guide sur notre page dédiée <a href='https://particuliers.geg.fr/501-sobriete-energetique.htm' target='_blank' (click)='$event.stopPropagation()' class='yellow'>Sobriété énergétique</a>",
+      "answer": "GEG vous accompagne dans la réduction de vos consommations d'énergies.<br><br>Retrouvez tous nos conseils, vidéos, articles, guide sur notre page dédiée <a href='https://particuliers.geg.fr/501-sobriete-energetique.htm' target='_blank'>Sobriété énergétique</a>",
       "isOpen": false
     }
   ]

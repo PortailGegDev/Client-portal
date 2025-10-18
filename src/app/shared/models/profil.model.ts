@@ -8,6 +8,8 @@ export class Profil {
     PhoneNumber!:string;
     SocialStatus!:string;
     BusinessPartner!:string;
+    FirstName!:string;
+    LastName!:string;
     
 
     public constructor(init?: Partial<Profil>) {

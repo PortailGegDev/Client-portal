@@ -1,0 +1,140 @@
+<div class="custom-container">
+    <img src="/images/Icons (4).png" (click)="RetourEnBack()" alt="Icon">
+</div>
+<div class="row mt-3">
+  <h1>{{ formTitle }}</h1>
+</div>
+
+<div class="grid-container">
+    <div class="grid-item mb-3">
+
+        <p-panel>
+            <form [formGroup]="form">
+                <h6>Coordonnées</h6>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="firstName">Prénom</span>
+                        <input type="text" pInputText formControlName="firstName" />
+                        @if(firstNameForm?.invalid && (firstNameForm?.touched || firstNameForm?.dirty)){
+                        <small class="error">Le prénom est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="lastName">Nom</span>
+                        <input type="text" pInputText formControlName="lastName" />
+                        @if(lastNameForm?.invalid && (lastNameForm?.touched || lastNameForm?.dirty)){
+                        <small class="error">Le nom est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="email">Adresse E-mail</span>
+                        <input type="text" pInputText formControlName="email" />
+                        @if(emailForm?.invalid && (emailForm?.touched || emailForm?.dirty)){
+
+                        @if(emailForm?.errors?.required){
+                        <small class="error">L'email est obligatoire.</small>
+                        }
+
+                        @if(emailForm?.errors?.email){
+                        <small class="error">L'email est invalide.</small>
+                        }
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="phone">N° de téléphone</span>
+                        <input type="text" pInputText formControlName="phone" />
+                    </div>
+                </div>
+
+
+
+                <h6 class="mt-3">Adresse</h6>
+
+                <div class="row mt-3">
+                    <div class="form-group col-md-4">
+                        <span class="label" for="streetNumber">Adresse - Numéro de voie </span>
+                        <input type="text" pInputText formControlName="streetNumber" />
+                        @if(streetNumberForm?.invalid && (streetNumberForm?.touched ||
+                        streetNumberForm?.dirty)){
+                        <small class="error">Adresse - Numéro de voie est obligatoire</small>
+                        }
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <span class="label" for="street">Adresse - voie</span>
+                        <input type="text" pInputText formControlName="street" />
+                        @if(streetForm?.invalid && (streetForm?.touched ||
+                        streetForm?.dirty)){
+                        <small class="error">Adresse - voie est obligatoire</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="postalCode">Adresse - CP</span>
+                        <input type="text" pInputText formControlName="postalCode" />
+                        @if(postalCodeForm?.invalid && (postalCodeForm?.touched ||
+                        postalCodeForm?.dirty)){
+                        <small class="error">Adresse - CP est obligatoire</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="city">Adresse - ville</span>
+                        <input type="text" pInputText formControlName="city" />
+                        @if(cityForm?.invalid && (cityForm?.touched || cityForm?.dirty)){
+                        <small class="error">Adresse - ville est obligatoire</small>
+                        }
+                    </div>
+                </div>
+                <br>
+  <div *ngIf="!isSubscribed" class="row mt-3">
+          <div>
+            <label>
+              <input type="checkbox" formControlName="acceptConditions" />
+              Acceptation des conditions générales
+              <p style="color: gray;">Je reconnais avoir pris connaissance des CG, FIC, DIPA téléchargeables en bas de page.</p>
+            </label>
+            <small class="error" *ngIf="acceptConditionsForm?.invalid && (acceptConditionsForm?.touched || acceptConditionsForm?.dirty)">
+              L'acceptation des conditions est obligatoire
+            </small>
+          </div>
+
+          <div>
+            <label>
+              <input type="checkbox" formControlName="subscribeContract" />
+              Je souscris au contrat
+              <p style="color: gray;">Je souscris au contrat Sérénité Électrique et j’accepte les conditions générales associées.</p>
+            </label>
+            <small class="error" *ngIf="subscribeContractForm?.invalid && (subscribeContractForm?.touched || subscribeContractForm?.dirty)">
+              La souscription au contrat est obligatoire.
+            </small>
+          </div>
+
+          <div>
+            <label>
+              <input type="checkbox" formControlName="personalData" />
+              Vos données personnelles
+              <p style="color: gray;">En cochant cette case, j’autorise l’utilisation de mes données par GEG pour être contacté ultérieurement.</p>
+            </label>
+            <small class="error" *ngIf="personalDataForm?.invalid && (personalDataForm?.touched || personalDataForm?.dirty)">
+              L’autorisation pour l’utilisation de vos données personnelles est obligatoire.
+            </small>
+          </div>
+        </div>
+
+
+                <div class="row mt-3">
+                    <p-button label="Envoyer la demande" type="submit" [disabled]="!form.valid"></p-button>
+                </div>
+            </form>
+        </p-panel>
+    </div>
+</div>

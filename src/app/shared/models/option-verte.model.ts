@@ -1,11 +1,11 @@
 import { Section } from "./section.model";
 
 export class OptionVerte {
-    mainTitle!: string;
+    mainTitle?: string;
     subtitle!: string;
     highlights!: string;
     sections!: Section[];
-    footer!: string;
+    footer?: string;
     
     constructor(init?: Partial<OptionVerte>) {
         Object.assign(this, init);

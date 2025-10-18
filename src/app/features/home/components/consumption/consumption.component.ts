@@ -96,7 +96,6 @@ export class AppHomeConsumptionComponent implements OnInit, OnChanges, OnDestroy
   }
 
   private getChartDataAndOptions(consumptions: ChartConsumption[]) {
-
     this.basicData = {
       labels: consumptions.map(item => item.monthNumber ? getMonthNameByMonthNumber(item.monthNumber) : ''),
       datasets: [

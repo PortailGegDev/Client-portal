@@ -11,8 +11,8 @@
         </div>
     </ng-template>
 
-    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="false" [circular]="false"
-        [numScroll]="numScroll" [showIndicators]="false" autoplayInterval="5000"
+    <p-carousel [value]="articles" [numVisible]="articleNumber" [showNavigators]="showNavigators " [circular]="false" [showIndicators]="false"
+        [numScroll]="numScroll" autoplayInterval="5000" styleClass="custom-carousel"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-article #item>
             <div class="card-text" style="margin-right: 10px; margin-left: 10px;">

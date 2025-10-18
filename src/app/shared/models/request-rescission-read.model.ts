@@ -1,10 +1,10 @@
-export class RequestRecissionRead {
+export class RequestRead {
   createdDate!: string;
   typeDemande!: string;
   contractISU!: string | null;
   statut!: string;
 
-  constructor(init?: Partial<RequestRecissionRead>) {
+  constructor(init?: Partial<RequestRead>) {
     Object.assign(this, init);
   }
 

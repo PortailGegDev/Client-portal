@@ -68,3 +68,40 @@
     text-decoration: none;
     font-weight: 600;
 }
+/* Par défaut, on cache les flèches */
+.custom-carousel .p-carousel-prev,
+.custom-carousel .p-carousel-next {
+  display: none !important;
+}
+
+/* Flèches visibles pour écran ≤ 1199px */
+@media (max-width: 1199px) {
+  .custom-carousel .p-carousel-prev,
+  .custom-carousel .p-carousel-next {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #333;
+    font-size: 18px;
+  }
+
+  .custom-carousel .p-carousel-prev { left: -5px; }
+  .custom-carousel .p-carousel-next { right: -5px; }
+
+  .custom-carousel .p-carousel-prev:hover,
+  .custom-carousel .p-carousel-next:hover {
+    background-color: #AAB614;
+    color: white;
+  }
+}

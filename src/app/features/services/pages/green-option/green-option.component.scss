@@ -112,3 +112,11 @@
     line-height: 19.5px;
     word-wrap: break-word;
   }
+
+   ::ng-deep .p-card-body {
+    padding: 10px !important;
+  }
+
+  .custom-icon-button .p-button-icon {
+    color: black;       /* change la couleur de l'icône */
+}

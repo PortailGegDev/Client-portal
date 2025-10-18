@@ -98,6 +98,7 @@ export class AuthService {
   logout() {
     this.localStorageService.clear();
     this.currentUserSignal.set(null);
+  window.location.href = '/logout';
   }
 
   getUserData(): User {

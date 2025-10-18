@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/http-services/auth.service';
 import { ContractService } from '../../services/contract.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -11,7 +12,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthService, private router: Router,
     private contractService: ContractService,
   ) { }
 
@@ -19,9 +20,9 @@ export class LogoutComponent implements OnInit {
     this.authService.logout();
     this.contractService.cleanContracts();
 
-    setTimeout(() => {
-      window.location.href = '/logout';
-    },
-      3000);
+   setTimeout(() => {
+  this.router.navigate(['/']); // retourne à la page d'accueil Angular
+}, 3000);
+
   }
 }

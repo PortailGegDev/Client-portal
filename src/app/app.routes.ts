@@ -16,6 +16,7 @@ import { AppRequestsFormComponent } from './features/requests/pages/request-form
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { AppInvoicesPaypageComponent } from './features/invoices/components/paypage/paypage.component';
 import { AppInvoicesPaypageResultComponent } from './features/invoices/components/paypage-result/paypage-result.component'
+import { AppServicesRecissionFormComponent } from './features/services/pages/recission-form/recission-form.component';
 
 export const routes: Routes = [
     { path: 'home', component: AppHomeComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     { path: 'services', component: AppServicesComponent },
     { path: 'services/serenity-electricity', component: AppServicesSerenityElectricityComponent },
     { path: 'services/green-option', component: AppServicesGreenOptionComponent },
+    { path: 'services/recission-form', component: AppServicesRecissionFormComponent },
     { path: 'requests', component: AppRequestsComponent },
     { path: 'requests/new', component: AppRequestsNewRequestComponent },
     { path: 'requests/frequently-asked-questions', component: AppRequestsFaqComponent },

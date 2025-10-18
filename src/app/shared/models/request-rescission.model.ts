@@ -4,6 +4,8 @@ export class RequestRecission {
     contractISU!: string;
     firstName!: string;
     lastName!: string;
+    sourceCreation!: string;
+    canal!: string;
     email!: string;
     phone!: string;
     departureDate!: string;

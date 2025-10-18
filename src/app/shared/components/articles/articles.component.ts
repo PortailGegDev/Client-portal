@@ -15,6 +15,7 @@ export class ArticlesComponent implements OnInit {
   @Input() articleNumber = 3;
   @Input() screen: string = 'home';
   @Input() numScroll: number = 0;
+  showNavigators = false;
 
   articles: Article[] = [];
   responsiveOptions: CarouselResponsiveOptions[] | undefined;
@@ -23,7 +24,8 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.initArticles();
-
+   this.updateNavigator();
+    window.addEventListener('resize', () => this.updateNavigator());
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -66,7 +68,9 @@ export class ArticlesComponent implements OnInit {
     });
   }
   openLink(url?: string) {
-  if(url) window.open(url, '_blank');
-}
-
+    if (url) window.open(url, '_blank');
+  }
+ updateNavigator() {
+    this.showNavigators = window.innerWidth <= 1199;
+  }
 }

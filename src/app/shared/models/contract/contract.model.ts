@@ -21,7 +21,7 @@ export class Contract {
     StreetName!: string;
     Title?: string;
     Contend!: string;
-    Contstart!: string;
+    contstart!: string;
     AddressCompteur!: string;
     PaymentMethod!: string;
     PaymentTerms!: string;

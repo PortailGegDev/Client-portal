@@ -8,3 +8,10 @@ p {
   /* 22px */
   letter-spacing: -0.22px;
 }
+
+::ng-deep .answer-text a {
+  color: #8E9D25 !important;
+  text-decoration: none;
+  font-weight: 500;
+  text-decoration: underline;
+}
