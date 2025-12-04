@@ -8,7 +8,8 @@
         <p-panel>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="box" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
+                    <div class="box" style="min-height: 220px;"
+                        [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
                         @if (box.status === 'souscrit'){
                         <div class="box-header d-flex align-items-center">
                             <img [src]="box.icon" alt="Icon">
@@ -24,14 +25,16 @@
 
                             <div class="row mt-3">
                                 <ng-container *ngIf="box?.status === 'souscrit'; else subscribeBtn">
-                                    <p-button label="Résilier" icon="pi pi-pencil" iconPos="right" severity="danger"
-                                        (click)="goToForm('recission', box.id)">
-                                    </p-button>
+                                    <a href="https://www.geg.fr/votre-resiliation-de-service-d-assistance-depannage/" target="_blank">
+                                        <p-button label="Résilier" icon="pi pi-pencil" iconPos="right"
+                                            severity="danger">
+                                        </p-button>
+                                    </a>
                                 </ng-container>
 
                                 <ng-template #subscribeBtn>
-                                    <p-button label="Souscrire" icon="pi pi-arrow-right" iconPos="right" severity="success"
-                                        (click)="goToForm('subscribe', box.id)">
+                                    <p-button *ngIf="false" label="Souscrire" icon="pi pi-arrow-right" iconPos="right"
+                                        severity="success" (click)="goToForm('subscribe', box.id)">
                                     </p-button>
                                 </ng-template>
                             </div>
@@ -54,7 +57,7 @@
                             </a>
                         </div>
                     </p-card>
-                      <br>
+                    <br>
                     }
                 </div>
                 <div class="col-12 col-md-6 col-lg-8">

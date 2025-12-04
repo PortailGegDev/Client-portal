@@ -29,6 +29,10 @@ export class InvoicesService {
   downloadInvoiceByInvoiceNumber(invoiceNumber: string) {
     return this.invoicesHTTPservice.downloadInvoiceByInvoiceNumber(invoiceNumber);
   }
+  
+  downloadInvoicesAsZip(invoiceNumbers: string[]): Observable<Blob> {
+    return this.invoicesHTTPservice.downloadInvoicesAsZip(invoiceNumbers);
+  }
 
   getInvoicePaymentTermCustomer(selectedContract: Contract | ContractDetails, invoice: Invoice): Date | null {
     const postingDate = convertSAPDateToTsDate(invoice.PostingDate);
@@ -43,4 +47,6 @@ export class InvoicesService {
 
     return addDays(postingDate, Number(dayNumber))
   }
+
+
 }

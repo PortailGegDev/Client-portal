@@ -27,6 +27,7 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
 
   hcConsumptions: ChartConsumption[] = [];
   hpConsumptions: ChartConsumption[] = [];
+  baseConsumptions: ChartConsumption[] = [];
 
   selectedDateConsumption: Date = new Date();
   data: any = null;
@@ -91,18 +92,19 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     if (this.isElectricityEnergyType) {
       this.hcConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HC');
       this.hpConsumptions = this.consumptions.filter(item => item.idSeasonal === 'HP');
-      this.initChart(this.hpConsumptions, this.hcConsumptions, []);
+      this.baseConsumptions = this.consumptions.filter(item => item.idSeasonal === 'BASE');
+      this.initChart(this.hpConsumptions, this.hcConsumptions, this.baseConsumptions, []);
     } else {
-      this.initChart([], [], this.consumptions);
+      this.initChart([], [], [], this.consumptions);
     }
   }
 
-  initChart(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], consumptions: ChartConsumption[]) {
-    this.data = this.chartService.initChartConsumptionDataByMonth(hpConsumptions, hcConsumptions, consumptions);
+  initChart(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], baseConsumptions: ChartConsumption[], consumptions: ChartConsumption[]) {
+    this.data = this.chartService.initChartConsumptionDataByMonth(hpConsumptions, hcConsumptions, baseConsumptions, consumptions);
     this.chartData = this.data;
 
     if (this.isElectricityEnergyType) {
-      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, this.data);
+      this.chartOptionsService.initElectChartConsumption(hpConsumptions, hcConsumptions, baseConsumptions, this.data);
     } else {
       this.chartOptionsService.initGazChartConsumption(consumptions, this.data);
     }
@@ -115,10 +117,10 @@ export class AppConsumptionChartComponent implements OnInit, OnChanges, OnDestro
     if (event.option.value === 3) {
 
       if (this.isElectricityEnergyType) {
-        this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions, []);
-        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.data);
+        this.chartData = this.chartService.initChartConsumptionDataByMonth(this.hpConsumptions, this.hcConsumptions,this.baseConsumptions, []);
+        this.chartOptionsService.initElectChartConsumption(this.hpConsumptions, this.hcConsumptions, this.baseConsumptions, this.data);
       } else {
-        this.chartData = this.chartService.initChartConsumptionDataByMonth([], [], this.consumptions!);
+        this.chartData = this.chartService.initChartConsumptionDataByMonth([], [], [], this.consumptions!);
         this.chartOptionsService.initGazChartConsumption(this.consumptions!, this.data);
       }
     }

@@ -13,13 +13,16 @@ export class ChartOptionsService {
     private chartOptionsSubject = new BehaviorSubject<any>(null);
     chartOptions$ = this.chartOptionsSubject.asObservable();
 
-    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], data: any) {
+    initElectChartConsumption(hpConsumptions: ChartConsumption[], hcConsumptions: ChartConsumption[], baseConsumptions: ChartConsumption[], data: any) {
+        const baseMaxValue = baseConsumptions!.length > 0 ? Math.max(...baseConsumptions!.map(item => item.value)) : 0;
         const hcMaxValue = hcConsumptions!.length > 0 ? Math.max(...hcConsumptions!.map(item => item.value)) : 0;
         const hpMaxValue = hpConsumptions!.length > 0 ? Math.max(...hpConsumptions!.map(item => item.value)) : 0;
+
 
         const options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,
+
             plugins: {
                 tooltip: {
                     ...this.getTooltipOptions(),
@@ -31,11 +34,40 @@ export class ChartOptionsService {
                         },
                         label: (tooltipItem: any) => {
                             // Récupérer les valeurs des heures pleines et heures creuses
+                            const baseValue = baseConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0;
                             const hpValue = hpConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0; // Heure creuse
                             const hcValue = hcConsumptions.find(item => item.monthNumber === tooltipItem.dataIndex + 1)?.value || 0; // Heure pleine
+ const lines: string[] = [];
+
+    const hasBase = baseValue > 0;
+    const hasHpOrHc = hpValue > 0 || hcValue > 0;
+
+    // --- Cas 1 : uniquement Base ---
+    if (hasBase && !hasHpOrHc) {
+        lines.push(`Base: ${baseValue} kWh`);
+        // lines.push(`Total: ${baseValue} kWh`);
+        return lines;
+    }
+
+    // --- Cas 2 : uniquement HP/HC ---
+    if (!hasBase && hasHpOrHc) {
+        if (hpValue > 0) lines.push(`Heures pleines: ${hpValue} kWh`);
+        if (hcValue > 0) lines.push(`Heures creuses: ${hcValue} kWh`);
+        lines.push(`Total: ${hpValue + hcValue} kWh`);
+        return lines;
+    }
+
+    // --- Cas 3 : Mixte HP + HC + Base ---
+    if (hcValue > 0) lines.push(`Heures creuses: ${hcValue} kWh`);
+    if (hpValue > 0) lines.push(`Heures pleines: ${hpValue} kWh`);
+    lines.push(`Base: ${baseValue} kWh`);
+    lines.push(`Total: ${hpValue + hcValue + baseValue} kWh`);
+
+    return lines;
+
 
                             // Retourner une ligne avec les valeurs des heures pleines et creuses
-                            return [`Heures pleines: ${hcValue} kWh`, `Heures creuses: ${hpValue} kWh`, `Total: ${hcValue + hpValue} kWh`];
+                            return [`Heures pleines: ${hpValue} kWh`, `Heures creuses: ${hcValue} kWh`, `Base: ${baseValue} kWh`, `Total: ${hcValue + hpValue + baseValue} kWh`];
                         }
                     },
                 },
@@ -49,21 +81,32 @@ export class ChartOptionsService {
                         }
 
                         const index = context.dataIndex;
-                        const datasetIndex = context.datasetIndex;
 
-                        // Vérifier si c'est la dernière barre de la pile (donc 'heures pleines')
-                        if (datasetIndex === data.datasets.length - 1) {
+                        // Déterminer si le dataset courant est le dernier visible pour ce mois
+                        const isLastVisibleBar = (() => {
+                            const visibleDatasets = (data.datasets as { data: (number | null)[] }[]).filter((ds: { data: (number | null)[] }) => {
+                                const val = ds.data[index];
+                                return val !== null && val !== 0;
+                            });
+                            return visibleDatasets.length > 0 && visibleDatasets[visibleDatasets.length - 1] === context.dataset;
+                        })();
+
+                        if (isLastVisibleBar) {
                             const hpValue = hpConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
                             const hcValue = hcConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
-                            const total = hpValue + hcValue;
+                            const baseValue = baseConsumptions.find(item => item.monthNumber === index + 1)?.value || 0;
+
+                            const total = hpValue + hcValue + baseValue;
                             return total ? `${total} kWh` : '';
                         }
 
-                        return ''; // Ne rien afficher pour la première barre
+                        return ''; // Ne rien afficher pour les autres barres
+
+
                     }
                 }
             },
-            scales: this.getScalesOptionsWithMeteo(true, hcMaxValue + hpMaxValue)
+            scales: this.getScalesOptionsWithMeteo(true, hcMaxValue + hpMaxValue + baseMaxValue)
         };
 
         this.chartOptionsSubject.next(options);
@@ -260,8 +303,8 @@ export class ChartOptionsService {
                 stacked: stacked,
                 ticks: { color: 'gray' },
                 grid: { display: false },
-                barPercentage: 0.5,
-                categoryPercentage: 0.6,
+                barPercentage: 0.9,
+                categoryPercentage: 0.8,
                 autoSkip: false,
             },
             y: {

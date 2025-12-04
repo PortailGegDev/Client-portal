@@ -9,7 +9,8 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
 
 
-                    <div class="box" [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
+                    <div class="box" style="min-height: 200px;"
+                        [ngStyle]="{'background-image': 'url(' + box.backgroundImage + ')'}">
                         @if (box.status === 'souscrit'){
                         <div class="box-header d-flex align-items-center">
                             <img [src]="box.icon" alt="Icon">
@@ -18,21 +19,25 @@
                         </div>
                         }
                         <br>
-                        <div class="box-price" [innerHTML]="box.price"></div>
+                        <!-- <div class="box-price" [innerHTML]="box.price"></div> -->
+                        <!-- <div class="box-price">1€/mois(3 et 6 kVA)<br />2€/mois (à partir de 9 kVA)</div> -->
                         <div class="box-details">
                             <div class="box-service">{{ box.service }}</div>
                             <div class="box-title" [innerHTML]="box.title"></div>
 
                             <div class="row mt-3">
                                 <ng-container *ngIf="box?.status === 'souscrit'; else subscribeBtn">
-                                    <p-button label="Résilier" icon="pi pi-pencil" iconPos="right" severity="danger"
-                                        (click)="goToForm('recission', box.id)">
-                                    </p-button>
+                                    <a href="https://www.geg.fr/votre-resiliation-de-service-d-assistance-depannage/"
+                                        target="_blank">
+                                        <p-button label="Résilier" icon="pi pi-pencil" iconPos="right"
+                                            severity="danger">
+                                        </p-button>
+                                    </a>
                                 </ng-container>
 
                                 <ng-template #subscribeBtn>
-                                    <p-button label="Souscrire" icon="pi-arrow-right" iconPos="right" severity="success" styleClass="custom-icon-button"
-                                        (click)="goToForm('subscribe', box.id)">
+                                    <p-button *ngIf="false" label="Souscrire" icon="pi pi-arrow-right" iconPos="right"
+                                        severity="success" (click)="goToForm('subscribe', box.id)">
                                     </p-button>
                                 </ng-template>
                             </div>
@@ -41,7 +46,7 @@
                     </div>
 
                     <br>
-                   @for (document of documents ; track document.title) {
+                    @for (document of documents ; track document.title) {
                     <p-card class="download">
                         <div class="d-flex flex-wrap align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -59,7 +64,7 @@
                             </div>
 
                             <a href="/CPV-CG_GEG_Service_Option_Verte-VF.pdf" download>
-                            <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2" />
+                                <p-button class="icon-download" icon="pi pi-download" iconPos="right" class="ms-2" />
                             </a>
                         </div>
                     </p-card>

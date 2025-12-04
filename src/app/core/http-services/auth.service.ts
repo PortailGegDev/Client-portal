@@ -95,13 +95,24 @@ export class AuthService {
       );
   }
 
+     
+  // login(returnUrl: string = '/home'): void {
+  //   // Stocker l'URL de retour
+  //   this.localStorageService.setItem('returnUrl', returnUrl);
+    
+  //   // Redirection vers le login BTP
+  //   window.location.href = '/login';
+  // }
+
   logout() {
     this.localStorageService.clear();
     this.currentUserSignal.set(null);
-  window.location.href = '/logout';
+    window.location.href = '/logout';
   }
 
   getUserData(): User {
     return this.localStorageService.getItem('user');
   }
+
+
 }

@@ -52,5 +52,8 @@ export class AppHomeCarouselComponent implements OnChanges {
     if (carouselData.title === "Un projet d'économies d'énergie ?") {
       window.open('https://www.geg.fr/prime-cee/');
     }
+    if (carouselData.title === "Chèque énergie"){
+      window.open('https://www.geg.fr/nos-offres/particuliers/cheque-energie/');
+    }
   }
 }

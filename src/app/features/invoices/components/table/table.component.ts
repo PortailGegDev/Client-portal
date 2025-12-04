@@ -100,7 +100,7 @@ export class AppInvoicesTableComponent implements OnChanges {
         if (downloadUrl) {
           const a = document.createElement('a');
           a.href = downloadUrl;
-          a.target = '_blank';
+          // a.target = '_blank';
           a.download = `Facture numéro ${invoiceNumber}.pdf`;
           document.body.appendChild(a);
           a.click();
@@ -114,6 +114,39 @@ export class AppInvoicesTableComponent implements OnChanges {
       }
     });
   }
+
+
+downloadAllInvoices() {
+  if (!this.selectedInvoices || this.selectedInvoices.length === 0) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Aucune facture sélectionnée',
+      detail: 'Veuillez sélectionner au moins une facture à télécharger.'
+    });
+    return;
+  }
+
+  const invoiceNumbers = this.selectedInvoices.map(inv => inv.UtilitiesInvoicingDocument);
+
+  this.invoiceService.downloadInvoicesAsZip(invoiceNumbers).subscribe({
+    next: (blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Factures.zip';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+    error: (err) => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Impossible de télécharger les factures.'
+      });
+      console.error(err);
+    }
+  });
+}
 
   getInvoiceStatus(invoice: Invoice): string {
     if (this.isAvenir(invoice)) {

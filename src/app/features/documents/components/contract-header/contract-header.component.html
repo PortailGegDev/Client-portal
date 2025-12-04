@@ -1,6 +1,6 @@
 <div class="card flex justify-center" style="margin-bottom: 24px;">
     <p-panel [showHeader]="false">
-        <div class="col-sm-6" style="margin-bottom: 15px;padding: 10px;">
+        <div class="col-sm-6" style="margin-bottom: 15px;padding: 10px;margin-top: 15px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <circle cx="16.5" cy="16.5" r="7.5" fill="#E2F133" />
                 <path
@@ -9,8 +9,10 @@
             </svg>
             &nbsp;
             <label class="tittle">Contrat n° {{contract?.ContractISU}}</label>
+            @if(false){
             &nbsp;
             <p-button icon="pi pi-download" [text]="true" iconPos="right" severity="help" label="Télécharger" />
+            }
         </div>
 
         <div class="row bg-light p-3 mt-3 rounded">

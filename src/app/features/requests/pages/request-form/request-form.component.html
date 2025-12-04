@@ -94,13 +94,55 @@
                     }
                 </div>
 
+                   <h6 class="mt-3">Adresse du logement</h6>
+
+                <div class="row mt-3">
+                    <div class="form-group col-md-4">
+                        <span class="label" for="reclamationStreetNumber">Numéro de voie</span>
+                        <input type="text" pInputText formControlName="reclamationStreetNumber" />
+                        @if(reclamationStreetNumberForm?.invalid && (reclamationStreetNumberForm?.touched ||
+                        reclamationStreetNumberForm?.dirty)){
+                        <small class="error">Le numéro de voie d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <span class="label" for="reclamationStreet">Voie</span>
+                        <input type="text" pInputText formControlName="reclamationStreet" />
+                        @if(reclamationStreetForm?.invalid && (reclamationStreetForm?.touched ||
+                        reclamationStreetForm?.dirty)){
+                        <small class="error">La voie d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <span class="label" for="reclamationPostalCode">Code postal</span>
+                        <input type="text" pInputText formControlName="reclamationPostalCode" />
+                        @if(reclamationPostalCodeForm?.invalid && (reclamationPostalCodeForm?.touched ||
+                        reclamationPostalCodeForm?.dirty)){
+                        <small class="error">Le code postal d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+
+                    <div class="form-group col">
+                        <span class="label" for="reclamationCity">Ville</span>
+                        <input type="text" pInputText formControlName="reclamationCity" />
+                        @if(reclamationCityForm?.invalid && (reclamationCityForm?.touched || reclamationCityForm?.dirty)){
+                        <small class="error">La ville d'adresse de résiliation est obligatoire.</small>
+                        }
+                    </div>
+                </div>
+
+
                 <h6 class="mt-3">Réclamation</h6>
 
                 <div class="row mt-3">
                     <div class="form-group col">
                         <span class="label" for="reclamationMotif">Type</span>
 
-                        <p-select formControlName="reclamationMotif" [options]="reclamationMotifs" optionLabel="name"
+                        <p-select formControlName="reclamationMotif" [options]="reclamationMotifNames" 
                             class="w-full md:w-56" />
 
                         @if(reclamationMotifForm?.invalid && (reclamationMotifForm?.touched ||

@@ -101,9 +101,10 @@ export class AppComponent  {
 
     if (environment.local === true) {
       // pour tester en locale dans la DF1
-      //  businessPartner = '1510000229'; // avec client précaire
-      // businessPartner = '1510000044'; // avec un seul conso
-       businessPartner='1510000051' // plusieurs conso
+      //  businessPartner = '1510000038'; // avec un conso hp, hp et base
+      // businessPartner = '1520000188'; // avec des consos base
+      businessPartner = '1510000220'; // conso gaz
+      // businessPartner = '1510000145'; // avec des consos hp et hc 
       this.authService.businessPartner.set(businessPartner);
       console.log("Vous êtes en locale : Votre Bp est '1510136444'");
     }

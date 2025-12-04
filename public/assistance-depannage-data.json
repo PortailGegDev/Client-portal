@@ -2,8 +2,8 @@
 {
   "assistanceDepannage": [
     {
-      "subtitle": "Anticipez les imprévus, restez sereine au quotidien.",
-      "highlights": "Une coupure de courant ? Une fuite d’eau ? Une panne de gaz ?<br>Avec l’Assistance Dépannage GEG, vous êtes couverte 24h/24 et 7j/7 pour tous les petits tracas de votre installation électrique, gaz ou plomberie.",
+      "subtitle": "Anticipez les imprévus, restez serein.e au quotidien.",
+      "highlights": "Une coupure de courant ? Une fuite d’eau ? Une panne de gaz ?<br>Avec l’Assistance Dépannage GEG, vous êtes couvert·e 24h/24 et 7j/7 pour tous les petits tracas de votre installation électrique, gaz ou plomberie.",
       "sections": [
         {
           "id": "🔒",
@@ -17,12 +17,12 @@
         },
         {
           "id": "🔌",
-          "title": "<strong>Assurance Sérénité Électricité – 2,99€/mois</strong>",
+          "title": "<strong>Assurance Sérénité Électricité</strong>",
           "content": "<ul><li>Prise en charge des dysfonctionnements électriques (fusibles, interrupteurs…)</li><li>Assistance télécom</li><li>Dépannage serrurerie</li><li>Visite de contrôle de votre installation électrique (sur demande)</li></ul>"
         },
         {
           "id": "🔧",
-          "title": "Assurance Sérénité Pack Plus – 7,99€/mois",
+          "title": "<strong>Assurance Sérénité Pack Plus</strong>",
           "content": "<ul><li>Tous les services du pack Électricité</li><li>Assistance gaz</li><li>Assistance plomberie</li><li>Assistance appareils de chauffage</li><li>Visite de contrôle électricité & plomberie (sur demande)</li></ul>"
         }
       ]

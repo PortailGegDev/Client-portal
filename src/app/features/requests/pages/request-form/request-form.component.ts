@@ -36,7 +36,7 @@ import { RequestReclamation } from '../../../../shared/models/request-reclamatio
 export class AppRequestsFormComponent implements OnInit {
   title: string = 'Demande de résiliation';
   requestType: string = '';
-  reclamationMotifs: any[] | undefined;
+  reclamationMotifNames: string[] = [];
   form!: FormGroup;
   contractList: Contract[] = [];
   requestSended: boolean = false;
@@ -78,6 +78,11 @@ export class AppRequestsFormComponent implements OnInit {
   get relocationadresseFactureForm(): any { return this.form.get('relocationadresseFacture'); }
   get selectedContractForm(): any { return this.form.get('selectedContract'); }
   get relocationAdresseNouveauLogementForm(): any { return this.form.get('relocationAdresseNouveauLogement'); }
+  //Pour l'adresse de logement pour demande de réclamation
+  get reclamationStreetNumberForm(): any { return this.form.get('reclamationStreetNumber'); }
+  get reclamationStreetForm(): any { return this.form.get('reclamationStreet'); }
+  get reclamationPostalCodeForm(): any { return this.form.get('reclamationPostalCode'); }
+  get reclamationCityForm(): any { return this.form.get('reclamationCity'); }
 
   get isReclamation(): boolean { return this.requestType === Constants.DemandeType.RECLAMATION; }
   get isRelocation(): boolean { return this.requestType === Constants.DemandeType.RELOCATION; }
@@ -99,7 +104,7 @@ export class AppRequestsFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reclamationMotifs = Constants.ReclamationMotif;
+    this.reclamationMotifNames = Constants.ReclamationMotif.map(motif => motif.name);
     this.buildForm();
     this.currentUser.set(this.authService.getUserData());
     this.initForm();
@@ -143,7 +148,11 @@ export class AppRequestsFormComponent implements OnInit {
       relocationadresseDeLogement: [''],
       relocationadresseFacture: [''],
       selectedContract: [''],
-      relocationAdresseNouveauLogement: ['']
+      relocationAdresseNouveauLogement: [''],
+      reclamationStreetNumber: [{ value: '', disabled: true }, Validators.required],
+      reclamationStreet: [{ value: '', disabled: true }, Validators.required],
+      reclamationPostalCode: [{ value: '', disabled: true }, Validators.required],
+      reclamationCity: [{ value: '', disabled: true }, Validators.required],
     });
 
 
@@ -180,25 +189,21 @@ export class AppRequestsFormComponent implements OnInit {
       this.setControlRequired('rescissionDepartureDate');
     }
 
-    this.selectedContractForm?.valueChanges.subscribe((value: any) => {
-
-      if (value.length === 0) {
-        this.clearRescissionAddress();
-      }
-
-      if (!this.isRescission) {
+    this.selectedContractForm?.valueChanges.subscribe((value: Contract) => {
+      // Si aucune sélection, vider les adresses
+      if (!value) {
+        if (this.isRescission) this.clearRescissionAddress();
+        if (this.isReclamation) this.clearReclamationAddress();
         return;
       }
 
-      //  if (!this.isReclamation) {
-      //   return;
-      // }
-
+      // Remplir les champs selon le type de demande
+      if (this.isRescission) this.initRescissionAddress();
+      if (this.isReclamation) this.initReclamationAddress(value);
       this.shouldShowGasReading = value.BusinessSector === Constants.EnergyType.GAZ;
       this.shouldShowElectricityReading = value.BusinessSector === Constants.EnergyType.ELECTRICITY;
-
-      this.initRescissionAddress(); // remplir les champs
     });
+
   }
 
   initForm() {
@@ -228,6 +233,21 @@ export class AppRequestsFormComponent implements OnInit {
     this.rescissionCityForm.reset();
   }
 
+  initReclamationAddress(selectedContract: Contract) {
+    this.reclamationStreetNumberForm.setValue(selectedContract.HouseNumber);
+    this.reclamationStreetForm.setValue(selectedContract.StreetName);
+    this.reclamationPostalCodeForm.setValue(selectedContract.PostalCode);
+    this.reclamationCityForm.setValue(selectedContract.CityName);
+  }
+
+  clearReclamationAddress() {
+    this.reclamationStreetNumberForm.reset();
+    this.reclamationStreetForm.reset();
+    this.reclamationPostalCodeForm.reset();
+    this.reclamationCityForm.reset();
+  }
+
+
   submitDemande() {
     if (!this.form.valid) {
       this.messageService.add({
@@ -246,65 +266,65 @@ export class AppRequestsFormComponent implements OnInit {
       });
       return;
     }
-  // ---- DEMANDE DE RÉSILIATION ----
-  if (this.isRescission) {
-    const formData = this.getRescissionFormDate();
-    const payload = { ...formData, contactId: this.contactId };
+    // ---- DEMANDE DE RÉSILIATION ----
+    if (this.isRescission) {
+      const formData = this.getRescissionFormDate();
+      const payload = { ...formData, contactId: this.contactId };
 
-    this.requestService.createRescissionRequest(payload).subscribe({
-      next: () => {
-        this.requestSended = true;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Demande envoyée',
-          detail: 'Votre demande de résiliation a été envoyée avec succès.'
-        });
-      },
-      error: (error) => {
-        console.error('Erreur lors de l’envoi de la demande', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Échec',
-          detail: 'Une erreur est survenue lors de l’envoi de votre demande de résiliation.'
-        });
-      }
-    });
+      this.requestService.createRescissionRequest(payload).subscribe({
+        next: () => {
+          this.requestSended = true;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Demande envoyée',
+            detail: 'Votre demande de résiliation a été envoyée avec succès.'
+          });
+        },
+        error: (error) => {
+          console.error('Erreur lors de l’envoi de la demande', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Échec',
+            detail: 'Une erreur est survenue lors de l’envoi de votre demande de résiliation.'
+          });
+        }
+      });
+    }
+
+    // ---- DEMANDE DE RÉCLAMATION ----
+    else if (this.isReclamation) {
+      const formData = this.getReclamationFormDate();
+      const payload = { ...formData, contactId: this.contactId };
+
+      this.requestService.createReclamationRequest(payload).subscribe({
+        next: () => {
+          this.requestSended = true;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Demande envoyée',
+            detail: 'Votre demande de réclamation a été envoyée avec succès.'
+          });
+        },
+        error: (error) => {
+          console.error('Erreur lors de l’envoi de la demande', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Échec',
+            detail: 'Une erreur est survenue lors de l’envoi de votre demande de réclamation.'
+          });
+        }
+      });
+    }
+
+    // ---- CAS PAR DÉFAUT ----
+    else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Type de demande inconnu',
+        detail: 'Veuillez sélectionner un type de demande valide.'
+      });
+    }
   }
-
-  // ---- DEMANDE DE RÉCLAMATION ----
-  else if (this.isReclamation) {
-    const formData = this.getReclamationFormDate();
-    const payload = { ...formData, contactId: this.contactId };
-
-    this.requestService.createReclamationRequest(payload).subscribe({
-      next: () => {
-        this.requestSended = true;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Demande envoyée',
-          detail: 'Votre demande de réclamation a été envoyée avec succès.'
-        });
-      },
-      error: (error) => {
-        console.error('Erreur lors de l’envoi de la demande', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Échec',
-          detail: 'Une erreur est survenue lors de l’envoi de votre demande de réclamation.'
-        });
-      }
-    });
-  }
-
-  // ---- CAS PAR DÉFAUT ----
-  else {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Type de demande inconnu',
-      detail: 'Veuillez sélectionner un type de demande valide.'
-    });
-  }
-}
 
   //   const formData = this.getRescissionFormDate();
   //   const payload = { ...formData, contactId: this.contactId };
@@ -344,7 +364,7 @@ export class AppRequestsFormComponent implements OnInit {
       requestReason: "demande de résiliation",
       dataUsageConsent: "true",
       sourceCreation: "EP",
-      canal:"AEL",
+      canal: "AEL",
       billingAddress: {
         street: ` ${this.rescissionInvoiceStreetForm.value}`,
         streetNumber: ` ${this.rescissionInvoiceStreetNumberForm.value}`,
@@ -360,7 +380,7 @@ export class AppRequestsFormComponent implements OnInit {
     } as RequestRecission;
   }
 
-    getReclamationFormDate(): RequestReclamation{
+  getReclamationFormDate(): RequestReclamation {
     return {
       contractISU: this.selectedContractForm.value?.ContractISU,
       firstName: this.firstNameForm.value,
@@ -370,7 +390,13 @@ export class AppRequestsFormComponent implements OnInit {
       requestReason: "demande de réclamation",
       dataUsageConsent: "true",
       sourceCreation: "EP",
-      canal:"AEL",
+      canal: "AEL",
+      reclamationAddress: {
+        street: `${this.reclamationStreetForm.value}`,
+        streetNumber: ` ${this.reclamationStreetNumberForm.value}`,
+        postalCode: this.reclamationPostalCodeForm.value,
+        city: this.reclamationCityForm.value,
+      } as Address
     } as RequestReclamation;
   }
 

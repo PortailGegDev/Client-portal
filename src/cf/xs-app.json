@@ -1,6 +1,10 @@
 {
-    "welcomeFile": "index.html",
+    "welcomeFile": "/index.html",
     "authenticationMethod": "route",
+    "logout": {
+        "logoutEndpoint": "/logout",
+        "logoutPage": "/login"
+    },
     "routes": [
         {
             "source": "^/sap/opu/(.*)$",
@@ -9,13 +13,7 @@
             "csrfProtection": false
         },
         {
-            "source": "^/DownloadFacture/(.*)$",
-            "destination": "geg_fournisseur_CPI",
-            "authenticationType": "xsuaa",
-            "csrfProtection": false
-        },
-        {
-            "source": "^/qf200/(.*)$",
+            "source": "^/PortailClient/(.*)$",
             "destination": "geg_fournisseur_CPI",
             "authenticationType": "xsuaa",
             "csrfProtection": false
@@ -44,20 +42,24 @@
             "service": "sap-approuter-userapi"
         },
         {
+            "source": "^/login$",
+            "target": "/index.html",
+            "localDir": "./",
+            "authenticationType": "xsuaa"
+        },
+        {
             "source": "^/logout.html$",
             "target": "/logout.html",
             "localDir": "./",
-            "authenticationType": "none"
+            "authenticationType": "none",
+            "cacheControl": "no-cache"
         },
         {
             "source": "^/(.*)$",
             "target": "/$1",
             "localDir": "./",
-            "authenticationType": "xsuaa"
+            "authenticationType": "xsuaa",
+            "cacheControl": "no-cache"
         }
-    ],
-    "logout": {
-        "logoutEndpoint": "/logout",
-        "logoutPage": "/index.html#/home"
-    }
+    ]
 }

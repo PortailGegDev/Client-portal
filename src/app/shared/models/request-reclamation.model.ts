@@ -12,6 +12,7 @@ export class RequestReclamation{
     dataUsageConsent!: string;
     canal!: string;
     sourceCreation!: string;
+    reclamationAddress!: Address;
 
      constructor(init?: Partial<RequestReclamation>) {
       Object.assign(this, init);

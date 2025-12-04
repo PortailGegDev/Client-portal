@@ -19,10 +19,9 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
     this.authService.logout();
     this.contractService.cleanContracts();
-
-   setTimeout(() => {
-  this.router.navigate(['/']); // retourne à la page d'accueil Angular
-}, 3000);
-
+    
+ setTimeout(() => {
+      window.location.href = 'https://mon-espacetest.geg.fr';
+    }, 3000);
   }
 }

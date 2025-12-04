@@ -15,15 +15,15 @@ import { ContractService } from '../../../../shared/services/contract.service';
 export class AppDocumentsContractBillingDateDialogComponent {
 
   @Input() contractDetails: ContractDetails | undefined;
-   @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onCancelClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() billingDayChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   newDate: any = '';
   datesDisponibles = [
     { label: '05', value: '05' },
     { label: '10', value: '10' },
-    { label: '15', value: '15' },
-    { label: '20', value: '20' }
+    // { label: '15', value: '15' },
+    // { label: '20', value: '20' }
   ];
 
   constructor(private contractService: ContractService) { }

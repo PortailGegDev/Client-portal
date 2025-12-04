@@ -42,17 +42,17 @@ export class AppHomeDocumentsComponent {
   }
 
   downloadPDF(invoice: Invoice): void {
-    if (invoice.StatusInvoicingDocument !== "Totalement Soldée") {
-      return;
-    }
+    // if (invoice.StatusInvoicingDocument !== "Totalement Soldée") {
+    //   return;
+    // }
 
-    this.invoiceService.downloadInvoiceByInvoiceNumber(invoice.ISUContract).subscribe({
+    this.invoiceService.downloadInvoiceByInvoiceNumber(invoice.UtilitiesInvoicingDocument).subscribe({
       next: (downloadUrl: any) => {
         if (downloadUrl) {
           const a = document.createElement('a');
           a.href = downloadUrl;
-          a.target = '_blank';
-          a.download = `Facture numéro ${invoice.ISUContract}.pdf`;
+          // a.target = '_blank';
+          a.download = `Facture numéro ${invoice.UtilitiesInvoicingDocument}.pdf`;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);

@@ -14,7 +14,7 @@ export class Constants {
         RELOCATION: 'Demande de déménagement'
     }
 
-public static ReclamationMotif = [
+    public static ReclamationMotif = [
     { name: 'Qualité de service', code: 'QUALITE_DE_SERVICE' },
     { name: 'Facturation', code: 'FACTURATION' },
     { name: 'Réactivité', code: 'REACTIVITE' },
@@ -100,37 +100,37 @@ public static ReclamationMotif = [
   {
     id: Constants.ServicesPack.ELECTRICITE,
     title: 'Sérénité Electricité',
-    price: '2,99€/mois',
+    price: '',
     service: 'Assistance dépannage',
     icon: '/images/Icons (1).png',
     backgroundImage: '/images/service_contrat.jpg',
     status: '',
     link: '/services/serenity-electricity'
   },
-  {
-    id: Constants.ServicesPack.ELECTRICITE_GAZ,
-    title: 'Sérénité Electricité, Gaz',
-    price: '2,99€/mois',
-    service: 'Assistance dépannage',
-    icon: '/images/Icons (1).png',
-     status: '',
-    backgroundImage: '/images/Service2.jpg',
-    link: ''
-  },
-  {
-    id: Constants.ServicesPack.ELECTRICITE_GAZ_PLOMBERIE,
-    title: 'Sérénité Electricité, Gaz & Plomberie',
-    price: '2,99€/mois',
-    service: 'Assistance dépannage',
-    icon: '/images/Icons (1).png',
-    backgroundImage: '/images/service3.jpg',
-    status: '',
-    link: ''
-  },
+//   {
+//     id: Constants.ServicesPack.ELECTRICITE_GAZ,
+//     title: 'Sérénité Electricité, Gaz',
+//     price: '2,99€/mois',
+//     service: 'Assistance dépannage',
+//     icon: '/images/Icons (1).png',
+//      status: '',
+//     backgroundImage: '/images/Service2.jpg',
+//     link: ''
+//   },
+//   {
+//     id: Constants.ServicesPack.ELECTRICITE_GAZ_PLOMBERIE,
+//     title: 'Sérénité Electricité, Gaz & Plomberie',
+//     price: '2,99€/mois',
+//     service: 'Assistance dépannage',
+//     icon: '/images/Icons (1).png',
+//     backgroundImage: '/images/service3.jpg',
+//     status: '',
+//     link: ''
+//   },
   { 
     id: Constants.ServicesPack.GREEN_OPTION,
     title: 'Option verte',
-    price: '1€ - 2,99€/mois',
+    price: '',
     service: 'Énergie renouvelable',
     icon: '/images/Icons (1).png',
     backgroundImage: '/images/service4.jpg',

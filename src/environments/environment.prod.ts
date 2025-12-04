@@ -6,8 +6,9 @@ export const environment = {
     // apiUrlQualAlaMaYati:'https://geg-api.test.apimanagement.eu10.hana.ondemand.com/Api_PortailClientQF1/ZA_ContractList'
     apiUrlContractList: '/sap/opu/odata/SAP/ZAPI_SAP_PORTAL_V2',
     apiAuthUser: '/scim',
-    apiSP: '/DownloadFacture',
-    apiPayment: '/qf200/payment',
+    apiSP: '/PortailClient/DownloadFacture',
+    apiSPM: '/PortailClient/TelechargerFacturesEnMasse', //SPM: SHAREPOINT EN MASSE
+    apiPayment: '/PortailClient/payment',
     apiSalsforce:'/data',
     apiSalsforceOrigame3: '/apexrest'
 };

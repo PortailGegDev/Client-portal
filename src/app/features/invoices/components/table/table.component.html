@@ -9,8 +9,8 @@
     <p-message icon="pi pi-times" severity="success" variant="simple"
       (click)="deselectAllInvoices()">Annuler</p-message>
   </div>
-  <div class="col-md-6 mb-6" style="text-align: right;margin: auto;">
-    <p-button label="Télécharger les factures" iconPos="right" icon="pi pi-download" />
+  <div class="col-md-8 mb-8" style="text-align: right;margin: auto;">
+    <p-button label="Télécharger les factures" iconPos="right" icon="pi pi-download" (click)="downloadAllInvoices()" />
   </div>
 </div>
 }
@@ -66,7 +66,7 @@
       </td>
 
       <td>
-        <strong>{{ invoice.TotalAmount | absolute }} € </strong>
+        <strong>{{ invoice.TotalAmount }} € </strong>
       </td>
 
       <td>
@@ -76,7 +76,7 @@
           Prélèvement le {{ invoice.NetDueDate | timeSpanToDate:'short'}}
           }
 
-          @if(!isPaymentMethodP && (isNonSoldee(invoice) || isPartiellementSoldee(invoice))){
+          @if(!isPaymentMethodP && (isNonSoldee(invoice) || isPartiellementSoldee(invoice)) && invoice.TotalAmount >= 0 ){
           <p-tag severity="warn" [value]="getInvoiceStatus(invoice)" />
           {{ invoice.TotalUnpaidTTC }} € Avant le {{ getPaymentTermCustomer(invoice) | date:'dd/MM/yyyy' }}
           }
@@ -94,11 +94,11 @@
       </td>
       <td>
         <div style="text-align: right;">
-          @if(showPaymentButton(invoice)) {
+          @if(showPaymentButton(invoice) && invoice.TotalAmount >= 0) {
           <p-button label="Régler la facture" iconPos="right" icon="pi pi-arrow-right" (click)="payInvoice(invoice)" />
           }
 
-          <p-button icon="pi pi-download" [rounded]="true" [text]="true" pTooltip="Télécharger la facture"
+          <p-button icon="pi pi-download" [rounded]="true" [text]="true" pTooltip="Télécharger la facture" 
             tooltipPosition="top" (click)="downloadInvoiceDoc(invoice.UtilitiesInvoicingDocument)" />
         </div>
       </td>
